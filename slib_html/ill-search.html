@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="#">
+    <meta name="keywords" content="">
+    <meta name="description" content="#">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="#">
+    <link rel="shortcut icon" href="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="icon" href="#" sizes="16x16" type="image/x-icon">
+    <link rel="icon" href="#" sizes="32x32">
+    <link rel="icon" href="#" sizes="64x64">
+    <link rel="apple-touch-icon" href="#">
+    <link rel="icon" sizes="192x192" href="#">
+    <title>Tìm kiếm liên thư viện</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search-results.css">
+
+  </head>
+  <body>
+
+    <div class="wrapperStand">
+      <nav class="topmenu navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <!-- Logo bên phải -->
+            <a class="navbar-brand order-lg-1" href="#">
+                <img src="img/logo/logo-slibk12.svg" alt="Logo">
+            </a>
+
+            <!-- Button toggle trên mobile -->
+            <div class="d-flex languages languageMb">
+                <form>
+                  <div class="mbForm">
+                    <select class="form-select" id="languageSelect" name="language">
+                      <option value="vi">Tiếng Việt</option>
+                      <option value="en">Tiếng Anh</option>
+                    </select>
+                  </div>
+                </form>
+            </div>
+            <button id="navbarToggle" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu ở giữa -->
+            <div class="collapse navbarNav navbar-collapse order-lg-2" id="navbarNav">
+              <div class="forMb rightBar d-flex align-items-center order-lg-3">
+                    <a class="navbar-brand order-lg-1" href="#">
+                        <img src="img/logo/logo-slibk12.svg" alt="Logo">
+                    </a>
+                    <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-solid fa-user"></i> Hồ sơ</button>
+                    <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-sign-out"></i> Đăng xuất</button>
+                </div>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sách hay</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mượn liên TV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="menuOverlay" class=""></div>
+
+            <!-- Button bên phải -->
+            <div class="forPC rightBar d-flex align-items-center order-lg-3">
+                <button class="loginBtn btn btn-outline-primary me-2">Đăng nhập</button>
+                <div class="d-flex languages">
+                    <form>
+                      <div class="mbForm">
+                        <select class="form-select" id="languageSelect" name="language">
+                          <option value="vi">Tiếng Việt</option>
+                          <option value="en">Tiếng Anh</option>
+                        </select>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </nav>
+      <div class="searchBar">
+          <div class="container">
+             <div class="other-search-box">
+               <h2 class="text-center">Tìm kiếm liên thư viện</h2>
+               <div class="form-search-adv">
+                 <form class="flex-search">
+                      <div class="mb-3 d-flex">
+                        <label for="title" class="col-sm-3 col-form-label">Nhan đề</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="title" placeholder="Nhập tên nhan đề">
+                        </div>
+                      </div>
+                      <div class="mb-3 d-flex">
+                        <label for="author" class="col-sm-3 col-form-label">Tác giả</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="author" placeholder="Nhập tên tác giả">
+                        </div>
+                      </div>
+                      <div class="mb-3 d-flex">
+                      <label for="language" class="col-sm-3 col-form-label">Ngôn ngữ</label>
+                      <div class="col-sm-7">
+                        <select class="form-select" id="language">
+                          <option selected>Tất cả</option>
+                          <option value="1">Tiếng Việt</option>
+                          <option value="2">English</option>
+                          <option value="3">Français</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="mb-3 d-flex">
+                      <label for="source" class="col-sm-3 col-form-label">Nguồn liên kết</label>
+                      <div class="col-sm-7">
+                        <select class="form-select" id="source">
+                          <option selected>Tất cả</option>
+                          <option value="1">Nguồn 1</option>
+                          <option value="2">Nguồn 2</option>
+                          <option value="3">Nguồn 3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="btnGroup d-flex justify-content-center mt-3">
+                      <button type="reset" class="btn btn-reset">Đặt lại</button>
+                      <button type="submit" class="btn btn-search btn-primary">Tìm kiếm</button>
+                    </div>
+                   
+                  </form>
+                  
+               </div>
+             </div>
+          </div>
+      </div>
+
+
+      <div class="list_book_search modalStand">
+        <div class="container">
+           <div class="wrap-flex">
+               <div class="modalStand_box">
+                  <div class="title-result">
+                  </div>
+                  <div class="advSearch">
+                    <h3>Tiêu chí lọc</h3>
+                    <div class="widget_searchAdv">
+                      <h3>Bộ sách</h3>
+                      <form>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookAll" value="canh-dieu">
+                          <label class="form-check-label" for="bookAll">
+                            Tất cả
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookCanhDieu-3" value="canh-dieu">
+                          <label class="form-check-label" for="bookCanhDieu-3">
+                            Cánh diều
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookChanTroi-4" value="chan-troi-sang-tao">
+                          <label class="form-check-label" for="bookChanTroi-4">
+                            Chân trời sáng tạo
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookKetNoi-5" value="ket-noi-tri-thuc">
+                          <label class="form-check-label" for="bookKetNoi-5">
+                            Kết nối tri thức
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="widget_searchAdv">
+                      <h3>Nguồn liên kết</h3>
+                      <form>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookAll-2" value="canh-dieu">
+                          <label class="form-check-label" for="bookAll-2">
+                            Tất cả
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookCanhDieu-6" value="canh-dieu">
+                          <label class="form-check-label" for="bookCanhDieu-6">
+                            Cánh diều
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookChanTroi-7" value="chan-troi-sang-tao">
+                          <label class="form-check-label" for="bookChanTroi-7">
+                            Chân trời sáng tạo
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookKetNoi-8" value="ket-noi-tri-thuc">
+                          <label class="form-check-label" for="bookKetNoi-8">
+                            Kết nối tri thức
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="widget_searchAdv">
+                      <h3>Loại tài liệu</h3>
+                      <form>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookAll-3" value="canh-dieu">
+                          <label class="form-check-label" for="bookAll-3">
+                            Tất cả
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookCanhDieu-9" value="canh-dieu">
+                          <label class="form-check-label" for="bookCanhDieu-9">
+                            Cánh diều
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookChanTroi-10" value="chan-troi-sang-tao">
+                          <label class="form-check-label" for="bookChanTroi-10">
+                            Chân trời sáng tạo
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="book" id="bookKetNoi-11" value="ket-noi-tri-thuc">
+                          <label class="form-check-label" for="bookKetNoi-11">
+                            Kết nối tri thức
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="modalStand_box">
+                  <div class="title-result">
+                    <p>Tìm thấy <span>25</span> kết quả</p>
+                  </div>
+                  <div class="box_result_book">
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B1.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B2.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B3.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B4.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B5.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B6.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B1.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                    <div class="box_item">
+                        <a href="#">
+                            <p>
+                              <img src="img/imageBook/B1.jpg" alt="Book 1">
+                              <span class="leftSideBookSearch"></span>
+                            </p>
+                            <span class="title">Cat and Dog Play Soccer</span>
+                        </a>
+                    </div>
+                  </div>
+                  <div class="page_sort_item">
+                    <div class="item_page_detail">
+                      <div class="d-flex align-items-center groupSelect">
+                          <label for="numberSelect" class="form-label">Hiển thị</label>
+                          <select class="form-select" id="numberSelect" aria-label="Chọn số">
+                              <option value="" selected disabled>0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="item_page_detail">
+                      <div class="showPage">
+                        <span>1/10</span>
+                        <button class="btn pre-btn"><i class="fa fa-solid fa-arrow-left"></i></button>
+                        <button class="btn next-btn active"><i class="fa fa-solid fa-arrow-right"></i></button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+           </div>
+           
+          
+          
+        </div>
+      </div>
+
+
+      <footer class="footerPage mt-3">
+        <div class="container">
+          <div class="top-footer-menu">
+            <div class="item-menu-footer">
+              <h3>HỆ THỐNG THƯ VIỆN ĐIỆN TỬ</h3>
+              <ul class="list-info">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M 12 2 A 1 1 0 0 0 11.289062 2.296875 L 1.203125 11.097656 A 0.5 0.5 0 0 0 1 11.5 A 0.5 0.5 0 0 0 1.5 12 L 4 12 L 4 20 C 4 20.552 4.448 21 5 21 L 9 21 C 9.552 21 10 20.552 10 20 L 10 14 L 14 14 L 14 20 C 14 20.552 14.448 21 15 21 L 19 21 C 19.552 21 20 20.552 20 20 L 20 12 L 22.5 12 A 0.5 0.5 0 0 0 23 11.5 A 0.5 0.5 0 0 0 22.796875 11.097656 L 12.716797 2.3027344 A 1 1 0 0 0 12.710938 2.296875 A 1 1 0 0 0 12 2 z"></path>
+                  </svg>
+                  Địa chỉ: Hoàng Cầu, P. Ô Chợ Dừa, Q. Đống Đa, Hà Nội
+               </li>
+                <li><i class="fa fa-solid fa-phone"></i> Điện thoại: + 84972220XXX - + 84972220XXX</li>
+                <li><i class="fa fa-solid fa-envelope"></i> Email: hotro@slib.com.vn</li>
+                <li><i class="fa fa-solid fa-globe"></i> Website: http://slib.vn</li>
+              </ul>
+            </div>
+            <div class="item-menu-footer">
+              <h3>Kết nối với chúng tôi</h3>
+              <ul class="list-info">
+                <li><a href="#"><img src="img/icon-fb.svg"> Fanpage</a></li>
+                <li><a href="#"><img src="img/icon-ytb.svg"> Youtube</a></li>
+              </ul>
+            </div>
+            <div class="item-menu-footer">
+              <h3>1 lượt online | 2.908 tổng lượt truy cập</h3>
+            </div>
+          </div>
+          <div class="bottom-menu-footer">
+            <p>©2020 Bản quyền thuộc về slib.vn</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/sliderbanner.js"></script>
+    <script src="js/menu.js"></script>
+  </body>
+</html>

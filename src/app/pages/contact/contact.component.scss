@@ -1,0 +1,113 @@
+.wrapp-contact {
+	padding: 100px 0;
+}
+.row-contact {
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+}
+.contact-form {
+	padding: 0 15px;
+}
+.contact-form h2 {
+	font-size: 22px;
+}
+.contact-form p {
+	font-size: 16px;
+	color: rgba(166, 166, 166, 1);
+}
+.formBox {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: flex-start;
+	justify-content: center;
+}
+.formBox .form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+}
+.formBox .form-group label {
+	font-weight: 700;
+	font-size: 16px;
+}
+.formBox .form-group label sup {
+	color: red;
+	font-weight: 700;
+	top: -3px;
+	margin-right: 3px;
+}
+.formBox .form-group select,
+.formBox .form-group input {
+	border: solid 1px rgba(166, 166, 166, 1);
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	height: 45px;
+	padding-left: 10px;
+	font-size: 15px;
+}
+.formBox .form-group textarea {
+	border: solid 1px rgba(166, 166, 166, 1);
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	padding-left: 10px;
+	font-size: 15px;
+}
+
+.formBox .form-group-btn {
+	flex-direction: row;
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin-top: 30px;
+}
+.formBox .form-group-btn button {
+	font-size: 14px;
+	border: solid 1px rgba(21, 66, 144, 1);
+	color: rgba(21, 66, 144, 1);
+	flex: 1;
+	height: 45px;
+	font-weight: 700;
+	border-radius: 10px;
+}
+.formBox .form-group-btn button:last-child {
+	color: #fff;
+	border: none;
+	background: rgba(21, 66, 144, 1);
+}
+.capchaID, .capchaID input {
+	position: relative;
+}
+.capchaID img {
+  position: absolute;
+  width: 100px;
+  top: 5px;
+  right: 40px;
+}
+.capchaID a {
+	position: absolute;
+	right: 13px;
+	top: 7px;
+	font-size: 22px;
+}
+
+.rightContact {
+	text-align: center;
+}
+.rightContact img {
+	width: 80%;
+}
+
+@media(max-width:992px) {
+	.row-contact .col-sm-7 {
+		display: none;
+	}
+	.row-contact .col-sm-5 {
+		width: 100%;
+	}
+}
