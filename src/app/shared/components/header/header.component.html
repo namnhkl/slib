@@ -46,18 +46,28 @@
             <img src="images/icon-vi.png" alt="Vietnamese" />
           </button> -->
           <!-- <div class="logo-text">{{'Home' | translate}}</div> -->
-          <button type="button" [class]="'btn-language' + (currentLang == 'en' ? ' lang-active' : '')"
+          <!-- <button type="button" [class]="'btn-language' + (currentLang == 'en' ? ' lang-active' : '')"
             (click)="switchLanguage('en')">
             <img src="images/icon-en.png" alt="English" />
           </button>
           <button type="button" [class]="'btn-language' + (currentLang == 'vi' ? ' lang-active' : '')"
             (click)="switchLanguage('vi')">
             <img src="images/icon-vi.png" alt="Vietnamese" />
-          </button>
+          </button> -->
           <nz-select ngModel="lucy">
             <nz-option nzValue="jack" nzLabel="Jack">1</nz-option>
             <nz-option nzValue="lucy" nzLabel="Lucy">2</nz-option>
           </nz-select>
+          <div class="d-flex languages">
+            <form>
+              <div class="mbForm">
+                <select class="form-select" id="languageSelect" name="language">
+                  <option value="vi">Tiếng Việt</option>
+                  <option value="en">Tiếng Anh</option>
+                </select>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

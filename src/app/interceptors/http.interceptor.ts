@@ -4,11 +4,17 @@ import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
+
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		// Check if the request URL is relative (doesn't start with http or https)
+    // const apiReq = req.url.startsWith('http')
+    //   ? req
+    //   : req.clone({ url: `${environment.authServer}/${req.url}` });
 		// Clone the request to add custom headers
 		const authReq = req.clone({
 			setHeaders: {
