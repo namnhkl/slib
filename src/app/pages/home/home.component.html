@@ -2,6 +2,7 @@
   <banner-sliders />
 </div>
 {{ documentList | json }}
+<s-books-item />
 <div class="searchBar">
   <div class="container">
     <div class="inputSearch d-flex">
@@ -19,76 +20,10 @@
     <h2 class="the-title text-center">Danh Mục</h2>
     <div class="box_class">
       <div class="classSlider owl-carousel">
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop1.svg" alt="Lớp 1" />
-            <span>Lớp 1</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop2.svg" alt="Lớp 2" />
-            <span>Lớp 2</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop3.svg" alt="Lớp 1" />
-            <span>Lớp 3</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop4.svg" alt="Lớp 1" />
-            <span>Lớp 4</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop5.svg" alt="Lớp 1" />
-            <span>Lớp 5</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop6.svg" alt="Lớp 1" />
-            <span>Lớp 6</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop7.svg" alt="Lớp 1" />
-            <span>Lớp 7</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop8.svg" alt="Lớp 1" />
-            <span>Lớp 8</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop9.svg" alt="Lớp 1" />
-            <span>Lớp 9</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop10.svg" alt="Lớp 1" />
-            <span>Lớp 10</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop11.svg" alt="Lớp 1" />
-            <span>Lớp 11</span>
-          </a>
-        </div>
-        <div class="item-class">
-          <a href="#">
-            <img src="img/imageClass/lop12.svg" alt="Lớp 1" />
-            <span>Lớp 12</span>
+        <div *ngFor="let document of documentList" class="item-class">
+          <a [href]="document.link">
+            <img [src]="document.image" [alt]="document.title" />
+            <span>{{ document.title }}</span>
           </a>
         </div>
       </div>
@@ -104,52 +39,10 @@
     <div class="bookCategories">
       <h2 class="the-title">Sách tham khảo</h2>
       <div class="mt-20 bookSlider-review owl-carousel">
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B1.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B2.jpg" alt="book 1" /></p>
-            <span>Cat and Dog Play Soccer</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B3.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Moth</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B4.jpg" alt="book 1" /></p>
-            <span>Cat and Dog and the Door</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B5.jpg" alt="book 1" /></p>
-            <span>Cat and Dog and the Sky</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B6.jpg" alt="book 1" /></p>
-            <span>Cat and Dog Learn Every Day</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B7.png" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
-          </a>
-        </div>
-        <div class="item-books-2 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B8.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
+        <div *ngFor="let document of documentList" class="item-class">
+          <a [href]="document.link">
+            <img [src]="document.image" [alt]="document.title" />
+            <span>{{ document.title }}</span>
           </a>
         </div>
       </div>
@@ -162,52 +55,10 @@
     <div class="bookCategories">
       <h2 class="the-title">Audio</h2>
       <div class="mt-20 audioBox owl-carousel">
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B1.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B2.jpg" alt="book 1" /></p>
-            <span>Cat and Dog Play Soccer</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B3.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Moth</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B4.jpg" alt="book 1" /></p>
-            <span>Cat and Dog and the Door</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B5.jpg" alt="book 1" /></p>
-            <span>Cat and Dog and the Sky</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B6.jpg" alt="book 1" /></p>
-            <span>Cat and Dog Learn Every Day</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B7.png" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
-          </a>
-        </div>
-        <div class="item-books-3 item-stand">
-          <a href="#">
-            <p><img src="img/imageBook/B8.jpg" alt="book 1" /></p>
-            <span>Cat and Dog: Mud</span>
+        <div *ngFor="let document of documentList" class="item-books-3 item-stand">
+          <a [href]="document.link">
+            <img [src]="document.image" [alt]="document.title" />
+            <span>{{ document.title }}</span>
           </a>
         </div>
       </div>
@@ -237,7 +88,7 @@
         </div>
         <div class="item-books-4">
           <a href="#">
-            <img src="img/videoThumb/thumb1.jpg" alt="book 1" />
+            <img src="img/videoThumb/thumb2.jpg" alt="book 1" />
             <span>Cat and Dog Play Soccer</span>
           </a>
         </div>

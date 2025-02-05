@@ -4,6 +4,7 @@ import { SSlidersComponent } from './components/s-sliders/s-sliders.component';
 import { BannerSlidersComponent } from './components/banner-sliders/banner-sliders.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BooksItemComponent } from './components/books-item/books-item.component';
 
 @NgModule({
   imports: [
@@ -11,14 +12,16 @@ import { FooterComponent } from './components/footer/footer.component';
     SSlidersComponent,
     BannerSlidersComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BooksItemComponent
   ],
   exports: [
     CommonModule,
     SSlidersComponent,
     BannerSlidersComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BooksItemComponent
   ]
 })
 export class SharedModule {}
