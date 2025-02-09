@@ -1,33 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NzSelectModule } from 'ng-zorro-antd/select';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+import { environment } from '../../../../environments/environment';
+
 @Component({
-  selector: 'layout-header',
+  selector: 'app-header',
+  imports: [
+    CommonModule,
+    //  RouterLink
+  ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  imports: [CommonModule, TranslateModule, RouterModule, NzSelectModule],
-  standalone: true,
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  currentLang = 'en';
-  currentRoute: string = '';
-  constructor(private translate: TranslateService, private router: Router) {
-    this.translate.setDefaultLang('en');
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.urlAfterRedirects;
-      }
-    });
-  }
-
-  switchLanguage(lang: string) {
-    this.translate.use(lang);
-    this.currentLang = lang;
-  }
-
-  isActiveRoute(route: string): boolean {
-    return this.currentRoute.includes(route);
-  }
+  appInfo = environment.appInfo;
 }

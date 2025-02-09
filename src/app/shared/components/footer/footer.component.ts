@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'layout-footer',
+  selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
-  imports: [TranslateModule],
-	standalone: true,
-})  
-
+  styleUrls: ['./footer.component.css']
+})
 export class FooterComponent {
-  menuHidden = true;
+
+  appInfo = environment.appInfo;
+
 }

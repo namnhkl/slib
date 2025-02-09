@@ -1,29 +1,42 @@
-import { Component, HostListener, OnInit, signal } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
-import { AsideService } from './shared/components/aside/aside.service';
-import { FooterComponent } from './shared/components/footer/footer.component';
+import { Inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, FooterComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  public screenWidth = signal<number>(window.innerWidth);
 
-  constructor(private asideService: AsideService) {}
-
-  @HostListener('window:resize')
-  onResize() {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: object) {
   }
 
   ngOnInit(): void {
+
+    if (isPlatformBrowser(this.platformId)) {
+      const navMain = this.document.getElementById('navbarCollapse');
+      if (navMain) {
+        navMain.onclick = function onClick() {
+          if (navMain) {
+            navMain.classList.remove("show");
+          }
+        }
+      }
+    }
   }
+
 }

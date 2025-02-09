@@ -1,22 +1,42 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './pages';
-import { HomeComponent } from './pages/home/home.component';
-import { NewsComponent } from './pages/news/news.component';
-import { ContactComponent } from './pages/contact/contact.component';
 
-export const ROUTES: Routes = [
-  //lazy loading
-  { path: '', loadComponent: () => import('./pages/home/home.component').then((c) => c.HomeComponent) },
-  { path: 'news', loadComponent: () => import('./pages/news/news.component').then((c) => c.NewsComponent) },
-  { path: 'contact', loadComponent: () => import('./pages/contact/contact.component').then((c) => c.ContactComponent) },
-  { path: 'dashboard', loadComponent: () => import('./pages/welcome/welcome.component').then((c) => c.WelcomeComponent) },
-  { path: 'settings', loadComponent: () => import('./pages/settings/settings.component').then((c) => c.SettingsComponent) },
-  // { path: '', component: HomeComponent },
-  // { path: 'news', component: NewsComponent },
-  // { path: 'contact', component: ContactComponent },
-  // { path: 'dashboard', loadComponent: () => import('./pages/welcome/welcome.component').then((c) => c.WelcomeComponent) },
-  // { path: 'settings', loadComponent: () => import('./pages/settings/settings.component').then((c) => c.SettingsComponent) },
-  // static loading
-  { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/404' },
+import { HomeComponent } from './features/general/home/home.component'
+import { NotFoundComponent } from './features/general/not-found/not-found.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent, },
+  {
+    path: 'continents',
+    loadComponent: () => import('./features/general/continent/item.component')
+      .then(mod => mod.ItemComponent)
+  },
+  {
+    path: 'continents/:id',
+    loadComponent: () => import('./features/general/continent-form/item.component')
+      .then(mod => mod.ItemComponent)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import(`./features/general/login/login.component`)
+      .then(mod => mod.LoginComponent)
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import(`./features/general/signup/signup.component`)
+      .then(mod => mod.SignupComponent)
+  },
+
+  {
+    path: 'contact',
+    loadChildren: () => import(`./features/general/contact/contact.routes`)
+      .then(routes => routes.routes)
+  },
+
+  {
+    path: 'about',
+    loadChildren: () => import('./features/general/about/about.routes')
+      .then(routes => routes.routes)
+  },
+
+  { path: '**', component: NotFoundComponent }
 ];
