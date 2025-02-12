@@ -1,0 +1,81 @@
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
+        <h1>NHẬT KÝ ĐIỆN TỬ</h1>
+      </a>
+    </div>
+    <div class="siderbar-trigger">
+      <app-trigger-collapse class="menubar_trigger" (dataEvent)="ShowHideSider($event)"></app-trigger-collapse>
+    </div>
+<!-- <nz-input-group [nzSuffix]="suffixIcon">
+  <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+</nz-input-group> -->
+<!-- <ng-template #suffixIcon>
+  <span nz-icon nzType="search"></span>
+</ng-template> -->
+<div class="f-project-tree">
+  <nz-tree nzBlockNode [nzData]="nodes" (nzClick)="handleClickNode($event)" (nzDblClick)="openFolder($event)"
+    [nzTreeTemplate]="nzTreeTemplate"></nz-tree>
+  <ng-template #nzTreeTemplate let-node let-origin="origin">
+    <span class="custom-node">
+      @if (!node.isLeaf) {
+      <span class="contex-menu-aware" (contextmenu)="
+          handleClickOpenContextMenu($event, node.origin.isRoute ? menuroute : menu)
+        ">
+        <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" (click)="openFolder(node)"
+          class="f-menu-icon"></i>
+        <span class="folder-name">{{ node.title }}</span>
+      </span>
+      } @else {
+      <span class="contex-menu-aware" (contextmenu)="
+          handleClickOpenContextMenu($event, node.origin.isRoute ? menuroute : menu)
+        ">
+        <i nz-icon nzType="file" class="f-menu-icon"></i>
+        <span class="file-name">{{ node.title }}</span>
+      </span>
+      }
+    </span>
+  </ng-template>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      @if (memberService.permission.fullControl) {
+      <li nz-menu-item class="f-menu-item" (click)="addRoute()">
+        <app-f-icons icon="fa-light fa-plus" />
+        <span>Thêm</span>
+      </li>
+      }
+      <!-- <li nz-menu-item class="f-menu-item" (click)="editRoute()">
+        <f-icons icon="fa-light fa-edit" color="blue" />
+        <span>Sửa</span>
+      </li> -->
+      @if (memberService.permission.fullControl) {
+      <li nz-menu-item class="f-menu-item" (click)="cloneData()">
+        <app-f-icons icon="fa-light fa-clone" color="green" />
+        <span>Nhân bản</span>
+      </li>
+      }
+      @if (memberService.permission.fullControl) {
+      <li nz-menu-item class="f-menu-item" (click)="deleteRoute()">
+        <app-f-icons icon="fa-light fa-trash" color="red" />
+        <span>Xoá</span>
+      </li>
+      }
+    </ul>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuroute="nzDropdownMenu">
+    <ul nz-menu>
+      @if (memberService.permission.fullControl) {
+      <li nz-menu-item class="f-menu-item" (click)="cloneData()">
+        <app-f-icons icon="fa-light fa-clone" color="green" />
+        <span>Nhân bản</span>
+      </li>
+      }
+      @if (memberService.permission.fullControl) {
+      <li nz-menu-item class="f-menu-item" (click)="deleteRoute()">
+        <app-f-icons icon="fa-light fa-trash" color="red" />
+        <span>Xoá</span>
+      </li>
+      }
+    </ul>
+  </nz-dropdown-menu>
+</div>

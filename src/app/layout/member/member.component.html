@@ -1,0 +1,19 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="330px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [style]="{ backgroundColor: '#fff' }" [nzTrigger]="null">
+    <app-member-menubar (dataEvent)="ShowHideSider($event)" />
+  </nz-sider>
+  <nz-layout>
+    <!-- <nz-header>
+      <app-header (dataEvent)="ShowHideSider($event)"></app-header>
+    </nz-header> -->
+    <nz-content>
+      <div class="inner-content flex flex-col">
+        <nz-spin [nzSpinning]="isSpinning">
+          <router-outlet></router-outlet>
+          <app-profile></app-profile>
+        </nz-spin>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,26 @@
+<div class="profile-user">
+  <ng-template #contentTemplate>
+    <div>
+      <ul nz-menu>
+        <li nz-menu-item>
+          <button nz-button nzType="text">
+            <span nz-icon nzType="lock" nzTheme="outline"></span> Đổi mật khẩu
+          </button>
+        </li>
+        <li nz-menu-item >
+          <button nz-button nzType="text"(click)="logout()">
+            <span nz-icon nzType="logout"></span>
+            Đăng xuất
+          </button>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+  <a nz-popover nzPopoverTitle="Nguyễn Trung Việt"
+    [nzPopoverContent]="contentTemplate"
+    nzPopoverTrigger="click"
+    nzPopoverPlacement="bottomRight"
+    >
+    <nz-avatar nzIcon="user" style="background-color:rgba(0, 0, 0, 0.45);"></nz-avatar>
+  </a>
+</div>
