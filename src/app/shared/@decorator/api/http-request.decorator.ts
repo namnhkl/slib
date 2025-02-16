@@ -32,12 +32,13 @@ export abstract class _HttpRequestInjector {
  * ```
  */
 export function HttpRequestInjectable(prefixKey: TApiPrefix) {
-  return function <T extends { new (...args: any[]): any }>(_constructor: T) {
+  return function <T extends new (...args: any[]) => any>(_constructor: T) {
     return new Proxy(_constructor, {
       construct(clz, args) {
         const obj = Reflect.construct(clz, args);
         obj.urlObject = URL_BUILDERS[prefixKey];
         obj._http = inject(HttpClient);
+
         return obj;
       },
     });

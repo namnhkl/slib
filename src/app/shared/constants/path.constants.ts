@@ -1,6 +1,14 @@
 export const URL_ROUTER = {
   login: 'login',
-  home: 'home',
+  home: '',
+  about: 'about',
+  /* tin tức */
+  news: 'news',
+  newDetail: 'details',
+  /* end tin tức */
+  contact: 'contact',
+  searchResult: 'search-result',
+  profile: 'profile',
   notFound: '404',
   // quản lý
   management: {
@@ -30,4 +38,7 @@ export const URL_ROUTER = {
     dynamicMap: 'map/dynamic-map',
   },
   // end map form
+  // document start
+  documents: 'documents',
+  // document end
 };

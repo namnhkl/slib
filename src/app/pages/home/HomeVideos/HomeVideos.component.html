@@ -1,0 +1,26 @@
+<div class="box-stand pt-0">
+  <div class="container">
+    <div class="bookCategories">
+      <h2 class="the-title flex justify-between items-center mb-2">
+        <span>Video</span>
+        <a href="#" class="viewmore">Xem Thêm</a>
+      </h2>
+      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
+        (changed)="getChangedData($event)" #owlCar class="mt-20 videosBox">
+        @for (item of simpleData; track item.id) {
+        <ng-template carouselSlide [id]="item.id">
+          <div class="item-books-4">
+            <a href="#">
+              <iframe width="300" height="160" [src]="item.video" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <span>{{item.title}}</span>
+            </a>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+
+  </div>
+</div>

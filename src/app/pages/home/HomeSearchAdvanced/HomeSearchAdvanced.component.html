@@ -1,0 +1,62 @@
+<div class="searchBar">
+  <div class="container">
+    <div class="inputSearch d-flex">
+      <input type="text" class="form-control" placeholder="Bắt đầu tìm kiếm">
+      <button class="btn btn-primary ms-2" nz-button [nzType]="'primary'" (click)="showModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 -960 960 960" width="100%"
+          preserveAspectRatio="none" class="" fill="rgba(255, 255, 255, 1)">
+          <path d="M400-240v-60h160v60H400ZM240-450v-60h480v60H240ZM120-660v-60h720v60H120Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Tìm kiếm nâng cao" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzFooter]="searchFooter" [nzTitle]="null" [nzContent]="modalContent" [nzFooter]="modalFooter">
+  <ng-template #modalContent>
+    <h4 class="text-center">Tìm kiếm nâng cao</h4>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="label" nzLabelAlign="left">Nhan đề</nz-form-label>
+        <nz-form-control label>
+          <nz-input-group>
+            <input type="text" nz-input formControlName="label" placeholder="Nhập tên nhan đề" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="author" nzLabelAlign="left">Tác giả</nz-form-label>
+        <nz-form-control label>
+          <nz-input-group>
+            <input type="text" nz-input formControlName="author" placeholder="Nhập tên tác giả" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">Định dạng</nz-form-label>
+        <nz-form-control label>
+          <nz-select formControlName="type" nzPlaceHolder="Chọn định dạng">
+            <nz-option nzValue="pdf" nzLabel="PDF"></nz-option>
+            <nz-option nzValue="doc" nzLabel="DOC"></nz-option>
+            <nz-option nzValue="ppt" nzLabel="PPT"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">Ngôn ngữ</nz-form-label>
+        <nz-form-control label>
+          <nz-select formControlName="language" nzPlaceHolder="Chọn ngôn ngữ">
+            <nz-option nzValue="all" nzLabel="Tất cả"></nz-option>
+            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
+            <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button [nzType]="'default'" (click)="handleReset()">Đặt lại</button>
+    <button nz-button [nzType]="'primary'" (click)="submitForm()">Tìm kiếm</button>
+  </ng-template>
+
+</nz-modal>

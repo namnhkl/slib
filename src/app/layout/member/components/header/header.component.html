@@ -1,32 +1,63 @@
-<div class="app-header">
-  <span class="header-trigger" (click)="ShowHideSider(isCollapsed)">
-      <span class="trigger"
-         nz-icon
-         [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-      ></span>
-  </span>
-  <ng-template #contentTemplate>
-    <div>
-      <ul nz-menu>
-        <li nz-menu-item>
-          <button nz-button nzType="text">
-            <span nz-icon nzType="lock" nzTheme="outline"></span> Đổi mật khẩu
-          </button>
-        </li>
-        <li nz-menu-item >
-          <button nz-button nzType="text"(click)="logout()">
-            <span nz-icon nzType="logout"></span>
-            Đăng xuất
-          </button>
-        </li>
-      </ul>
+<nav class="topmenu navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <!-- Logo bên phải -->
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="./img/logo/logo-slibk12.svg" alt="Logo">
+        </a>
+
+        <!-- Button toggle trên mobile -->
+        <div class="d-flex languages languageMb">
+            <form>
+                <div class="mbForm">
+                    <select class="form-select" id="languageSelect" name="language">
+                        <option value="vi">Tiếng Việt</option>
+                        <option value="en">Tiếng Anh</option>
+                    </select>
+                    <nz-select ngModel="lucy">
+                        <nz-option nzValue="jack" nzLabel="Tiếng Việt"></nz-option>
+                        <nz-option nzValue="lucy" nzLabel="Tiếng Anh"></nz-option>
+                    </nz-select>
+                </div>
+            </form>
+        </div>
+        <button id="navbarToggle" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu ở giữa -->
+        <div class="navbarNav navbar-collapse order-lg-2" id="navbarNav">
+            <div class="forMb rightBar d-flex align-items-center order-lg-3">
+                <a class="navbar-brand order-lg-1" href="#">
+                    <img src="./img/logo/logo-slibk12.svg" alt="Logo">
+                </a>
+                <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-solid fa-user"></i> Hồ
+                    sơ</button>
+                <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-sign-out"></i> Đăng
+                    xuất</button>
+            </div>
+            <ul class="navbar-nav mx-auto">
+                @for (link of links; track $index) {
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="{{link.url}}">{{link.title}}</a>
+                </li>
+                }
+            </ul>
+
+        </div>
+        <div id="menuOverlay" class=""></div>
+
+        <!-- Button bên phải -->
+        <div class="forPC rightBar d-flex align-items-center order-lg-3">
+            <app-login-button></app-login-button>
+            <div class="d-flex languages">
+                    <div class="mbForm">
+                        <nz-select ngModel="vi" [icon]="'globe'" [nzSize]="'small'">
+                            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
+                            <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
+                        </nz-select>
+                    </div>
+            </div>
+        </div>
     </div>
-  </ng-template>
-  <a nz-popover nzPopoverTitle="Nguyễn Trung Việt"
-    [nzPopoverContent]="contentTemplate"
-    nzPopoverTrigger="click"
-    nzPopoverPlacement="bottomRight"
-    style="float: right; padding-right: 25px;">
-    <nz-avatar nzIcon="user" style="background-color:rgba(0, 0, 0, 0.45);"></nz-avatar>
-  </a>
-</div>
+</nav>

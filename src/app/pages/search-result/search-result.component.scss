@@ -1,0 +1,242 @@
+.wrap-flex {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.modalStand_box:first-child {
+  flex: 0 0 20%;
+}
+
+.modalStand_box:last-child {
+  flex: 0 0 80%;
+}
+
+.rightBar .btnProfile {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.title-result {
+  padding: 40px 0;
+}
+.title-result p {
+  margin: 0;
+  font-size: 22px;
+  color: rgba(36, 36, 36, 1);
+}
+.title-result p > span {
+  font-weight: 700;
+}
+.box_result_book {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 50px 30px;
+}
+
+.box_item {
+  text-align: left;
+}
+
+.box_item img {
+  height: auto;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  height: 220px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.box_result_book {
+}
+.box_result_book .box_item {
+}
+.box_result_book .box_item a {
+  display: block;
+}
+.box_result_book .box_item a p {
+  margin: 0;
+  position: relative;
+}
+.box_result_book .box_item a p img {
+  position: relative;
+}
+.box_result_book .box_item a p > span.leftSideBookSearch {
+  position: absolute;
+  z-index: 9;
+  width: 12px;
+  margin: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  background: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.22) 19.38%,
+    rgba(0, 0, 0, 0.15) 51.67%,
+    rgba(0, 0, 0, 0.34) 64.17%,
+    hsla(0, 0%, 82%, 0.27) 75.63%,
+    hsla(0, 0%, 100%, 0) 94.38%
+  );
+  mix-blend-mode: normal;
+  opacity: 0.3;
+}
+.box_result_book .box_item a span {
+  font-size: 16px;
+  color: #000;
+  margin-top: 10px;
+  display: block;
+  font-weight: 700;
+}
+
+.advSearch {
+  border: solid 1px #ccc;
+  padding: 20px 0;
+  border-radius: 10px;
+  padding-top: 0;
+}
+.advSearch h3 {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  padding: 9px;
+  text-align: center;
+  background: #ccc;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.widget_searchAdv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: solid 1px #ccc;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.widget_searchAdv h3 {
+  background: none;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: #000;
+  padding: 0;
+  border-radius: inherit;
+  text-align: left;
+}
+.widget_searchAdv:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.widget_searchAdv form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.other-search-box {
+}
+.other-search-box h2 {
+  margin-bottom: 40px;
+  font-size: 22px;
+}
+
+.flex-search {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+}
+.flex-search .mb-3 {
+  align-items: center;
+  justify-content: center;
+}
+.flex-search .mb-3 .form-control,
+.flex-search .mb-3 .form-select {
+  height: 48px;
+  /*  line-height: 48px;*/
+}
+.flex-search .mb-3 label {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  padding-right: 15px;
+}
+
+.btnGroup {
+  gap: 20px;
+}
+.btnGroup button {
+  min-width: 170px;
+  padding: 0.675rem 0.75rem;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.btnGroup button:first-child {
+  border: solid 1px #ccc;
+  color: rgba(0, 74, 173, 1);
+}
+.btnGroup button:last-child {
+  color: #fff;
+  background: rgba(0, 74, 173, 1);
+}
+
+@media (max-width: 992px) {
+  .box_result_book {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .flex-search {
+    width: 100%;
+  }
+  .flex-search .mb-3 {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .flex-search .mb-3 .col-sm-9 {
+    width: 100%;
+  }
+  .flex-search .mb-3 label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  .wrap-flex {
+    flex-direction: column;
+    padding: 0;
+  }
+  .advSearch {
+    padding-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .advSearch h3 {
+    display: none;
+  }
+  .widget_searchAdv {
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .modalStand_box:first-child {
+    flex: 1;
+    width: 100%;
+  }
+  .modalStand_box:last-child {
+    flex: 1;
+    width: 100%;
+  }
+  .box_result_book .box_item a p img {
+    height: 150px;
+  }
+  .btnGroup button {
+    min-width: 140px;
+  }
+}

@@ -1,0 +1,73 @@
+<div class="wrapp-contact">
+  <div class="container">
+    <div class="row-contact">
+      <div class="col-sm-5">
+        <div class="contact-form">
+          <h2>Liên hệ với chúng tôi</h2>
+          <p>Nếu bạn cần được hỗ trợ, hãy liên hệ với chúng tôi. Chúng tôi sẽ cố gắng phản hồi sớm nhất!</p>
+          <div class="formBox">
+            <div class="form-group">
+              <form nz-form  [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <label for="listBookLibary"><sup>(*)</sup>Thư viện</label>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Xin vui lòng chọn thư viện">
+                  <select id="listBookLibary" formControlName="thuVien">
+                    <option value="1">LHP: Thư viện lê hồng phong</option>
+                    <option value="2">LHP: Thư viện lê hồng phong</option>
+                    <option value="3">LHP: Thư viện lê hồng phong</option>
+                  </select>
+                  </nz-form-control>
+                </nz-form-item>
+                <div class="form-group">
+                  <label for="hoTen"><sup>(*)</sup>Họ tên</label>
+                  <nz-form-item>
+                    <nz-form-control nzErrorTip="Xin vui lòng nhập đầy đủ họ và tên">
+                      <input formControlName="hoTen" nz-input placeholder="Nhập họ tên của bạn" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="form-group">
+                  <label for="email"><sup>(*)</sup>Email</label>
+                    <nz-form-item>
+                    <nz-form-control nzErrorTip="Xin vui lòng nhập email hợp lệ">
+                      <input formControlName="email" nz-input type="email" placeholder="Nhập email của bạn" />
+                    </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="form-group">
+                  <label for="noiDung"><sup>(*)</sup>Nội dung liên hệ</label>
+                    <nz-form-item>
+                    <nz-form-control nzErrorTip="Xin vui lòng nhập nội dung liên hệ">
+                      <textarea formControlName="noiDung" rows="3" id="messaContact" nz-input placeholder="Nhập nội dung"></textarea>
+                    </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="form-group">
+                  <label for="ip"><sup>(*)</sup>Mã xác nhận</label>
+                  <div class="capchaID">
+                    <nz-form-item>
+                      <nz-form-control nzErrorTip="Xin vui lòng nhập mã xác nhận" >
+                      <input type="text" formControlName="ip"  placeholder="Nhập mã xác nhận" nz-input />
+                      </nz-form-control>
+                    </nz-form-item>
+                    <img class="imgCapcha" src="img/capcha.png" alt="" />
+                    <a href="#"><i class="fa fa-rotate-right"></i></a>
+                  </div>
+                </div>
+                <div class="form-group form-group-btn">
+                  <button class="btn btn-reset" type="reset">Đặt lại</button>
+                  <button class="btn btn-primary">Gửi thông tin</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div class="rightContact">
+          <img src="img/bg-contact.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

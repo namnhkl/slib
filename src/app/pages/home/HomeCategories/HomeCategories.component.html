@@ -1,0 +1,20 @@
+<div class="box-stand categories_section">
+  <div class="container">
+    <h2 class="the-title text-center">Danh Mục</h2>
+    <div class="box_class">
+      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
+          (changed)="getChangedData($event)" #owlCar class="classSlider">
+          @for (item of simpleData; track item.id) {
+          <ng-template carouselSlide [id]="item.id">
+            <div class="item-class">
+              <a href="#">
+                <img [src]="item.image" [alt]="item.title">
+                <span>{{item.title}}</span>
+              </a>
+            </div>
+          </ng-template>
+          }
+        </owl-carousel-o>
+    </div>
+  </div>
+</div>

@@ -13,16 +13,12 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import _ from 'lodash';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Permission } from '../models/user/permission';
 import { ActiveNode, ActiveNodeInLeftMenu } from '../types/treeNode';
-import { CategoryNode } from '../models/tree-views/CategoryNode';
 import { TYPE_MES } from '../constants/const';
 import { _dynamic } from '../models/dynamic';
 import { LoaderService } from './loader.service';
-import { CategoryDatasService } from '@/app/pages/categories/data-dynamic-category/services/categoryDatas.service';
-import { CategoryDataServicePreload } from '@/app/pages/categories/data-dynamic-category/services/preload.service';
 
 /**
  * A Behavior subject is a special kind of RxJS subject that

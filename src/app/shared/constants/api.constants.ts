@@ -90,8 +90,10 @@ export const API_ROUTER = {
   USER_PERMISSION: '/permission',
 
   BUSINESS_SELECTION: {
-    GET_PARENT: ({ recordId, loai }: any) => `/permissiontask/${recordId}/get-method-tree/${loai}`,
-    GET_CHILDREN: ({ recordId, formCode, loai }: any) => `/permissiontask/${recordId}/get-dynamic-field-by-loai/${formCode}/${loai}`,
+    GET_PARENT: ({ recordId, loai }: any) =>
+      `/permissiontask/${recordId}/get-method-tree/${loai}`,
+    GET_CHILDREN: ({ recordId, formCode, loai }: any) =>
+      `/permissiontask/${recordId}/get-dynamic-field-by-loai/${formCode}/${loai}`,
     PUT_FORM_CHILDREN: '/permissiontask',
   },
 };
@@ -112,6 +114,11 @@ export const API_PREFIX = {
   '/permissiondatas': '/permissiondatas',
   '/permissiontask': '/permissiontask',
   '/permission': '/permission',
+  '/tintuc': '/tintuc',
+  '/tailieu': '/tailieu',
+  '/bandoc': '/bandoc',
+  '/danhmuc': '/danhmuc',
+  '/lienhe': '/lienhe',
 };
 
 export type TApiPrefix = keyof typeof API_PREFIX;

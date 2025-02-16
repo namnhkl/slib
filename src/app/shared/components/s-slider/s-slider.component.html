@@ -1,16 +1,29 @@
-<div class="container">
-  <div class="row">
-    <div class="col-10 offset-1">
-      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
-        (changed)="getChangedData($event)" #owlCar>
-        @for (item of carouselData(); track item.id) {
-        <ng-template carouselSlide [id]="item.id" [width]="item.width">
-          <div class="slider">
-            <p>{{item.text}}</p>
-          </div>
-        </ng-template>
-        }
-      </owl-carousel-o>
+<div class="box-stand pt-0">
+  <div class="container">
+    <div class="bookCategories">
+      <h2 class="the-title flex justify-between items-center">
+        <span>{{title}}</span>
+        <a href="#" class="viewmore">Xem Thêm</a>
+      </h2>
+      <div class="mt-20 bookSlider">
+        <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
+          (changed)="getChangedData($event)" #owlCar class="bookSlider">
+          @for (item of data; track item.id) {
+          <ng-template carouselSlide [id]="item.id">
+            <div class="item-books-1 item-stand">
+              <p style="text-align: center;">
+                <a routerLink="/documents/{{item.id}}">
+                  <span class="leftSide"></span>
+                  <img [src]="item.anhDaiDien" [alt]="item.tieuDe" style="height: 260px; width: auto">
+                </a>
+              </p>
+              <span><a routerLink="buildLink(item)">{{item.tieuDe}}</a></span>
+            </div>
+          </ng-template>
+          }
+        </owl-carousel-o>
+      </div>
     </div>
+
   </div>
 </div>

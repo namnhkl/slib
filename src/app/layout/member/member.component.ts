@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef, Component, OnDestroy, OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  Router,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -20,7 +15,6 @@ import { MenubarComponent } from './components/menubar/menubar.component';
 // import { HeaderComponent } from './components/header/header.component';
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { URL_ROUTER } from '../../shared/constants/path.constants';
-import { CategoryDataServicePreload } from '@/app/pages/categories/data-dynamic-category/services/preload.service';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @Component({
@@ -52,27 +46,18 @@ export class MemberComponent implements OnInit, OnDestroy {
 
   isSpinning = false;
 
-  avatar: string = '../../../assets/images/avatar.svg';
-
   permissionsData!: Record<string, boolean>;
-
-  tenND: string = '';
 
   constructor(
     private router: Router,
     private confirm: NzModalService,
     private loadingService: LoaderService,
-    private cdr: ChangeDetectorRef,
-    private categoryDataServicePreload: CategoryDataServicePreload,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnDestroy(): void {
-    this.categoryDataServicePreload.stop();
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit() {
-    this.categoryDataServicePreload.makeCacheData();
-    this.tenND = localStorage.getItem('username') || '';
     this.loadingService.getLoading$().subscribe((res) => {
       this.isSpinning = res;
       this.cdr.detectChanges();
@@ -96,8 +81,7 @@ export class MemberComponent implements OnInit, OnDestroy {
         localStorage.removeItem('username');
         this.router.navigate([URL_ROUTER.login]);
       },
-      nzOnCancel: () => {
-      },
+      nzOnCancel: () => {},
     });
   }
 

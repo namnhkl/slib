@@ -6,15 +6,17 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
-import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { InjectorService } from './shared/services/injector.service';
-
+import { HeaderComponent } from './layout/member/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    TranslateModule,
     CommonModule,
     RouterLink,
     RouterOutlet,
@@ -23,9 +25,10 @@ import { InjectorService } from './shared/services/injector.service';
     NzMenuModule,
     NzAvatarModule,
     NzPopoverModule,
-    NzMessageModule,
     NzModalModule,
     NzButtonModule,
+    HeaderComponent,
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

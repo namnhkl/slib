@@ -1,0 +1,78 @@
+ <div class="wrapp-news">
+  <div class="container">
+    <div class="row-news">
+      <div class="box-news col-sm-6">
+        <!-- News Item 1 -->
+        @for (_new of (news | async); track $index) {
+        <div class="news-item d-flex">
+          <a [routerLink]="URL_DETAIL" [queryParams]="{ id: _new.id  }">
+            <div class="news-img">
+              <img [src]="_new.anhDaiDien" alt="Post Image 1" class="img-fluid">
+            </div>
+            <div class="news-content">
+              <h3 class="news-title">{{ _new.ten }}</h3>
+              <p class="news-date"><i class="fa fa-calendar"></i> {{
+                _new.ngayDangTin }}
+                <p class="news-description" [innerHTML]="_new.moTa"></p>
+                <button class="btn btn-primary btn-sm">Chi tiết</button>
+              </div>
+            </a>
+          </div>
+          }
+
+          <div class="page_sort_item">
+            <div class="item_page_detail">
+              <div class="d-flex align-items-center groupSelect">
+                <label for="numberSelect" class="form-label">Hiển thị</label>
+                <select class="form-select" id="numberSelect"
+                  aria-label="Chọn số">
+                  <option value selected disabled>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </div>
+            <div class="item_page_detail">
+              <div class="showPage">
+                <span>1/10</span>
+                <button class="btn pre-btn"><span class="btnPre"
+                    aria-label="Previous">‹</span></button>
+                <button class="btn next-btn active"><span class="btnPre"
+                    aria-label="Next">›</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-news box-news col-sm-4">
+          <div class="views-box">
+            <h3>Xem nhiều</h3>
+            <ul>
+              @for (_new of news | async; track $index) {
+              <li>
+                <a href="#">
+                  <div class="sidenews-item">
+                    <h4>{{ _new.moTa }}</h4>
+                    <span><i class="fa fa-regular fa-eye"></i> 524 lượt
+                      xem</span>
+                  </div>
+                  <div class="sidenews-item">
+                    <img [src]="_new.anhDaiDien" alt="sách hay">
+                  </div>
+                </a>
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

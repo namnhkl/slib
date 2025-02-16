@@ -1,40 +1,58 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component, EventEmitter, Output,
-} from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { URL_ROUTER } from '@/app/shared/constants/path.constants';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule } from '@angular/forms';
+import { LoginButtonComponent } from './login-button/login-button.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
+    LoginButtonComponent,
+    RouterLink,
     RouterModule,
     NzPopoverModule,
-    NzAvatarModule,
-    NzIconModule,
     NzButtonModule,
+    FormsModule,
+    NzSelectModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  isCollapsed: boolean = false;
+  protected links = [
+    {
+      title: 'Trang chủ',
+      url: URL_ROUTER.home,
+    },
+    {
+      title: 'Giới thiệu',
+      url: URL_ROUTER.about,
+    },
+    {
+      title: 'Tin tức',
+      url: URL_ROUTER.news,
+    },
+    {
+      title: 'Sách hay',
+      url: URL_ROUTER.documents,
+    },
+    {
+      title: 'Mượn liên TV',
+      url: URL_ROUTER.contact,
+    },
+    {
+      title: 'Liên hệ',
+      url: URL_ROUTER.contact,
+    },
+  ];
 
-  @Output() dataEvent = new EventEmitter<boolean>();
-
-  constructor(private router: Router) {
-
-  }
-
-  ShowHideSider(isCollap: boolean) {
-    this.isCollapsed = !isCollap;
-    this.dataEvent.emit(this.isCollapsed);
-  }
+  constructor(private router: Router) {}
 
   logout() {
     localStorage.removeItem('access_token');

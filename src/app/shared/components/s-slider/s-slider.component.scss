@@ -1,0 +1,272 @@
+$color_1: #000;
+$color_2: rgba(5, 31, 77, 1);
+$color_3: rgba(0, 74, 173, 1);
+$color_4: #fff;
+
+.bookCategories {
+	position: relative;
+	.owl-dots {
+		display: none;
+	}
+	.owl-nav {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 10px;
+		position: absolute;
+		top: -50px;
+		right: 0;
+		span {
+			font-size: 16px;
+			font-weight: 700;
+			color: $color_2;
+		}
+		span.owl-title {
+			color: $color_3;
+			a {
+				color: $color_3;
+			}
+		}
+		button {
+			background: #fff !important;
+			color: $color_4;
+			border-radius: 5px;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: auto;
+			cursor: pointer;
+			border: solid 1px #000 !important;
+			span {
+				font-size: 29px;
+				font-weight: normal;
+				position: relative;
+				top: -2px;
+			}
+		}
+	}
+}
+.bookCategories {
+  .the-title {
+    position: relative;
+    padding-right: 120px;
+  }
+  .viewmore {
+    font-size: 14px;
+    line-height: 50px;
+  }
+}
+.bookSlider {
+	margin-top: 20px;
+}
+.bookSlider-review {
+	margin-top: 20px;
+}
+.mt-20 {
+	margin-top: 20px;
+}
+.item-books {
+	a {
+		display: block;
+		img {
+			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+		}
+		span {
+			font-size: 16px;
+			color: $color_1;
+			margin-top: 10px;
+			display: block;
+			font-weight: 700;
+		}
+	}
+}
+.item-books-1 {
+	a {
+		img {
+			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+		}
+		span {
+			font-size: 16px;
+			color: $color_1;
+			margin-top: 10px;
+			display: block;
+			font-weight: 700;
+		}
+	}
+}
+.item-books-2 {
+	a {
+		img {
+			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+		}
+		span {
+			font-size: 16px;
+			color: $color_1;
+			margin-top: 10px;
+			display: block;
+			font-weight: 700;
+		}
+	}
+}
+.item-books-3 {
+	a {
+		img {
+			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+		}
+		span {
+			font-size: 16px;
+			color: $color_1;
+			margin-top: 10px;
+			display: block;
+			font-weight: 700;
+		}
+	}
+}
+.item-stand {
+	a {
+		p {
+			margin: 0;
+			position: relative;
+			img {
+				position: relative;
+			}
+			.leftSide {
+				position: absolute;
+				z-index: 9;
+				width: 12px;
+				margin: 0;
+				top: 0;
+				height: 100%;
+				border-radius: 5px 0 0 5px;
+				background: linear-gradient( 90deg, hsla(0, 0%, 100%, 0.22) 19.38%, rgba(0, 0, 0, 0.15) 51.67%, rgba(0, 0, 0, 0.34) 64.17%, hsla(0, 0%, 82%, 0.27) 75.63%, hsla(0, 0%, 100%, 0) 94.38% );
+				mix-blend-mode: normal;
+				opacity: 0.3;
+			}
+		}
+	}
+}
+.item-books-4 {
+	a {
+		span {
+			font-size: 16px;
+			color: $color_1;
+			margin-top: 10px;
+			display: block;
+			font-weight: 700;
+		}
+	}
+}
+.owl-carousel {
+	.owl-dots.disabled {
+		display: flex !important;
+	}
+	.owl-nav.disabled {
+		display: flex !important;
+	}
+}
+.viewmore-mb {
+	display: none;
+}
+@media (max-width: 992px) {
+	.box-stand {
+		h2.the-title {
+			font-size: 25px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+	}
+	.owl-carousel {
+		.owl-item {
+			.item-stand {
+				img {
+					height: 180px !important;
+				}
+			}
+			img {
+				height: 180px !important;
+			}
+		}
+	}
+	.classSlider {
+		.owl-stage {
+			.item-class {
+				a {
+					img {
+						height: 150px !important;
+					}
+				}
+			}
+		}
+	}
+	.owl-title {
+		display: none;
+	}
+	.bookCategories {
+		.owl-nav {
+			display: none;
+		}
+	}
+	.viewmore-mb {
+		display: flex;
+		img {
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: #e7e7e7;
+			padding: 4px;
+		}
+	}
+}
+
+
+::ng-deep {
+  .owl-theme {
+    .owl-nav {
+      position: absolute;
+      right: 0;
+      bottom: 100%;
+      margin-bottom: 12px;
+      display: flex;
+      .owl-next,
+      .owl-prev {
+        background: #fff;
+        color: #fff;
+        border-radius: 5px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        cursor: pointer;
+        border: solid 1px #000;
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 0 5px;
+        font-size: 0;
+        &:after {
+          content: "‹";
+          font-size: 29px;
+          font-weight: normal;
+          position: relative;
+          top: -2px;
+          color: rgba(5, 31, 77, 1);
+        }
+      }
+      .owl-next {
+        right: 0;
+        &:after {
+          content: "›";
+        }
+      }
+    }
+  }
+}
