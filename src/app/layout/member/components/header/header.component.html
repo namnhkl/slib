@@ -9,13 +9,9 @@
         <div class="d-flex languages languageMb">
             <form>
                 <div class="mbForm">
-                    <select class="form-select" id="languageSelect" name="language">
-                        <option value="vi">Tiếng Việt</option>
-                        <option value="en">Tiếng Anh</option>
-                    </select>
                     <nz-select ngModel="lucy">
-                        <nz-option nzValue="jack" nzLabel="Tiếng Việt"></nz-option>
-                        <nz-option nzValue="lucy" nzLabel="Tiếng Anh"></nz-option>
+                        <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
+                        <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
                     </nz-select>
                 </div>
             </form>
@@ -43,7 +39,6 @@
                 </li>
                 }
             </ul>
-
         </div>
         <div id="menuOverlay" class=""></div>
 
@@ -51,12 +46,12 @@
         <div class="forPC rightBar d-flex align-items-center order-lg-3">
             <app-login-button></app-login-button>
             <div class="d-flex languages">
-                    <div class="mbForm">
-                        <nz-select ngModel="vi" [icon]="'globe'" [nzSize]="'small'">
-                            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
-                            <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
-                        </nz-select>
-                    </div>
+                <div class="mbForm">
+                    <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)">
+                        <nz-option nzValue="vi-VN" nzLabel="Tiếng Việt"></nz-option>
+                        <nz-option nzValue="en-US" nzLabel="Tiếng Anh"></nz-option>
+                    </nz-select>
+                </div>
             </div>
         </div>
     </div>

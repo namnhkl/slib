@@ -1,7 +1,12 @@
 <div class="wrapperStand">
-  <app-header></app-header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
+  <ng-template #indicatorTemplate>
+    <nz-icon nzType="loading" />
+  </ng-template>
+  <nz-spin [nzSpinning]="isSpinning" [nzIndicator]="indicatorTemplate">
+    <app-header></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </nz-spin>
 </div>

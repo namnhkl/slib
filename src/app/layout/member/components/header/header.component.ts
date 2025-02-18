@@ -7,12 +7,15 @@ import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { LoginButtonComponent } from './login-button/login-button.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { I18nService } from '@/app/i18n/i18n.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
+    TranslateModule,
     LoginButtonComponent,
     RouterLink,
     RouterModule,
@@ -51,11 +54,25 @@ export class HeaderComponent {
       url: URL_ROUTER.contact,
     },
   ];
+  language = 'vi-VN';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private readonly _i18nService: I18nService,) {}
 
   logout() {
     localStorage.removeItem('access_token');
     this.router.navigateByUrl('login');
+  }
+
+  get languages(): string[] {
+    return this._i18nService.supportedLanguages;
+  }
+
+  setLanguage(language: string) {
+    this._i18nService.language = language;
+  }
+
+  changeLanguage(language: string) {
+    console.log("🚀 ~ HeaderComponent ~ changeLanguage ~ language:", language)
+    this._i18nService.language = language;
   }
 }

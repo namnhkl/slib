@@ -1,22 +1,21 @@
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DocumentsComponent } from './documents.component';
 import { DocumentDetailsComponent } from './document-details/document-details.component';
-import { NgModule } from '@angular/core';
-import { URL_ROUTER } from '@/app/shared/constants/path.constants';
+import { DocumentsSearchComponent } from './documents-search/documents-search.component';
 
 const routes: Routes = [
-  { 
-    path: URL_ROUTER.documents,
-    children: [
-      {
-        path: '',
-        component: DocumentsComponent,
-      },
-      {
-        path: ':id',
-        component: DocumentDetailsComponent,
-      },
-    ]
+  {
+    path: '',
+    component: DocumentsComponent,
+  },
+  // {
+  //   path: 'author',
+  //   component: DocumentsSearchComponent,
+  // },
+  {
+    path: ':id',
+    component: DocumentDetailsComponent,
   },
 ];
 

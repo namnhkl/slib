@@ -58,5 +58,5 @@ export const routes: Routes = [
   },
 
   // if not found a page, force redirect to home
-  // { path: '**', redirectTo: URL_ROUTER.home },
+  // { path: '**', redirectTo: URL_ROUTER.notFound },
 ];

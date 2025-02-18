@@ -4,7 +4,7 @@ import {
   importProvidersFrom,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -22,11 +22,14 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(
+      TranslateModule.forRoot(),
+      FormsModule
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideNzIcons(icons),
     provideNzI18n(en_US),
-    importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideHttpClient(
       withInterceptors([

@@ -12,12 +12,12 @@
           <ng-template carouselSlide [id]="item.id">
             <div class="item-books-1 item-stand">
               <p style="text-align: center;">
-                <a routerLink="/documents/{{item.id}}">
+                <a [routerLink]="['/documents', item.id]">
                   <span class="leftSide"></span>
                   <img [src]="item.anhDaiDien" [alt]="item.tieuDe" style="height: 260px; width: auto">
                 </a>
               </p>
-              <span><a routerLink="buildLink(item)">{{item.tieuDe}}</a></span>
+              <span><a [routerLink]="['/documents', item.id]">{{item.tieuDe}}</a></span>
             </div>
           </ng-template>
           }

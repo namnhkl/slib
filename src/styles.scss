@@ -391,3 +391,15 @@ img {
   line-height: 0;
   color: #737373;
 }
+
+app-root .ant-spin-nested-loading > div > .ant-spin {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  max-height: unset;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

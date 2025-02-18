@@ -6,10 +6,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { FooterTableComponent } from './footer-table/footer-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [PageHeaderComponent, FooterTableComponent],
   imports: [
+    TranslateModule,
     NzSpaceModule,
     NzBreadCrumbModule,
     NzButtonModule,

@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -12,6 +12,9 @@ import { InjectorService } from './shared/services/injector.service';
 import { HeaderComponent } from './layout/member/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { I18nService } from './i18n/i18n.service';
+import { LoaderService } from './shared/services/loader.service';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -29,14 +32,33 @@ import { TranslateModule } from '@ngx-translate/core';
     NzButtonModule,
     HeaderComponent,
     FooterComponent,
+    NzSpinModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   isCollapsed = false;
+  isSpinning = false;
 
-  constructor(injector: Injector) {
+  constructor(
+    injector: Injector,
+    private readonly _i18nService: I18nService,
+    private loadingService: LoaderService,
+    private cdr: ChangeDetectorRef
+  ) {
     InjectorService.setInjector(injector);
+  }
+  ngOnInit() {
+    // Initialize i18nService with default language and supported languages
+    this._i18nService.init('vi-VN', ['vi-VN', 'en-US']);
+    this.loadingService.getLoading$().subscribe((res) => {
+      this.isSpinning = res;
+      this.cdr.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._i18nService.destroy();
   }
 }

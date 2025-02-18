@@ -41,4 +41,4 @@ export const URL_ROUTER = {
   // document start
   documents: 'documents',
   // document end
-};
+} as const;

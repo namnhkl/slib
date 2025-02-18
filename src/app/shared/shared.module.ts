@@ -5,6 +5,8 @@ import { SSliderComponent } from './components/s-slider/s-slider.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { SpinnerService } from './services/spinner.service';
+import { LoaderService } from './services/loader.service';
 
 @NgModule({
   imports: [
@@ -22,6 +24,11 @@ import { RouterModule } from '@angular/router';
   exports: [
     //export components and modules here
     SSliderComponent
+  ],
+  providers: [
+    //provide services here
+    SpinnerService,
+    LoaderService
   ],
 })
 export class SharedModule {}

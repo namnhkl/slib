@@ -7,7 +7,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
@@ -25,27 +24,23 @@ import { ProfileComponent } from './components/profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     MenubarComponent,
-    // HeaderComponent,
     CommonModule,
-    NzIconModule,
     NzLayoutModule,
     NzMenuModule,
     NzAvatarModule,
     NzPopoverModule,
-    NzMessageModule,
-    NzSpinModule,
     NzModalModule,
     NzButtonModule,
     ProfileComponent,
+    NzIconModule, 
+    NzSpinModule
   ],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss',
 })
 export class MemberComponent implements OnInit, OnDestroy {
   isCollapsed = false;
-
   isSpinning = false;
-
   permissionsData!: Record<string, boolean>;
 
   constructor(
@@ -54,8 +49,9 @@ export class MemberComponent implements OnInit, OnDestroy {
     private loadingService: LoaderService,
     private cdr: ChangeDetectorRef
   ) {}
-
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit() {
     this.loadingService.getLoading$().subscribe((res) => {
