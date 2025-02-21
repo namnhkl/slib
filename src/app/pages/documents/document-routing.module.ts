@@ -9,10 +9,10 @@ const routes: Routes = [
     path: '',
     component: DocumentsComponent,
   },
-  // {
-  //   path: 'author',
-  //   component: DocumentsSearchComponent,
-  // },
+  {
+    path: 'author',
+    component: DocumentsSearchComponent,
+  },
   {
     path: ':id',
     component: DocumentDetailsComponent,
