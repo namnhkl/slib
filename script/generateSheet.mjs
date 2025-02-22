@@ -22,8 +22,8 @@ async function getSheetContent() {
       en[(row[0] || "").trim()] = (row[1] || "").trim();
       vi[(row[0] || "").trim()] = (row[2] || "").trim();
     });
-    fs.writeFileSync("./src/assets/i18n/en.json", `${JSON.stringify(en, null, 2)}`);
-    fs.writeFileSync("./src/assets/i18n/vi.json", `${JSON.stringify(vi, null, 2)}`);
+    fs.writeFileSync("./src/app/translations/en.json", `${JSON.stringify(en, null, 2)}`);
+    fs.writeFileSync("./src/app/translations/vi.json", `${JSON.stringify(vi, null, 2)}`);
     console.log("Done");
   } catch (error) {
     console.error("Error fetching sheet content:", error);

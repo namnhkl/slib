@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, FormGroup,
+  AbstractControl,
+  FormGroup,
   FormsModule,
-  ReactiveFormsModule, NonNullableFormBuilder,
+  ReactiveFormsModule,
+  NonNullableFormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -39,9 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: NonNullableFormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private commonService: CommonService,
-  ) {
-  }
+    private commonService: CommonService
+  ) {}
 
   ngOnDestroy(): void {
     this.commonService.stop();
@@ -66,8 +67,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   formInit(): void {
     this.form = this.fb.group({
-      userName: ['', [ExtendValidators.customRequired('Tài khoản không được để trống')]],
-      password: ['', [ExtendValidators.customRequired('Mật khẩu không được để trống')]],
+      userName: [
+        '',
+        [ExtendValidators.customRequired('Tài khoản không được để trống')],
+      ],
+      password: [
+        '',
+        [ExtendValidators.customRequired('Mật khẩu không được để trống')],
+      ],
       remember: [false],
       isMember: [false],
     });
@@ -104,9 +111,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           if (error.status === 0) this.loginError = 'Lỗi kết nối!';
           else this.loginError = error.error.problemDetails.errors[0].message;
-          console.error('Request failed with error:', error.error.problemDetails.errors[0].message);
-        },
-
+          console.error(
+            'Request failed with error:',
+            error.error.problemDetails.errors[0].message
+          );
+        }
       );
     } else {
       Object.values(this.form!.controls).forEach((control) => {

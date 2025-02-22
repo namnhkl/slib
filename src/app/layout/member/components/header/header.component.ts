@@ -30,33 +30,40 @@ import { I18nService } from '@/app/i18n/i18n.service';
 export class HeaderComponent {
   protected links = [
     {
-      title: 'Trang chủ',
+      title: 'home',
       url: URL_ROUTER.home,
     },
     {
-      title: 'Giới thiệu',
+      title: 'introduction',
       url: URL_ROUTER.about,
     },
     {
-      title: 'Tin tức',
+      title: 'news',
       url: URL_ROUTER.news,
     },
     {
-      title: 'Sách hay',
+      title: 'good_books',
       url: URL_ROUTER.documents,
     },
     {
-      title: 'Mượn liên TV',
+      title: 'borrow_from_lien_tv',
       url: URL_ROUTER.contact,
     },
     {
-      title: 'Liên hệ',
+      title: 'contact',
       url: URL_ROUTER.contact,
     },
   ];
   language = 'vi-VN';
 
-  constructor(private router: Router, private readonly _i18nService: I18nService,) {}
+  constructor(
+    private router: Router,
+    private readonly _i18nService: I18nService
+  ) {}
+
+  ngOnInit() {
+    this.language = this._i18nService.language;
+  }
 
   logout() {
     localStorage.removeItem('access_token');
@@ -67,12 +74,11 @@ export class HeaderComponent {
     return this._i18nService.supportedLanguages;
   }
 
-  setLanguage(language: string) {
+  setLanguage(language: 'vi-VN' | 'en-US') {
     this._i18nService.language = language;
   }
 
   changeLanguage(language: string) {
-    console.log("🚀 ~ HeaderComponent ~ changeLanguage ~ language:", language)
     this._i18nService.language = language;
   }
 }

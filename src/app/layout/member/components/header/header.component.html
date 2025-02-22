@@ -1,20 +1,18 @@
 <nav class="topmenu navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <!-- Logo bên phải -->
-        <a class="navbar-brand order-lg-1" href="#">
+        <a class="navbar-brand order-lg-1" [routerLink]="['/']">
             <img src="./img/logo/logo-slibk12.svg" alt="Logo">
         </a>
 
         <!-- Button toggle trên mobile -->
         <div class="d-flex languages languageMb">
-            <form>
-                <div class="mbForm">
-                    <nz-select ngModel="lucy">
-                        <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
-                        <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
-                    </nz-select>
-                </div>
-            </form>
+            <div class="mbForm">
+                <nz-select ngModel="lucy">
+                    <nz-option nzValue="vi" [nzLabel]="vietnamese|translate"></nz-option>
+                    <nz-option nzValue="en" [nzLabel]="english|translate"></nz-option>
+                </nz-select>
+            </div>
         </div>
         <button id="navbarToggle" class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +25,7 @@
                 <a class="navbar-brand order-lg-1" href="#">
                     <img src="./img/logo/logo-slibk12.svg" alt="Logo">
                 </a>
-                <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-solid fa-user"></i> Hồ
+                <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-solid fa-user"></i>Hồ
                     sơ</button>
                 <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-sign-out"></i> Đăng
                     xuất</button>
@@ -35,7 +33,7 @@
             <ul class="navbar-nav mx-auto">
                 @for (link of links; track $index) {
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="{{link.url}}">{{link.title}}</a>
+                    <a class="nav-link" routerLink="{{link.url}}">{{link.title | translate}}</a>
                 </li>
                 }
             </ul>
@@ -48,8 +46,8 @@
             <div class="d-flex languages">
                 <div class="mbForm">
                     <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)">
-                        <nz-option nzValue="vi-VN" nzLabel="Tiếng Việt"></nz-option>
-                        <nz-option nzValue="en-US" nzLabel="Tiếng Anh"></nz-option>
+                        <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
+                        <nz-option nzValue="en-US" translate [nzLabel]="'english'|translate"></nz-option>
                     </nz-select>
                 </div>
             </div>

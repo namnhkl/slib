@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -17,6 +18,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   styleUrls: ['./login-button.component.scss'],
   imports: [
     NzButtonModule,
+    TranslateModule,
     NzModalModule,
     ReactiveFormsModule,
     NzButtonModule,
