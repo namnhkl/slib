@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@/app/shared/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { Component,inject, OnInit } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
@@ -17,6 +19,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   templateUrl: './login-button.component.html',
   styleUrls: ['./login-button.component.scss'],
   imports: [
+    CommonModule,
     NzButtonModule,
     TranslateModule,
     NzModalModule,
@@ -30,17 +33,24 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 export class LoginButtonComponent implements OnInit {
   validateForm: FormGroup;
   isVisible = false;
-  constructor(private fb: NonNullableFormBuilder) {
+  isAuthenticated$;
+  constructor(private fb: NonNullableFormBuilder, private authService: AuthService) {
     this.validateForm = this.fb.group({
       username: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required]),
       remember: this.fb.control(true),
     });
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
+  }
+
+  ngOnInit(): void {
+    console.log('isAuthenticated$', this.isAuthenticated$);
   }
 
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
+      this.authService.login(this.validateForm.value);
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -49,10 +59,6 @@ export class LoginButtonComponent implements OnInit {
         }
       });
     }
-  }
-
-  ngOnInit() {
-    console.log('LoginButtonComponent');
   }
   showModal(): void {
     this.isVisible = true;
@@ -66,5 +72,9 @@ export class LoginButtonComponent implements OnInit {
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
+  }
+  
+  logout() {
+    this.authService.logout();
   }
 }

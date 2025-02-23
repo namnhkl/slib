@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SpinnerService } from './services/spinner.service';
 import { LoaderService } from './services/loader.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { LoaderService } from './services/loader.service';
   providers: [
     //provide services here
     SpinnerService,
-    LoaderService
+    LoaderService,
+    AuthService
   ],
 })
 export class SharedModule {}

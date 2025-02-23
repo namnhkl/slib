@@ -1,11 +1,11 @@
 interface StorageObjectMap {
+  access_token: string;
   appSession: {
     user: string;
-    token: string;
   };
 }
 
-export type StorageObjectType = 'appSession';
+export type StorageObjectType = keyof StorageObjectMap;
 
 export interface StorageObjectData<T extends StorageObjectType> {
   type: T;
