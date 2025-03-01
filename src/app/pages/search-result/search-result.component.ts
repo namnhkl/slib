@@ -1,33 +1,49 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeSearchAdvancedComponent } from '../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { IBookSearchResponse } from '../home/HomeSearchAdvanced/type';
 import { map, tap } from 'rxjs';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { queryParamObject } from '@/app/shared/utils/queryParams';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import _ from 'lodash';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-search-result',
   imports: [
-    AsyncPipe,
-    HomeSearchAdvancedComponent
+    HomeSearchAdvancedComponent,
+    ReactiveFormsModule,
+    NzInputModule,
+    NzFormModule,
+    NzRadioModule,
+    NzIconModule
   ],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.scss'
 })
-export class SearchResultComponent {
+export class SearchResultComponent implements OnInit {
   activatedRouter = inject(ActivatedRoute);
 
   pageIndex = 1;
 
   pageSize = 0;
 
+  formCriteriaFilter: FormGroup;
 
   constructor(
+    private fb: NonNullableFormBuilder,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+    this.formCriteriaFilter = this.fb.group({
+      bsThuVienId: this.fb.control(''),
+      bmDmDangTaiLieuId: this.fb.control(''),
+    });
+  }
 
   ngOnInit() {
     this.activatedRouter.queryParams
@@ -36,14 +52,28 @@ export class SearchResultComponent {
           (queryParams: any) => ({
             pageIndex: Number(queryParams.pageIndex),
             pageSize: Number(queryParams.pageSize),
+            bsThuVienId: queryParams.bsThuVienId,
+            bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
           })
         ),
         tap(value => {
           this.pageIndex = value.pageIndex;
           this.pageSize = value.pageSize;
+          this.formCriteriaFilter.setValue({
+            bsThuVienId: value.bsThuVienId,
+            bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
+          })
         })
       ).subscribe()
-
+    this.formCriteriaFilter.valueChanges.subscribe(value => {
+    console.log("🚀 ~ SearchResultComponent ~ ngOnInit ~ value:", value)
+      this.router.navigate([URL_ROUTER.searchResult], {
+        queryParams: {
+            ...queryParamObject(),
+            ..._.omitBy(value, !_.isUndefined)
+        }
+      })
+    })
   }
 
   booksSearched: Partial<IBookSearchResponse> = {
@@ -52,6 +82,7 @@ export class SearchResultComponent {
   }
 
   searchList(results: IBookSearchResponse) {
+    console.log("🚀 ~ SearchResultComponent ~ searchList ~ results:", results)
     this.booksSearched = results;
     this.changeDetectorRef.detectChanges()
   }

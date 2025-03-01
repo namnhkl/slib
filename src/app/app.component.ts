@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from './i18n/i18n.service';
 import { LoaderService } from './shared/services/loader.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { SharedModule } from './shared/shared.module';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,6 +24,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     CommonModule,
     RouterLink,
     RouterOutlet,
+    SharedModule,
     NzIconModule,
     NzLayoutModule,
     NzMenuModule,

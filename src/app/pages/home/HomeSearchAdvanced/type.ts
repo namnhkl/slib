@@ -17,3 +17,8 @@ export interface IBook {
 }
 
 export interface IBookSearchResponse extends IResponse<IBook[]> {}
+
+export interface IBookOptions {
+  tieuDe: string,
+  id: string
+}

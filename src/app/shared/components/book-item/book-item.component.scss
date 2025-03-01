@@ -1,0 +1,31 @@
+.box_item {
+  text-align: left;
+  img {
+    height: auto;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+  }
+  a{
+    > span{
+      display: block;
+      line-height: 25px;
+      height: 50px;
+      overflow: hidden;
+      position: relative;
+      &:after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        //background gradient fade bottom to top
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+        height: 40px;
+        pointer-events: none;
+      }
+    }
+  }
+}

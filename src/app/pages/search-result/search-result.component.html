@@ -1,14 +1,5 @@
 <div class="searchBar">
   <div class="container">
-    <!-- <div class="inputSearch d-flex">
-      <input type="text" class="form-control" placeholder="Bắt đầu tìm kiếm">
-      <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#searchModal">
-        <svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 -960 960 960" width="100%"
-          preserveAspectRatio="none" class="" fill="rgba(255, 255, 255, 1)">
-          <path d="M400-240v-60h160v60H400ZM240-450v-60h480v60H240ZM120-660v-60h720v60H120Z"></path>
-        </svg>
-      </button>
-    </div> -->
     <app-home-search-advanced (searchResultsChange)="searchList($event)" />
   </div>
 </div>
@@ -20,59 +11,38 @@
       <div class="modalStand_box">
         <div class="title-result">
         </div>
-        <div class="advSearch">
-          <h3>Tiêu chí lọc</h3>
-          <div class="widget_searchAdv">
-            <h3>Bộ sách</h3>
-            <form>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookCanhDieu" value="canh-dieu">
-                <label class="form-check-label" for="bookCanhDieu">
-                  Cánh diều
-                </label>
+        <form [formGroup]="formCriteriaFilter">
+          <div class="advSearch">
+            <h3>Tiêu chí lọc</h3>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex" style="gap: 4px;">
+                  <h3>Bộ sách</h3>
+                  <nz-icon nzType="clear" nzTheme="outline" />
+                </div>
+                <nz-radio-group formControlName="bsThuVienId">
+                  <label nz-radio nzValue="canh-dieu">Cánh diều</label>
+                  <label nz-radio nzValue="chan-troi-sang-tao">Chân trời sáng tạo</label>
+                  <label nz-radio nzValue="ket-noi-tri-thuc">Kết nối tri thức</label>
+                </nz-radio-group>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookChanTroi" value="chan-troi-sang-tao">
-                <label class="form-check-label" for="bookChanTroi">
-                  Chân trời sáng tạo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookKetNoi" value="ket-noi-tri-thuc">
-                <label class="form-check-label" for="bookKetNoi">
-                  Kết nối tri thức
-                </label>
-              </div>
-            </form>
-          </div>
-          <div class="widget_searchAdv">
-            <h3>Loại tài liệu</h3>
-            <form>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachGiaoKhoa"
-                  value="sach-giao-khoa">
-                <label class="form-check-label" for="docSachGiaoKhoa">
-                  Sách giáo khoa
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachThamKhao"
-                  value="sach-tham-khao">
-                <label class="form-check-label" for="docSachThamKhao">
-                  Sách tham khảo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachNghiepVu"
-                  value="sach-nghiep-vu">
-                <label class="form-check-label" for="docSachNghiepVu">
-                  Sách nghiệp vụ
-                </label>
-              </div>
-            </form>
-          </div>
+            </nz-form-item>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex" style="gap: 4px;">
+                  <h3>Loại tài liệu</h3>
+                  <nz-icon nzType="clear" nzTheme="outline" />
+                </div>
 
-        </div>
+                <nz-radio-group formControlName="bmDmDangTaiLieuId">
+                  <label nz-radio nzValue="sach-giao-khoa">Sách giáo khoa</label>
+                  <label nz-radio nzValue="sach-tham-khao">Sách tham khảo</label>
+                  <label nz-radio nzValue="sach-nghiep-vu">Sách nghiệp vụ</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+          </div>
+        </form>
       </div>
       <div class="modalStand_box">
         <div class="title-result">
@@ -80,22 +50,15 @@
         </div>
         <div class="box_result_book">
           @for (book of booksSearched.data; track $index) {
-            <div class="box_item">
-              <a href="#">
-                <p>
-                  <img [src]="book.anhDaiDien" alt="Book 1">
-                  <span class="leftSideBookSearch"></span>
-                </p>
-                <span class="title">{{book.tieuDe}}</span>
-              </a>
-            </div>
+            <app-book-item [book]="book"></app-book-item>
           }
         </div>
         <div class="page_sort_item">
           <div class="item_page_detail">
             <div class="d-flex align-items-center groupSelect">
               <label for="numberSelect" class="form-label">Hiển thị</label>
-              <select [value]="pageSize" class="form-select" id="numberSelect" aria-label="Chọn số" (change)="handleChangePageSize($event)">
+              <select [value]="pageSize" class="form-select" id="numberSelect" aria-label="Chọn số"
+                (change)="handleChangePageSize($event)">
                 <option value="selected disabled">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -112,11 +75,13 @@
           </div>
           <div class="item_page_detail">
             @if(booksSearched.totalRecord) {
-              <div class="showPage">
-                <span>{{pageIndex}}/{{booksSearched.totalRecord}}</span>
-                <button class="btn pre-btn active" (click)="this.handleChangePage(true)"><span class="btnPre" aria-label="Previous">‹</span></button>
-                <button class="btn next-btn active" (click)="this.handleChangePage(false)"><span class="btnPre" aria-label="Next">›</span></button>
-              </div>
+            <div class="showPage">
+              <span>{{pageIndex}}/{{booksSearched.totalRecord}}</span>
+              <button class="btn pre-btn active" (click)="this.handleChangePage(true)"><span class="btnPre"
+                  aria-label="Previous">‹</span></button>
+              <button class="btn next-btn active" (click)="this.handleChangePage(false)"><span class="btnPre"
+                  aria-label="Next">›</span></button>
+            </div>
             }
           </div>
         </div>

@@ -5,7 +5,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions, SlidesOutputData } from 'ngx-owl-carousel-o';
 import { IBoook } from '../../types/common';
 import { URL_ROUTER } from '../../constants/path.constants';

@@ -5,12 +5,14 @@ import { RouterLink } from '@angular/router';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { get } from 'lodash';
+import { LoaderService } from '@/app/shared/services/loader.service';
+import { SharedModule } from '@/app/shared/shared.module';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.scss'],
-  imports: [HomeSearchAdvancedComponent, RouterLink, FormsModule, NzSelectModule],
+  imports: [HomeSearchAdvancedComponent, RouterLink, FormsModule, NzSelectModule, SharedModule],
   providers: [DocumentsService],
 })
 export class DocumentsComponent implements OnInit {
@@ -22,17 +24,18 @@ export class DocumentsComponent implements OnInit {
   totalPage = 0;
   constructor(
     private documentsService: DocumentsService,
+    private loaderService: LoaderService
   ) {
     console.log('DocumentsComponent');
   }
 
   ngOnInit() {
-    console.log('DocumentsComponent');
     this.pageIndex = 10;
     this.documentsService.getDocsLatest().subscribe((res) => {
       console.log("🚀 ~ DocumentsComponent ~ this.documentsService.getDocsLatest ~ res:", res)
       this.documents = res.data;
       this.totalRecords = parseInt(`${get(res, 'totalRecords', 0)}`);
+      this.loaderService.setLoading(false);
     });
   }
 

@@ -6,12 +6,7 @@
           (changed)="getChangedData($event)" #owlCar class="classSlider">
           @for (item of simpleData; track item.id) {
           <ng-template carouselSlide [id]="item.id">
-            <div class="item-class">
-              <a href="#">
-                <img [src]="item.image" [alt]="item.title">
-                <span>{{item.title}}</span>
-              </a>
-            </div>
+            <app-book-item-slider [book]="item"></app-book-item-slider>
           </ng-template>
           }
         </owl-carousel-o>

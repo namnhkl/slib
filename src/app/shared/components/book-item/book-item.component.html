@@ -1,0 +1,15 @@
+<!-- <div class="item-class" *ngIf="book">
+  <a [routerLink]="['/documents', book?.id]">
+    <img [src]="book?.anhDaiDien" [alt]="book?.title" />
+    <span>{{book?.title}}</span>
+  </a>
+</div> -->
+<div class="box_item">
+  <a [routerLink]="['/documents', book.id]">
+    <p>
+      <img [src]="book.anhDaiDien" alt="Book 1">
+      <span class="leftSideBookSearch"></span>
+    </p>
+    <span class="title">{{book.tieuDe}}</span>
+  </a>
+</div>

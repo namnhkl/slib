@@ -6,7 +6,6 @@ import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { IPageParams } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
 import { IBookSearchResponse } from './HomeSearchAdvanced/type';
-import { DEFAULT_PAGINATION_OPTION } from '@/app/shared/constants/const';
 
 @Injectable()
 @HttpRequestInjectable('/tailieu')
@@ -29,13 +28,6 @@ export class HomeService extends _HttpRequestInjector {
   searchDocs(
     queryObject: IPageParams & any
   ) {
-    if (!queryObject.pageIndex) {
-      queryObject = {
-        ...queryObject,
-        ...DEFAULT_PAGINATION_OPTION
-      }
-    }
-
     const url = this.urlObject.buildUrl({
       endpoint: 'bmTaiLieuMoiNhatDs',
       queryObject,

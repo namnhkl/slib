@@ -62,6 +62,9 @@
       <div class="modalStand_box">
         <div class="box_result_book">
           @for (item of documents; track $index) {
+            <app-book-item [book]="item"></app-book-item>
+          }
+          <!-- @for (item of documents; track $index) {
           <div class="box_item">
             <a [routerLink]="['/documents', item.id]">
               <p>
@@ -71,7 +74,7 @@
               <span class="title">{{item.tieuDe}}</span>
             </a>
           </div>
-          }
+          } -->
         </div>
         <div class="page_sort_item">
           <div class="item_page_detail">
@@ -87,8 +90,12 @@
           <div class="item_page_detail">
             <div class="showPage">
               <span>1/10</span>
-              <button class="btn pre-btn"><span class="btnPre" aria-label="Previous">‹</span></button>
-              <button class="btn next-btn active"><span class="btnPre" aria-label="Next">›</span></button>
+              <button class="btn pre-btn" type="button">
+                <span class="btnPre" aria-label="Previous">‹</span>
+              </button>
+              <button class="btn next-btn active" type="button">
+                <span class="btnPre" aria-label="Next">›</span>
+              </button>
             </div>
           </div>
         </div>

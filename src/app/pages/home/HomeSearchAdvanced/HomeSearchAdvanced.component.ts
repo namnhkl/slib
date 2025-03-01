@@ -13,18 +13,20 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { HomeService } from '../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
-import { map, switchMap, tap } from 'rxjs';
+import { debounceTime, map, Observable, of, switchMap, tap } from 'rxjs';
 import { IBook } from './type';
 import { DEFAULT_PAGINATION_OPTION } from '@/app/shared/constants/const';
 import _ from 'lodash';
+import { LoaderService } from '@/app/shared/services/loader.service';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { AsyncPipe } from '@angular/common';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-home-search-advanced',
   templateUrl: './HomeSearchAdvanced.component.html',
   styleUrls: ['./HomeSearchAdvanced.component.scss'],
-  providers: [
-    HomeService
-  ],
+  providers: [HomeService],
   imports: [
     NzButtonModule,
     NzModalModule,
@@ -34,15 +36,21 @@ import _ from 'lodash';
     NzFormModule,
     NzInputModule,
     NzSelectModule,
+    NzAutocompleteModule,
+    AsyncPipe,
+    NzDropDownModule
   ],
 })
 export class HomeSearchAdvancedComponent implements OnInit {
   @Output() searchResultsChange = new EventEmitter();
 
+  isVisibleHint = false;
+
   formAdvanceSearch: FormGroup;
 
   formBasicSearch: FormGroup;
 
+  $options: Observable<IBook[]>;
 
   isVisible = false;
 
@@ -51,7 +59,8 @@ export class HomeSearchAdvancedComponent implements OnInit {
   constructor(
     private fb: NonNullableFormBuilder,
     private router: Router,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private loadingService: LoaderService
   ) {
     this.formAdvanceSearch = this.fb.group({
       tieuDe: this.fb.control(''),
@@ -62,7 +71,27 @@ export class HomeSearchAdvancedComponent implements OnInit {
 
     this.formBasicSearch = this.fb.group({
       tieuDe: this.fb.control('')
-    })
+    });
+
+    this.$options = this.formBasicSearch.valueChanges.pipe(
+      debounceTime(500),
+      switchMap(({ tieuDe } )=> {
+        if (tieuDe.length >= 3) {
+          return this.homeService.searchDocs({
+            pageIndex: 1,
+            pageSize: 3,
+            tieuDe
+          })
+        }
+
+        return of(null)
+      }),
+      map(res => _.get(res, 'data', [] as IBook[])),
+    );
+  }
+
+  handleSelect(event: any) {
+    console.log('event', event)
   }
 
   ngOnInit() {
@@ -78,42 +107,63 @@ export class HomeSearchAdvancedComponent implements OnInit {
           queryPage: {
             pageIndex: Number(value.pageIndex),
             pageSize: Number(value.pageSize),
-          }
+            bsThuVienId: value?.bsThuVienId || '',
+            bmDmDangTaiLieuId: value?.bmDmDangTaiLieuId || '',
+          },
         })),
         tap(({ formData }) => {
-          this.formAdvanceSearch.setValue(formData);
+          this.loadingService.setLoading(true);
+          this.formAdvanceSearch.setValue({
+            tieuDe: formData.tieuDe || '',
+            dinhDang: formData.dinhDang || '',
+            nhaXuatBan: formData.nhaXuatBan || '',
+            ngonNgu: formData.ngonNgu || '',
+          });
           this.formBasicSearch.setValue({ tieuDe: formData.tieuDe });
         }),
         switchMap(({ formData, queryPage }) => {
-          return this.homeService.searchDocs({ ...formData, ...queryPage })
+          return this.homeService
+            .searchDocs({ ...formData, ...queryPage })
             .pipe(
-              map(res => {
+              map((res) => {
                 if (res.messageCode === 1 && _.isArray(res.data)) {
                   return {
                     data: _.get(res, 'data', [] as IBook[]),
-                    totalRecord: _.get(res, 'totalRecord', 0)
-                  }
+                    totalRecord: _.get(res, 'totalRecord', 0),
+                  };
                 }
 
                 return {
                   data: [] as IBook[],
-                  totalRecord: 10
-                }
+                  totalRecord: 10,
+                };
+              }),
+              tap(() => {
+                this.loadingService.setLoading(false);
               })
             );
         })
-    ).subscribe((searchList) => {
-      this.searchResultsChange.emit(searchList)
-    })
+      )
+      .subscribe((searchList) => {
+        this.searchResultsChange.emit(searchList);
+      });
   }
 
   submitBasicSearch() {
     if (this.formBasicSearch.valid) {
+      if (this.formBasicSearch.value.tieuDe.includes('auto-complete|')) {
+        console.log('please redirect to ' + this.formBasicSearch.value.tieuDe.replace('auto-complete|', ''))
+
+        this.formBasicSearch.reset()
+
+        return;
+      }
+
       this.router.navigate([URL_ROUTER.searchResult], {
         queryParams: {
           ...this.formBasicSearch.value,
           ...DEFAULT_PAGINATION_OPTION,
-        }
+        },
       });
     } else {
       Object.values(this.formBasicSearch.controls).forEach((control) => {
@@ -132,7 +182,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
         queryParams: {
           ...this.formAdvanceSearch.value,
           ...DEFAULT_PAGINATION_OPTION,
-        }
+        },
       });
     } else {
       Object.values(this.formAdvanceSearch.controls).forEach((control) => {
@@ -162,5 +212,4 @@ export class HomeSearchAdvancedComponent implements OnInit {
   handleReset(): void {
     this.formAdvanceSearch.reset();
   }
-
 }
