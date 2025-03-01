@@ -7,7 +7,7 @@ export const URL_ROUTER = {
   newDetail: 'details',
   /* end tin tức */
   contact: 'contact',
-  searchResult: 'search-result',
+  searchResult: 'search-results',
   profile: 'profile',
   notFound: '404',
   // quản lý

@@ -42,10 +42,14 @@ export class ContactComponent {
         tap(res => {
           if (res.messageCode === 1) {
             this.notificationService.success('Thành công', res.messageText)
+            this.validateForm.reset();
+          }
+          else{
+            this.notificationService.error('Thất bại', res.messageText)
           }
         })
       )
-      .subscribe()
+      .subscribe();
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {

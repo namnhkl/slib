@@ -1,3 +1,4 @@
+<nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
  <div class="wrapp-news">
   <div class="container">
     <div class="row-news">
@@ -5,7 +6,7 @@
         <!-- News Item 1 -->
         @for (_new of (news | async); track $index) {
         <div class="news-item d-flex">
-          <a [routerLink]="URL_DETAIL" [queryParams]="{ id: _new.id  }">
+          <a [routerLink]="[_new.id]">
             <div class="news-img">
               <img [src]="_new.anhDaiDien" alt="Post Image 1" class="img-fluid">
             </div>
@@ -76,3 +77,4 @@
       </div>
     </div>
   </div>
+</nz-spin>

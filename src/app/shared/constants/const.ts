@@ -1,4 +1,4 @@
-import { PaginatorParams } from '../models';
+import { IPageParams } from '../types/common';
 
 export const TYPE_MES = {
   success: 'success',
@@ -22,8 +22,7 @@ export const Status = {
   pageSize: 100000,
   pageNumber: 1,
  */
-export const DEFAULT_PAGINATION_OPTION: PaginatorParams = {
-  page: 1,
-  pageSize: 100000,
-  pageNumber: 1,
+export const DEFAULT_PAGINATION_OPTION: IPageParams = {
+  pageIndex: 1,
+  pageSize: 10,
 };

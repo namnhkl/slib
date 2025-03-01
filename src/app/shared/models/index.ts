@@ -1,5 +1,5 @@
 export interface PaginatorParams {
-  page: number;
+  pageIndex: number;
   pageNumber: number,
   pageSize: number;
 }

@@ -28,7 +28,12 @@ function setItem<T extends StorageObjectType>(
   }
 
   const api = getStorageApi(options?.api || 'LocalStorage');
-  api.setItem(itemName, JSON.stringify(data));
+  if(typeof data === 'string') {
+    api.setItem(itemName, data);
+  }
+  else{
+    api.setItem(itemName, JSON.stringify(data));
+  }
 }
 
 function removeItem<T extends StorageObjectType>(

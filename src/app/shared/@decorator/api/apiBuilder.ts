@@ -4,8 +4,8 @@ import { API_PREFIX, TApiPrefix } from '../../constants/api.constants';
 import { CommonService } from '../../services/common.service';
 
 type TBuildUrl = {
-  endpoint: string,
-  queryObject?: { [x: string]: any }
+  endpoint: string;
+  queryObject?: { [x: string]: any };
 };
 
 /**
@@ -70,11 +70,9 @@ export class UrlModel {
 /**
  * A record of URL builders for different API prefixes.
  */
-export const URL_BUILDERS: Record<TApiPrefix, UrlModel> = Object
-  .keys(API_PREFIX)
-  .reduce((acc, cur) => {
-    acc[cur] = new UrlModel(
-      API_PREFIX[cur as TApiPrefix],
-    );
-    return acc;
-  }, {} as any);
+export const URL_BUILDERS: Record<TApiPrefix, UrlModel> = Object.keys(
+  API_PREFIX
+).reduce((acc, cur) => {
+  acc[cur] = new UrlModel(API_PREFIX[cur as TApiPrefix]);
+  return acc;
+}, {} as any);

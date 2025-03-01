@@ -1,3 +1,19 @@
-<div>
-  {{ newDetail | async | json }}
+<div class="info-detail-section">
+  <div class="container">
+    <div class="box-info-detail">
+      <h2>{{newDetail.ten}}</h2>
+      <div class="group-info-detail">
+        <div class="itemColumnInfo">
+          <div class="img-itemColumnInfo">
+            <p>
+              <span class="leftSideBookSearch"></span>
+              <img [src]="newDetail.anhDaiDien" alt="" />
+            </p>
+          </div>
+        </div>
+        <div class="itemColumnInfo" [innerHTML]="newDetail.moTa"></div>
+        <div class="itemColumnInfo" [innerHTML]="newDetail.noiDung"></div>
+      </div>
+    </div>
+  </div>
 </div>

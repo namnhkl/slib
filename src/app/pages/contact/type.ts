@@ -1,14 +1,11 @@
+import { IResponse } from "@/app/shared/types/common";
+
 interface ContactInfo {
   qtndHtNgonNguId: string;
   noiDung: string;
 }
 
-export interface IContactDetailResponse {
-  messageCode: number;
-  messageText: string;
-  data: ContactInfo[];
-  totalRecord: number;
-}
+export interface IContactDetailResponse extends IResponse<ContactInfo> {}
 
 export interface ContactFormBody {
   hoTen: string;
@@ -17,9 +14,4 @@ export interface ContactFormBody {
   ip: string;
 }
 
-export interface IContactResponse {
-  messageCode: number;
-  messageText: string;
-  data: null;
-  totalRecord: number;
-}
+export interface IContactResponse extends IResponse<any> {}

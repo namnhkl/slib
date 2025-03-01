@@ -13,4 +13,4 @@ const route: Routes = [
   imports: [RouterModule.forChild(route)],
   exports: [RouterModule],
 })
-export class ContactRoutingModule {}
+export class SearchResultRoutingModule {}

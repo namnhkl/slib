@@ -1,12 +1,13 @@
 import { AuthService } from '@/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Component,inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -34,7 +35,11 @@ export class LoginButtonComponent implements OnInit {
   validateForm: FormGroup;
   isVisible = false;
   isAuthenticated$;
-  constructor(private fb: NonNullableFormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.validateForm = this.fb.group({
       username: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required]),
@@ -47,10 +52,31 @@ export class LoginButtonComponent implements OnInit {
     console.log('isAuthenticated$', this.isAuthenticated$);
   }
 
-  submitForm(): void {
+  async submitForm() {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.authService.login(this.validateForm.value);
+      const { username, password } = this.validateForm.value;
+      this.authService
+        .login({
+          soThe: username,
+          matKhau: password,
+        })
+        .subscribe({
+          next: (res) => {
+            console.log('res', res);
+            if (res.messageCode) {
+              this.authService.saveSession(res.data[0], res.accessToken);
+              //redirect to profile after login
+              this.router.navigate(['/profile']);
+            } else {
+              // eslint-disable-next-line no-alert
+              alert(res.messageText || 'Sai tài khoản hoặc mật khẩu');
+            }
+            this.isVisible = false;
+          },
+          error: (err) => {
+            console.log('err', err);
+          },
+        });
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -73,7 +99,7 @@ export class LoginButtonComponent implements OnInit {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
-  
+
   logout() {
     this.authService.logout();
   }

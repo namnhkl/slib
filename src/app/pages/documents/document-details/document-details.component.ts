@@ -9,6 +9,7 @@ import { IDocument } from '../documents';
   templateUrl: './document-details.component.html',
   styleUrls: ['./document-details.component.scss'],
   imports: [RouterLink, RouterModule],
+  providers: [DocumentsService],
 })
 export class DocumentDetailsComponent implements OnInit {
   currentDocument!: IDocument;

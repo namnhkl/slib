@@ -12,7 +12,6 @@ import { UrlModel, URL_BUILDERS } from './apiBuilder';
  */
 export abstract class _HttpRequestInjector {
   urlObject!: UrlModel;
-
   _http!: HttpClient;
 }
 

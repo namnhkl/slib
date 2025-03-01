@@ -6,7 +6,7 @@ export interface IResponse<T> {
   data: T;
   messageCode: number;
   messageText: string;
-  totalRecords: number;
+  totalRecord: number;
 }
 
 export interface IPageParams {

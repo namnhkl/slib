@@ -1,7 +1,22 @@
 interface StorageObjectMap {
   access_token: string;
   appSession: {
-    user: string;
+    id: string;
+    bsThuVienTen: string;
+    bdNhomTen: string;
+    soThe: string;
+    hoTen: string;
+    gioiTinh: string;
+    ngaySinh: string;
+    email: string;
+    dienThoai: string;
+    anhDaiDien: string;
+    ngayBatDau: string;
+    ngayKetThuc: string;
+    ngayKhoaTheTu: string;
+    ngayKhoaTheDen: string;
+    diaChi: string;
+    nguoiLienHe: string;
   };
 }
 

@@ -1,19 +1,62 @@
-import { CanActivateFn } from '@angular/router';
-import { URL_ROUTER } from '../shared/constants/path.constants';
+import { inject } from '@angular/core';
+import { CanMatchFn, Route, Router, UrlSegment } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
-export const authGuard: CanActivateFn = () =>
-  // route, state
-  {
-    const token = localStorage.getItem('access_token');
-    const expiresIn = localStorage.getItem('expires_in');
-    if (!token || !expiresIn || new Date() > new Date(expiresIn)) {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('expires_in');
-      localStorage.removeItem('username');
-      window.location.href = `/${URL_ROUTER.login}`;
+interface AuthGuardOptions {
+  requiresAuthentication: boolean;
+}
 
-      return false; // Ngăn chặn truy cập vào route
+const defaultAuthGuardOptions = (): AuthGuardOptions => ({
+  requiresAuthentication: true,
+});
+
+/**
+ * Guard that allows or blocks the navigation based on the user's authentication status.
+ *
+ * @param options An optional object that configures the behavior of the guard.
+ * @param options.requiresAuthentication An optional boolean that specifies whether the guard should allow or block navigation based on the user's authentication status.
+ *
+ * @returns A function that acts as an Angular route guard.
+ *
+ * @example
+ * import { authGuard } from '@lib/guards';
+ *
+ * const routes: Routes = [
+ *   {
+ *     path: 'my-protected-component-path',
+ *     loadComponent: async () => (await import('./path/to/my-protected-component')).MyProtectedComponent,
+ *     canMatch: [authGuard()],
+ *   },
+ * ];
+ *
+ * @example
+ * import { authGuard } from '@lib/guards';
+ *
+ * const routes: Routes = [
+ *   {
+ *     path: 'my-path-component',
+ *     loadComponent: async () => (await import('./path/to/my-auth-component')).MyAuthComponent,
+ *     canMatch: [authGuard({ requiresAuthentication: false })],
+ *   },
+ * ];
+ */
+export const authGuard = (
+  options: AuthGuardOptions = defaultAuthGuardOptions()
+): CanMatchFn => {
+  return (__: Route, segments: UrlSegment[]) => {
+    const router = inject(Router);
+    const authService = inject(AuthService);
+
+    if (options.requiresAuthentication === authService.isAuthenticated) {
+      return true;
     }
 
-    return true; // Cho phép truy cập vào route nếu có token
+    return options.requiresAuthentication
+      ? router.createUrlTree(['/auth/login'], {
+          queryParams: {
+            returnUrl: segments.map((sub) => sub.path).join('/'),
+          },
+        })
+      : router.createUrlTree(['/']);
   };
+};
