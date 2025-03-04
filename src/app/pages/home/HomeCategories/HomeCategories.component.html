@@ -2,14 +2,20 @@
   <div class="container">
     <h2 class="the-title text-center">Danh Mục</h2>
     <div class="box_class">
-      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
-          (changed)="getChangedData($event)" #owlCar class="classSlider">
-          @for (item of simpleData; track item.id) {
-          <ng-template carouselSlide [id]="item.id">
-            <app-book-item-slider [book]="item"></app-book-item-slider>
-          </ng-template>
-          }
-        </owl-carousel-o>
+      <owl-carousel-o
+        [options]="customOptions"
+        (translated)="getPassedData($event)"
+        (change)="getChangeData($event)"
+        (changed)="getChangedData($event)"
+        #owlCar
+        class="classSlider"
+      >
+        @for (item of simpleData; track item.id) {
+        <ng-template carouselSlide [id]="item.id">
+          <app-book-item-slider [book]="item"></app-book-item-slider>
+        </ng-template>
+        }
+      </owl-carousel-o>
     </div>
   </div>
 </div>

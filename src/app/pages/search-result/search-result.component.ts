@@ -1,16 +1,23 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HomeSearchAdvancedComponent } from '../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
-import { IBookSearchResponse } from '../home/HomeSearchAdvanced/type';
-import { map, tap } from 'rxjs';
+import { DEFAULT_PAGINATION_OPTIONS } from '@/app/shared/constants/const';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
+import { SharedModule } from '@/app/shared/shared.module';
 import { queryParamObject } from '@/app/shared/utils/queryParams';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { map, tap } from 'rxjs';
+import { HomeSearchAdvancedComponent } from '../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
+import { IBookSearchResponse } from '../home/HomeSearchAdvanced/type';
 import _ from 'lodash';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-search-result',
@@ -20,17 +27,19 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzInputModule,
     NzFormModule,
     NzRadioModule,
-    NzIconModule
+    NzIconModule,
+    SharedModule,
+    NzSelectModule
   ],
   templateUrl: './search-result.component.html',
-  styleUrl: './search-result.component.scss'
+  styleUrl: './search-result.component.scss',
 })
 export class SearchResultComponent implements OnInit {
   activatedRouter = inject(ActivatedRoute);
-
+  pageSizes = DEFAULT_PAGINATION_OPTIONS;
   pageIndex = 1;
 
-  pageSize = 0;
+  pageSize = 10;
 
   formCriteriaFilter: FormGroup;
 
@@ -48,43 +57,42 @@ export class SearchResultComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.queryParams
       .pipe(
-        map(
-          (queryParams: any) => ({
-            pageIndex: Number(queryParams.pageIndex),
-            pageSize: Number(queryParams.pageSize),
-            bsThuVienId: queryParams.bsThuVienId,
-            bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
-          })
-        ),
-        tap(value => {
+        map((queryParams: any) => ({
+          pageIndex: Number(queryParams.pageIndex),
+          pageSize: Number(queryParams.pageSize),
+          bsThuVienId: queryParams.bsThuVienId,
+          bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
+        })),
+        tap((value) => {
           this.pageIndex = value.pageIndex;
           this.pageSize = value.pageSize;
           this.formCriteriaFilter.setValue({
-            bsThuVienId: value.bsThuVienId,
-            bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
-          })
+            bsThuVienId: value.bsThuVienId || '',
+            bmDmDangTaiLieuId: value.bmDmDangTaiLieuId || '',
+          });
         })
-      ).subscribe()
-    this.formCriteriaFilter.valueChanges.subscribe(value => {
-    console.log("🚀 ~ SearchResultComponent ~ ngOnInit ~ value:", value)
+      )
+      .subscribe();
+    this.formCriteriaFilter.valueChanges.subscribe((value) => {
+      console.log('🚀 ~ SearchResultComponent ~ ngOnInit ~ value:', value);
+      this.booksSearched = value;
       this.router.navigate([URL_ROUTER.searchResult], {
         queryParams: {
-            ...queryParamObject(),
-            ..._.omitBy(value, !_.isUndefined)
-        }
-      })
-    })
+          ...queryParamObject(),
+          ..._.omitBy(value, !_.isUndefined),
+        },
+      });
+    });
   }
 
   booksSearched: Partial<IBookSearchResponse> = {
     data: [],
-    totalRecord: 10
-  }
+    totalRecord: 10,
+  };
 
   searchList(results: IBookSearchResponse) {
-    console.log("🚀 ~ SearchResultComponent ~ searchList ~ results:", results)
     this.booksSearched = results;
-    this.changeDetectorRef.detectChanges()
+    this.changeDetectorRef.detectChanges();
   }
 
   handleChangePage(isBack?: boolean) {
@@ -98,16 +106,20 @@ export class SearchResultComponent implements OnInit {
       newPage += 1;
     }
 
-    this.router.navigate([URL_ROUTER.searchResult], { queryParams: {
-      ...queryParamObject(),
-      pageIndex: newPage
-    } })
+    this.router.navigate([URL_ROUTER.searchResult], {
+      queryParams: {
+        ...queryParamObject(),
+        pageIndex: newPage,
+      },
+    });
   }
 
   handleChangePageSize(event: any) {
-    this.router.navigate([URL_ROUTER.searchResult], { queryParams: {
-      ...queryParamObject(),
-      pageSize: event.target.value
-    } })
+    this.router.navigate([URL_ROUTER.searchResult], {
+      queryParams: {
+        ...queryParamObject(),
+        pageSize: event.target.value,
+      },
+    });
   }
 }

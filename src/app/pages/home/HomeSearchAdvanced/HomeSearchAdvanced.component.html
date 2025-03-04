@@ -1,16 +1,16 @@
 <div class="searchBar">
   <div class="container">
     <div class="inputSearch d-flex">
-      <form nz-form style="width: 100%;" [formGroup]="formBasicSearch" (keyup.enter)="submitBasicSearch()">
+      <form nz-form style="width: 100%;" [formGroup]="formBasicSearch" (keyup.enter)="submitBasicSearch()" >
         <nz-form-item>
           <input formControlName="tieuDe" type="text" class="form-control" placeholder="Bắt đầu tìm kiếm"
           [nzAutocomplete]="auto" autocomplete="off"
           >
         </nz-form-item>
-        <nz-autocomplete #auto>
+        <nz-autocomplete #auto nzDefaultActiveFirstOption="false">
           @let options = $options | async;
           @for (option of options; track $index) {
-            <nz-auto-option (keyup.enter)="handleSelect($event)" [nzValue]="'auto-complete|' + option.id">{{ option.tieuDe }}</nz-auto-option>
+            <nz-auto-option (keyup.enter)="handleSelect($event)" [nzValue]="'auto-complete|' + option.id" (click)="submitBasicSearch($event)">{{ option.tieuDe }}</nz-auto-option>
           }
         </nz-autocomplete>
       </form>

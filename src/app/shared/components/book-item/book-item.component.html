@@ -7,7 +7,7 @@
 <div class="box_item">
   <a [routerLink]="['/documents', book.id]">
     <p>
-      <img [src]="book.anhDaiDien" alt="Book 1">
+      <img [src]="getImageUrl(book)" alt="Book 1">
       <span class="leftSideBookSearch"></span>
     </p>
     <span class="title">{{book.tieuDe}}</span>

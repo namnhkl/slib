@@ -1,3 +1,4 @@
+import { SharedModule } from '@/app/shared/shared.module';
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -17,7 +18,7 @@ interface ISimpleItem {
   selector: 'app-homecategories',
   templateUrl: './HomeCategories.component.html',
   styleUrls: ['./HomeCategories.component.scss'],
-  imports: [CarouselModule],
+  imports: [CarouselModule, SharedModule],
 })
 export class HomeCategoriesComponent implements OnInit {
   constructor(private router: Router) {}

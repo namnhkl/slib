@@ -26,7 +26,7 @@ interface IAuthor {
 }
 export interface IBoook {
   id: string;
-  anhDaiDien: string;
+  anhDaiDien: string | null;
   tieuDe: string;
   tacGia: IAuthor[];
   thongTinXuatBan: string;

@@ -152,7 +152,8 @@ export class HomeSearchAdvancedComponent implements OnInit {
   submitBasicSearch() {
     if (this.formBasicSearch.valid) {
       if (this.formBasicSearch.value.tieuDe.includes('auto-complete|')) {
-        console.log('please redirect to ' + this.formBasicSearch.value.tieuDe.replace('auto-complete|', ''))
+        // console.log('please redirect to ' + this.formBasicSearch.value.tieuDe.replace('auto-complete|', ''))
+        this.router.navigate([URL_ROUTER.documents, this.formBasicSearch.value.tieuDe.replace('auto-complete|', '')])
 
         this.formBasicSearch.reset()
 

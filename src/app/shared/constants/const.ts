@@ -26,3 +26,5 @@ export const DEFAULT_PAGINATION_OPTION: IPageParams = {
   pageIndex: 1,
   pageSize: 10,
 };
+
+export const DEFAULT_PAGINATION_OPTIONS = [10, 20, 50, 100];

@@ -1,6 +1,6 @@
 <div class="item-class" *ngIf="book">
   <a [routerLink]="['/documents', book?.id]">
-    <img [src]="book?.anhDaiDien" [alt]="book?.title" />
-    <span>{{book?.title}}</span>
+    <img [src]="getImageUrl(book)" [alt]="book?.title" />
+    <span>{{ book?.title }}</span>
   </a>
 </div>
