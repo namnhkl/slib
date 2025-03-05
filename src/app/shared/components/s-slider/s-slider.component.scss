@@ -51,11 +51,12 @@ $color_4: #fff;
 .bookCategories {
   .the-title {
     position: relative;
-    padding-right: 120px;
+    padding-right: 111px;
   }
   .viewmore {
     font-size: 14px;
     line-height: 50px;
+    color: rgba(5, 31, 77, 1);
   }
 }
 .bookSlider {
@@ -67,6 +68,7 @@ $color_4: #fff;
 .mt-20 {
 	margin-top: 20px;
 }
+
 .item-books {
 	a {
 		display: block;
@@ -88,6 +90,7 @@ $color_4: #fff;
 		img {
 			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 			border-radius: 5px;
+			width:100% !important;
 		}
 		span {
 			font-size: 16px;
@@ -232,7 +235,7 @@ $color_4: #fff;
       position: absolute;
       right: 0;
       bottom: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
       display: flex;
       .owl-next,
       .owl-prev {
@@ -246,7 +249,7 @@ $color_4: #fff;
         justify-content: center;
         pointer-events: auto;
         cursor: pointer;
-        border: solid 1px #000;
+        border: solid 2px rgba(5, 31, 77, 1);
         position: relative;
         top: 0;
         right: 0;
@@ -257,7 +260,7 @@ $color_4: #fff;
           font-size: 29px;
           font-weight: normal;
           position: relative;
-          top: -2px;
+          top: -5px;
           color: rgba(5, 31, 77, 1);
         }
       }

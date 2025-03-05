@@ -35,7 +35,7 @@ export class SSliderComponent implements OnInit, AfterViewInit {
     // autoWidth: true,
     loop: false,
     // items: '10',
-    margin: 15,
+    margin: 30,
     // slideBy: 'page',
     // merge: true,
     // autoplay: true,

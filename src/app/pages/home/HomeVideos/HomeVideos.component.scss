@@ -1,13 +1,19 @@
 .bookCategories {
   .the-title {
     position: relative;
+    margin-bottom: 20px !important;
     padding-right: 120px;
   }
   .viewmore {
     font-size: 14px;
     line-height: 50px;
+    color: rgb(5, 31, 77);
   }
 }
+.videosBox {
+  margin-top: 20px;
+}
+
 ::ng-deep {
   .owl-theme {
     .owl-nav {

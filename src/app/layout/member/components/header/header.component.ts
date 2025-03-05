@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginButtonComponent } from './login-button/login-button.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from '@/app/i18n/i18n.service';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ import { I18nService } from '@/app/i18n/i18n.service';
     NzButtonModule,
     FormsModule,
     NzSelectModule,
+    NzDrawerModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -55,6 +57,7 @@ export class HeaderComponent {
     },
   ];
   language = 'vi-VN';
+  visible = false;
 
   constructor(
     private router: Router,
@@ -79,6 +82,15 @@ export class HeaderComponent {
   }
 
   changeLanguage(language: string) {
+    console.log("🚀 ~ HeaderComponent ~ setLanguage ~ language:", language)
     this._i18nService.language = language;
+  }
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
   }
 }

@@ -17,9 +17,9 @@
                   <img [src]="item.anhDaiDien" [alt]="item.tieuDe" style="height: 260px; width: auto">
                 </a>
               </p>
-              <span #titleElement class="document-title"><a [routerLink]="['/documents', item.id]">{{item.tieuDe}}</a></span>
+              <span><a [routerLink]="['/documents', item.id]">{{item.tieuDe}}</a></span>
             </div> -->
-            <app-book-item-slider [book]="item"></app-book-item-slider>
+            <app-book-item-slider className="item-books-1 item-stand" [book]="item"></app-book-item-slider>
           </ng-template>
           }
         </owl-carousel-o>

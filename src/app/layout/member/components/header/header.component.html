@@ -8,16 +8,46 @@
         <!-- Button toggle trên mobile -->
         <div class="d-flex languages languageMb">
             <div class="mbForm">
-                <nz-select ngModel="lucy">
-                    <nz-option nzValue="vi" [nzLabel]="vietnamese|translate"></nz-option>
-                    <nz-option nzValue="en" [nzLabel]="english|translate"></nz-option>
+                <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
+                    [nzCustomTemplate]="iconTemplate">
+                    <ng-template #iconTemplate let-selected>
+                        <i class="fa fa-solid fa-globe"></i>
+                        {{ selected.nzLabel }}
+                    </ng-template>
+                    <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
+                    <nz-option nzValue="en-US" translate [nzLabel]="'english'|translate"></nz-option>
                 </nz-select>
             </div>
         </div>
-        <button id="navbarToggle" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        <button id="navbarToggle" class="navbar-toggler" type="button" data-bs-toggle="collapse" (click)="open()"
             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <nz-drawer [nzSize]="320" [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="'left'"
+            (nzOnClose)="close()">
+            <ng-container *nzDrawerContent>
+                <div class="navbarNav navbar-collapse order-lg-2 s-sidebar">
+                    <div class="forMb rightBar d-flex align-items-center order-lg-3">
+                        <a class="navbar-brand order-lg-1" href="#">
+                            <img src="./img/logo/logo-slibk12.svg" alt="Logo">
+                        </a>
+                        <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i
+                                class="fa fa-solid fa-user"></i>{{'file'|translate}}</button>
+                        <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i
+                                class="fa fa-sign-out"></i>{{'sign_out'|translate}}</button>
+                    </div>
+                    <ul class="navbar-nav mx-auto">
+                        @for (link of links; track $index) {
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="{{link.url}}">{{link.title | translate}}</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </ng-container>
+        </nz-drawer>
+
 
         <!-- Menu ở giữa -->
         <div class="navbarNav navbar-collapse order-lg-2" id="navbarNav">
@@ -45,7 +75,8 @@
             <app-login-button></app-login-button>
             <div class="d-flex languages">
                 <div class="mbForm">
-                    <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)">
+                    <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
+                        [nzCustomTemplate]="iconTemplate">
                         <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
                         <nz-option nzValue="en-US" translate [nzLabel]="'english'|translate"></nz-option>
                     </nz-select>

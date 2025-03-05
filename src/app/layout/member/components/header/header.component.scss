@@ -1,7 +1,7 @@
 $color_1: #fff;
 $color_2: rgba(0, 74, 173, 1);
 $color_3: #000;
-$color_4: rgba(5, 34, 74, 1.0);
+$color_4: rgba(5, 34, 74, 1);
 $background-color_1: #fff;
 $background-color_2: rgba(0, 0, 0, 0.5);
 
@@ -71,7 +71,7 @@ $background-color_2: rgba(0, 0, 0, 0.5);
 					font-weight: 500;
 					position: relative;
 					&:after {
-						content: '';
+						content: "";
 						position: absolute;
 						width: 1px;
 						height: 25px;
@@ -125,7 +125,7 @@ $background-color_2: rgba(0, 0, 0, 0.5);
 .languageMb {
 	display: none !important;
 }
-@media (max-width:992px) {
+@media (max-width: 992px) {
 	.container {
 		max-width: 100%;
 	}
@@ -165,11 +165,6 @@ $background-color_2: rgba(0, 0, 0, 0.5);
 	.navbarNav {
 		background: #fff;
 		padding: 10px;
-		position: fixed;
-		width: 75%;
-		left: 0;
-		right: 0;
-		transform: translateX(-100%);
 		transition: transform 0.3s ease-in-out;
 		z-index: 1050;
 		height: 100vh;
@@ -243,4 +238,14 @@ $background-color_2: rgba(0, 0, 0, 0.5);
 			}
 		}
 	}
+}
+
+#navbarNav {
+	@media screen and (max-width: 992px) {
+		display: none;
+	}
+}
+
+.s-sidebar{
+	margin: -24px;
 }
