@@ -1,8 +1,12 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   Input,
   OnInit,
+  Renderer2,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,11 +21,16 @@ import { URL_ROUTER } from '../../constants/path.constants';
   standalone: false,
   imports: [],
 })
-export class SSliderComponent implements OnInit {
+export class SSliderComponent implements OnInit, AfterViewInit {
+  @ViewChild('titleElement') titleElement: ElementRef | undefined;
   @Input() title = '';
   @Input() categoryId = 1;
   @Input() data: IBoook[] = [];
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private renderer: Renderer2
+  ) {}
   customOptions: OwlOptions = {
     // autoWidth: true,
     loop: false,
@@ -69,6 +78,10 @@ export class SSliderComponent implements OnInit {
   fragment: WritableSignal<string | null> = signal('');
   activeSlides: WritableSignal<SlidesOutputData | null> = signal(null);
 
+  ngAfterViewInit() {
+    this.checkTitleHeight();
+  }
+
   ngOnInit() {
     console.log(this.route.pathFromRoot);
   }
@@ -99,5 +112,19 @@ export class SSliderComponent implements OnInit {
 
   buildLink(book: IBoook) {
     return `/${URL_ROUTER.documents}/${book.id}`;
+  }
+
+  checkTitleHeight() {
+    if (this.titleElement) {
+      const element = this.titleElement.nativeElement;
+      const lineHeight = parseInt('20', 10);
+      const height = element.offsetHeight;
+      console.log("🚀 ~ SSliderComponent ~ checkTitleHeight ~ height:", element.innerText)
+      const lines = height / lineHeight;
+
+      if (lines > 1) {
+        this.renderer.addClass(element, 'title--multiline');
+      }
+    }
   }
 }
