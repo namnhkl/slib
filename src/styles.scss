@@ -462,3 +462,26 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
   align-items: center;
   display: flex;
 }
+.rightBar .mbForm .ant-select-selector {
+  border: solid 1px rgb(0, 74, 173) !important;
+  color: rgb(0, 74, 173);
+  font-size: 14px;
+  height: 32px !important;
+  display: flex;
+  align-items: center;
+  width: 121px !important;
+}
+.rightBar .ant-btn {
+  background: rgba(0, 74, 173, 1);
+  color: #fff;
+  margin: 0 !important;
+  font-size: 14px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-form-item {
+  margin-bottom: 10px !important;
+}

@@ -61,11 +61,20 @@
                     xuất</button>
             </div>
             <ul class="navbar-nav mx-auto">
-                @for (link of links; track $index) {
-                <li class="nav-item">
+                <!-- @for (link of links; track $index) {
+                <li class="nav-item active">
                     <a class="nav-link" routerLink="{{link.url}}">{{link.title | translate}}</a>
                 </li>
-                }
+                } -->
+                <li 
+                class="nav-item" 
+                *ngFor="let link of links; let i = index;" 
+                [routerLinkActive]="'active'" 
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" [routerLink]="link.url">
+                  {{ link.title | translate }}
+                </a>
+              </li>
             </ul>
         </div>
         <div id="menuOverlay" class=""></div>
