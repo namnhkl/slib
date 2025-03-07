@@ -16,7 +16,7 @@ import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { debounceTime, map, Observable, of, switchMap, tap } from 'rxjs';
 import { IBook } from './type';
 import { DEFAULT_PAGINATION_OPTION } from '@/app/shared/constants/const';
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { AsyncPipe } from '@angular/common';
@@ -38,7 +38,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzSelectModule,
     NzAutocompleteModule,
     AsyncPipe,
-    NzDropDownModule
+    NzDropDownModule,
   ],
 })
 export class HomeSearchAdvancedComponent implements OnInit {
@@ -64,34 +64,35 @@ export class HomeSearchAdvancedComponent implements OnInit {
   ) {
     this.formAdvanceSearch = this.fb.group({
       tieuDe: this.fb.control(''),
+      tacGia: this.fb.control(''),
       dinhDang: this.fb.control(''),
       nhaXuatBan: this.fb.control(''),
       ngonNgu: this.fb.control(''),
     });
 
     this.formBasicSearch = this.fb.group({
-      tieuDe: this.fb.control('')
+      tieuDe: this.fb.control(''),
     });
 
     this.$options = this.formBasicSearch.valueChanges.pipe(
       debounceTime(500),
-      switchMap(({ tieuDe } )=> {
+      switchMap(({ tieuDe }) => {
         if (tieuDe.length >= 3) {
           return this.homeService.searchDocs({
             pageIndex: 1,
             pageSize: 3,
-            tieuDe
-          })
+            tieuDe,
+          });
         }
 
-        return of(null)
+        return of(null);
       }),
-      map(res => _.get(res, 'data', [] as IBook[])),
+      map((res) => _.get(res, 'data', [] as IBook[]))
     );
   }
 
   handleSelect(event: any) {
-    console.log('event', event)
+    console.log('event', event);
   }
 
   ngOnInit() {
@@ -99,63 +100,47 @@ export class HomeSearchAdvancedComponent implements OnInit {
       .pipe(
         map((value: any) => ({
           formData: {
-            tieuDe: value.tieuDe,
-            dinhDang: value.dinhDang || '',
-            nhaXuatBan: value.nhaXuatBan || '',
-            ngonNgu: value.ngonNgu || '',
+            tieuDe: _.get(value, 'tieuDe', ''),
+            tacGia: _.get(value, 'tacGia', ''),
+            dinhDang: _.get(value, 'dinhDang', ''),
+            nhaXuatBan: _.get(value, 'nhaXuatBan', ''),
+            ngonNgu: _.get(value, 'ngonNgu', ''),
           },
           queryPage: {
-            pageIndex: Number(value.pageIndex),
-            pageSize: Number(value.pageSize),
+            pageIndex: Number(value.pageIndex) || 1,
+            pageSize: Number(value.pageSize) || 10,
             bsThuVienId: value?.bsThuVienId || '',
             bmDmDangTaiLieuId: value?.bmDmDangTaiLieuId || '',
           },
         })),
         tap(({ formData }) => {
           this.loadingService.setLoading(true);
-          this.formAdvanceSearch.setValue({
-            tieuDe: formData.tieuDe || '',
-            dinhDang: formData.dinhDang || '',
-            nhaXuatBan: formData.nhaXuatBan || '',
-            ngonNgu: formData.ngonNgu || '',
-          });
+          this.formAdvanceSearch.setValue(formData);
           this.formBasicSearch.setValue({ tieuDe: formData.tieuDe });
         }),
-        switchMap(({ formData, queryPage }) => {
-          return this.homeService
-            .searchDocs({ ...formData, ...queryPage })
-            .pipe(
-              map((res) => {
-                if (res.messageCode === 1 && _.isArray(res.data)) {
-                  return {
-                    data: _.get(res, 'data', [] as IBook[]),
-                    totalRecord: _.get(res, 'totalRecord', 0),
-                  };
-                }
-
-                return {
-                  data: [] as IBook[],
-                  totalRecord: 10,
-                };
-              }),
-              tap(() => {
-                this.loadingService.setLoading(false);
-              })
-            );
-        })
+        switchMap(({ formData, queryPage }) =>
+          this.homeService.searchDocs({ ...formData, ...queryPage }).pipe(
+            map((res) => ({
+              data: _.get(res, 'data', [] as IBook[]),
+              totalRecord: _.get(res, 'totalRecord', 0),
+            })),
+            tap(() => this.loadingService.setLoading(false))
+          )
+        )
       )
-      .subscribe((searchList) => {
-        this.searchResultsChange.emit(searchList);
-      });
+      .subscribe((searchList) => this.searchResultsChange.emit(searchList));
   }
 
   submitBasicSearch() {
     if (this.formBasicSearch.valid) {
       if (this.formBasicSearch.value.tieuDe.includes('auto-complete|')) {
         // console.log('please redirect to ' + this.formBasicSearch.value.tieuDe.replace('auto-complete|', ''))
-        this.router.navigate([URL_ROUTER.documents, this.formBasicSearch.value.tieuDe.replace('auto-complete|', '')])
+        this.router.navigate([
+          URL_ROUTER.documents,
+          this.formBasicSearch.value.tieuDe.replace('auto-complete|', ''),
+        ]);
 
-        this.formBasicSearch.reset()
+        this.formBasicSearch.reset();
 
         return;
       }

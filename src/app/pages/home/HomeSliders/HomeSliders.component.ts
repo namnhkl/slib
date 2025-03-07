@@ -16,6 +16,7 @@ interface CarouselData {
   src?: string;
   dataHash?: string;
 }
+
 @Component({
   selector: 'app-home-sliders',
   templateUrl: './HomeSliders.component.html',
@@ -56,41 +57,16 @@ export class HomeSlidersComponent implements OnInit {
     { id: 'slide-6', text: 'Slide 6', width: 500, dotContent: 'text5' },
     { id: 'slide-7', text: 'Slide 7', width: 500, dotContent: 'text6' },
     { id: 'slide-8', text: 'Slide 8', width: 500, dotContent: 'text8' },
-    // { id: 'slide-7', text: 'Slide 7', dotContent: 'text5'},
-    // { id: 'slide-8', text: 'Slide 8', dotContent: 'text5'},
-    // { id: 'slide-9', text: 'Slide 9', dotContent: 'text5'},
-    // { id: 'slide-10', text: 'Slide 10', dotContent: 'text5'},
   ]);
 
   customOptions: OwlOptions = {
-    // autoWidth: true,
     loop: true,
-    // items: '10',
-    // margin: 10,
-    // slideBy: 'page',
-    // merge: true,
-    // autoplay: true,
-    // autoplayTimeout: 5000,
-    // autoplayHoverPause: true,
-    // autoplaySpeed: 4000,
     rewind: false,
     dots: false,
-    // dotsData: true,
-    // mouseDrag: false,
-    // touchDrag: false,
-    // pullDrag: false,
     smartSpeed: 400,
-    // fluidSpeed: 499,
     dragEndSpeed: 350,
-    // dotsEach: 4,
-    // center: true,
-    // rewind: true,
-    // rtl: true,
-    // startPosition: 1,
-    // navText: [ '<i class=fa-chevron-left>left</i>', '<i class=fa-chevron-right>right</i>' ],
     slideBy: 'page',
     items: 1,
-    // stagePadding: 40,
     nav: false,
   };
 
@@ -98,14 +74,13 @@ export class HomeSlidersComponent implements OnInit {
   fragment: WritableSignal<string | null> = signal('');
 
   activeSlides: WritableSignal<SlidesOutputData | null> = signal(null);
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    // console.log(this.route.pathFromRoot);
     this.route.fragment
       .pipe(
         tap((fragment) => this.fragment.set(fragment))
-        // tap(() => console.log('this.fragment', this.fragment()))
       )
       .subscribe((res) => {
         console.log('fragment', res);
@@ -113,11 +88,14 @@ export class HomeSlidersComponent implements OnInit {
 
     this.route.url
       .pipe(
-        tap((url) => this.currentUrl.set(url[0].path))
-        // tap(() => console.log('this.currentUrl', this.currentUrl()))
+        tap((url) => {
+          if (url && url.length > 0) {
+            this.currentUrl.set(url[0].path);
+          }
+        })
       )
       .subscribe((res) => {
-        console.log('fragment', res);
+        console.log('url', res);
       });
   }
 

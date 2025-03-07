@@ -10,7 +10,7 @@
         <nz-autocomplete #auto nzDefaultActiveFirstOption="false">
           @let options = $options | async;
           @for (option of options; track $index) {
-            <nz-auto-option (keyup.enter)="handleSelect($event)" [nzValue]="'auto-complete|' + option.id" (click)="submitBasicSearch($event)">{{ option.tieuDe }}</nz-auto-option>
+            <nz-auto-option (keyup.enter)="handleSelect($event)" [nzValue]="'auto-complete|' + option.id" (click)="submitBasicSearch()">{{ option.tieuDe }}</nz-auto-option>
           }
         </nz-autocomplete>
       </form>
