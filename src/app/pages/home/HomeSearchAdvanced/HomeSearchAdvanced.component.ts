@@ -1,26 +1,26 @@
+import { DEFAULT_PAGINATION_OPTION } from '@/app/shared/constants/const';
+import { URL_ROUTER } from '@/app/shared/constants/path.constants';
+import { LoaderService } from '@/app/shared/services/loader.service';
+import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import _ from 'lodash';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { HomeService } from '../home.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { debounceTime, map, Observable, of, switchMap, tap } from 'rxjs';
+import { HomeService } from '../home.service';
 import { IBook } from './type';
-import { DEFAULT_PAGINATION_OPTION } from '@/app/shared/constants/const';
-import _, { isEmpty } from 'lodash';
-import { LoaderService } from '@/app/shared/services/loader.service';
-import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
-import { AsyncPipe } from '@angular/common';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-home-search-advanced',
@@ -79,8 +79,8 @@ export class HomeSearchAdvancedComponent implements OnInit {
       switchMap(({ tieuDe }) => {
         if (tieuDe.length >= 3) {
           return this.homeService.searchDocs({
-            pageIndex: 1,
-            pageSize: 3,
+            pageIndex: 0,
+            pageSize: 10,
             tieuDe,
           });
         }
@@ -107,7 +107,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
             ngonNgu: _.get(value, 'ngonNgu', ''),
           },
           queryPage: {
-            pageIndex: Number(value.pageIndex) || 1,
+            pageIndex: Number(value.pageIndex) || 0,
             pageSize: Number(value.pageSize) || 10,
             bsThuVienId: value?.bsThuVienId || '',
             bmDmDangTaiLieuId: value?.bmDmDangTaiLieuId || '',

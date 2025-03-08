@@ -19,7 +19,7 @@ export class DocumentsComponent implements OnInit {
   documents: any[] = [];
   sizeItems = [10, 20, 30, 40, 50];
   pageSizes = 10;
-  pageIndex = 1;
+  pageIndex = 0;
   totalRecords = 0;
   totalPage = 0;
   constructor(

@@ -5,6 +5,7 @@ import { queryParamObject } from '@/app/shared/utils/queryParams';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormGroup,
+  FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -24,6 +25,7 @@ import _ from 'lodash';
   imports: [
     HomeSearchAdvancedComponent,
     ReactiveFormsModule,
+    FormsModule,
     NzInputModule,
     NzFormModule,
     NzRadioModule,
@@ -37,7 +39,8 @@ import _ from 'lodash';
 export class SearchResultComponent implements OnInit {
   activatedRouter = inject(ActivatedRoute);
   pageSizes = DEFAULT_PAGINATION_OPTIONS;
-  pageIndex = 1;
+  pageIndex = 0;
+  pageTotal = 0;
 
   pageSize = 10;
 
@@ -73,8 +76,8 @@ export class SearchResultComponent implements OnInit {
         })
       )
       .subscribe();
+      //(booksSearched.totalRecord/pageSize)
     this.formCriteriaFilter.valueChanges.subscribe((value) => {
-      console.log('🚀 ~ SearchResultComponent ~ ngOnInit ~ value:', value);
       this.booksSearched = value;
       this.router.navigate([URL_ROUTER.searchResult], {
         queryParams: {
@@ -92,6 +95,7 @@ export class SearchResultComponent implements OnInit {
 
   searchList(results: IBookSearchResponse) {
     this.booksSearched = results;
+    this.pageTotal = Math.ceil(results.totalRecord / this.pageSize);
     this.changeDetectorRef.detectChanges();
   }
 
@@ -99,7 +103,7 @@ export class SearchResultComponent implements OnInit {
     let newPage = this.pageIndex;
 
     if (isBack) {
-      if (this.pageIndex === 1) return;
+      if (this.pageIndex === 0) return;
       newPage -= 1;
     } else {
       if (this.pageIndex === this.booksSearched.totalRecord) return;
@@ -118,7 +122,7 @@ export class SearchResultComponent implements OnInit {
     this.router.navigate([URL_ROUTER.searchResult], {
       queryParams: {
         ...queryParamObject(),
-        pageSize: event.target.value,
+        pageSize: event,
       },
     });
   }

@@ -50,33 +50,24 @@
         </div>
         <div class="box_result_book">
           @for (book of booksSearched.data; track $index) {
-            <app-book-item [book]="book"></app-book-item>
+          <app-book-item [book]="book"></app-book-item>
           }
         </div>
         <div class="page_sort_item">
           <div class="item_page_detail">
             <div class="d-flex align-items-center groupSelect">
               <label for="numberSelect" class="form-label">Hiển thị</label>
-              <select [value]="pageSize" class="form-select" id="numberSelect" aria-label="Chọn số"
-                (change)="handleChangePageSize($event)">
-                <option value="selected disabled">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
+              <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect">
+                @for (size of pageSizes; track $index) {
+                <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
+                }
+              </nz-select>
             </div>
           </div>
           <div class="item_page_detail">
             @if(booksSearched.totalRecord) {
             <div class="showPage">
-              <span>{{pageIndex}}/{{booksSearched.totalRecord}}</span>
+              <span>{{pageIndex+1}}/{{pageTotal}}</span>
               <button class="btn pre-btn active" (click)="this.handleChangePage(true)"><span class="btnPre"
                   aria-label="Previous">‹</span></button>
               <button class="btn next-btn active" (click)="this.handleChangePage(false)"><span class="btnPre"

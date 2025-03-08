@@ -23,7 +23,7 @@ export const Status = {
   pageNumber: 1,
  */
 export const DEFAULT_PAGINATION_OPTION: IPageParams = {
-  pageIndex: 1,
+  pageIndex: 0,
   pageSize: 10,
 };
 
