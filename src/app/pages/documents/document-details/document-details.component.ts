@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { DocumentsService } from '../documents.service';
-import _ from 'lodash';
 import { IDocument } from '../documents';
+import { CommonModule } from '@angular/common';
+import { get } from 'lodash';
 
 @Component({
   selector: 'app-document-details',
   templateUrl: './document-details.component.html',
   styleUrls: ['./document-details.component.scss'],
-  imports: [RouterLink, RouterModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   providers: [DocumentsService],
 })
 export class DocumentDetailsComponent implements OnInit {
@@ -20,7 +21,7 @@ export class DocumentDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.router.params.subscribe((params) => {
-      const id = _.get(params, 'id', '');
+      const id = get(params, 'id', '');
       if (id.length > 0) {
         this.documentsService.getDocsDetails(id).subscribe((res) => {
           this.currentDocument = res.data[0];
