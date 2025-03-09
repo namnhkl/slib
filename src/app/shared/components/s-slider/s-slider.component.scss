@@ -281,3 +281,9 @@ $color_4: #fff;
 .document-title{
 	line-height: 20px;
 }
+
+@media (max-width: 769px) {
+	.bannerTop .owl-nav {
+		display: none !important;
+	}
+}

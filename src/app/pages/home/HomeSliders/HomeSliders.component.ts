@@ -62,12 +62,14 @@ export class HomeSlidersComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: true,
     rewind: false,
-    dots: false,
+    dots: true,
     smartSpeed: 400,
     dragEndSpeed: 350,
     slideBy: 'page',
     items: 1,
-    nav: false,
+    nav: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
   };
 
   currentUrl: WritableSignal<string> = signal('');
