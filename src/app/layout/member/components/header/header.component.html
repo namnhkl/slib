@@ -9,7 +9,7 @@
         <div class="d-flex languages languageMb">
             <div class="mbForm">
                 <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
-                    [nzCustomTemplate]="iconTemplate">
+                    [nzCustomTemplate]="iconTemplate" [nzDropdownMatchSelectWidth]="false">
                     <ng-template #iconTemplate let-selected>
                         <i class="fa fa-solid fa-globe"></i>
                         {{ selected.nzLabel }}
