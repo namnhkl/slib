@@ -3,8 +3,9 @@
     <div class="inputSearch d-flex">
       <form nz-form style="width: 100%;" [formGroup]="formBasicSearch" (keyup.enter)="submitBasicSearch()" >
         <nz-form-item>
+          <i class="fa-regular fa-magnifying-glass icon-search"></i>
           <input formControlName="tieuDe" type="text" class="form-control" placeholder="Bắt đầu tìm kiếm"
-          [nzAutocomplete]="auto" autocomplete="off"
+          [nzAutocomplete]="auto" autocomplete="off" nz-icon="search" nzSize="large"
           >
         </nz-form-item>
         <nz-autocomplete #auto nzDefaultActiveFirstOption="false">

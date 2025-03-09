@@ -1,0 +1,22 @@
+.inputSearch {
+  button {
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 50px;
+    svg {
+      width: 40px;
+    }
+  }
+  .icon-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    font-size: 20px;
+  }
+
+  .ant-form-item {
+    position: relative;
+  }
+}
