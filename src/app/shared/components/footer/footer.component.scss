@@ -40,6 +40,9 @@
 .item-menu-footer ul li a {
   font-size: 14px;
   color: rgba(5, 31, 77, 1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .item-menu-footer ul li a img {
   width: 30px;

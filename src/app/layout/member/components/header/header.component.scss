@@ -59,6 +59,8 @@ $background-color_2: rgba(0, 0, 0, 0.5);
 		.mbForm {
 			.ant-select-selector {
 				width: 60px !important;
+				border: none !important;
+				padding: 0 10px !important;
 			}
 		}
 		.ant-select-selection-item {

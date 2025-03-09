@@ -282,8 +282,16 @@ $color_4: #fff;
 	line-height: 20px;
 }
 
+
+
 @media (max-width: 769px) {
 	.bannerTop .owl-nav {
 		display: none !important;
+	}
+	.owl-theme .owl-nav {
+		display: none !important;
+	}
+	.viewmore {
+		display: none;
 	}
 }

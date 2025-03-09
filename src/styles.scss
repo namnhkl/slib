@@ -513,7 +513,71 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
 .ant-select-dropdown {
   border: solid 1px rgb(0, 74, 173);
 }
+.ant-modal-header {
+  border-bottom: none !important;
+}
+.ant-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  border: none !important;
+  padding-bottom: 30px !important;
+}
+.ant-modal-footer button {
+  width: 200px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #D5D5D5;
+  color: rgba(21, 66, 144, 1);
+  cursor: pointer;
+}
+.ant-modal-footer button:last-child {
+  background-color: rgba(21, 66, 144, 1);
+  color: #fff;
+}
+.ant-modal-title .ng-star-inserted {
+  text-align: center;
+  margin: 5px 0 0 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+.ant-modal-body h4 {
+  display: none;
+}
+.ant-form-item-label > label {
+  font-size: 16px;
+  font-weight: bold;
+}
 
-@media (max-width:769px) {
+.ant-input-group input, .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  width: 100% !important;
+  padding: 0 20px !important;
+  /* margin: 10px 10px 20px 0px; */
+  display: inline-block;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  height: 46px !important;
+  line-height: 46px;
+  font-size: 16px;
+  color: rgb(0, 74, 173);
+}
+.ant-select {
+  display: flex !important;
+}
 
+@media (max-width: 769px) {
+  .bannerTop .owl-nav {
+    display: none !important;
+  }
+  .viewmore {
+    display: none;
+  }
 }

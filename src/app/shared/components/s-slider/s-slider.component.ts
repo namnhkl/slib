@@ -33,7 +33,7 @@ export class SSliderComponent implements OnInit, AfterViewInit {
   ) {}
   customOptions: OwlOptions = {
     // autoWidth: true,
-    loop: false,
+    loop: true,
     // items: '10',
     margin: 30,
     // slideBy: 'page',
@@ -61,13 +61,13 @@ export class SSliderComponent implements OnInit, AfterViewInit {
     slideBy: 'page',
     responsive: {
       0: {
-        items: 2,
+        items: 2.2,
       },
       600: {
-        items: 3,
+        items: 3.2,
       },
       900: {
-        items: 6,
+        items: 6.2,
       },
     },
     // stagePadding: 40,
