@@ -1,5 +1,6 @@
 .box_item {
   text-align: left;
+  transition: all 0.4s;
   img {
     height: auto;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
@@ -15,6 +16,10 @@
       height: 50px;
       overflow: hidden;
       position: relative;
+      font-size: 14px;
+      font-weight: 700;
+      overflow: hidden;
+      color: rgb(36, 36, 36);
       &:after{
         content: '';
         position: absolute;
@@ -28,4 +33,7 @@
       }
     }
   }
+  &:hover {
+    transform: translateY(-10px);
+  } 
 }
