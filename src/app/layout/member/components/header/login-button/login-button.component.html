@@ -1,8 +1,8 @@
 <div *ngIf="isAuthenticated$ | async; else notAuthorized">
-  <button nz-button [nzType]="'primary'" (click)="logout()"><span>{{'sign_out'|translate}}</span></button>
+  <button nz-button [nzType]="'primary'" (click)="goProfile()"><span>{{'profile'|translate}}</span></button>
 </div>
 <ng-template #notAuthorized>
-  <button nz-button [nzType]="'primary'" (click)="showModal()"><span>{{'login'|translate}}</span></button>
+  <button nz-button class="capitalize" [nzType]="'primary'" (click)="showModal()"><span>{{'login'|translate}}</span></button>
   <nz-modal [(nzVisible)]="isVisible" [nzTitle]="'login'|translate" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
     [nzFooter]="null">
     <ng-container *nzModalContent>

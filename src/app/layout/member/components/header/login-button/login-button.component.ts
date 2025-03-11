@@ -100,7 +100,7 @@ export class LoginButtonComponent implements OnInit {
     this.isVisible = false;
   }
 
-  logout() {
-    this.authService.logout();
+  goProfile() {
+    this.router.navigate(['/profile']);
   }
 }

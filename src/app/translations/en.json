@@ -38,5 +38,6 @@
   "sign_out": "Sign out",
   "file": "File",
   "change_password": "change password",
-  "reenter_password": "re-enter password"
+  "reenter_password": "re-enter password",
+  "profile": "profile"
 }

@@ -101,12 +101,11 @@ export class SearchResultComponent implements OnInit {
 
   handleChangePage(isBack?: boolean) {
     let newPage = this.pageIndex;
-
     if (isBack) {
       if (this.pageIndex === 0) return;
       newPage -= 1;
     } else {
-      if (this.pageIndex === this.booksSearched.totalRecord) return;
+      if (this.pageIndex === this.pageTotal - 1) return;
       newPage += 1;
     }
 
