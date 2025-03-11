@@ -13,6 +13,9 @@
 .modalStand_box:last-child {
   flex: 0 0 80%;
 }
+.modalStand_box:last-child .title-result {
+  padding-bottom: 8px;
+}
 
 .rightBar .btnProfile {
   display: flex;

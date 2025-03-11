@@ -63,9 +63,12 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    height: auto;
-
+    height: 280px;
+    width: 216px;
+    object-fit: fill;
+    max-width: unset;
+    overflow: hidden;
+    
   }
 }
 
@@ -87,5 +90,12 @@
   .item-thumbnail {
     width: 145px;
     height: 192px;
+    img {
+      width: 145px;
+      height: 192px;
+      max-height: unset;
+      max-width: unset;
+      object-fit: fill
+    }
   }
 }

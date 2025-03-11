@@ -183,6 +183,16 @@ $color_4: #fff;
 			display: flex;
 			align-items: center;
 			gap: 8px;
+			justify-content: flex-start;
+			.viewmore {
+				background: url(/img/icons8-arrow-24.png) no-repeat center center #eee;
+				width: 25px;
+				height: 25px;
+				border-radius: 50px;
+				text-indent: -999999px;
+				background-size: 12px 12px;
+				margin-top: 2px;
+			}
 		}
 	}
 	.owl-carousel {
@@ -226,6 +236,9 @@ $color_4: #fff;
 			padding: 4px;
 		}
 	}
+	.owl-theme .owl-nav {
+		display: none;
+	}
 }
 
 
@@ -266,6 +279,7 @@ $color_4: #fff;
       }
       .owl-next {
         right: 0;
+        margin-right:0;
         &:after {
           content: "›";
         }
@@ -292,6 +306,7 @@ $color_4: #fff;
 		display: none !important;
 	}
 	.viewmore {
-		display: none;
+/*		display: none;*/
 	}
+
 }

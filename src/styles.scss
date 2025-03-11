@@ -571,14 +571,27 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
 .ant-select {
   display: flex !important;
 }
+.ant-result-extra .ant-btn {
+  background: #004AAD;
+  height: 45px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+@media (max-width:992px) {
+  .owl-theme .owl-nav {
+    display: none !important;
+  }
+}
 
 @media (max-width: 769px) {
   .bannerTop .owl-nav {
     display: none !important;
   }
   .viewmore {
-    display: none;
+/*    display: none;*/
   }
+
 }
 
 .capitalize {
