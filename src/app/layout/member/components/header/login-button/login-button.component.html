@@ -1,7 +1,7 @@
 <div *ngIf="isAuthenticated$ | async; else notAuthorized">
   <button nz-button [nzType]="'primary'" (click)="goProfile()">
     <i class="fa-solid fa-user"></i>
-    <span>{{'profile'|translate}}</span>
+    <span class="capitalize" style="margin-left: 5px">{{'profile'|translate}}</span>
   </button>
 </div>
 <ng-template #notAuthorized>

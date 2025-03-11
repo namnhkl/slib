@@ -1,6 +1,6 @@
 import { AuthService } from '@/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnChanges, OnInit } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
@@ -31,7 +31,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzInputModule,
   ],
 })
-export class LoginButtonComponent implements OnInit {
+export class LoginButtonComponent implements OnInit, OnChanges {
   validateForm: FormGroup;
   isVisible = false;
   isAuthenticated$;
@@ -66,7 +66,7 @@ export class LoginButtonComponent implements OnInit {
             if (res.messageCode) {
               this.authService.saveSession(res.data[0], res.accessToken);
               //redirect to profile after login
-              this.router.navigate(['/profile']);
+              this.router.navigate(['/']);
             } else {
               // eslint-disable-next-line no-alert
               alert(res.messageText || 'Sai tài khoản hoặc mật khẩu');
@@ -102,5 +102,9 @@ export class LoginButtonComponent implements OnInit {
 
   goProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  ngOnChanges() {
+    console.log('isAuthenticated123$', this.isAuthenticated$);
   }
 }

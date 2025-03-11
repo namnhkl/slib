@@ -95,11 +95,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             if (res.body.accessToken) {
               localStorage.setItem('access_token', res?.body.accessToken);
               localStorage.setItem('expires_in', res?.body.expireTime);
-              if (this.form?.value.isMember) {
-                this.router.navigate(['/member']);
-              } else {
-                this.router.navigate(['/']);
-              }
+              this.router.navigate(['/']);
             }
           } else {
             console.error('Request failed with error:', res);

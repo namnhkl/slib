@@ -32,7 +32,6 @@ import { BookItemSliderComponent } from './components/book-item-slider/book-item
     //provide services here
     SpinnerService,
     LoaderService,
-    AuthService,
   ],
 })
 export class SharedModule {}

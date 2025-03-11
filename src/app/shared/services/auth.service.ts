@@ -70,8 +70,8 @@ export class AuthService extends _HttpRequestInjector {
   logout(): void {
     storage.removeItem('appSession');
     storage.removeItem('access_token');
-    this.isAuthenticated$.next(false);
     //redirect to home after logout
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
+    this.isAuthenticated$.next(false);
   }
 }

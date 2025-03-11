@@ -1,7 +1,7 @@
 import { AuthService } from '@/app/shared/services/auth.service';
 import { storage } from '@/app/utils';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   profile: any;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     
   }
 
@@ -23,5 +23,6 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 }
