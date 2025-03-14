@@ -16,10 +16,15 @@
             <h3>Tiêu chí lọc</h3>
             <nz-form-item>
               <div class="widget_searchAdv">
-                <div class="d-flex" style="gap: 4px;">
+                <div class="d-flex items-center">
                   <h3>Bộ sách</h3>
-                  <nz-icon nzType="clear" nzTheme="outline" />
+                  @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')" [disabled]="!disabledCleanBsThuVien">
+                    <nz-icon nzType="delete" nzTheme="outline" />
+                  </button>
                 </div>
+
                 <nz-radio-group formControlName="bsThuVienId">
                   <label nz-radio nzValue="canh-dieu">Cánh diều</label>
                   <label nz-radio nzValue="chan-troi-sang-tao">Chân trời sáng tạo</label>
@@ -29,9 +34,13 @@
             </nz-form-item>
             <nz-form-item>
               <div class="widget_searchAdv">
-                <div class="d-flex" style="gap: 4px;">
+                <div class="d-flex items-center">
                   <h3>Loại tài liệu</h3>
-                  <nz-icon nzType="clear" nzTheme="outline" />
+                  @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')" [disabled]="!disabledCleanDmDangTaiLieu">
+                    <nz-icon nzType="delete" nzTheme="outline" />
+                  </button>
                 </div>
 
                 <nz-radio-group formControlName="bmDmDangTaiLieuId">

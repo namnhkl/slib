@@ -20,8 +20,7 @@ export const routes: Routes = [
   },
   {
     path: URL_ROUTER.news,
-    loadChildren: async () =>
-      (await import('../pages/news/news-routing.module')).NewRoutingModule,
+    loadChildren:  () => import('../pages/news/news-routing.module').then(module => module.NewRoutingModule),
   },
   {
     path: URL_ROUTER.searchResult,
@@ -30,9 +29,9 @@ export const routes: Routes = [
   },
   {
     path: URL_ROUTER.profile,
-    loadChildren: async () =>
-      (await import('../pages/profile/profile-routing.module'))
-        .ProfileRoutingModule,
+    loadChildren: () =>
+      import('../pages/profile/profile-routing.module')
+        .then(module => module.ProfileRoutingModule),
     canMatch: [authGuard()],
   },
   {
@@ -41,9 +40,7 @@ export const routes: Routes = [
   },
   {
     path: URL_ROUTER.documents,
-    loadChildren: async () =>
-      (await import('../pages/documents/document-routing.module'))
-        .DocumentRoutingModule,
+    loadChildren: () => import('../pages/documents/document-routing.module').then(module => module.DocumentRoutingModule),
   },
   {
     path: URL_ROUTER.notFound,

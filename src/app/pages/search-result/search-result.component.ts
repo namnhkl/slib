@@ -2,6 +2,7 @@ import { DEFAULT_PAGINATION_OPTIONS } from '@/app/shared/constants/const';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { SharedModule } from '@/app/shared/shared.module';
 import { queryParamObject } from '@/app/shared/utils/queryParams';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -10,6 +11,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import _ from 'lodash';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -18,7 +21,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { map, tap } from 'rxjs';
 import { HomeSearchAdvancedComponent } from '../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { IBookSearchResponse } from '../home/HomeSearchAdvanced/type';
-import _ from 'lodash';
 
 @Component({
   selector: 'app-search-result',
@@ -31,7 +33,9 @@ import _ from 'lodash';
     NzRadioModule,
     NzIconModule,
     SharedModule,
-    NzSelectModule
+    NzSelectModule,
+    NzButtonModule,
+    AsyncPipe
   ],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.scss',
@@ -56,6 +60,11 @@ export class SearchResultComponent implements OnInit {
       bmDmDangTaiLieuId: this.fb.control(''),
     });
   }
+
+  handleClear(fieldName: string) {
+    this.formCriteriaFilter.get(fieldName)?.setValue('')
+  }
+
 
   ngOnInit() {
     this.activatedRouter.queryParams
