@@ -188,6 +188,15 @@
   background: rgba(0, 74, 173, 1);
 }
 
+.widget_searchAdv {
+  .ant-radio-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+}
+
 @media (max-width: 992px) {
   .box_result_book {
     grid-template-columns: repeat(2, 1fr);

@@ -67,6 +67,9 @@ export class SSliderComponent implements OnInit, AfterViewInit {
         items: 3.2,
       },
       900: {
+        items: 5,
+      },
+      1200: {
         items: 6.2,
       },
     },

@@ -25,9 +25,9 @@ export class HomeCategoriesComponent implements OnInit {
 
   customOptions: OwlOptions = {
     // autoWidth: true,
-    loop: false,
+    loop: true,
     // items: '10',
-    margin: 15,
+    margin: 30,
     // slideBy: 'page',
     // merge: true,
     // autoplay: true,
@@ -36,7 +36,7 @@ export class HomeCategoriesComponent implements OnInit {
     // autoplaySpeed: 4000,
     dotsSpeed: 500,
     rewind: false,
-    // dots: false,
+    dots: true,
     // dotsData: true,
     // mouseDrag: false,
     // touchDrag: false,
@@ -53,13 +53,16 @@ export class HomeCategoriesComponent implements OnInit {
     slideBy: 'page',
     responsive: {
       0: {
-        items: 2,
+        items: 2.2,
       },
       600: {
-        items: 3,
+        items: 3.2,
       },
       900: {
-        items: 6,
+        items: 5,
+      },
+      1200: {
+        items: 6.2,
       },
     },
     // stagePadding: 40,

@@ -29,4 +29,5 @@ export class DocumentDetailsComponent implements OnInit {
       }
     });
   }
+
 }
