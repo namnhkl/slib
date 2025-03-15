@@ -5,59 +5,47 @@
       <div class="modalStand_box">
         <div class="title-result">
         </div>
-        <div class="advSearch">
-          <h3>Tiêu chí lọc</h3>
-          <div class="widget_searchAdv">
-            <h3>Bộ sách</h3>
-            <form>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookCanhDieu" value="canh-dieu">
-                <label class="form-check-label" for="bookCanhDieu">
-                  Cánh diều
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookChanTroi" value="chan-troi-sang-tao">
-                <label class="form-check-label" for="bookChanTroi">
-                  Chân trời sáng tạo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="book" id="bookKetNoi" value="ket-noi-tri-thuc">
-                <label class="form-check-label" for="bookKetNoi">
-                  Kết nối tri thức
-                </label>
-              </div>
-            </form>
-          </div>
-          <div class="widget_searchAdv">
-            <h3>Loại tài liệu</h3>
-            <form>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachGiaoKhoa"
-                  value="sach-giao-khoa">
-                <label class="form-check-label" for="docSachGiaoKhoa">
-                  Sách giáo khoa
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachThamKhao"
-                  value="sach-tham-khao">
-                <label class="form-check-label" for="docSachThamKhao">
-                  Sách tham khảo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="documentType" id="docSachNghiepVu"
-                  value="sach-nghiep-vu">
-                <label class="form-check-label" for="docSachNghiepVu">
-                  Sách nghiệp vụ
-                </label>
-              </div>
-            </form>
-          </div>
+        <form [formGroup]="formCriteriaFilter">
+          <div class="advSearch">
+            <h3>Tiêu chí lọc</h3>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>Bộ sách</h3>
+                  @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')" [disabled]="!disabledCleanBsThuVien">
+                    <nz-icon nzType="delete" nzTheme="outline" />
+                  </button>
+                </div>
 
-        </div>
+                <nz-radio-group formControlName="bsThuVienId">
+                  <label nz-radio nzValue="canh-dieu">Cánh diều</label>
+                  <label nz-radio nzValue="chan-troi-sang-tao">Chân trời sáng tạo</label>
+                  <label nz-radio nzValue="ket-noi-tri-thuc">Kết nối tri thức</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>Loại tài liệu</h3>
+                  @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')" [disabled]="!disabledCleanDmDangTaiLieu">
+                    <nz-icon nzType="delete" nzTheme="outline" />
+                  </button>
+                </div>
+
+                <nz-radio-group formControlName="bmDmDangTaiLieuId">
+                  <label nz-radio nzValue="sach-giao-khoa">Sách giáo khoa</label>
+                  <label nz-radio nzValue="sach-tham-khao">Sách tham khảo</label>
+                  <label nz-radio nzValue="sach-nghiep-vu">Sách nghiệp vụ</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+          </div>
+        </form>
       </div>
       <div class="modalStand_box">
         <div class="box_result_book">

@@ -19,51 +19,69 @@
             <div class="box-btn-info">
               <button class="btn btn-read"><i class="fa fa-folder-open"></i> Đọc sách</button>
               <button class="btn btn-read"><i class="fa fa-solid fa-book"></i> Mượn sách</button>
-            </div>
-            <div class="box-love-book">
-              <button class="btn btn-love-book"><i class="fa fa-regular fa-heart"></i> Yêu thích</button>
+            <div class="img-itemColumnInfo">
+              <h3>{{currentDocument.tieuDe}}</h3>
+              <app-preview-document [details]="currentDocument.tomTat" />
+              <div class="box-btn-info">
+                <button class="btn btn-read"><i class="fa fa-folder-open"></i> Đọc sách</button>
+                <button class="btn btn-read"><i class="fa fa-solid fa-book"></i> Mượn sách</button>
+              </div>
+              <div class="box-love-book">
+                <button class="btn btn-love-book"><i class="fa fa-regular fa-heart"></i> Yêu thích</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="itemColumnInfo">
-          <div class="info-author">
-            <div class="box-profile">
-              <ul>
-                <li>Tác giả: <a  [routerLink]="['/documents/author', currentDocument.tacGia[0].giaTri||'']">{{currentDocument.tacGia[0].giaTri||''}}</a></li>
-                <li>Năm xuất bản: <span>{{currentDocument.thongTinXuatBan}}</span></li>
-                <li>Nhà xuất bản: <a href="#">Room to Red</a></li>
-                <li>Bộ sách: <a href="#">Cánh diều</a></li>
-                <li>Nơi lưu trữ: <span>Sách thiếu nhi (3): STN000001-03</span></li>
-              </ul>
-            </div>
-            <div class="box-profile pt-5">
-              <ul class="nav_social">
-                <li>
-                  <i class="fa fa-regular fa-heart"></i>
-                  <span>50</span>
-                </li>
-                <li>
-                  <i class="fa fa-solid fa-book"></i>
-                  <span>50</span>
-                </li>
-                <li>
-                  <i class="fa fa-solid fa-book"></i>
-                  <span>50</span>
-                </li>
-                <li>
-                  <i class="fa fa-solid fa-share"></i>
-                  <span>50</span>
-                </li>
-                <li>
-                  <i class="fa fa-solid fa-comment"></i>
-                  <span>50</span>
-                </li>
-              </ul>
+          <div class="itemColumnInfo">
+            <div class="info-author">
+              <div class="box-profile">
+                <ul>
+                  <li>Tác giả: <a
+                      [routerLink]="['/documents/author', currentDocument.tacGia[0].giaTri||'']">{{currentDocument.tacGia[0].giaTri||''}}</a>
+                  </li>
+                  <li>Năm xuất bản: <span>{{currentDocument.thongTinXuatBan}}</span></li>
+                  <li>Nhà xuất bản: <a href="#">Room to Red</a></li>
+                  <li>Bộ sách: <a href="#">Cánh diều</a></li>
+                  <li>Nơi lưu trữ: <span>Sách thiếu nhi (3): STN000001-03</span></li>
+                </ul>
+              </div>
+              <div class="box-profile pt-5">
+                <ul class="nav_social">
+                  <li>
+                    <i class="fa fa-regular fa-heart"></i>
+                    <span>50</span>
+                  </li>
+                  <li>
+                    <i class="fa fa-solid fa-book"></i>
+                    <span>50</span>
+                  </li>
+                  <li>
+                    <i class="fa fa-solid fa-book"></i>
+                    <span>50</span>
+                  </li>
+                  <li>
+                    <i class="fa fa-solid fa-share"></i>
+                    <span>50</span>
+                  </li>
+                  <li>
+                    <i class="fa fa-solid fa-comment"></i>
+                    <span>50</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      @let docs$ = docs | async;
+      @if (docs$) {
+      <div class="box-stand pt-5">
+        <div class="container">
+          <app-s-slider title="Có thể bạn thích" [data]="docs$"></app-s-slider>
+        </div>
+      </div>
+      }
     </div>
   </div>
-</div>
+}
+
 <!-- <app-s-slider title="Sách giáo khoa1" [data]="docs$"></app-s-slider> -->
