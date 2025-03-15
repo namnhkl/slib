@@ -1,13 +1,13 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { DocumentsService } from '../documents.service';
-import { IDocument } from '../documents';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { get } from 'lodash';
 import { SharedModule } from '@/app/shared/shared.module';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { get } from 'lodash';
 import { of, switchMap } from 'rxjs';
 import { HomeService } from '../../home/home.service';
-import { PreviewDocumentComponent } from "../preview-document/preview-document.component";
+import { IDocument } from '../documents';
+import { DocumentsService } from '../documents.service';
+import { PreviewDocumentComponent } from '../preview-document/preview-document.component';
 
 @Component({
   selector: 'app-document-details',
@@ -36,11 +36,11 @@ export class DocumentDetailsComponent implements OnInit {
       const id = get(params, 'id', '');
       if (id.length > 0) {
         this.documentsService.getDocsDetails(id).subscribe((res) => {
+          console.log('res', res.data[0]);
           this.currentDocument = res.data[0];
-          this.changeRef.detectChanges()
+          this.changeRef.detectChanges();
         });
       }
     });
   }
-
 }

@@ -21,7 +21,7 @@
                   @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
                   .valueChanges | async);
                   <button nz-button nzType="link" (click)="handleClear('bsThuVienId')" [disabled]="!disabledCleanBsThuVien">
-                    <nz-icon nzType="delete" nzTheme="outline" />
+                    <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
 
@@ -39,7 +39,7 @@
                   @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
                   .valueChanges | async);
                   <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')" [disabled]="!disabledCleanDmDangTaiLieu">
-                    <nz-icon nzType="delete" nzTheme="outline" />
+                    <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
 

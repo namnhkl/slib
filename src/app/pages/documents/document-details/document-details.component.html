@@ -28,7 +28,7 @@
               <div class="box-profile">
                 <ul>
                   <li>Tác giả: <a
-                      [routerLink]="['/documents/author', currentDocument.tacGia[0].giaTri||'']">{{currentDocument.tacGia[0].giaTri||''}}</a>
+                      [routerLink]="['/documents/author', currentDocument.tacGia && currentDocument.tacGia[0].giaTri && '']">{{currentDocument.tacGia[0].giaTri||''}}</a>
                   </li>
                   <li>Năm xuất bản: <span>{{currentDocument.thongTinXuatBan}}</span></li>
                   <li>Nhà xuất bản: <a href="#">Room to Red</a></li>
