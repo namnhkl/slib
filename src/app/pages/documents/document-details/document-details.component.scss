@@ -43,6 +43,11 @@ $background-color_1: #2775db;
 /*		flex: 0 0 50%;*/
 	}
 }
+.fixHeight {
+	min-height: 96px;
+	display: flex;
+	align-items: flex-start;
+}
 .img-itemColumnInfo {
 	p {
 		margin: 0;
@@ -191,7 +196,7 @@ $background-color_1: #2775db;
 	}
 	.itemColumnInfo {
 		flex: 1 !important;
-		width: 100%;
+		width: 100% !important;
 		flex-direction: column;
 	}
 	.img-itemColumnInfo {
