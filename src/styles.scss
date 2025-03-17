@@ -598,6 +598,13 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
     background-size: 18px !important;
   }
 }
+.pdlr0 {
+  .box-stand {
+    .container {
+      padding: 0;
+    }
+  }
+}
 
 @media (max-width:992px) {
   .owl-theme .owl-nav {

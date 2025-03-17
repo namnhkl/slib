@@ -234,17 +234,21 @@ $background-color_1: #2775db;
 		text-overflow: ellipsis;
 	}
 }
+.pdlr0 {
+	padding: 0;
+}
 
 @media (max-width: 600px) {
 	.img-itemColumnInfo {
-		width: 100%;
+/*		width: 100%;*/
 		img {
-			width: 100%;
-			height: 100%;
+			width: 145px;
+			height: 192px;
 			margin: 0 auto;
 		}
 		p {
-			width: 100%;
+/*			width: 100%;*/
+			width: 145px;
 			margin: 0 auto;
 		}
 	}
