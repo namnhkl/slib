@@ -593,9 +593,9 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
     opacity: 1;
     z-index: 9999;
     right: -13px;
-    top: 7px;
+    top: 5px;
     display: flex !important;
-    background-size: 18px !important;
+    background-size: 15px !important;
   }
 }
 .pdlr0 {
@@ -611,7 +611,7 @@ app-root .ant-spin-nested-loading > div > .ant-spin {
     display: none !important;
   }
   .ant-select-selection-item:after {
-    top: -11px;
+    top: -10px;
   }
 }
 
