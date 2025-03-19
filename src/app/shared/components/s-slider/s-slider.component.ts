@@ -6,6 +6,7 @@ import {
   OnInit,
   Renderer2,
   signal,
+  TemplateRef,
   ViewChild,
   WritableSignal,
 } from '@angular/core';
@@ -19,19 +20,22 @@ import { URL_ROUTER } from '../../constants/path.constants';
   styleUrls: ['./s-slider.component.scss'],
   // eslint-disable-next-line @angular-eslint/prefer-standalone
   standalone: false,
-  imports: [],
 })
 export class SSliderComponent implements OnInit, AfterViewInit {
   @ViewChild('titleElement') titleElement: ElementRef | undefined;
-  @Input() title = '';
+  @Input() children: TemplateRef<unknown> | null = null;
+
+  @Input() title: TemplateRef<unknown> | string = '';
   @Input() categoryId = 1;
-  @Input() data: IBoook[] = [];
+  @Input() data: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private renderer: Renderer2
   ) {}
-  customOptions: OwlOptions = {
+
+  @Input() customOptions: OwlOptions = {
     // autoWidth: true,
     loop: true,
     // items: '10',

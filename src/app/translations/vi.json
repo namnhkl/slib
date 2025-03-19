@@ -39,5 +39,22 @@
   "file": "Hồ sơ",
   "change_password": "đổi mật khẩu",
   "reenter_password": "nhập lại mật khẩu",
-  "profile": "hồ sơ"
+  "profile": "hồ sơ",
+  "log_out": "đăng xuất",
+  "personal_profile": "Hồ sơ cá nhân",
+  "card_number": "Số thẻ",
+  "class": "Lớp",
+  "school_year": "Niên khoá",
+  "reading_group": "Nhóm bạn đọc",
+  "expiration_date": "Ngày hết hạn",
+  "total_number_of_books_borrowed": "Tổng số sách đã mượn",
+  "total_number_of_books_read": "Tổng số sách đã đọc",
+  "documents_are_borrowed": "Tài liệu đang mượn",
+  "borrowed_date": "Ngày mượn",
+  "payment_deadline": "Hạn trả",
+  "overdue": "Quá hạn",
+  "format": "Định dạng",
+  "see_more": "Xem Thêm",
+  "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn",
+  "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán"
 }

@@ -1,0 +1,15 @@
+<div class="box-item" >
+  <div class="imgbook">
+    <div class="sideBox">
+      <span class="leftSide"></span>
+      <img src="{{ item.anhDaiDien }}" alt="" />
+    </div>
+    <span>{{ item.tieuDe }}</span>
+  </div>
+  <div class="books-info">
+    <p>{{'borrowed_date'|translate}}: <span>{{ item.ngayGhiMuon }}</span></p>
+    <p>{{'payment_deadline'|translate}}: <span>{{ item.ngayTraDuKien }}</span></p>
+    <p>{{'overdue'|translate}}: <span>{{ item.soLanDaGiaHan }}</span></p>
+    <p>{{'format'|translate}}: <span>{{ item.moTaVatLy }}</span></p>
+  </div>
+</div>

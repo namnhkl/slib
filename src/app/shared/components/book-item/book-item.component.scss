@@ -5,9 +5,9 @@
     height: auto;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    height: 280px;
+    height: 220px;
     object-fit: cover;
-    width: 216px;
+    width: 100%;
   }
   a{
     > span{
@@ -37,4 +37,3 @@
     transform: translateY(-10px);
   } 
 }
-

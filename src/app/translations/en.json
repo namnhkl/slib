@@ -39,5 +39,22 @@
   "file": "File",
   "change_password": "change password",
   "reenter_password": "re-enter password",
-  "profile": "profile"
+  "profile": "profile",
+  "log_out": "log out",
+  "personal_profile": "Personal profile",
+  "card_number": "Card number",
+  "class": "Class",
+  "school_year": "School year",
+  "reading_group": "Reading group",
+  "expiration_date": "Expiration date",
+  "total_number_of_books_borrowed": "Total number of books borrowed",
+  "total_number_of_books_read": "Total number of books read",
+  "documents_are_borrowed": "Documents are borrowed",
+  "borrowed_date": "Borrowed date",
+  "payment_deadline": "Payment deadline",
+  "overdue": "Overdue",
+  "format": "Format",
+  "see_more": "See More",
+  "please_confirm_your_password": "Please confirm your password",
+  "the_two_passwords_you_entered_are_inconsistent": "The two passwords you entered are inconsistent"
 }

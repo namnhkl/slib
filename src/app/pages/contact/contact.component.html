@@ -12,9 +12,9 @@
                 <nz-form-item>
                   <nz-form-control nzErrorTip="Xin vui lòng chọn thư viện">
                   <select id="listBookLibary" formControlName="thuVien">
-                    <option value="1">LHP: Thư viện lê hồng phong</option>
-                    <option value="2">LHP: Thư viện lê hồng phong</option>
-                    <option value="3">LHP: Thư viện lê hồng phong</option>
+                    @for (option of $optionsCategory | async; track option.id) {
+                      <option [value]="option.id">{{ option.ten }}</option>
+                    }
                   </select>
                   </nz-form-control>
                 </nz-form-item>
@@ -46,12 +46,25 @@
                   <label for="ip"><sup>(*)</sup>Mã xác nhận</label>
                   <div class="capchaID">
                     <nz-form-item>
-                      <nz-form-control nzErrorTip="Xin vui lòng nhập mã xác nhận" >
+                      <nz-form-control [nzErrorTip]="errorCapcha" >
                       <input type="text" formControlName="ip"  placeholder="Nhập mã xác nhận" nz-input />
                       </nz-form-control>
                     </nz-form-item>
-                    <img class="imgCapcha" src="img/capcha.png" alt="" />
-                    <a href="#"><i class="fa fa-rotate-right"></i></a>
+                    <ng-template #errorCapcha let-control>
+                      @if (control.errors?.['notMatch']) {
+                        Mã capcha không hợp lệ
+                      }
+                      @if (control.errors?.['required']) {
+                        Xin vui lòng nhập mã xác nhận
+                      }
+                    </ng-template>
+                    <!-- <img class="imgCapcha" src="img/capcha.png" alt="" /> -->
+                     <div class="imgCapcha">
+                       @for (digit of $capcha | async; track $index) {
+                         <span>{{ digit }}</span>
+                       }
+                     </div>
+                    <a (click)="handleResetCapcha()"><i class="fa fa-rotate-right"></i></a>
                   </div>
                 </div>
                 <div class="form-group form-group-btn">

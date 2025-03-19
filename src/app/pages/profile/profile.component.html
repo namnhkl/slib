@@ -1,7 +1,7 @@
 <div class="wrapp-profile">
   <div class="container">
     <h2 class="the-title-profile">
-      Hồ sơ cá nhân
+      {{'personal_profile'|translate}}
     </h2>
     <div class="top-profile">
       <div class="user-box">
@@ -9,185 +9,68 @@
           <img [src]="profile.anhDaiDien" alt="" />
         </div>
         <div class="detail-profile-box">
-          <p>Họ và tên: <span>{{profile.hoTen}}</span></p>
-          <p>Số thẻ: <span>NMN2024</span></p>
-          <p>Lớp <span>2A1</span></p>
-          <p>Niên khoá: <span>2024 - 2029</span></p>
-          <p>Nhóm bạn đọc: <span>Học sinh</span></p>
-          <p>Ngày hết hạn: <span>{{profile.ngayKetThuc}}</span></p>
+          <p>{{'full_name'|translate}}: <span>{{profile.hoTen}}</span></p>
+          <p>{{'card_number'|translate}}: <span>{{ profile.soThe }}</span></p>
+          <p>{{'class'|translate}} <span>2A1</span></p>
+          <p>{{'school_year'|translate}}: <span>2024 - 2029</span></p>
+          <p>{{'reading_group'|translate}}: <span>{{ profile.bdNhomTen }}</span></p>
+          <p>{{'expiration_date'|translate}}: <span>{{profile.ngayKetThuc}}</span></p>
           <div class="btn-change-info">
-            <a class="btn btn-secondary" [routerLink]="['/profile','change-password']"><i class="fa fa-solid fa-lock"></i> Đổi mật khẩu</a>
-            <button class="btn btn-danger" type="button" (click)="logout()"><i class="fa-sharp fa-solid fa-right-from-bracket"></i> Đăng xuất</button>
+            <a class="btn btn-secondary" [routerLink]="['/profile','change-password']"><i
+                class="fa fa-solid fa-lock"></i> {{'change_password'|translate}}</a>
+            <button class="btn btn-danger" type="button" (click)="logout()"><i
+                class="fa-sharp fa-solid fa-right-from-bracket"></i> {{'log_out' | translate}}</button>
           </div>
         </div>
       </div>
       <div class="user-box">
         <div class="count-box">
-          <h3>Tổng số sách đã mượn</h3>
+          <h3>{{'total_number_of_books_borrowed'|translate}}</h3>
           <div class="box-number">
-            20
+            {{ (this.$borrowedBooks | async)?.totalRecord }}
           </div>
         </div>
         <div class="count-box">
-          <h3>Tổng số sách đã đọc</h3>
+          <h3>{{'total_number_of_books_read'|translate}}</h3>
           <div class="box-number">
-            20
+            {{ (this.$readBooks | async)?.totalRecord }}
           </div>
         </div>
       </div>
     </div>
     <div class="pt-5 documentBox">
-      <h3>Tài liệu đang mượn <span>(5)</span></h3>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
+      @let borrowDocument = ($borrowedDocuments | async);
+      <ng-template #title1>
+        <span>{{'documents_are_borrowed'|translate}} <span class="count">({{ borrowDocument.totalRecord }})</span></span>
+      </ng-template>
+      <app-s-slider [title]="title1" [children]="item1" [data]="borrowDocument.data" [customOptions]="customOptions">
+      </app-s-slider>
+      <ng-template #item1 let-item="item">
+        <app-book-borrowed [item]="item" />
+      </ng-template>
     </div>
 
     <div class="pt-5 documentBox">
-      <h3>Tài liệu đã mượn/đọc <span>(5)</span></h3>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
+      @let borrowedBooks = ($borrowedBooks | async);
+      <ng-template #title2>
+        <span>{{'Tài liệu đã mượn/đọc'|translate}} <span class="count">({{ borrowedBooks.totalRecord }})</span></span>
+      </ng-template>
+      <app-s-slider [title]="title2" [children]="slideBorrowed" [data]="borrowedBooks.data" [customOptions]="customOptions"></app-s-slider>
+      <ng-template #slideBorrowed let-item="item">
+        <app-book-borrowed [item]="item" />
+      </ng-template>
     </div>
 
     <div class="pt-5 documentBox">
-      <h3>Tài liệu yêu thích <span>(5)</span></h3>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
-      <div class="box-item">
-        <div class="imgbook">
-          <div class="sideBox">
-            <span class="leftSide"></span>
-            <img src="img/imageBook/B8.jpg" alt="" />
-          </div>
-          <span>The Princess and the Sunpati Flower</span>
-        </div>
-        <div class="books-info">
-          <p class="bookTitle">Suti's Mask</p>
-          <p>Ngày mượn: <span>12/12/2024</span></p>
-          <p>Hạn trả: <span>17/12/2025</span></p>
-          <p>Quá hạn: <span>05 ngày</span></p>
-          <p>Định dạng: <span>Sách giấy</span></p>
-        </div>
-      </div>
+      @let favoriteDocuments = ($favoriteDocuments | async);
+      <ng-template #title3>
+        <span>{{'Tài liệu yêu thích'|translate}} <span class="count">({{ favoriteDocuments.totalRecord }})</span></span>
+      </ng-template>
+      <app-s-slider [title]="title3" [children]="item3" [data]="favoriteDocuments.data" [customOptions]="customOptions">
+      </app-s-slider>
+      <ng-template #item3 let-item="item">
+      <app-book-borrowed [item]="item" />
+      </ng-template>
     </div>
-
   </div>
 </div>

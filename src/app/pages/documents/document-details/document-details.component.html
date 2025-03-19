@@ -68,7 +68,10 @@
       @if (docs$) {
       <div class="box-stand pt-5">
         <div class="container pdlr0">
-          <app-s-slider title="Có thể bạn thích" [data]="docs$"></app-s-slider>
+          <app-s-slider [children]="maybeYouLike" title="Có thể bạn thích" [data]="docs$"></app-s-slider>
+          <ng-template #maybeYouLike let-item="item">
+            <app-book-item-slider [book]="item" />
+          </ng-template>
         </div>
       </div>
       }

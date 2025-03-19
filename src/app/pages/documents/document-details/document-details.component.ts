@@ -8,12 +8,14 @@ import { HomeService } from '../../home/home.service';
 import { IDocument } from '../documents';
 import { DocumentsService } from '../documents.service';
 import { PreviewDocumentComponent } from '../preview-document/preview-document.component';
+import { BookBorrowedComponent } from "../../../shared/components/book-borrowed/book-borrowed.component";
+import { BookItemSliderComponent } from '@/app/shared/components/book-item-slider/book-item-slider.component';
 
 @Component({
   selector: 'app-document-details',
   templateUrl: './document-details.component.html',
   styleUrls: ['./document-details.component.scss'],
-  imports: [RouterLink, SharedModule, PreviewDocumentComponent, AsyncPipe],
+  imports: [RouterLink, SharedModule, PreviewDocumentComponent, AsyncPipe, BookBorrowedComponent],
   providers: [DocumentsService, HomeService],
 })
 export class DocumentDetailsComponent implements OnInit {

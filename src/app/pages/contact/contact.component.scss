@@ -86,7 +86,7 @@
 .capchaID input {
   position: relative;
 }
-.capchaID img {
+.capchaID .imgCapcha {
   position: absolute;
   width: 100px;
   top: 5px;
@@ -103,7 +103,7 @@
 .rightContact {
   text-align: center;
 }
-.rightContact img {
+.rightContact .imgCapcha {
   width: 80%;
 }
 

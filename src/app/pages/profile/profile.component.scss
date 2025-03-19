@@ -96,7 +96,7 @@
   width: 100%;
   gap: 10px;
 }
-.documentBox h3 span {
+.documentBox .count {
   color: rgba(0, 74, 173, 1);
   font-weight: 700;
 }
@@ -186,7 +186,7 @@
   }
 }
 
-.btn-secondary{
+.btn-secondary {
   background: none;
   font-size: 14px;
   border: solid 1px rgb(0, 74, 173);

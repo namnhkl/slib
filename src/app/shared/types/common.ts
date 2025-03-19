@@ -35,3 +35,20 @@ export interface IBoook {
   slXem: number;
   diemDanhGia: number;
 }
+
+
+export interface BookRead {
+  soThe: string;
+  bmTaiLieuId: string;
+  anhDaiDien: string;
+  tieuDe: string;
+  tacGia?: (TacGiaEntity)[] | null;
+  thongTinXuatBan: string;
+  moTaVatLy: string;
+  ngayGhiMuon: string;
+  ngayTraDuKien: string;
+  ngayTraThucTe: string;
+}
+export interface TacGiaEntity {
+  giaTri: string;
+}

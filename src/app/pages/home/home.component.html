@@ -3,9 +3,21 @@
 <app-homecategories></app-homecategories>
 @let docs$ = docs | async;
 @if (docs$) {
-  <app-s-slider title="Sách giáo khoa1" [data]="docs$"></app-s-slider>
-  <app-s-slider title="Sách tham khảo" [data]="docs$"></app-s-slider>
-  <app-s-slider title="Audio" [data]="docs$"></app-s-slider>
-  <app-s-slider title="Video" [data]="docs$"></app-s-slider>
+  <app-s-slider [children]="thamKhao1" title="Sách giáo khoa1" [data]="docs$"></app-s-slider>
+  <ng-template #thamKhao1 let-item="item">
+    <app-book-item-slider [book]="item" />
+  </ng-template>
+  <app-s-slider [children]="thamKhao" title="Sách tham khảo" [data]="docs$"></app-s-slider>
+  <ng-template #thamKhao let-item="item">
+    <app-book-item-slider [book]="item" />
+  </ng-template>
+  <app-s-slider [children]="audio" title="Audio" [data]="docs$"></app-s-slider>
+  <ng-template #audio let-item="item">
+    <app-book-item-slider [book]="item" />
+  </ng-template>
+  <app-s-slider [children]="video" title="Video" [data]="docs$"></app-s-slider>
+  <ng-template #video let-item="item">
+    <app-book-item-slider [book]="item" />
+  </ng-template>
 }
 <app-homevideos></app-homevideos>

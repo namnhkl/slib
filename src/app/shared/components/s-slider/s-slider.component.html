@@ -2,14 +2,19 @@
   <div class="container">
     <div class="bookCategories">
       <h2 class="the-title flex justify-between items-center">
-        <span>{{title}}</span>
-        <a href="#" class="viewmore">Xem Thêm</a>
+        @if (typeof title === 'string') {
+          <span>{{title}}</span>
+        } @else {
+          <ng-container [ngTemplateOutlet]="title" >
+          </ng-container>
+        }
+        <a [routerLink]="['documents']" class="viewmore">{{'see_more'|translate}}</a>
       </h2>
       <div class="mt-20 bookSlider">
         <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
           (changed)="getChangedData($event)" #owlCar class="bookSlider">
           @for (item of data; track item.id) {
-          <ng-template carouselSlide [id]="item.id">
+          <ng-template carouselSlide [id]="item.id || item.maDkcb">
             <!-- <div class="item-books-1 item-stand">
               <p style="text-align: center;">
                 <a [routerLink]="['/documents', item.id]">
@@ -19,10 +24,19 @@
               </p>
               <span><a [routerLink]="['/documents', item.id]">{{item.tieuDe}}</a></span>
             </div> -->
-            <app-book-item-slider className="item-books-1 item-stand" [book]="item"></app-book-item-slider>
+            <!-- <app-book-item-slider className="item-books-1 item-stand" [book]="item"></app-book-item-slider> -->
+              <ng-container
+                [ngTemplateOutlet]="children"
+                [ngTemplateOutletContext]="{ item }"
+              >
+              </ng-container>
           </ng-template>
-          }
-        </owl-carousel-o>
+        }
+      </owl-carousel-o>
+      <!-- <ng-content [test]="aaaaa"></ng-content> -->
+      <!-- <ng-template #myFragment>
+        <p>This is the fragment</p>
+      </ng-template> -->
       </div>
     </div>
 
