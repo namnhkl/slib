@@ -126,7 +126,10 @@ export class SSliderComponent implements OnInit, AfterViewInit {
       const element = this.titleElement.nativeElement;
       const lineHeight = parseInt('20', 10);
       const height = element.offsetHeight;
-      console.log("🚀 ~ SSliderComponent ~ checkTitleHeight ~ height:", element.innerText)
+      console.log(
+        '🚀 ~ SSliderComponent ~ checkTitleHeight ~ height:',
+        element.innerText
+      );
       const lines = height / lineHeight;
 
       if (lines > 1) {

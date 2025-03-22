@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -57,6 +63,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loadingService.getLoading$().subscribe((res) => {
       this.isSpinning = res;
       this.cdr.detectChanges();
+    });
+  }
+
+  handleActive() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
     });
   }
 

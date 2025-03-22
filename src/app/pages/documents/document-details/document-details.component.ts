@@ -1,5 +1,5 @@
 import { SharedModule } from '@/app/shared/shared.module';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { get } from 'lodash';
@@ -8,14 +8,22 @@ import { HomeService } from '../../home/home.service';
 import { IDocument } from '../documents';
 import { DocumentsService } from '../documents.service';
 import { PreviewDocumentComponent } from '../preview-document/preview-document.component';
-import { BookBorrowedComponent } from "../../../shared/components/book-borrowed/book-borrowed.component";
-import { BookItemSliderComponent } from '@/app/shared/components/book-item-slider/book-item-slider.component';
+import { BookBorrowedComponent } from '../../../shared/components/book-borrowed/book-borrowed.component';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-document-details',
   templateUrl: './document-details.component.html',
   styleUrls: ['./document-details.component.scss'],
-  imports: [RouterLink, SharedModule, PreviewDocumentComponent, AsyncPipe, BookBorrowedComponent],
+  imports: [
+    RouterLink,
+    CommonModule,
+    NzToolTipModule,
+    SharedModule,
+    PreviewDocumentComponent,
+    AsyncPipe,
+    BookBorrowedComponent,
+  ],
   providers: [DocumentsService, HomeService],
 })
 export class DocumentDetailsComponent implements OnInit {
@@ -33,6 +41,11 @@ export class DocumentDetailsComponent implements OnInit {
       return [];
     })
   );
+
+  getPropertyValue = (obj: any, path: string) => {
+    return get(obj, path, false);
+  }
+
   ngOnInit() {
     this.router.params.subscribe((params) => {
       const id = get(params, 'id', '');
