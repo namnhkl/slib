@@ -38,6 +38,7 @@ $background-color_1: #2775db;
 	&:first-child {
 		/*		flex: 0 0 50%;*/
 		width: 50%;
+/*		flex: 1;*/
 	}
 	&:last-child {
 		/*		flex: 0 0 50%;*/
@@ -49,6 +50,7 @@ $background-color_1: #2775db;
 	align-items: flex-start;
 }
 .img-itemColumnInfo {
+
 	p {
 		margin: 0;
 		position: relative;
@@ -93,6 +95,9 @@ $background-color_1: #2775db;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		width: 500px;
+	}
+	&:last-child {
+		overflow: hidden;
 	}
 }
 .box-btn-info {
