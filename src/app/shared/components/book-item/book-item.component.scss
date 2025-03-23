@@ -31,9 +31,13 @@
         height: 40px;
         pointer-events: none;
       }
+      &:hover {
+        color: #1890ff;
+      }
     }
   }
   &:hover {
     transform: translateY(-10px);
+    color: #1890ff;
   } 
 }

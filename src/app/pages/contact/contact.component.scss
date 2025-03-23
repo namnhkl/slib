@@ -88,9 +88,15 @@
 }
 .capchaID .imgCapcha {
   position: absolute;
-  width: 100px;
-  top: 5px;
+  width: auto;
+  top: 0;
+  background: #ccc;
   right: 40px;
+  text-align: center;
+  height: 45px;
+  line-height: 45px;
+  font-weight: bold;
+  padding: 0 15px;
 }
 .capchaID a {
   position: absolute;
