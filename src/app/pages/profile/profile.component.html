@@ -16,9 +16,9 @@
           <p>{{'reading_group'|translate}}: <span>{{ profile.bdNhomTen }}</span></p>
           <p>{{'expiration_date'|translate}}: <span>{{profile.ngayKetThuc}}</span></p>
           <div class="btn-change-info">
-            <a class="btn btn-secondary" [routerLink]="['/profile','change-password']"><i
+            <a class="btn btn-secondary capitalize" [routerLink]="['/profile','change-password']"><i
                 class="fa fa-solid fa-lock"></i> {{'change_password'|translate}}</a>
-            <button class="btn btn-danger" type="button" (click)="logout()"><i
+            <button class="btn btn-danger capitalize" type="button" (click)="logout()"><i
                 class="fa-sharp fa-solid fa-right-from-bracket"></i> {{'log_out' | translate}}</button>
           </div>
         </div>

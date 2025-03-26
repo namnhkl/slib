@@ -11,11 +11,11 @@
                 <label for="listBookLibary"><sup>(*)</sup>Thư viện</label>
                 <nz-form-item>
                   <nz-form-control nzErrorTip="Xin vui lòng chọn thư viện">
-                  <select id="listBookLibary" formControlName="thuVien">
+                  <nz-select class="select-thu-vien" nzShowSearch nzAllowClear >
                     @for (option of $optionsCategory | async; track option.id) {
-                      <option [value]="option.id">{{ option.ten }}</option>
+                    <nz-option [nzLabel]="option.ten" [nzValue]="option.id"></nz-option>
                     }
-                  </select>
+                  </nz-select>
                   </nz-form-control>
                 </nz-form-item>
                 <div class="form-group">

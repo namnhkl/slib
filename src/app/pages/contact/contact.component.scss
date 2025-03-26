@@ -121,3 +121,23 @@
     width: 100%;
   }
 }
+
+.select-thu-vien {
+  &::ng-deep {
+    .ant-select-selector {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    .ant-select-selection-item {
+      display: flex;
+      height: 100%;
+      align-items: center;
+
+      &:after {
+        top: 50%;
+        right: -10px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

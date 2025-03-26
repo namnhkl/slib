@@ -40,7 +40,7 @@ export class ContactComponent {
       email: this.fb.control('', [Validators.required, Validators.email]),
       noiDung: this.fb.control('', [Validators.required]),
       ip: this.fb.control('', [Validators.required]),
-      thuVien: this.fb.control('1'),
+      thuVien: this.fb.control('', [Validators.required]),
     });
   }
 
@@ -59,28 +59,29 @@ export class ContactComponent {
   }
 
   submitForm(): void {
-    const isCapchaValid = _.isEqual(this.validateForm.get('ip')?.value, this.$capcha.value.join(''));
-
-    if (!isCapchaValid) {
-      this.validateForm.controls['ip'].setErrors({
-        notMatch: true
-      })
-
-      setTimeout(() => {
-        this.validateForm.controls['ip'].setValue('');
-        this.handleResetCapcha()
-      }, 500)
-
-      return;
-    }
-
     if (this.validateForm.valid) {
+      const isCapchaValid = _.isEqual(this.validateForm.get('ip')?.value, this.$capcha.value.join(''));
+
+      if (!isCapchaValid) {
+        this.validateForm.controls['ip'].setErrors({
+          notMatch: true
+        })
+
+        setTimeout(() => {
+          this.validateForm.controls['ip'].setValue('');
+          this.handleResetCapcha()
+        }, 500)
+
+        return;
+      }
+
       this.contactService.submitContactContent(this.validateForm.value as ContactFormBody)
       .pipe(
         tap(res => {
           if (res.messageCode === 1) {
             this.notificationService.success('Thành công', res.messageText)
             this.validateForm.reset();
+            this.handleResetCapcha()
           }
           else{
             this.notificationService.error('Thất bại', res.messageText)
