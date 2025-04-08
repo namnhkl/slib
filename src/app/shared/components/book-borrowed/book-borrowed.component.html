@@ -2,14 +2,28 @@
   <div class="imgbook">
     <div class="sideBox">
       <span class="leftSide"></span>
-      <img src="{{ item.anhDaiDien }}" alt="" />
+     
+      <img src="{{ item.anhDaiDien }}" alt="" nz-popover [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate" />
+    
     </div>
     <span>{{ item.tieuDe }}</span>
   </div>
+
+
+<ng-template #titleTemplate>
+  <nz-icon nzType="close" />
+  {{ item.tieuDe }}
+</ng-template>
+<ng-template #contentTemplate>
+  <nz-icon nzType="check" />
   <div class="books-info">
+    <p>{{'ĐKCB'|translate}}: <span>{{ item.maDkcb }}</span></p>
     <p>{{'borrowed_date'|translate}}: <span>{{ item.ngayGhiMuon }}</span></p>
     <p>{{'payment_deadline'|translate}}: <span>{{ item.ngayTraDuKien }}</span></p>
-    <p>{{'overdue'|translate}}: <span>{{ item.soLanDaGiaHan }}</span></p>
+    <p>{{'overdue'|translate}}: <span>{{ item.quaHanSoNgay }}</span></p>
     <p>{{'format'|translate}}: <span>{{ item.moTaVatLy }}</span></p>
+  <a [routerLink]="['/documents', item?.bmTaiLieuId]"><i class="fa fa-eye"></i> Chi tiết</a>
   </div>
+</ng-template>
+  
 </div>

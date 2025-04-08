@@ -83,7 +83,6 @@ export class AuthService extends _HttpRequestInjector {
 
   countBorrowedBooks(queryObject: IPageParams = this.defaultPageParams) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocLtMuonTraBmTaiLieu', queryObject });
-
     return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
