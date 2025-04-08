@@ -54,6 +54,7 @@ npx ng generate module <name> --route
 
 ### Production
 * `npm run serve`
-* in your browser [http://localhost:4000](http://localhost:4000) 
+* in your browser [http://localhost:4200](http://localhost:4200) 
 
-
+### Lib components
+* ant design `https://ng.ant.design/components/overview/en`
