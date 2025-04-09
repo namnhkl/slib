@@ -10,10 +10,22 @@
         #owlCar
         class="classSlider"
       >
-        @for (item of simpleData; track item.id) {
-        <ng-template carouselSlide [id]="item.id">
-          <app-book-item-slider [book]="item"></app-book-item-slider>
-        </ng-template>
+        <!-- Loop qua mảng data trong $chuyende -->
+        @for (item of ($chuyende | async)?.data; track item.id) {
+          <ng-template carouselSlide [id]="item.id">
+            <div class="item-wrapper" *ngIf="item">
+              <a
+                [routerLink]="['/search-results']"
+                [queryParams]="{ bmChuyendeId: item?.id }"
+                title="{{ item?.ten }}"
+              >
+                <div class="item-thumbnail">
+                  <img [src]="item?.anhDaiDien" [alt]="item?.ten" />
+                </div>
+                <span class="item-title">{{ item?.ten }}</span>
+              </a>
+            </div>
+          </ng-template>
         }
       </owl-carousel-o>
     </div>

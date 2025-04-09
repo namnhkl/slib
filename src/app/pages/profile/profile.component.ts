@@ -63,10 +63,10 @@ export class ProfileComponent implements OnInit {
       slideBy: 'page',
       responsive: {
         0: {
-          items: 2.2,
+          items: 2,
         },
         600: {
-          items: 3,
+          items: 6,
         },
       },
       // stagePadding: 40,

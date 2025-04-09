@@ -1,4 +1,5 @@
 <div class="box-item" >
+
   <div class="imgbook">
     <div class="sideBox">
       <span class="leftSide"></span>
@@ -22,7 +23,7 @@
     <p>{{'payment_deadline'|translate}}: <span>{{ item.ngayTraDuKien }}</span></p>
     <p>{{'overdue'|translate}}: <span>{{ item.quaHanSoNgay }}</span></p>
     <p>{{'format'|translate}}: <span>{{ item.moTaVatLy }}</span></p>
-  <a [routerLink]="['/documents', item?.bmTaiLieuId]"><i class="fa fa-eye"></i> Chi tiết</a>
+  <a [routerLink]="['/documents', item?.bmTaiLieuId]"> {{'Detail'|translate}}</a>
   </div>
 </ng-template>
   

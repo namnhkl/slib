@@ -7,7 +7,9 @@ import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
 import { IDocument } from './documents';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root' // Đảm bảo có dòng này
+})
 @HttpRequestInjectable('/tailieu')
 @Stoppable()
 export class DocumentsService extends _HttpRequestInjector {
@@ -32,7 +34,16 @@ export class DocumentsService extends _HttpRequestInjector {
         id,
       },
     });
+    return this._http.get<IResponse<IDocument[]>>(url);
+  }
 
+  getChuyenDes() {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'stsBoSuuTapDs',
+      queryObject: {
+
+      },
+    });
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 }

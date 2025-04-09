@@ -56,5 +56,7 @@
   "format": "Định dạng",
   "see_more": "Xem Thêm",
   "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn",
-  "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán"
+  "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán",
+  "ĐKCB":"ĐKCB",
+  "Detail":"Chi tiết"
 }

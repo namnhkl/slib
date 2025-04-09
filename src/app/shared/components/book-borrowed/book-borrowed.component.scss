@@ -113,7 +113,7 @@
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
   z-index: 1;
   border-radius: 5px;
-  width: 164px;
+  width: 194px;
   height: 208px;
   position: relative;
 }
@@ -195,8 +195,10 @@
 
 .box-item a {
   color: black;
+  
 }
 
 .box-item img {
-  object-fit: none;
+  cursor: pointer;
+  //object-fit: none;
 }
