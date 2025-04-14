@@ -40,5 +40,6 @@ export const URL_ROUTER = {
   // end map form
   // document start
   documents: 'documents',
+  chuyende:'chuyen-de'
   // document end
 } as const;

@@ -1,0 +1,12 @@
+<!-- src/app/chuyen-de/chuyen-de-item/chuyen-de-item.component.html -->
+<div class="item-wrapper" *ngIf="chuyenDe">
+    <a [routerLink]="['/chuyen-de', chuyenDe.id]" [title]="chuyenDe.ten">
+      <div class="item-thumbnail">
+        <img [src]="getImageUrl()" [alt]="chuyenDe.ten" />
+      </div>
+      <span class="item-title">{{ chuyenDe.ten }}</span>
+      <div class="item-count">
+        {{ chuyenDe.slTaiLieu > 0 ? chuyenDe.slTaiLieu + ' tài liệu' : 'Chưa có tài liệu' }}
+      </div>
+    </a>
+  </div>

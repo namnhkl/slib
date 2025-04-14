@@ -107,11 +107,6 @@ return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
     return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
-  getChuyenDe(queryObject: IPageParams = this.defaultPageParams) {
-    const url = this.urlObject.buildUrl({ endpoint: 'stsBoSuuTapDs', queryObject });
-    return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
-  }
-
   saveSession(data: IResponseAuthData, accessToken: string): void {
     storage.setItem('appSession', data);
     storage.setItem('access_token', accessToken);

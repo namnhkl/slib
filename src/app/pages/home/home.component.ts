@@ -11,6 +11,7 @@ import { HomeVideosComponent } from './HomeVideos/HomeVideos.component';
 import { HomeSearchAdvancedComponent } from './HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { IBookSearchResponse } from './HomeSearchAdvanced/type';
+import { ChuyenDeListComponent } from '@/app/chuyen-de/chuyen-de-list/chuyen-de-list.component';
 
 @Component({
   selector: 'app-home',
