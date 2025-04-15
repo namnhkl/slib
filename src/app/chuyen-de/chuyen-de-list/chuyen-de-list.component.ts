@@ -14,6 +14,12 @@ import { SeoService } from '@/app/core/services/seo/seo.service';
 import { SafeHtmlPipe } from '@/app/shared/Pipes/safe-html.pipe';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { PreviewDocumentComponent } from 'app/pages/documents/preview-document/preview-document.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-chuyen-de-list',
   standalone: true,
@@ -25,7 +31,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     SortByCapPipe,
     SafeHtmlPipe,
     NzCollapseModule,
-    NzIconModule
+    NzIconModule,
+    NzPopoverModule,NzButtonModule,NzBadgeModule,PreviewDocumentComponent,NzModalModule,TranslateModule
   ],
   templateUrl: './chuyen-de-list.component.html',
   styleUrls: ['./chuyen-de-list.component.scss'],
@@ -42,7 +49,7 @@ export class ChuyenDeListComponent implements OnInit {
 
     this.seoService.setMetaDescription(content);
     this.seoService.setMetaTitle(title);
-  }
+  } 
 
   chuyenDeService = inject(ChuyenDeService);
   chuyenDeList = this.chuyenDeService.getChuyenDeList().pipe(
@@ -58,7 +65,7 @@ export class ChuyenDeListComponent implements OnInit {
 
   searchTerm = '';
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 9;
   totalRecord = 0;
 
   ngOnInit(): void {
@@ -84,6 +91,7 @@ export class ChuyenDeListComponent implements OnInit {
     );
     this.changeDetectorRef.detectChanges();
   }
+
 
   onPageChange(page: number): void {
     this.pageIndex = page;

@@ -1,16 +1,18 @@
 <div>
-  {{ compactDetails }}
+  <div [innerHTML]=" compactDetails"></div>
+  <!-- {{ compactDetails }} -->
   @if (isShowMore) {
     <a (click)="showModal()">
-      Xem thêm
+      {{'see_more'|translate}}
     </a>
   }
-  <nz-modal [(nzVisible)]="isVisible" nzTitle="Tóm tắt" (nzOnCancel)="handleCancel()">
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="" (nzOnCancel)="handleCancel()">
     <ng-container *nzModalContent>
-      {{ details }}
+      <div [innerHTML]=" details"></div>
+      <!-- {{ details }} -->
     </ng-container>
     <div *nzModalFooter>
-      <button nz-button nzType="primary" (click)="handleCancel()" >Đóng</button>
+      <button nz-button nzType="primary" (click)="handleCancel()" >{{'close'|translate}}</button>
     </div>
   </nz-modal>
 </div>

@@ -16,6 +16,13 @@ export interface IBook {
   diemDanhGia: number
 }
 
+export interface IChuyenDeOption {
+  id: string
+  anhDaiDien?: string
+  ten: string
+}
+
+
 export interface IBookSearchResponse extends IResponse<IBook[]> {}
 
 export interface IBookOptions {

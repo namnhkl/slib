@@ -58,5 +58,15 @@
   "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn",
   "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán",
   "ĐKCB":"ĐKCB",
-  "Detail":"Chi tiết"
+  "Detail":"Chi tiết",
+  "close":"Đóng",
+  "no_documents_yet":"Chưa có tài liệu",
+  "document":"Tài liệu",
+  "list_of_topics":"Danh sách chuyên đề",
+  "Explore_the_latest_topics_in_the_library":"Khám phá các chuyên đề tài liệu mới nhất tại thư viện",
+  "search_by_topic":"Tìm kiếm chuyên đề",
+  "search":"Tìm kiếm",
+  "previous":"Trước",
+  "next":"Tiếp",
+  "page":"Trang"
 }

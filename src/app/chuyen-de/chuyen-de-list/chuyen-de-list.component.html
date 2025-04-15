@@ -1,17 +1,17 @@
 <!-- src/app/chuyen-de/chuyen-de-list/chuyen-de-list.component.html -->
 <div class="container">
-    <h1 class="page-title">Danh sách chuyên đề</h1>
-    <p class="page-desc">Khám phá các chuyên đề tài liệu mới nhất tại thư viện</p>
+    <h1 class="page-title">{{'list_of_topics' |translate}}</h1>
+    <p class="page-desc">{{'Explore_the_latest_topics_in_the_library' | translate}}</p>
   
     <!-- Thanh tìm kiếm -->
     <div class="search-bar">
       <input
         type="text"
-        placeholder="Tìm kiếm chuyên đề..."
+        placeholder="{{'search_by_topic' | translate}}"
         [(ngModel)]="searchTerm"
         (ngModelChange)="searchChuyenDe()"
       />
-      <button (click)="searchChuyenDe()">Search</button>
+      <button (click)="searchChuyenDe()"><i class="fa-regular fa-magnifying-glass icon-search"></i> {{'search' | translate}}</button>
     </div>
   
     <!-- Grid -->
@@ -23,77 +23,30 @@
                 <div class="card-content">
                   <div class="card-title">{{ chuyenDe.ten }}</div>
                   <div class="card-count">
-                    {{ chuyenDe.slTaiLieu > 0 ? chuyenDe.slTaiLieu + ' tài liệu' : 'Chưa có tài liệu' }}
+                    {{ chuyenDe.slTaiLieu > 0 ? chuyenDe.slTaiLieu + ' ' + ['document' |translate] : 'no_documents_yet' |translate }}
                   </div>
-                  <div class="card-desc">
-                    @if (chuyenDe.moTa?.trim()) {
-                        <nz-collapse [nzBordered]="false">
-                          <nz-collapse-panel
-                            #p
-                            [nzHeader]="'Mô tả'"
-                            [nzActive]="true"
-                            [nzExpandedIcon]="expandedIcon"
-                          >
-                            <div [innerHTML]="chuyenDe.moTa | safeHtml"></div>
-                      
-                            <ng-template #expandedIcon let-active>
-                              <i
-                                class="fa fa-caret-right"
-                                [style.transform]="p.nzActive ? 'rotate(90deg)' : 'rotate(0deg)'"
-                                style="transition: transform 0.3s; margin-right: 8px;"
-                              ></i>
-                            </ng-template>
-                          </nz-collapse-panel>
-                        </nz-collapse>
-                      }
-                  </div>
-          
+                  
                   @if (chuyenDe.noiDung?.trim()) {
-                    <nz-collapse [nzBordered]="false">
-                      <nz-collapse-panel
-                        #p
-                        [nzHeader]="'Nội dung chi tiết'"
-                        [nzActive]="true"
-                        [nzExpandedIcon]="expandedIcon"
-                      >
-                        <div [innerHTML]="chuyenDe.noiDung | safeHtml"></div>
-                  
-                        <ng-template #expandedIcon let-active>
-                          <i
-                            class="fa fa-caret-right"
-                            [style.transform]="p.nzActive ? 'rotate(90deg)' : 'rotate(0deg)'"
-                            style="transition: transform 0.3s; margin-right: 8px;"
-                          ></i>
-                        </ng-template>
-                      </nz-collapse-panel>
-                    </nz-collapse>
+                    <app-preview-document class="fixHeight" [details]="chuyenDe.noiDung" />
                   }
-                  
-                  
-                  
-                
-                
-                  <!--<a [routerLink]="['/chuyen-de', chuyenDe.id]" class="card-button">Xem chi tiết</a>-->
                 </div>
               </div>
             }
-          </div>
+        </div>
           
-          
-  
       <!-- Phân trang -->
       <div class="pagination">
         <button
           [disabled]="pageIndex === 1"
           (click)="onPageChange(pageIndex - 1)"
-        >Previous</button>
-        <span>Trang {{ pageIndex }} / {{ getTotalPages() }}</span>
+        >{{'previous' | translate}}</button>
+        <span>{{'page' | translate}} {{ pageIndex }} / {{ getTotalPages() }}</span>
         <button
           [disabled]="pageIndex >= getTotalPages()"
           (click)="onPageChange(pageIndex + 1)"
-        >Next</button>
+        >{{'next' | translate}}</button>
       </div>
     } @else {
-      <div class="loading">Đang tải...</div>
+      <div class="loading">...</div>
     }
   </div>

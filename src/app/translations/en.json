@@ -58,5 +58,15 @@
   "please_confirm_your_password": "Please confirm your password",
   "the_two_passwords_you_entered_are_inconsistent": "The two passwords you entered are inconsistent",
   "ĐKCB":"ĐKCB",
-  "Detail":"Detail"
+  "Detail":"Detail",
+  "close":"Close",
+  "no_documents_yet":"No documents yet",
+  "document": "Documents",
+  "list_of_topics":"List of topics",
+  "Explore_the_latest_topics_in_the_library":"Explore the latest topics in the library",
+  "search_by_topic":"Search by topic",
+  "search":"Search",
+  "previous":"Previous",
+  "next":"Next",
+  "page":"Page"
 }

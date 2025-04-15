@@ -1,6 +1,7 @@
 <app-home-sliders></app-home-sliders>
 <app-home-search-advanced (searchResultsChange)="searchList($event)"></app-home-search-advanced>
 <app-homecategories></app-homecategories>
+
 @let docs$ = docs | async;
 @if (docs$) {
   <app-s-slider [children]="thamKhao1" title="Sách giáo khoa1" [data]="docs$"></app-s-slider>

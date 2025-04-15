@@ -3,11 +3,12 @@ import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { ViewChild } from '@angular/core';
 import {
   CarouselModule,
   OwlOptions,
   SlidesOutputData,
+  CarouselComponent 
 } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { AuthService } from '@/app/shared/services/auth.service';
@@ -27,6 +28,14 @@ interface ISimpleItem {
   imports: [CarouselModule, SharedModule,AsyncPipe, JsonPipe, RouterLink, TranslateModule, NgIf],
 })
 export class HomeCategoriesComponent implements OnInit {
+  @ViewChild('owlCar', { static: false }) owlCar!: CarouselComponent;
+  goToNext() {
+    this.owlCar.next();
+  }
+
+  goToPrev() {
+    this.owlCar.prev();
+  }
   $chuyende: Observable<any> | null;
   constructor( private router: Router, private documentSer : DocumentsService) {
       this.$chuyende= this.documentSer.getChuyenDes();
@@ -37,6 +46,8 @@ export class HomeCategoriesComponent implements OnInit {
       error: (err) => console.error('Lỗi từ $chuyende:', err),
       complete: () => console.log('Hoàn tất $chuyende')
     });
+
+    
 }
 
   customOptions: OwlOptions = {

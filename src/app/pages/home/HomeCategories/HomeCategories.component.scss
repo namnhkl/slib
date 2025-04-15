@@ -105,3 +105,42 @@
       }
     }
   }
+
+  .viewmore{
+    font-size: 14px;
+    line-height: 50px;
+    color: rgb(0, 74, 173);
+    float: right;
+    position: absolute;
+    top: -5px;
+    right: 100px;
+    font-weight: bold;
+  }
+
+  .divToolChuyenDe{
+    position: relative;
+    margin-right: -0px;
+    margin-bottom: -20px;
+    margin-top: 0;
+  }
+
+  .item-title{
+    position: relative;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .owl-dots{
+    display: none !important;
+  }
+  .carousel-nav button{
+    color: black;
+  }
+
+  .carousel-nav button i{
+    font-size: 13px;
+    padding: 3px;
+  }

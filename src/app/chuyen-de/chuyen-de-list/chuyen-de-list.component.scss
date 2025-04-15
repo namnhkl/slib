@@ -3,7 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background: #f9f9f9;
+    background: #ffffff;
   }
   
   .page-title {
@@ -78,11 +78,11 @@
     }
   
     .card-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       margin-bottom: 10px;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -96,12 +96,14 @@
     .card-desc {
       font-size: 14px;
       color: #666;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       display: -webkit-box;
-      --webkit-line-clamp: 3;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    
   
     .card-button {
       display: inline-block;

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
@@ -7,6 +8,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   imports: [
     NzButtonModule,
     NzModalModule,
+    TranslateModule
   ],
   templateUrl: './preview-document.component.html',
   styleUrl: './preview-document.component.scss',
@@ -16,7 +18,7 @@ export class PreviewDocumentComponent implements OnChanges {
 
   compactDetails = ''
 
-  maxLength = 40;
+  maxLength = 20;
 
   isShowMore = false;
 
