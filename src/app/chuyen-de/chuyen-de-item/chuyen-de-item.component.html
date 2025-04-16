@@ -1,12 +1,81 @@
-<!-- src/app/chuyen-de/chuyen-de-item/chuyen-de-item.component.html -->
-<div class="item-wrapper" *ngIf="chuyenDe">
-    <a [routerLink]="['/chuyen-de', chuyenDe.id]" [title]="chuyenDe.ten">
-      <div class="item-thumbnail">
-        <img [src]="getImageUrl()" [alt]="chuyenDe.ten" />
+<div class="container">
+  <h2 class="page-title">{{'list_of_topics_item' |translate}} </h2>
+  <h2 class="page-title">{{tenChuyenDe}}</h2>
+  <p class="page-desc">{{'Explore_the_latest_topics_item_in_the_library' | translate}}</p>
+<!-- Thanh tìm kiếm -->
+<div class="search-bar">
+<input
+  type="text"
+  placeholder="{{'search' | translate}}"
+  [(ngModel)]="searchTerm"
+  (ngModelChange)="searchChuyenDeItem()"
+/>
+<button (click)="searchChuyenDeItem()">
+  <i class="fa-regular fa-magnifying-glass icon-search"></i> {{'search' | translate}}
+</button>
+</div>
+
+
+<div class="list_book_search modalStand">
+<div class="container">
+  <div class="wrap-flex">
+    <div class="modalStand_box">
+      <div class="title-result capitalize-first">
+        <p class="capitalize-first">{{'found' | translate}} <span>{{ totalRecord }}</span> {{'document' | translate}}</p>
       </div>
-      <span class="item-title">{{ chuyenDe.ten }}</span>
-      <div class="item-count">
-        {{ chuyenDe.slTaiLieu > 0 ? chuyenDe.slTaiLieu + ' tài liệu' : 'Chưa có tài liệu' }}
+      <div class="box_result_book">
+        @if (chuyenDeList$ | async; as chuyenDes) {
+          @for (chuyenDe of chuyenDes; track $index) {
+            <div class="chuyen-de-item" [routerLink]="['/documents', chuyenDe?.id]">
+              <img [src]="getImageUrl(chuyenDe)" alt="{{ chuyenDe.tieuDe }}" />
+              <h5>{{ chuyenDe.tieuDe }}</h5>
+              <p>{{ getTacGiaString(chuyenDe.tacGia) }}</p>
+              <!-- Thêm các thông tin khác của chuyên đề nếu cần -->
+            </div>
+          }
+          @empty {
+            <p>Không tìm thấy chuyên đề nào.</p>
+          }
+        }
       </div>
-    </a>
+      <div class="page_sort_item">
+        <div class="item_page_detail">
+          <div class="d-flex align-items-center groupSelect">
+            <label for="numberSelect" class="form-label">Hiển thị</label>
+            <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect">
+              @for (size of [5, 10, 50, 100]; track $index) {
+                <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
+              }
+            </nz-select>
+          </div>
+        </div>
+        <div class="item_page_detail">
+          @if (totalRecord > 0) {
+            <div class="showPage">
+              <span>{{ pageIndex }}/{{ getTotalPages() }}</span>
+              <button
+                class="btn pre-btn"
+                [disabled]="pageIndex === 1"
+                (click)="onPageChange(pageIndex - 1)"
+                aria-label="Previous"
+              >
+                <span class="btnPre">‹</span>
+              </button>
+              <button
+                class="btn next-btn"
+                [disabled]="pageIndex === getTotalPages()"
+                (click)="onPageChange(pageIndex + 1)"
+                aria-label="Next"
+              >
+                <span class="btnPre">›</span>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+</div>
+</div>
+

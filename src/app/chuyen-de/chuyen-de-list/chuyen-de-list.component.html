@@ -22,8 +22,9 @@
                 <img [src]="getImageUrl(chuyenDe)" [alt]="chuyenDe.ten">
                 <div class="card-content">
                   <div class="card-title">{{ chuyenDe.ten }}</div>
-                  <div class="card-count">
-                    {{ chuyenDe.slTaiLieu > 0 ? chuyenDe.slTaiLieu + ' ' + ['document' |translate] : 'no_documents_yet' |translate }}
+                  <div class="card-count" *ngIf="chuyenDe.slTaiLieu > 0" [routerLink]="['/chuyen-de-item']"
+                  [queryParams]="{ stsBoSuuTapId: chuyenDe?.id }">
+                    <b> <i class="fas fa-file-alt me-1"></i> {{'number_of_document' |translate}}: {{  chuyenDe.slTaiLieu > 0 ?  chuyenDe.slTaiLieu : 0 }}</b>
                   </div>
                   
                   @if (chuyenDe.noiDung?.trim()) {

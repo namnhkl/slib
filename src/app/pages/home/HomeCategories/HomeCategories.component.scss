@@ -67,8 +67,8 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      height: 280px;
-      width: 216px;
+      height: 230px;
+      width: 180px;
       object-fit: fill;
       max-width: unset;
       overflow: hidden;
@@ -86,8 +86,8 @@
   }
   
   .item-thumbnail{
-  /*  width: 216px;*/
-    height: 280px;
+  width: 180px;
+    height: 230px;
     object-fit: cover;
   }
   
@@ -119,7 +119,7 @@
 
   .divToolChuyenDe{
     position: relative;
-    margin-right: -0px;
+    margin-right: 0;
     margin-bottom: -20px;
     margin-top: 0;
   }
@@ -142,5 +142,7 @@
 
   .carousel-nav button i{
     font-size: 13px;
-    padding: 3px;
+    padding-bottom: 6px;
+    padding-right: 4px;
+    padding-left: 4px;
   }

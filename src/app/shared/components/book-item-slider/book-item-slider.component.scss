@@ -67,8 +67,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: 280px;
-    width: 216px;
+    height: 230px;
+    width: 170px;
     object-fit: fill;
     max-width: unset;
     overflow: hidden;
@@ -86,8 +86,8 @@
 }
 
 .item-thumbnail{
-/*  width: 216px;*/
-  height: 280px;
+width: 170px;
+  height: 230px;
   object-fit: cover;
 }
 

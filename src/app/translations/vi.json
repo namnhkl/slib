@@ -54,7 +54,7 @@
   "payment_deadline": "Hạn trả",
   "overdue": "Quá hạn",
   "format": "Định dạng",
-  "see_more": "Xem Thêm",
+  "see_more": "Xem thêm",
   "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn",
   "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán",
   "ĐKCB":"ĐKCB",
@@ -68,5 +68,9 @@
   "search":"Tìm kiếm",
   "previous":"Trước",
   "next":"Tiếp",
-  "page":"Trang"
+  "page":"Trang",
+  "list_of_topics_item":"Danh sách tài liệu trong chuyên đề",
+  "Explore_the_latest_topics_item_in_the_library":"Khám phá các tài liệu mới nhất trong thư viện",
+  "found":"Tìm thấy",
+  "number_of_document":"Số lượng tài liệu"
 }

@@ -120,6 +120,7 @@ export const API_PREFIX = {
   '/danhmuc': '/danhmuc',
   '/lienhe': '/lienhe',
   '/chuyen-de': '/chuyen-de',
+  '/chuyen-de-item': '/chuyen-de-item',
 };
 
 export type TApiPrefix = keyof typeof API_PREFIX;

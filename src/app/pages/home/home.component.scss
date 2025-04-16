@@ -1,7 +1,12 @@
 .nga-container {
   font-size: 1.2em;
 }
-
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #ffffff;
+}
 @media (max-width: 992px) {
   .nga-container {
     font-size: 1em;

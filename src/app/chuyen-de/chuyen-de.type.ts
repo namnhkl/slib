@@ -1,6 +1,7 @@
 // src/app/chuyen-de/chuyen-de.type.ts
 import { IResponse } from '@/app/shared/types/common';
 
+
 export interface IChuyenDe {
   id: string;
   stsBoSuuTapId: string;

@@ -6,10 +6,10 @@
   <!--Hiện nút < > previus vs next ở đây-->
   <!-- 👇 Thêm navigation nút Previous / Next -->
   <div class="carousel-nav text-end mb-2">
-    <button class="btn btn-outline-primary me-1" (click)="goToPrev()">
+    <button class="btn btn-outline-secondary me-2" (click)="goToPrev()">
       <i class="fas fa-chevron-left"></i>
     </button>
-    <button class="btn btn-outline-primary" (click)="goToNext()">
+    <button class="btn btn-outline-secondary" (click)="goToNext()">
       <i class="fas fa-chevron-right"></i>
     </button>
   </div>
@@ -32,8 +32,8 @@
           <ng-template carouselSlide [id]="item.id">
             <div class="item-wrapper" *ngIf="item">
               <a 
-                [routerLink]="['/search-results']"
-                [queryParams]="{ bmChuyendeId: item?.id }"
+                [routerLink]="['/chuyen-de-item']"
+                [queryParams]="{ stsBoSuuTapId: item?.id }"
                 title="{{ item?.ten }}"
               >
                 <div class="item-thumbnail">

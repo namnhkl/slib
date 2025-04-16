@@ -68,5 +68,9 @@
   "search":"Search",
   "previous":"Previous",
   "next":"Next",
-  "page":"Page"
+  "page":"Page",
+  "list_of_topics_item":"List of documents in the topic",
+  "Explore_the_latest_topics_item_in_the_library":"Explore the latest materials in the library",
+  "found":"Found",
+  "number_of_document":"number of documents"
 }
