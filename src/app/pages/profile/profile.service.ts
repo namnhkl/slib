@@ -23,4 +23,20 @@ export class ProfileService extends _HttpRequestInjector {
 
     return this._http.get<IResponse<any[]>>(url);
   }
+
+  bdBanDocBmTaiLieuQuanTamThemMoi(id: string ) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocBmTaiLieuQuanTamThemMoi'
+      });
+      return this._http.post<IResponse<any[]>>(url, { id });
+
+    }
+
+    bdBanDocBmTaiLieuQuanTamXoa(id: string ) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocBmTaiLieuQuanTamXoa'
+      });
+      return this._http.post<IResponse<any[]>>(url, { id });
+
+    }
 }

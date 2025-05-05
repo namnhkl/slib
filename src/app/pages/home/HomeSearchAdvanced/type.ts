@@ -22,6 +22,7 @@ export interface IChuyenDeOption {
   ten: string
 }
 
+export interface IChuyenDeOptionResponse extends IResponse<IChuyenDeOption[]> {}
 
 export interface IBookSearchResponse extends IResponse<IBook[]> {}
 
