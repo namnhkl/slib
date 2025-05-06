@@ -39,4 +39,11 @@ export class ProfileService extends _HttpRequestInjector {
       return this._http.post<IResponse<any[]>>(url, { id });
 
     }
+
+    bdBanDocDoiMatKhau(matKhauCu: string, matKhau: string ) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocDoiMatKhau'
+      });
+      return this._http.post<IResponse<any[]>>(url, { matKhauCu: matKhauCu, matKhau: matKhau });
+    }
 }

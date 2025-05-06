@@ -69,3 +69,40 @@ export interface DsBanSo {
   tepTinDinhDang: any[]
   trangThai: number
 }
+
+// Interface cho tác giả
+export interface TacGia {
+  giaTri: string | null;
+}
+
+// Interface cho mục lục tài liệu
+export interface StsTaiLieuMuc {
+  id: string;
+  stsTaiLieuMucLucId: string;
+  tieuDe: string;
+  tacGia: TacGia[];
+  trang: string;
+  noiDung: string;
+  tepTinTen: string;
+  tepTinDinhDang: string;
+  tepTinHanChe: string;
+  slXem: number;
+  sapXep: number;
+  cap: number;
+  capMa: string;
+}
+
+// Interface cho tài liệu chi tiết
+export interface TaiLieuChiTiet {
+  id: string;
+  stsDmDangtaiLieuId: string;
+  stsDmDangtaiLieuTen: string;
+  loai: string;
+  ma: string;
+  tieuDe: string;
+  banQuyen: string;
+  slXem: number;
+  slMua: number | null;
+  trangThai: number;
+  stsTaiLieuMucDs: StsTaiLieuMuc[];
+}

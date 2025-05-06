@@ -10,7 +10,7 @@ import { SpinnerService } from './services/spinner.service';
 import { LoaderService } from './services/loader.service';
 import { AuthService } from './services/auth.service';
 import { BookItemSliderComponent } from './components/book-item-slider/book-item-slider.component';
-
+import { SafeUrlPipe } from './Pipes/safe-url.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +19,7 @@ import { BookItemSliderComponent } from './components/book-item-slider/book-item
     FormsModule,
     ReactiveFormsModule,
     CarouselModule,
+    SafeUrlPipe
     //import components and modules here
   ],
   declarations: [BookItemComponent,BookItemSliderComponent, SSliderComponent],
@@ -27,6 +28,7 @@ import { BookItemSliderComponent } from './components/book-item-slider/book-item
     SSliderComponent,
     BookItemSliderComponent,
     BookItemComponent,
+    SafeUrlPipe
   ],
   providers: [
     //provide services here

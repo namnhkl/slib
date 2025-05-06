@@ -37,7 +37,7 @@
   "hoang_cau_o_cho_dua_ward_dong_da_district_hanoi": "Hoàng Cầu, P. Ô Chợ Dừa, Q. Đống Đa, Hà Nội",
   "sign_out": "Đăng xuất",
   "file": "Hồ sơ",
-  "change_password": "đổi mật khẩu",
+  "change_password": "Đổi mật khẩu",
   "reenter_password": "nhập lại mật khẩu",
   "profile": "hồ sơ",
   "log_out": "đăng xuất",
@@ -55,7 +55,7 @@
   "overdue": "Quá hạn",
   "format": "Định dạng",
   "see_more": "Xem thêm",
-  "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn",
+  "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn!",
   "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán",
   "ĐKCB":"ĐKCB",
   "Detail":"Chi tiết",
@@ -72,5 +72,7 @@
   "list_of_topics_item":"Danh sách tài liệu trong chuyên đề",
   "Explore_the_latest_topics_item_in_the_library":"Khám phá các tài liệu mới nhất trong thư viện",
   "found":"Tìm thấy",
-  "number_of_document":"Số lượng tài liệu"
+  "number_of_document":"Số lượng tài liệu",
+  "old_password":"Mật khẩu cũ",
+  "please_input_old_password":"Vui lòng nhập mật khẩu cũ của bạn!"
 }

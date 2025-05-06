@@ -275,3 +275,109 @@ $background-color_1: #2775db;
 .cdk-overlay-connected-position-bounding-box{
 	background-color: red;
 }
+
+.modal-layout {
+	display: flex;
+	height: 100%;
+  }
+  
+  .left-menu {
+	width: 250px;
+	background: #f5f5f5;
+	overflow-y: auto;
+	border-right: 1px solid #d9d9d9;
+	padding: 10px;
+  
+	ul {
+	  list-style: none;
+	  padding-left: 0;
+  
+	  li {
+		padding: 8px 12px;
+		cursor: pointer;
+		border-radius: 4px;
+  
+		&.active {
+		  background-color: #e6f7ff;
+		  font-weight: bold;
+		}
+  
+		&:hover {
+		  background-color: #f0f0f0;
+		}
+	  }
+	}
+  }
+  
+  .content-area {
+	flex: 1;
+	padding: 10px;
+	overflow: hidden;
+  }
+  
+
+  .ant-modal{
+	width: 100% !important;
+  }
+
+  .left-menu {
+	width: 250px;
+	overflow-y: auto;
+	background: #f5f5f5;
+	padding: 10px;
+  }
+  
+  .left-menu .tree {
+	list-style: none;
+	padding-left: 0;
+  }
+  
+  .left-menu .tree li {
+	margin-left: 10px;
+  }
+  
+  .left-menu .tree li > div {
+	cursor: pointer;
+	padding: 4px 8px;
+	border-radius: 4px;
+  }
+  
+  .left-menu .tree li > div.active {
+	background-color: #1890ff;
+	color: white;
+  }
+  
+
+  .full-screen-modal .ant-modal {
+	width: 100vw !important;  /* Chiếm toàn bộ chiều rộng màn hình */
+	height: 100vh !important; /* Chiếm toàn bộ chiều cao màn hình */
+	top: 0 !important; /* Đảm bảo không có khoảng cách từ trên cùng */
+	left: 0 !important; /* Đảm bảo không có khoảng cách bên trái */
+	margin: 0 !important; /* Loại bỏ margin mặc định */
+  }
+  
+  .full-screen-modal .ant-modal-body {
+	padding: 0 !important; /* Xóa padding mặc định */
+  }
+  
+  .full-screen-modal .ant-modal-content {
+	height: 100vh !important; /* Đảm bảo nội dung chiếm hết chiều cao modal */
+	display: flex;
+	flex-direction: row; /* Để nội dung bên trái và phải được căn chỉnh */
+  }
+  
+  .full-screen-modal .left-menu {
+	width: 20%; /* Chiếm 20% chiều rộng cho menu bên trái */
+	padding: 10px;
+  }
+  
+  .full-screen-modal .content-area {
+	width: 80%; /* Chiếm 80% chiều rộng cho nội dung bên phải */
+	padding: 10px;
+  }
+
+  .cdk-drag {
+	width: auto !important; /* Cho phép modal thay đổi kích thước linh động */
+	max-width: 90vw; /* Đảm bảo modal không rộng quá 90% chiều rộng màn hình */
+  }
+  

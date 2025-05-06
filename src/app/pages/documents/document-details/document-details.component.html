@@ -85,18 +85,56 @@
 </div>
 
 <nz-modal
-      nzDraggable
-      nzCentered
-      [(nzVisible)]="isVisible"
-      nzTitle="Draggable Modal"
-      (nzOnCancel)="handleCancel()"
-      (nzOnOk)="handleOk()"
-    >
-      <ng-container *nzModalContent>
-        <p>Just don't learn physics at school and your life will be full of magic and miracles.</p>
-        <p>Day before yesterday I saw a rabbit, and yesterday a deer, and today, you.</p>
-      </ng-container>
-    </nz-modal>
+  nzWidth="auto"
+  [(nzVisible)]="isVisible"
+  nzTitle="Xem tài liệu"
+  [nzFooter]="null"
+  [nzStyle]="{ top: '20px' }"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <div class="modal-layout">
+      <!-- Left menu: Danh sách mục lục tài liệu -->
+      <div class="left-menu">
+        <ul>
+          <ng-container *ngFor="let item of treeStructure">
+            <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: item, level: 0 }"></ng-container>
+          </ng-container>
+        </ul>
+        <!-- Recursive template for tree nodes -->
+        <ng-template #treeNode let-node let-level="level">
+          <li
+            (click)="selectSection(node)"
+            [class.active]="node === selectedSection"
+            [style.padding-left]="level * 20 + 'px'"
+          >
+            {{ node.tieuDe || 'Mục không tên' }}
+          </li>
+          <ul *ngIf="node.children">
+            <ng-container *ngFor="let child of node.children">
+              <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: child, level: level + 1 }"></ng-container>
+            </ng-container>
+          </ul>
+        </ng-template>
+      </div>
+
+      <!-- Right content: Nội dung mục lục -->
+      <div class="content-area">
+        <iframe
+          *ngIf="selectedSection?.tepTinTen"
+          [src]="selectedSection.tepTinTen | safeUrl"
+          width="100%"
+          height="100%"
+          style="border: none;"
+        ></iframe>
+        <p *ngIf="!selectedSection?.tepTinTen">
+          Chọn mục bên trái để xem nội dung.
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>
+
 }
 
 
