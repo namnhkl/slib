@@ -106,3 +106,8 @@ export interface TaiLieuChiTiet {
   trangThai: number;
   stsTaiLieuMucDs: StsTaiLieuMuc[];
 }
+
+export interface imageUrlsBase64 {
+  page: number;
+  base64: string;
+}

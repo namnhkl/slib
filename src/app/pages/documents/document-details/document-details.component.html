@@ -85,49 +85,45 @@
 </div>
 
 <nz-modal
-  nzWidth="auto"
+  nzWidth="95vw"
   [(nzVisible)]="isVisible"
   nzTitle="Xem tài liệu"
   [nzFooter]="null"
-  [nzStyle]="{ top: '20px' }"
+  [nzStyle]="{ top: '10px', 'max-height': '95vh', 'overflow-y': 'auto' }"
   (nzOnCancel)="handleCancel()"
 >
   <ng-container *nzModalContent>
-    <div class="modal-layout">
-      <!-- Left menu: Danh sách mục lục tài liệu -->
-      <div class="left-menu">
-        <ul>
-          <ng-container *ngFor="let item of treeStructure">
-            <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: item, level: 0 }"></ng-container>
-          </ng-container>
-        </ul>
-        <!-- Recursive template for tree nodes -->
-        <ng-template #treeNode let-node let-level="level">
-          <li
-            (click)="selectSection(node)"
-            [class.active]="node === selectedSection"
-            [style.padding-left]="level * 20 + 'px'"
-          >
-            {{ node.tieuDe || 'Mục không tên' }}
+    <div style="display: flex; height: 100%;">
+      <ul style="width: 300px; overflow-y: auto; border-right: 1px solid #ccc; padding-right: 15px; height: 100%;">
+        <li
+          *ngFor="let item of treeStructure; let i = index"
+          (click)="selectSection(item)"
+          [class.active]="item === selectedSection"
+          style="cursor: pointer; padding: 5px 0; display: flex; justify-content: space-between; align-items: center;"
+        >
+          <span>{{ item.tieuDe || 'Mục không tên' }}</span>
           </li>
-          <ul *ngIf="node.children">
-            <ng-container *ngFor="let child of node.children">
-              <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: child, level: level + 1 }"></ng-container>
-            </ng-container>
-          </ul>
-        </ng-template>
-      </div>
-
-      <!-- Right content: Nội dung mục lục -->
-      <div class="content-area">
-        <iframe
-          *ngIf="selectedSection?.tepTinTen"
-          [src]="selectedSection.tepTinTen | safeUrl"
-          width="100%"
-          height="100%"
-          style="border: none;"
-        ></iframe>
-        <p *ngIf="!selectedSection?.tepTinTen">
+      </ul>
+      <div class="content-area" style="flex-grow: 1; padding-left: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; overflow-y: auto;">
+        <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
+          <ng-container *ngIf="convertingPdf">
+            Đang tải hình ảnh PDF...
+          </ng-container>
+          <ng-container *ngIf="!convertingPdf && currentPdfBase64Images.length > 0">
+            <img [src]="currentPdfBase64Images[currentImageIndex]" style="max-width: 100%; max-height: 70vh;">
+            <div style="margin-top: 10px;">
+              <button nz-button nzType="primary" nzSize="small" (click)="prevImage()" [disabled]="currentImageIndex === 0">Trước</button>
+              <span> {{ currentImageIndex + 1 }} / {{ currentPdfBase64Images.length }} </span>
+              <button nz-button nzType="primary" nzSize="small" (click)="nextImage()" [disabled]="currentImageIndex === currentPdfBase64Images.length - 1">Sau</button>
+            </div>
+          </ng-container>
+          <p *ngIf="!convertingPdf && currentPdfBase64Images.length === 0">
+            Không thể hiển thị hình ảnh PDF.
+          </p>
+        </ng-container>
+        <audio *ngIf="selectedSection?.tepTinDinhDang === '.mp3' && currentContentUrl" [src]="currentContentUrl" controls style="max-width: 100%;"></audio>
+        <video *ngIf="selectedSection?.tepTinDinhDang === '.mp4' && currentContentUrl" [src]="currentContentUrl" controls style="max-width: 100%; max-height: 80vh;"></video>
+        <p *ngIf="!selectedSection?.tepTinDinhDang || (selectedSection?.tepTinDinhDang === '.pdf' && currentPdfBase64Images.length === 0)">
           Chọn mục bên trái để xem nội dung.
         </p>
       </div>

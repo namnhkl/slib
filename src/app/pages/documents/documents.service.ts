@@ -5,7 +5,8 @@ import {
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
-import { IDocument, TaiLieuChiTiet } from './documents';
+import { IDocument, imageUrlsBase64, TaiLieuChiTiet } from './documents';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root' // Đảm bảo có dòng này
@@ -55,6 +56,18 @@ export class DocumentsService extends _HttpRequestInjector {
         ipClient
       },
     });
-    return this._http.get<IResponse<TaiLieuChiTiet>>(url);
+    return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
   }
+
+
+  convertPdfToBase64(urlPdf: string): Observable<IResponse<imageUrlsBase64[]>> {
+    return this._http.post<IResponse<imageUrlsBase64[]>>(
+      "https://localhost:7083/api/PdfConvert/convert",
+      JSON.stringify(urlPdf), // phải stringify để gửi chuỗi JSON thuần
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+  
 }
