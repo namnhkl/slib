@@ -26,6 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets/",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -33,18 +34,25 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
+                "output": "src/assets/"
               }
             ],
             "styles": [
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
-              "src/app/assets/params/css/bootstrap.min.css",
+              "src/assets/params/css/bootstrap.min.css",
+              "src/assets/css/font-awesome.min.css",
               "src/theme.less",
               "src/styles.scss",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/turn.min.js",
+              "src/assets/js/underscore-min.js",
+              "src/assets/js/backbone-min.js",
+              "src/assets/js/app.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,6 +1,6 @@
 import { SharedModule } from '@/app/shared/shared.module';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { AsyncPipe, CommonModule,isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit, ViewChild,AfterViewInit, Inject, PLATFORM_ID, NgZone, ElementRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { get } from 'lodash';
 import { of, switchMap } from 'rxjs';
@@ -17,6 +17,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+declare var $: any;
 interface TreeNode {
   id: string;
   tieuDe: string;
@@ -57,8 +58,7 @@ interface PdfToBase64Response {
   providers: [DocumentsService, HomeService],
   standalone: true
 })
-export class DocumentDetailsComponent implements OnInit {
-  
+export class DocumentDetailsComponent implements OnInit, AfterViewInit  {
   currentDocument!: IDocument;
   isVisible = false;
   treeStructure: TreeNode[] = [];
@@ -77,6 +77,7 @@ export class DocumentDetailsComponent implements OnInit {
   );
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private router: ActivatedRoute,
     private documentsService: DocumentsService,
     private banDocsService: ProfileService,
@@ -84,6 +85,7 @@ export class DocumentDetailsComponent implements OnInit {
     private notification: NzNotificationService,
     private sanitizer: DomSanitizer,
     private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   getPropertyValue = (obj: any, path: string) => {
@@ -91,6 +93,7 @@ export class DocumentDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+          
     this.router.params.subscribe((params) => {
       const id = get(params, 'id', '');
       if (id.length > 0) {
@@ -100,6 +103,11 @@ export class DocumentDetailsComponent implements OnInit {
         });
       }
     });
+  }
+
+
+  ngAfterViewInit(): void {
+    
   }
 
   toggleFavorite() {
@@ -160,7 +168,43 @@ export class DocumentDetailsComponent implements OnInit {
           // ...
         }
       });
+
+      if (isPlatformBrowser(this.platformId)) {
+        this.ngZone.runOutsideAngular(() => {
+        // Chỉ chạy nếu đang ở trình duyệt
+        window['FlipbookSettings'] = {
+          options: {
+            pageWidth: 1115,
+            pageHeight: 1443,
+            pages: 6
+          },
+          shareMessage: 'Introducing turn.js 5 - HTML5 Library for Flipbooks.', 
+          pageFolder: 'assets/content/magazine',
+          loadRegions: true
+        };
+  
+        console.log('FlipbookSettings', window);
+  
+        setTimeout(() => {
+          const flipbookElement = $('#flipbook');
+  
+          if (flipbookElement.length > 0) {
+            flipbookElement.turn({
+              width: 1115 * 2,
+              height: 1443,
+              autoCenter: true
+            });
+            console.log(window.jQuery); // Kiểm tra xem jQuery có sẵn không
+            console.log('typeof $.fn.turn:', typeof $.fn.turn);
+            console.log('Flipbook element:', flipbookElement);
+          } else {
+            console.error('Flipbook element not found!');
+          }
+        }, 100);
+      });
+      }
     }
+    
   }
   
 
@@ -170,33 +214,33 @@ export class DocumentDetailsComponent implements OnInit {
     this.currentContentUrl = null;
     this.currentImageIndex = 0;
 
-    if (item.tepTinDinhDang === '.pdf' && item.tepTinTen) {
-      this.convertingPdf = true;
-      this.documentsService.convertPdfToBase64("https://www.cambridgeenglish.org/images/210434-converting-practice-test-scores-to-cambridge-english-scale-scores.pdf").subscribe({ // Gọi API convert
-        next: (response: PdfToBase64Response) => {
-          this.convertingPdf = false;
-          if (response.messageCode === 1 && response.data) {
-            this.currentPdfBase64Images = response.data.sort((a, b) => a.page - b.page).map(p => p.base64);
-            if (item.startPage && this.currentPdfBase64Images.length > 0) {
-              this.currentImageIndex = Math.max(0, item.startPage - 1);
-            }
-          } else {
-            this.notification.error('Lỗi', 'Không thể tải hình ảnh PDF.');
-          }
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          this.convertingPdf = false;
-          this.notification.error('Lỗi', 'Lỗi khi chuyển đổi PDF.');
-          console.error('Lỗi convert PDF:', err);
-          this.cdr.detectChanges();
-        }
-      });
-    } else if (item.tepTinDinhDang === '.mp3') {
-      this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.tepTinTen);
-    } else if (item.tepTinDinhDang === '.mp4') {
-      this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.tepTinTen);
-    }
+    // if (item.tepTinDinhDang === '.pdf' && item.tepTinTen) {
+    //   this.convertingPdf = true;
+    //   this.documentsService.convertPdfToBase64(item.tepTinTen).subscribe({ // Gọi API convert
+    //     next: (response: PdfToBase64Response) => {
+    //       this.convertingPdf = false;
+    //       if (response.messageCode === 1 && response.data) {
+    //         this.currentPdfBase64Images = response.data.sort((a, b) => a.page - b.page).map(p => p.base64);
+    //         if (item.startPage && this.currentPdfBase64Images.length > 0) {
+    //           this.currentImageIndex = Math.max(0, item.startPage - 1);
+    //         }
+    //       } else {
+    //         this.notification.error('Lỗi', 'Không thể tải hình ảnh PDF.');
+    //       }
+    //       this.cdr.detectChanges();
+    //     },
+    //     error: (err) => {
+    //       this.convertingPdf = false;
+    //       this.notification.error('Lỗi', 'Lỗi khi chuyển đổi PDF.');
+    //       console.error('Lỗi convert PDF:', err);
+    //       this.cdr.detectChanges();
+    //     }
+    //   });
+    // } else if (item.tepTinDinhDang === '.mp3') {
+    //   this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.tepTinTen);
+    // } else if (item.tepTinDinhDang === '.mp4') {
+    //   this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.tepTinTen);
+    // }
     this.cdr.detectChanges();
   }
 
@@ -224,4 +268,5 @@ export class DocumentDetailsComponent implements OnInit {
   createNotification(type: string, header: string, msg: string): void {
     this.notification.create(type, header, msg);
   }
+
 }
