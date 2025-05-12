@@ -805,6 +805,13 @@
     left: 0px;
     opacity: 1;
   }
+
+  .ui-menu-wrapper{
+    height: 86vh;
+    overflow-y: scroll;
+  }
+  
+
   @media screen and (max-width: 400px) {
     .ui-share-box .ui-share-options {
       font-size: 30px !important;

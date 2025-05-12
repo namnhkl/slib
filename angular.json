@@ -47,7 +47,7 @@
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/jquery-2.0.3.min.js",
               "src/assets/js/turn.min.js",
               "src/assets/js/underscore-min.js",
               "src/assets/js/backbone-min.js",
@@ -88,6 +88,7 @@
         },
         "serve": {
           "options": {
+            "proxyConfig": "src/proxy.conf.json",
             "ssl": true,
             "sslKey": "ssl/key.pem",
             "sslCert": "ssl/cert.pem"

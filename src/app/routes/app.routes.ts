@@ -10,6 +10,7 @@ import { HomeComponent } from '../pages/home/home.component';
 import { authGuard } from '../guardrouter/auth.guard';
 import { ChuyenDeListComponent } from '../chuyen-de/chuyen-de-list/chuyen-de-list.component';
 import { ChuyenDeItemComponent } from '../chuyen-de/chuyen-de-item/chuyen-de-item.component';
+import { ViewDocumentComponent } from '../view-document/view-document.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -22,6 +23,7 @@ export const routes: Routes = [
   },
   { path: URL_ROUTER.chuyende, component: ChuyenDeListComponent }, // Trang chuyên đề,
   { path: URL_ROUTER.chuyendeitem, component: ChuyenDeItemComponent },
+  { path: URL_ROUTER.viewdocument, component: ViewDocumentComponent },
   {
     path: URL_ROUTER.news,
     loadChildren:  () => import('../pages/news/news-routing.module').then(module => module.NewRoutingModule),

@@ -5,7 +5,7 @@ import {
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
-import { IDocument, imageUrlsBase64, TaiLieuChiTiet } from './documents';
+import { IDocument, imageUrlsBase64, TaiLieuChiTiet, TaiLieuMucLucChiTiet } from './documents';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -59,6 +59,18 @@ export class DocumentsService extends _HttpRequestInjector {
     return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
   }
 
+  stsTaiLieuMucLucChiTiet(id:string, ipClient:string) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'stsTaiLieuMucLucChiTiet',
+      queryObject: {
+        id,
+        ipClient
+      },
+    });
+    return this._http.get<IResponse<TaiLieuMucLucChiTiet[]>>(url);
+  }
+
+  
 
   convertPdfToBase64(urlPdf: string): Observable<IResponse<imageUrlsBase64[]>> {
     return this._http.post<IResponse<imageUrlsBase64[]>>(

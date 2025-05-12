@@ -107,6 +107,24 @@ export interface TaiLieuChiTiet {
   stsTaiLieuMucDs: StsTaiLieuMuc[];
 }
 
+// Interface cho tài liệu mục lục chi tiết
+export interface TaiLieuMucLucChiTiet {
+  id: string;
+  stsTaiLieuMucLucId: string;
+  tacgia: TacGia[];
+  trang: string;
+  noiDung: string;
+  tepTinTen: string;
+  tepTinDinhDang: string;
+  tepTinDungLuong: string;
+  tepTinHanChe: string;
+  tepTinDuLieu: string;
+  slXem: number | null;
+  sapXep: number | null;
+  cap: number | null;
+  capMa: string;
+}
+
 export interface imageUrlsBase64 {
   page: number;
   base64: string;
