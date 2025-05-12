@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://api.demo.slib.vn:6787",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  
