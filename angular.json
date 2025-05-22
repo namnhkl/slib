@@ -35,6 +35,21 @@
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "output": "src/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/pdfjs-dist/cmaps/",
+                "output": "/assets/cmaps/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/pdfjs-dist/standard_fonts/",
+                "output": "/assets/standard_fonts/"
               }
             ],
             "styles": [
@@ -88,7 +103,7 @@
         },
         "serve": {
           "options": {
-            "proxyConfig": "src/proxy.conf.json",
+            "proxyConfig": "proxy.conf.json",
             "ssl": true,
             "sslKey": "ssl/key.pem",
             "sslCert": "ssl/cert.pem"

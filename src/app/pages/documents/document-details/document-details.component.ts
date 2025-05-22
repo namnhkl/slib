@@ -21,7 +21,7 @@ import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import type { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 declare var $: any;
 
@@ -63,7 +63,7 @@ interface PdfToBase64Response {
     NzIconModule,
     NzSplitterModule,
     NzTreeModule,
-    PdfViewerModule
+    NgxExtendedPdfViewerModule
   ],
   providers: [DocumentsService, HomeService],
   standalone: true,
@@ -147,7 +147,8 @@ export class DocumentDetailsComponent implements OnInit {
 
   showModal(): void {
     this.isVisible = true;
-    const docId = '34e4bb7a-fec6-4ed6-bfd2-156108466d36';
+    console.log("fff", this.currentDocument);
+    const docId = this.currentDocument.dsBanSo[0].id.toString();
     if (docId) {
       this.documentsService.stsTaiLieuChiTiet(docId, '0:0:0:1').subscribe({
         next: (res) => {
@@ -263,7 +264,9 @@ onSelectTree(event: NzFormatEmitEvent): void {
               next: (res: Blob) => {
                 const file = new Blob([res], { type: 'application/pdf' });
                 const fileURL = URL.createObjectURL(file);
-                this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
+                this.currentContentUrl = fileURL;
+                //this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
+                console.log("url ok: ", this.currentContentUrl);
               },
               error: (err) => {
                 console.error('Lỗi khi tải PDF:', err);
@@ -288,6 +291,7 @@ onSelectTree(event: NzFormatEmitEvent): void {
 
         // Nếu URL là hợp lệ, gán vào currentContentUrl để hiển thị trong audio/video tag
         this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mediaUrl);
+        
       }
     },
     error: (err) => {

@@ -85,7 +85,7 @@
 </div>
 
 <nz-modal
-  nzWidth="95vw"
+  nzWidth="100vw"
   [(nzVisible)]="isVisible"
   nzTitle=" {{currentDocument.tieuDe}}"
   [nzFooter]="null"
@@ -112,14 +112,24 @@
               class="content-area"
               style="flex-grow: 1; padding-left: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; overflow-y: auto;"
             >
-              <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
+              <!-- <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
                   <iframe
                   *ngIf="currentContentUrl && selectedSection?.tepTinDinhDang === '.pdf'"
                   [src]="currentContentUrl"
                   width="100%"
-                  height="650px"
+                  height="850px"
                 ></iframe>
 
+              </ng-container> -->
+
+              <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
+                <ngx-extended-pdf-viewer
+                  *ngIf="currentContentUrl && selectedSection?.tepTinDinhDang === '.pdf'"
+                  [src]="'assets/content/pdf-test.pdf'"
+                  height="850px"
+                  width="100%"
+                >
+                </ngx-extended-pdf-viewer>
               </ng-container>
               <audio
                 *ngIf="selectedSection?.tepTinDinhDang === '.mp3' && currentContentUrl"
