@@ -1,5 +1,5 @@
 @if (currentDocument) {
-<div class="info-detail-section">
+<div class="info-detail-section" (contextmenu)="onRightClick($event)">
   <div class="container">
     <div class="box-info-detail">
       <h2>Thông tin chi tiết</h2>
@@ -91,26 +91,27 @@
   [nzFooter]="null"
   [nzStyle]="{ top: '0px', 'max-height': '100vh', 'overflow-y': 'scroll' }"
   (nzOnCancel)="handleCancel()"
+  (contextmenu)="onRightClick($event)"
 >
   <ng-container *nzModalContent>
-    <div style="display: flex; height: 100%;">
+    <div style="display: flex; height: 100%;" (contextmenu)="onRightClick($event)">
       <nz-splitter>
         <nz-splitter-panel nzDefaultSize="20%" nzMin="10%" nzMax="30%">
           <div class="box" style="height: 100vh; overflow-y: auto;">
            <nz-tree
-  [nzData]="treeStructureDisplay"
-  (nzClick)="onSelectTree($event)"
-  [nzSelectedKeys]="selectedSection ? [selectedSection.id] : []"
-  nzShowLine
-  nzShowIcon
-></nz-tree>
+              [nzData]="treeStructureDisplay"
+              (nzClick)="onSelectTree($event)"
+              [nzSelectedKeys]="selectedSection ? [selectedSection.id] : []"
+              nzShowLine
+              nzShowIcon
+            ></nz-tree>
           </div>
         </nz-splitter-panel>
         <nz-splitter-panel>
           <div class="box">
             <div
               class="content-area"
-              style="flex-grow: 1; padding-left: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; overflow-y: auto;"
+              style="flex-grow: 1; margin:0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; overflow-y: auto;"
             >
               <!-- <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
                   <iframe
@@ -122,27 +123,51 @@
 
               </ng-container> -->
 
-              <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
-                <ngx-extended-pdf-viewer
-                  *ngIf="currentContentUrl && selectedSection?.tepTinDinhDang === '.pdf'"
-                  [src]="'assets/content/pdf-test.pdf'"
-                  height="850px"
-                  width="100%"
-                >
-                </ngx-extended-pdf-viewer>
-              </ng-container>
+             <ngx-extended-pdf-viewer
+                *ngIf="selectedSection?.tepTinDinhDang === '.pdf' && currentContentUrl"
+                [src]="currentContentUrl"
+                useBrowserLocale="false"
+                height="90vh"
+                [useBrowserZoom]="false"
+                [showToolbar]="true"
+                [showSidebarButton]="true"
+                [showFindButton]="false"
+                [showPrintButton]="false"
+                [showDownloadButton]="false"
+                [showBookmarkButton]="true"
+                [showPresentationModeButton]="true"
+                [showRotateButton]="true"
+                [showHandToolButton]="false"
+                [showScrollingButton]="true"
+                [showSpreadButton]="true"
+                [showSecondaryToolbarButton]="true"
+                [showZoomButtons]="true"
+                [showPagingButtons]="true"
+                [showOpenFileButton]="false"
+                [showPropertiesButton]="false"
+                (contextmenu)="onRightClick($event)"
+                style="display:block;width:100%;">
+              </ngx-extended-pdf-viewer>
+
+
               <audio
                 *ngIf="selectedSection?.tepTinDinhDang === '.mp3' && currentContentUrl"
                 [src]="currentContentUrl"
                 controls
-                style="max-width: 100%;"
-              ></audio>
+                controlsList="nodownload"
+                (contextmenu)="onRightClick($event)"
+                style="max-width: 100%;">
+              </audio>
+
               <video
                 *ngIf="selectedSection?.tepTinDinhDang === '.mp4' && currentContentUrl"
                 [src]="currentContentUrl"
                 controls
-                style="max-width: 100%; max-height: 80vh;"
-              ></video>
+                controlsList="nodownload"
+                (contextmenu)="onRightClick($event)"
+                style="max-width: 100%; max-height: 80vh;">
+              </video>
+
             </div>
           </div>
         </nz-splitter-panel>
