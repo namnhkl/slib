@@ -26,11 +26,13 @@
         </button>
       </div>
       <iframe
-        src="https://chat.slib.vn/Chatbot.aspx?USER_ID=29e90e6e-6157-44e0-8466-09e776694b7d&API_URL=https://chat.slib.vn/api/chat&VOICE_CHAT_API_URL=https://chat.slib.vn/api/voice-chat-to-text&CHAT_API_BASE=https://chat.slib.vn/api&COLLECTION_NAME=SLIB&MODEL_NAME=gemini-2.0-flash"
+        [src]="iframeUrl"
         allow="camera; microphone; autoplay; fullscreen; clipboard-read; clipboard-write"
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-presentation"
         allowfullscreen
         title="Chat Widget">
       </iframe>
+
+
     </div>
     <!--End chatbot-->

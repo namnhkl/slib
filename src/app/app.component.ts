@@ -65,6 +65,23 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isSpinning = res;
       this.cdr.detectChanges();
     });
+
+  //   // Cấm chuột phải
+  // document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // // Cấm phím F12, Ctrl+Shift+I, Ctrl+U
+  // document.addEventListener('keydown', (e) => {
+  //   if (
+  //     e.key === 'F12' ||
+  //     (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+  //     (e.ctrlKey && e.key === 'U')
+  //   ) {
+  //     e.preventDefault();
+  //   }
+  // });
+
+  // // Phát hiện mở DevTools
+  // this.detectDevTools();
   }
 
   handleActive() {
@@ -79,5 +96,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this._i18nService.destroy();
   }
 
+  // private detectDevTools() {
+  //   setInterval(() => {
+  //     const start = new Date();
+  //     debugger;
+  //     const end = new Date();
+  //     if (end.getTime() - start.getTime() > 100) {
+  //       document.body.innerHTML = '';
+  //       alert('DevTools bị phát hiện. Nội dung đã bị xóa.');
+  //     }
+  //   }, 3000); // kiểm tra mỗi 3s
+  // }
 
 }
