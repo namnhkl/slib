@@ -1,4 +1,4 @@
-<div class="wrapperStand" (contextmenu)="onRightClick($event)">
+<!-- <div class="wrapperStand" (contextmenu)="onRightClick($event)">
   <ng-template #indicatorTemplate>
     <nz-icon nzType="loading" />
   </ng-template>
@@ -8,5 +8,21 @@
       <router-outlet (activate)="handleActive($event)"></router-outlet>
     </main>
     <app-footer></app-footer>
+  </nz-spin>
+  (contextmenu)="onRightClick($event)"
+</div> -->
+
+<div class="wrapperStand" >
+  <ng-template #indicatorTemplate>
+    <nz-icon nzType="loading" />
+  </ng-template>
+  <nz-spin [nzSpinning]="isSpinning" [nzIndicator]="indicatorTemplate">
+    <app-header></app-header>
+    <main>
+      <router-outlet (activate)="handleActive($event)"></router-outlet>
+    </main>
+    <app-footer></app-footer>
+
+    <app-chatbot></app-chatbot>
   </nz-spin>
 </div>

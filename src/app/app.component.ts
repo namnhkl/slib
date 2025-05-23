@@ -22,6 +22,7 @@ import { I18nService } from './i18n/i18n.service';
 import { LoaderService } from './shared/services/loader.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { SharedModule } from './shared/shared.module';
+import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -41,6 +42,7 @@ import { SharedModule } from './shared/shared.module';
     HeaderComponent,
     FooterComponent,
     NzSpinModule,
+    ChatbotComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -48,7 +50,6 @@ import { SharedModule } from './shared/shared.module';
 export class AppComponent implements OnInit, OnDestroy {
   isCollapsed = false;
   isSpinning = false;
-
   constructor(
     injector: Injector,
     private readonly _i18nService: I18nService,
@@ -77,4 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._i18nService.destroy();
   }
+
+
 }

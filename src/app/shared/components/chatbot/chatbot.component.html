@@ -1,0 +1,36 @@
+<!--Chatbot-->
+    <!-- Nút Chat (hiện khi ẩn form chat) -->
+    <div class="chat-toggle-btn" *ngIf="!isChatOpen" (click)="toggleChat()">
+      <i class="fa fa-comments-o"></i>
+    </div>
+
+    <!-- Form chat (hiện khi mở) -->
+    <div class="chat-frame" [ngClass]="{ 'open': isChatOpen }">
+      <div class="chat-header">
+        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="20" height="20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffffff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M29.79,2.78l-4.8,4.86-9.86,9.98-3.99,4.03c-.45.45-.45,1.19,0,1.64l4.03,3.99,13.84,13.86c.45.45,1.17.45,1.63.01l3.32-3.24c.46-.45.47-1.2,0-1.65l-13.17-13.02c-.45-.45-.46-1.18,0-1.64l8.24-8.33c.45-.45,1.18-.46,1.64,0l13.19,13.04c.45.45,1.19.45,1.64,0l3.17-3.21c.45-.45.45-1.19,0-1.64L29.79,2.78h0Z"/>
+  <path class="cls-1" d="M31.14,56.28l17.23-17.13c.83-.82.83-2.15.02-2.96l-16.99-16.72c-.81-.8-2.13-.78-2.94.05l-1.93,1.96c-.81.83-.81,2.14,0,2.94l12.06,11.85c.82.8.81,2.13,0,2.95l-7.28,7.29c-.82.82-2.11,1.02-2.92.22l-11.98-11.87c-.81-.8-2.14-.98-2.96-.15l-1.99,2.01c-.81.82-.82,2.14,0,2.94l16.77,16.65c.81.8,2.11.79,2.93-.02Z"/>
+</svg>
+        <span>
+ Slib Chatbot</span>
+        <button class="chat-close-btn" (click)="toggleChat()">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+      <iframe
+        src="https://chat.slib.vn/Chatbot.aspx?USER_ID=29e90e6e-6157-44e0-8466-09e776694b7d&API_URL=https://chat.slib.vn/api/chat&VOICE_CHAT_API_URL=https://chat.slib.vn/api/voice-chat-to-text&CHAT_API_BASE=https://chat.slib.vn/api&COLLECTION_NAME=SLIB&MODEL_NAME=gemini-2.0-flash"
+        allow="camera; microphone; autoplay; fullscreen; clipboard-read; clipboard-write"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-presentation"
+        allowfullscreen
+        title="Chat Widget">
+      </iframe>
+    </div>
+    <!--End chatbot-->
