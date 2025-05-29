@@ -23,6 +23,7 @@ import { LoaderService } from './shared/services/loader.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { SharedModule } from './shared/shared.module';
 import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
+import { environment } from '../environments/environment';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -48,6 +49,7 @@ import { ChatbotComponent } from './shared/components/chatbot/chatbot.component'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  isChatbotActive = environment.isActiveChatbot;
   isCollapsed = false;
   isSpinning = false;
   constructor(

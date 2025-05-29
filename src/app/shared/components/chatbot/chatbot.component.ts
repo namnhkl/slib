@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
@@ -9,6 +10,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class ChatbotComponent {
+  apiUrl = environment.API_URL;
+  voiceApi = environment.VOICE_CHAT_API_URL;
+  collection = environment.COLLECTION_NAME;
+  chatApiBase = environment.CHAT_API_BASE;
+  modelName = environment.MODEL_NAME;
+  UrlChatbotPage = environment.IFRAME_URL_CHATBOT;
   isChatOpen = false;
   iframeUrl: SafeResourceUrl | null = null;
 
@@ -22,14 +29,14 @@ export class ChatbotComponent {
 
         const params = new URLSearchParams({
           USER_ID: userId,
-          API_URL: 'https://chat.slib.vn/api/chat',
-          VOICE_CHAT_API_URL: 'https://chat.slib.vn/api/voice-chat-to-text',
-          CHAT_API_BASE: 'https://chat.slib.vn/api',
-          COLLECTION_NAME: 'SLIB',
-          MODEL_NAME: 'gemini-2.0-flash'
+          API_URL: this.apiUrl,
+          VOICE_CHAT_API_URL: this.voiceApi,
+          CHAT_API_BASE: this.chatApiBase,
+          COLLECTION_NAME: this.collection,
+          MODEL_NAME: this.modelName
         });
 
-        const rawUrl = `https://chat.slib.vn/Chatbot.aspx?${params.toString()}`;
+        const rawUrl = `${this.UrlChatbotPage}${params.toString()}`;
         this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
       } catch (e) {
         console.error('Lỗi phân tích appSession:', e);
