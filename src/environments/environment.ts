@@ -13,5 +13,5 @@ export const environment = {
   CHAT_API_BASE: 'https://chat.slib.vn/api',
   COLLECTION_NAME: 'SLIB',
   MODEL_NAME: 'gemini-2.0-flash',
-  IFRAME_URL_CHATBOT: 'https://chat.slib.vn/Chatbot/Chatbot.aspx?',
+  IFRAME_URL_CHATBOT: 'https://chat.slib.vn/Chatbot/Chatbot.aspx',
 };

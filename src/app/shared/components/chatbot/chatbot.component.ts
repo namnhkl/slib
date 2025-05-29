@@ -36,7 +36,7 @@ export class ChatbotComponent {
           MODEL_NAME: this.modelName
         });
 
-        const rawUrl = `${this.UrlChatbotPage}${params.toString()}`;
+        const rawUrl = `${this.UrlChatbotPage}?${params.toString()}`;
         this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
       } catch (e) {
         console.error('Lỗi phân tích appSession:', e);
