@@ -1,7 +1,7 @@
 <div class="container">
   <h2 class="page-title">{{'list_of_topics_item' |translate}} </h2>
   <h2 class="page-title">{{tenChuyenDe}}</h2>
-  <p class="page-desc">{{'Explore_the_latest_topics_item_in_the_library' | translate}}</p>
+  <p class="page-desc">{{'explore_the_latest_topics_item_in_the_library' | translate}}</p>
 <!-- Thanh tìm kiếm -->
 <div class="search-bar">
 <input
@@ -34,7 +34,7 @@
             </div>
           }
           @empty {
-            <p>Không tìm thấy chuyên đề nào.</p>
+            
           }
         }
       </div>
@@ -42,7 +42,7 @@
         <div class="item_page_detail">
           <div class="d-flex align-items-center groupSelect">
             <label for="numberSelect" class="form-label">Hiển thị</label>
-            <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect">
+            <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect" [nzCustomTemplate]="iconTemplate" [nzShowArrow]="false">
               @for (size of [5, 10, 50, 100]; track $index) {
                 <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
               }

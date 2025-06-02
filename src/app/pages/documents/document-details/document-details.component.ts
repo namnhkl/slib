@@ -22,6 +22,8 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import type { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { AuthService } from '@/app/shared/services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -63,7 +65,8 @@ interface PdfToBase64Response {
     NzIconModule,
     NzSplitterModule,
     NzTreeModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    TranslateModule
   ],
   providers: [DocumentsService, HomeService],
   standalone: true,
@@ -71,6 +74,7 @@ interface PdfToBase64Response {
 export class DocumentDetailsComponent implements OnInit {
   currentDocument!: IDocument;
   isVisible = false;
+  isLogin = false;
   treeStructure: TreeNode[] = [];
   treeStructureDisplay: NzTreeNodeOptions[] = [];
   selectedSection: TreeNode | null = null;
@@ -92,6 +96,7 @@ export class DocumentDetailsComponent implements OnInit {
     private router: ActivatedRoute,
     private documentsService: DocumentsService,
     private banDocsService: ProfileService,
+    private authService: AuthService,
     private danhmucService: DanhmucService,
     private changeRef: ChangeDetectorRef,
     private notification: NzNotificationService,
@@ -105,15 +110,18 @@ export class DocumentDetailsComponent implements OnInit {
   };
 
   ngOnInit() {
+   
     this.router.params.subscribe((params) => {
       const id = get(params, 'id', '');
       if (id.length > 0) {
         this.documentsService.getDocsDetails(id).subscribe((res) => {
           this.currentDocument = res.data[0];
+          console.log('ttxb', res.data[0]);
           this.changeRef.detectChanges();
         });
       }
     });
+    this.isLogin = this.authService.isAuthenticated;
   }
 
   toggleFavorite() {
@@ -227,114 +235,118 @@ onSelectTree(event: NzFormatEmitEvent): void {
   }
 }
 
- findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
-  for (const node of nodes) {
-    console.log('Checking Node:', node.id, 'against:', key);
-    if (node.id === key) {
-      return node;
-    }
-    if (node.children) {
-      const found = this.findNodeByKey(node.children, key);
-      if (found) {
-        return found;
+    findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
+      for (const node of nodes) {
+        console.log('Checking Node:', node.id, 'against:', key);
+        if (node.id === key) {
+          return node;
+        }
+        if (node.children) {
+          const found = this.findNodeByKey(node.children, key);
+          if (found) {
+            return found;
+          }
+        }
       }
+      return undefined;
     }
-  }
-  return undefined;
-}
 
-  selectSection(item: TreeNode): void {
-    console.log('selectSection called with:', item);
-    this.selectedSection = item;
-    this.currentPdfBase64Images = [];
-    this.currentContentUrl = null;
-    this.currentImageIndex = 0;
+    selectSection(item: TreeNode): void {
+        console.log('selectSection called with:', item);
+        this.selectedSection = item;
+        this.currentPdfBase64Images = [];
+        this.currentContentUrl = null;
+        this.currentImageIndex = 0;
 
-    if (item.tepTinDinhDang === '.pdf' && item.tepTinTen) {
+        if (item.tepTinDinhDang === '.pdf' && item.tepTinTen) {
+          this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
+            next: (res) => {
+              console.log('Raw API response for content:', res);
+              const firstDocument = res?.data?.[0];
+              let p = firstDocument?.tepTinDuLieu;
+
+              if (p && p.length > 0) {
+                p = decodeURIComponent(p);
+                console.log('PDF URL:', p);
+                this.danhmucService.getPdf(p).subscribe({
+                  next: (res: Blob) => {
+                    const file = new Blob([res], { type: 'application/pdf' });
+                    const fileURL = URL.createObjectURL(file);
+                    this.currentContentUrl = fileURL;
+                    //this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
+                    console.log("url ok: ", this.currentContentUrl);
+                  },
+                  error: (err) => {
+                    console.error('Lỗi khi tải PDF:', err);
+                  },
+                });
+              }
+            },
+            error: (err) => {
+              console.error('Lỗi khi lấy chi tiết mục lục:', err);
+            },
+          });
+        } else if (item.tepTinDinhDang === '.mp3' || item.tepTinDinhDang === '.mp4') {
       this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
         next: (res) => {
           console.log('Raw API response for content:', res);
           const firstDocument = res?.data?.[0];
-          let p = firstDocument?.tepTinDuLieu;
+          let mediaUrl = firstDocument?.tepTinDuLieu;
 
-          if (p && p.length > 0) {
-            p = decodeURIComponent(p);
-            console.log('PDF URL:', p);
-            this.danhmucService.getPdf(p).subscribe({
-              next: (res: Blob) => {
-                const file = new Blob([res], { type: 'application/pdf' });
-                const fileURL = URL.createObjectURL(file);
-                this.currentContentUrl = fileURL;
-                //this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
-                console.log("url ok: ", this.currentContentUrl);
-              },
-              error: (err) => {
-                console.error('Lỗi khi tải PDF:', err);
-              },
-            });
+          if (mediaUrl && mediaUrl.length > 0) {
+            mediaUrl = decodeURIComponent(mediaUrl);
+            console.log(`${item.tepTinDinhDang.toUpperCase()} URL:`, mediaUrl);
+
+            // Nếu URL là hợp lệ, gán vào currentContentUrl để hiển thị trong audio/video tag
+            this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mediaUrl);
+            
           }
         },
         error: (err) => {
           console.error('Lỗi khi lấy chi tiết mục lục:', err);
         },
       });
-    } else if (item.tepTinDinhDang === '.mp3' || item.tepTinDinhDang === '.mp4') {
-  this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
-    next: (res) => {
-      console.log('Raw API response for content:', res);
-      const firstDocument = res?.data?.[0];
-      let mediaUrl = firstDocument?.tepTinDuLieu;
+    }
 
-      if (mediaUrl && mediaUrl.length > 0) {
-        mediaUrl = decodeURIComponent(mediaUrl);
-        console.log(`${item.tepTinDinhDang.toUpperCase()} URL:`, mediaUrl);
+    }
 
-        // Nếu URL là hợp lệ, gán vào currentContentUrl để hiển thị trong audio/video tag
-        this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mediaUrl);
-        
+    nextImage(): void {
+      if (this.currentPdfBase64Images && this.currentImageIndex < this.currentPdfBase64Images.length - 1) {
+        this.currentImageIndex++;
       }
-    },
-    error: (err) => {
-      console.error('Lỗi khi lấy chi tiết mục lục:', err);
-    },
-  });
-}
+    }
 
+    prevImage(): void {
+      if (this.currentPdfBase64Images && this.currentImageIndex > 0) {
+        this.currentImageIndex--;
+      }
+    }
+
+    handleOk(): void {
+      this.isVisible = false;
+    }
+
+    handleCancel(): void {
+      this.isVisible = false;
+    }
+
+    createNotification(type: string, header: string, msg: string): void {
+      this.notification.create(type, header, msg);
+    }
+
+    zoomLevel = 1.0;
+
+  zoomIn() {
+    this.zoomLevel += 0.1;
   }
 
-  nextImage(): void {
-    if (this.currentPdfBase64Images && this.currentImageIndex < this.currentPdfBase64Images.length - 1) {
-      this.currentImageIndex++;
+  zoomOut() {
+    if (this.zoomLevel > 0.5) {
+        this.zoomLevel -= 0.1;
     }
   }
 
-  prevImage(): void {
-    if (this.currentPdfBase64Images && this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-    }
+  showLoginWarning() {
+    this.createNotification('warning', 'Bạn chưa đăng nhập', 'Vui lòng đăng nhập để sử dụng chức năng này.');
   }
-
-  handleOk(): void {
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  createNotification(type: string, header: string, msg: string): void {
-    this.notification.create(type, header, msg);
-  }
-
-  zoomLevel = 1.0;
-
-zoomIn() {
-  this.zoomLevel += 0.1;
-}
-
-zoomOut() {
-  if (this.zoomLevel > 0.5) {
-    this.zoomLevel -= 0.1;
-  }
-}
 }

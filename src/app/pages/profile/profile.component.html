@@ -53,7 +53,7 @@
     <div class="pt-5 documentBox">
       @let borrowedBooks = ($borrowedBooks | async);
       <ng-template #title2>
-        <span>{{'Tài liệu đã mượn/đọc'|translate}} <span class="count">({{ borrowedBooks.totalRecord }})</span></span>
+        <span>{{'documents_borrowed_or_read'|translate}} <span class="count">({{ borrowedBooks.totalRecord }})</span></span>
       </ng-template>
       <app-s-slider [title]="title2" [children]="slideBorrowed" [data]="borrowedBooks.data" [customOptions]="customOptions"></app-s-slider>
       <ng-template #slideBorrowed let-item="item">
@@ -64,7 +64,7 @@
     <div class="pt-5 documentBox">
       @let favoriteDocuments = ($favoriteDocuments | async);
       <ng-template #title3>
-        <span>{{'Tài liệu yêu thích'|translate}} <span class="count">({{ favoriteDocuments.totalRecord }})</span></span>
+        <span>{{'favorite_documents'|translate}} <span class="count">({{ favoriteDocuments.totalRecord }})</span></span>
       </ng-template>
       <app-s-slider [title]="title3" [children]="item3" [data]="favoriteDocuments.data" [customOptions]="customOptions">
       </app-s-slider>

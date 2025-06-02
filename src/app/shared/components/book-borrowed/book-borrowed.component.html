@@ -18,12 +18,12 @@
 <ng-template #contentTemplate>
   <nz-icon nzType="check" />
   <div class="books-info">
-    <p>{{'ĐKCB'|translate}}: <span>{{ item.maDkcb }}</span></p>
+    <p>{{'dkcb'|translate}}: <span>{{ item.maDkcb }}</span></p>
     <p>{{'borrowed_date'|translate}}: <span>{{ item.ngayGhiMuon }}</span></p>
     <p>{{'payment_deadline'|translate}}: <span>{{ item.ngayTraDuKien }}</span></p>
     <p>{{'overdue'|translate}}: <span>{{ item.quaHanSoNgay }}</span></p>
     <p>{{'format'|translate}}: <span>{{ item.moTaVatLy }}</span></p>
-  <a [routerLink]="['/documents', item?.bmTaiLieuId]"> {{'Detail'|translate}}</a>
+  <a [routerLink]="['/documents', item?.bmTaiLieuId]"> {{'details'|translate}}</a>
   </div>
 </ng-template>
   

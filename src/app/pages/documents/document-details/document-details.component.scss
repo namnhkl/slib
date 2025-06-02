@@ -320,3 +320,56 @@ $background-color_1: #2775db;
   width: auto !important;
   max-width: 90vw;
 }
+
+.box-profile {
+  padding-top: 1.5rem;
+}
+
+.nav_social {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem; /* Khoảng cách giữa các mục */
+}
+
+.nav_social li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #166de8;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+
+
+/* Hover lên cả icon và số đổi màu */
+.nav_social li:hover {
+  color: #ff004c; /* màu đỏ hồng nổi bật */
+}
+
+.nav_social li:hover i {
+  color: #ff004c;
+  transform: scale(1.2) rotate(10deg);
+  text-shadow: 0 0 8px #ff004c;
+}
+
+/* Hiệu ứng số "nhảy nhẹ" khi giá trị thay đổi - dùng animation */
+.nav_social li span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+/* Khi bạn muốn tạo animation nhảy cho số, thêm class .jump và CSS dưới */
+.nav_social li span.jump {
+  animation: jump 1.5s ease forwards;
+}
+
+@keyframes jump {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}

@@ -1,8 +1,8 @@
 @if (currentDocument) {
-<div class="info-detail-section" (contextmenu)="onRightClick($event)">
+<div class="info-detail-section" >
   <div class="container">
     <div class="box-info-detail">
-      <h2>Thông tin chi tiết</h2>
+      <h2>{{'details'|translate}}</h2>
       <div class="group-info-detail">
         <div class="itemColumnInfo">
           <div class="img-itemColumnInfo">
@@ -15,41 +15,46 @@
             <h3 [nzTooltipTitle]="currentDocument.tieuDe" nzTooltipPlacement="bottomCenter" nz-button nz-tooltip>
               {{currentDocument.tieuDe}}</h3>
             <app-preview-document class="fixHeight" [details]="currentDocument.tomTat" />
-            <div class="box-btn-info">
-              <button class="btn btn-read" (click)="showModal()"><i class="fa fa-folder-open"></i> Đọc sách</button>
-              <button class="btn btn-read"><i class="fa fa-solid fa-book"></i> Mượn sách</button>
-            </div>
-            <div class="box-love-book">
-              <button class="btn btn-love-book" (click)="toggleFavorite()">
-                <i [ngClass]="currentDocument.laTaiLieuQuanTam === 1 ? 'fa fa-heart text-danger' : 'fa fa-regular fa-heart'"></i>
-                {{ currentDocument.laTaiLieuQuanTam === 1 ? 'Bỏ yêu thích' : 'Yêu thích' }}
+           <div class="box-btn-info">
+              <button class="btn btn-read" (click)="isLogin ? showModal() : showLoginWarning()">
+                <i class="fa fa-folder-open"></i> {{'read_a_book'|translate}}
               </button>
-            </div>            
+              <button class="btn btn-read" (click)="isLogin ? '' : showLoginWarning()">
+                <i class="fa fa-solid fa-book"></i> {{'borrow_book'|translate}}
+              </button>
+            </div>
+
+            <div class="box-love-book">
+              <button class="btn btn-love-book" (click)="isLogin ? toggleFavorite() : showLoginWarning()">
+                <i [ngClass]="currentDocument.laTaiLieuQuanTam === 1 ? 'fa fa-heart text-danger' : 'fa fa-regular fa-heart'"></i>
+                  {{ (currentDocument.laTaiLieuQuanTam === 1 ? 'unlike' : 'like') | translate }}
+              </button>
+            </div>  
           </div>
         </div>
         <div class="itemColumnInfo">
           <div class="info-author">
             <div class="box-profile">
               <ul>
-                <li *ngIf="getPropertyValue(currentDocument, 'tacGia[0].giaTri')">Tác giả: <a
+                <li *ngIf="getPropertyValue(currentDocument, 'tacGia[0].giaTri')">{{'author'|translate}}: <a
                     [routerLink]="['/documents/author', currentDocument.tacGia[0].giaTri]">{{currentDocument.tacGia[0].giaTri}}</a>
                 </li>
-                <li *ngIf="currentDocument.thongTinXuatBan">Năm xuất bản:
+                <li *ngIf="currentDocument.thongTinXuatBan">{{'publish_year'|translate}}:
                   <span>{{currentDocument.thongTinXuatBan}}</span>
                 </li>
-                <li>Nhà xuất bản: <a href="#">Room to Red</a></li>
-                <li>Bộ sách: <a href="#">Cánh diều</a></li>
-                <li>Nơi lưu trữ: <span>Sách thiếu nhi (3): STN000001-03</span></li>
+                <li>{{'publisher'|translate}}: <a href="#">Room to Red</a></li>
+                <li>{{'book_series'|translate}}: <a href="#">Cánh diều</a></li>
+                <li>{{'storage_location'|translate}}: <span>Sách thiếu nhi (3): STN000001-03</span></li>
               </ul>
             </div>
             <div class="box-profile pt-5">
               <ul class="nav_social">
-                <li>
+                <li >
                   <i class="fa fa-regular fa-heart"></i>
                   <span>{{currentDocument.slXem}}</span>
                 </li>
                 <li>
-                  <i class="fa fa-solid fa-book"></i>
+                  <i class="fa fa-solid fa-file-pdf-o"></i>
                   <span>{{currentDocument.slBanSo}}</span>
                 </li>
                 <li>
@@ -74,7 +79,7 @@
     @if (docs$) {
     <div class="box-stand pt-5">
       <div class="container pdlr0">
-        <app-s-slider [children]="maybeYouLike" title="Có thể bạn thích" [data]="docs$"></app-s-slider>
+        <app-s-slider [children]="maybeYouLike" title="{{'you_may_also_like'|translate}}" [data]="docs$"></app-s-slider>
         <ng-template #maybeYouLike let-item="item">
           <app-book-item-slider [book]="item" />
         </ng-template>
