@@ -65,16 +65,16 @@ export class SSliderComponent implements OnInit, AfterViewInit {
     slideBy: 'page',
     responsive: {
       0: {
-        items: 2.2,
+        items: 2,
       },
       600: {
-        items: 3.2,
+        items: 3,
       },
       900: {
         items: 5,
       },
       1200: {
-        items: 6.2,
+        items: 6,
       },
     },
     // stagePadding: 40,

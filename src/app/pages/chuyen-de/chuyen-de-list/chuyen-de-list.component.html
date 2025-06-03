@@ -9,9 +9,9 @@
         type="text"
         placeholder="{{'search_by_topic' | translate}}"
         [(ngModel)]="searchTerm"
-        (ngModelChange)="searchChuyenDe()"
+        (ngModelChange)="onSearchChange()"
       />
-      <button (click)="searchChuyenDe()"><i class="fa-regular fa-magnifying-glass icon-search"></i> {{'search' | translate}}</button>
+      <button (ngModelChange)="onSearchChange()"><i class="fa-regular fa-magnifying-glass icon-search"></i> {{'search' | translate}}</button>
     </div>
   
     <!-- Grid -->

@@ -1,10 +1,9 @@
 <div class="box-stand categories_section">
   <div class="container">
-    <h2 class="the-title text-center">Danh Mục</h2>
+    <h2 class="the-title text-center">{{'chuyen_de'|translate}}</h2>
 <div class="divToolChuyenDe">
   <a [routerLink]="['chuyen-de']" class="viewmore">{{'see_more'|translate}}</a>
-  <!--Hiện nút < > previus vs next ở đây-->
-  <!-- 👇 Thêm navigation nút Previous / Next -->
+
   <div class="carousel-nav text-end mb-2">
     <button class="btn btn-outline-secondary me-2" (click)="goToPrev()">
       <i class="fas fa-chevron-left"></i>

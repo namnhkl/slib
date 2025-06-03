@@ -14,4 +14,5 @@ export const environment = {
   COLLECTION_NAME: 'SLIB',
   MODEL_NAME: 'gemini-2.0-flash',
   IFRAME_URL_CHATBOT: 'https://chat.slib.vn/Chatbot/Chatbot.aspx',
+  ALLOWED_DANG_TAI_LIEU: ['GT','SH']
 };

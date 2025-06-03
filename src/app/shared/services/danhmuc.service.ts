@@ -6,6 +6,7 @@ import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +26,15 @@ export class DanhmucService extends _HttpRequestInjector {
   getPdfAsImages(pdfUrl: string): Observable<string[]> {
   return this._http.post<string[]>('https://localhost:7083/api/Magazine/pdf-as-base64', pdfUrl);
 }
+
+   bmDmDangTaiLieu() {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bmDmDangTaiLieu',
+        queryObject: {
+         
+        },
+      });
+      return this._http.get<IResponse<IDangTaiLieu[]>>(url);
+    }
   
 }

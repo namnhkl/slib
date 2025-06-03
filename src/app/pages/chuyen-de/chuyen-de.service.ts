@@ -6,7 +6,7 @@ import {
   import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
   import { Injectable } from '@angular/core';
   import { IChuyenDeResponse } from './chuyen-de.type';
-  import { IDocument } from '../pages/documents/documents';
+  import { IDocument } from '../documents/documents';
   import { IPageParams, IResponse } from '@/app/shared/types/common';
   @Injectable({
     providedIn: 'root'

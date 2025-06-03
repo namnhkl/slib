@@ -2,25 +2,45 @@
   <div class="container">
     <div class="bookCategories">
       <h2 class="the-title flex justify-between items-center mb-2">
-        <span>Video</span>
-        <a href="#" class="viewmore">Xem Thêm</a>
+        <span class="text-xl font-semibold text-gray-800">Video</span>
+        <a href="/news" class="viewmore text-blue-600 hover:underline">{{'see_more'|translate}}</a>
       </h2>
-      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
-        (changed)="getChangedData($event)" #owlCar class="mt-20 videosBox">
+
+      <owl-carousel-o [options]="customOptions" 
+                      (translated)="getPassedData($event)" 
+                      (change)="getChangeData($event)"
+                      (changed)="getChangedData($event)" 
+                      #owlCar class="mt-6 videosBox">
         @for (item of simpleData; track item.id) {
         <ng-template carouselSlide [id]="item.id">
-          <div class="item-books-4">
-            <a href="#">
-              <iframe width="300" height="160" [src]="item.video" title="YouTube video player" frameborder="0"
+          <div class="item-books-4 bg-white rounded-lg shadow p-3 flex flex-col hover:shadow-lg transition">
+            <div class="w-1/4 mb-3">
+              <iframe 
+                class="w-full rounded-lg" 
+                height="180" 
+                [src]="item.video" 
+                title="YouTube video player" 
+                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              <span>{{item.title}}</span>
-            </a>
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="w-1/4 text-left px-1">
+              <h3 class="text-base font-medium text-gray-800 truncate" title="{{item.title}}">
+                {{ item.title }}
+              </h3>
+              <p class="text-sm text-gray-500 mt-1">
+                <i class="far fa-calendar-alt mr-1"></i>{{ item.ngayDangTin }}
+              </p>
+              <p class="text-sm mt-1">
+                {{item.moTa}}
+              </p>
+            </div>
           </div>
         </ng-template>
         }
       </owl-carousel-o>
     </div>
-
   </div>
 </div>

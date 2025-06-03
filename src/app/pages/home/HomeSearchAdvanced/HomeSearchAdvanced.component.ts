@@ -21,6 +21,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { debounceTime, map, Observable, of, switchMap, tap } from 'rxjs';
 import { HomeService } from '../home.service';
 import { IBook } from './type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home-search-advanced',
@@ -39,6 +40,7 @@ import { IBook } from './type';
     NzAutocompleteModule,
     AsyncPipe,
     NzDropDownModule,
+    TranslateModule
   ],
 })
 export class HomeSearchAdvancedComponent implements OnInit {

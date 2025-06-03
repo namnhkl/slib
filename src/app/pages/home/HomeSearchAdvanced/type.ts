@@ -30,3 +30,12 @@ export interface IBookOptions {
   tieuDe: string,
   id: string
 }
+
+export interface IDangTaiLieu {
+  id:string,
+  ma:string,
+  ten:string,
+  sapXep:number
+}
+
+

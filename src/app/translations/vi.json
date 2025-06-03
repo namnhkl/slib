@@ -88,6 +88,24 @@
   "details": "Thông tin chi tiết",
   "book_series":"Bộ sách",
   "no_topics_found":"Không tìm thấy chuyên đề nào",
-  "documents_borrowed_or_read":"Documents borrowed or read",
-  "favorite_documents":"Tài liệu yêu thích"
+  "documents_borrowed_or_read":"Tài liệu đã mượn hoặc đã đọc",
+  "favorite_documents":"Tài liệu yêu thích",
+  "advanced_search":"Tìm kiếm nâng cao",
+  "title":"Nhan đề",
+  "enter_title":"Nhập nhan đề",
+  "enter_author":"Nhập tác giả",
+  "enter_language": "Chọn ngôn ngữ",
+  "enter_format":"Chọn định dạng",
+  "language":"Ngôn ngữ",
+  "chuyen_de":"Chuyên đề",
+  "no_description": "Chưa có mô tả",
+  "notification":"Thông báo",
+  "added_document_to_favorites_list":"Đã thêm tài liệu vào danh sách yêu thích",
+  "error_when_liking":"Lỗi khi yêu thích",
+  "removed_document_from_favorites_list":"Đã loại bỏ tài liệu khỏi danh sách yêu thích",
+  "error_while_removing_favorites":"Lỗi khi xóa mục yêu thích",
+  "untitled_item":"Mục không tên",
+  "you_are_not_logged_in":"Bạn chưa đăng nhập",
+  "please_login_to_use_this_function":"Vui lòng đăng nhập để sử dụng chức năng này"
+
 }

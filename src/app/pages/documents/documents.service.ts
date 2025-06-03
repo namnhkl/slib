@@ -69,17 +69,5 @@ export class DocumentsService extends _HttpRequestInjector {
     });
     return this._http.get<IResponse<TaiLieuMucLucChiTiet[]>>(url);
   }
-
-  
-
-  convertPdfToBase64(urlPdf: string): Observable<IResponse<imageUrlsBase64[]>> {
-    return this._http.post<IResponse<imageUrlsBase64[]>>(
-      "https://localhost:7083/api/PdfConvert/convert",
-      JSON.stringify(urlPdf), // phải stringify để gửi chuỗi JSON thuần
-      {
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
-  }
   
 }

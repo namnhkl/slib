@@ -3,9 +3,9 @@ import {
   HttpRequestInjectable,
 } from '@/app/shared/@decorator/api/http-request.decorator';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
-import { IPageParams } from '@/app/shared/types/common';
+import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
-import { IBookSearchResponse } from './HomeSearchAdvanced/type';
+import { IBookSearchResponse, IDangTaiLieu } from './HomeSearchAdvanced/type';
 
 @Injectable()
 @HttpRequestInjectable('/tailieu')
@@ -35,4 +35,15 @@ export class HomeService extends _HttpRequestInjector {
 
     return this._http.get<IBookSearchResponse>(url);
   }
+
+  bmTaiLieuMoiNhatDs(queryObject: IPageParams & { bmDmDangTaiLieuId: string }) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'bmTaiLieuMoiNhatDs',
+      queryObject,
+    });
+    return this._http.get<IBookSearchResponse>(url);
+  }
+
+
+
 }

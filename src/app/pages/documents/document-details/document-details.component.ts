@@ -23,7 +23,7 @@ import type { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AuthService } from '@/app/shared/services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -102,7 +102,8 @@ export class DocumentDetailsComponent implements OnInit {
     private notification: NzNotificationService,
     private sanitizer: DomSanitizer,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private translate: TranslateService
   ) {}
 
   getPropertyValue = (obj: any, path: string) => {
@@ -116,7 +117,7 @@ export class DocumentDetailsComponent implements OnInit {
       if (id.length > 0) {
         this.documentsService.getDocsDetails(id).subscribe((res) => {
           this.currentDocument = res.data[0];
-          console.log('ttxb', res.data[0]);
+          // console.log('ttxb', res.data[0]);
           this.changeRef.detectChanges();
         });
       }
@@ -132,22 +133,20 @@ export class DocumentDetailsComponent implements OnInit {
       this.banDocsService.bdBanDocBmTaiLieuQuanTamThemMoi(docId).subscribe({
         next: (res) => {
           this.currentDocument.laTaiLieuQuanTam = 1;
-          this.createNotification('success', 'Thông báo', 'Đã thêm tài liệu vào danh sách yêu thích');
+          this.createNotification('success', this.translate.instant('notification'), this.translate.instant('added_document_to_favorites_list'));
         },
         error: (err) => {
-          this.createNotification('error', 'Thông báo', 'Lỗi khi yêu thích');
-          console.error('Lỗi khi thêm yêu thích:', err);
+          this.createNotification('error', this.translate.instant('notification'), this.translate.instant('error_when_liking'));
         },
       });
     } else {
       this.banDocsService.bdBanDocBmTaiLieuQuanTamXoa(docId).subscribe({
         next: (res) => {
           this.currentDocument.laTaiLieuQuanTam = 0;
-          this.createNotification('success', 'Thông báo', 'Đã loại bỏ tài liệu khỏi danh sách yêu thích');
+          this.createNotification('success', this.translate.instant('notification'), this.translate.instant('removed_document_from_favorites_list'));
         },
         error: (err) => {
-          this.createNotification('error', 'Thông báo', 'Lỗi khi bỏ yêu thích');
-          console.error('Lỗi khi bỏ yêu thích:', err);
+          this.createNotification('error', this.translate.instant('notification'), this.translate.instant('error_while_removing_favorites'));
         },
       });
     }
@@ -195,12 +194,12 @@ export class DocumentDetailsComponent implements OnInit {
   convertToAntdTreeData(nodes: TreeNode[]): NzTreeNodeOptions[] {
   return nodes.map((node) => {
     const antdNode: NzTreeNodeOptions = {
-      title: node.tieuDe || 'Mục không tên',
+      title: node.tieuDe || this.translate.instant('untitled_item'),
       key: node.id,
       children: node.children && node.children.length > 0 ? this.convertToAntdTreeData(node.children) : [],
       isLeaf: !(node.children && node.children.length > 0),
     };
-    console.log('Antd Node:', antdNode);
+    // console.log('Antd Node:', antdNode);
     return antdNode;
   });
 }
@@ -223,12 +222,12 @@ export class DocumentDetailsComponent implements OnInit {
 }
 
 onSelectTree(event: NzFormatEmitEvent): void {
-  console.log('Tree select event:', event);
+  // console.log('Tree select event:', event);
   const selectedKey = event.keys?.[0]; // Truy cập keys từ event.keys
-  console.log('selectedKey', selectedKey);
+  // console.log('selectedKey', selectedKey);
   if (selectedKey) {
     const selectedNode = this.findNodeByKey(this.treeStructure, selectedKey);
-    console.log('Found Node:', selectedNode);
+    // console.log('Found Node:', selectedNode);
     if (selectedNode) {
       this.selectSection(selectedNode);
     }
@@ -237,7 +236,7 @@ onSelectTree(event: NzFormatEmitEvent): void {
 
     findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
       for (const node of nodes) {
-        console.log('Checking Node:', node.id, 'against:', key);
+        // console.log('Checking Node:', node.id, 'against:', key);
         if (node.id === key) {
           return node;
         }
@@ -252,7 +251,7 @@ onSelectTree(event: NzFormatEmitEvent): void {
     }
 
     selectSection(item: TreeNode): void {
-        console.log('selectSection called with:', item);
+        // console.log('selectSection called with:', item);
         this.selectedSection = item;
         this.currentPdfBase64Images = [];
         this.currentContentUrl = null;
@@ -261,7 +260,7 @@ onSelectTree(event: NzFormatEmitEvent): void {
         if (item.tepTinDinhDang === '.pdf' && item.tepTinTen) {
           this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
             next: (res) => {
-              console.log('Raw API response for content:', res);
+              // console.log('Raw API response for content:', res);
               const firstDocument = res?.data?.[0];
               let p = firstDocument?.tepTinDuLieu;
 
@@ -274,28 +273,28 @@ onSelectTree(event: NzFormatEmitEvent): void {
                     const fileURL = URL.createObjectURL(file);
                     this.currentContentUrl = fileURL;
                     //this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
-                    console.log("url ok: ", this.currentContentUrl);
+                    // console.log("url ok: ", this.currentContentUrl);
                   },
                   error: (err) => {
-                    console.error('Lỗi khi tải PDF:', err);
+                    // console.error('Lỗi khi tải PDF:', err);
                   },
                 });
               }
             },
             error: (err) => {
-              console.error('Lỗi khi lấy chi tiết mục lục:', err);
+              // console.error('Lỗi khi lấy chi tiết mục lục:', err);
             },
           });
         } else if (item.tepTinDinhDang === '.mp3' || item.tepTinDinhDang === '.mp4') {
       this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
         next: (res) => {
-          console.log('Raw API response for content:', res);
+          // console.log('Raw API response for content:', res);
           const firstDocument = res?.data?.[0];
           let mediaUrl = firstDocument?.tepTinDuLieu;
 
           if (mediaUrl && mediaUrl.length > 0) {
             mediaUrl = decodeURIComponent(mediaUrl);
-            console.log(`${item.tepTinDinhDang.toUpperCase()} URL:`, mediaUrl);
+            // console.log(`${item.tepTinDinhDang.toUpperCase()} URL:`, mediaUrl);
 
             // Nếu URL là hợp lệ, gán vào currentContentUrl để hiển thị trong audio/video tag
             this.currentContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mediaUrl);
@@ -303,7 +302,7 @@ onSelectTree(event: NzFormatEmitEvent): void {
           }
         },
         error: (err) => {
-          console.error('Lỗi khi lấy chi tiết mục lục:', err);
+          // console.error('Lỗi khi lấy chi tiết mục lục:', err);
         },
       });
     }
@@ -347,6 +346,6 @@ onSelectTree(event: NzFormatEmitEvent): void {
   }
 
   showLoginWarning() {
-    this.createNotification('warning', 'Bạn chưa đăng nhập', 'Vui lòng đăng nhập để sử dụng chức năng này.');
+    this.createNotification('warning', this.translate.instant('you_are_not_logged_in'), this.translate.instant('please_login_to_use_this_function'));
   }
 }

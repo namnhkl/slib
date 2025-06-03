@@ -19,7 +19,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { PreviewDocumentComponent } from 'app/pages/documents/preview-document/preview-document.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-chuyen-de-list',
   standalone: true,
@@ -40,15 +40,12 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ChuyenDeListComponent implements OnInit {
   constructor(
+    private translate: TranslateService,
     private seoService: SeoService,
     private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    const content = 'Khám phá các chuyên đề tài liệu mới nhất tại thư viện số.';
-    const title = 'Danh sách chuyên đề';
 
-    this.seoService.setMetaDescription(content);
-    this.seoService.setMetaTitle(title);
   } 
 
   chuyenDeService = inject(ChuyenDeService);
@@ -107,6 +104,12 @@ export class ChuyenDeListComponent implements OnInit {
   }
 
   getDescription(chuyenDe: IChuyenDe): string {
-    return chuyenDe.moTa || 'Chưa có mô tả';
+    return chuyenDe.moTa || this.translate.instant('no_description');
   }
+
+  onSearchChange(): void {
+  this.pageIndex = 1; // Reset về trang đầu tiên khi tìm kiếm
+  this.searchChuyenDe();
+}
+
 }

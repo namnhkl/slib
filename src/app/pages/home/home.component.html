@@ -3,16 +3,22 @@
 <div class="container">
   <app-homecategories></app-homecategories>
 
-  @let docs$ = docs | async;
+<div *ngFor="let dang of dangtailieus">
+  <ng-container *ngIf="allowedDangTaiLieu.includes(dang.ma) && docsByType[dang.id]?.data?.length > 0">
+    <app-s-slider 
+      [children]="defaultTemplate" 
+      [title]="dang.ten" 
+      [data]="docsByType[dang.id].data">
+    </app-s-slider>
+  </ng-container>
+</div>
+
+<ng-template #defaultTemplate let-item="item">
+  <app-book-item-slider [book]="item"></app-book-item-slider>
+</ng-template>
+
+  <!-- @let docs$ = docs | async;
   @if (docs$) {
-    <app-s-slider [children]="thamKhao1" title="Sách giáo khoa1" [data]="docs$"></app-s-slider>
-    <ng-template #thamKhao1 let-item="item">
-      <app-book-item-slider [book]="item" />
-    </ng-template>
-    <app-s-slider [children]="thamKhao" title="Sách tham khảo" [data]="docs$"></app-s-slider>
-    <ng-template #thamKhao let-item="item">
-      <app-book-item-slider [book]="item" />
-    </ng-template>
     <app-s-slider [children]="audio" title="Audio" [data]="docs$"></app-s-slider>
     <ng-template #audio let-item="item">
       <app-book-item-slider [book]="item" />
@@ -21,7 +27,9 @@
     <ng-template #video let-item="item">
       <app-book-item-slider [book]="item" />
     </ng-template>
-  }
+  } -->
+
+  
   <app-homevideos></app-homevideos>
 </div>
 
