@@ -55,6 +55,7 @@
     "@angular/compiler-cli": "^19.2.9",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/jasmine": "~5.1.7",
     "@types/jquery": "^3.5.32",
     "@types/lodash": "^4.17.15",

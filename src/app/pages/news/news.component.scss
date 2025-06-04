@@ -1,24 +1,24 @@
 /* -------------------------------- NEWS CSS -------------------------------- */
 .wrapp-news {
-  padding-bottom: 100px;
-  padding-top: 100px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 .row-news {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   justify-content: space-between;
 }
 
 .box-news {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 .news-item {
   gap: 20px;
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0px;
+  padding: 5px;
   transition: transform 0.3s ease;
 }
 .news-item a {
@@ -31,13 +31,13 @@
   transform: translateY(-2px);
 }
 .news-img {
-  width: 70%;
+  width: 200px;
 }
 .news-img img {
-  height: 200px;
+  height: 100px;
   object-fit: cover;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 .news-content h3 {
   font-size: 20px;
@@ -56,11 +56,14 @@
 }
 .news-content button {
   background: no-repeat;
-  border-radius: 5px;
+  border-radius: 0px;
   color: red;
   border: solid 1px red;
   font-size: 14px;
   padding: 2px 10px;
+}
+.news-date p{
+  font-size: 12px !important  ;
 }
 .sidebar-news {
 }
@@ -108,13 +111,13 @@
   color: #666;
   padding: 4px 15px;
   font-size: 11px;
-  border-radius: 5px;
+  border-radius: 0px;
 }
 .sidenews-item img {
   height: 100px;
   width: 140px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 0px;
 }
 
 @media (max-width: 992px) {

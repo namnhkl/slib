@@ -17,6 +17,7 @@
     <nz-icon nzType="loading" />
   </ng-template>
   <nz-spin [nzSpinning]="isSpinning" [nzIndicator]="indicatorTemplate">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
     <app-header></app-header>
     <main>
       <router-outlet (activate)="handleActive($event)"></router-outlet>

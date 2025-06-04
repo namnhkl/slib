@@ -85,7 +85,7 @@
             <div class="d-flex languages">
                 <div class="mbForm">
                     <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
-                        [nzCustomTemplate]="iconTemplate" [nzShowArrow]="false">
+                        [nzCustomTemplate]="iconTemplate">
                         <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
                         <nz-option nzValue="en-US" translate [nzLabel]="'english'|translate"></nz-option>
                     </nz-select>
@@ -94,3 +94,6 @@
         </div>
     </div>
 </nav>
+<!-- <div class="container mt-0">
+  <app-breadcrumb></app-breadcrumb>
+</div> -->

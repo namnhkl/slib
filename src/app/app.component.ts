@@ -24,6 +24,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { SharedModule } from './shared/shared.module';
 import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
 import { environment } from '../environments/environment';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -43,7 +44,8 @@ import { environment } from '../environments/environment';
     HeaderComponent,
     FooterComponent,
     NzSpinModule,
-    ChatbotComponent
+    ChatbotComponent,
+    BreadcrumbComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

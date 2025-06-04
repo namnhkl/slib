@@ -2,6 +2,16 @@
 <app-home-search-advanced (searchResultsChange)="searchList($event)"></app-home-search-advanced>
 <div class="container">
   <app-homecategories></app-homecategories>
+   <!-- <ng-container>
+    <app-s-slider 
+      [children]="defaultTemplate" 
+      [title]="'Chuyên đề'" 
+      [data]="chuyendes">
+    </app-s-slider>
+  </ng-container> -->
+  
+
+
 
 <div *ngFor="let dang of dangtailieus">
   <ng-container *ngIf="allowedDangTaiLieu.includes(dang.ma) && docsByType[dang.id]?.data?.length > 0">

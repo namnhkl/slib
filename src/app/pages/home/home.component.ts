@@ -15,6 +15,9 @@ import { ChuyenDeListComponent } from '@/app/pages/chuyen-de/chuyen-de-list/chuy
 import { TranslateModule } from '@ngx-translate/core';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { environment } from 'environments/environment';
+import { DocumentsService } from '../documents/documents.service';
+import { IDocument } from '../documents/documents';
+import { IResponse } from '@/app/shared/types/common';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +34,7 @@ import { environment } from 'environments/environment';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [HomeService],
+  providers: [HomeService, DocumentsService],
   standalone:true
 })
 export class HomeComponent implements OnInit {
@@ -50,7 +53,9 @@ export class HomeComponent implements OnInit {
 
   homeService = inject(HomeService);
   danhmucService = inject(DanhmucService);
+  documentService = inject(DocumentsService);
   dangtailieus: any[] = [];
+  chuyendes: IDocument[] = [];
   docsByType: { [id: string]: { id: string; ten: string; data: IBook[] } } = {};
   @ViewChild('default', { static: true }) defaultTemplate!: TemplateRef<any>;
   templateMap: { [key: string]: TemplateRef<any> } = {};
@@ -76,13 +81,7 @@ export class HomeComponent implements OnInit {
     })
   );
 
-   docsSachThamKhao = this.homeService.bmTaiLieuMoiNhatDs({ bmDmDangTaiLieuId: '1' }).pipe(
-    switchMap((res) => {
-      console.log('Sách tham khảo:', res);
-      if (res.messageCode === 1) return of(get(res, 'data', []));
-      return of([]); // Fix: return observable, not array
-    })
-  );
+  
 
 
 ngOnInit() {
@@ -118,6 +117,12 @@ ngOnInit() {
           return map;
         }, {} as { [key: string]: TemplateRef<any> });
   this.changeDetectorRef.detectChanges();
+  this.documentService.getChuyenDes().subscribe(response => {
+    this.chuyendes = response.data;  // Lấy đúng mảng IDocument[]
+    console.log('Chuyên đề: ', this.chuyendes);
+  });
+
+
   this.loaderService.setLoading(false);
 });
 

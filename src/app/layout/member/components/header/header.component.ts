@@ -10,6 +10,7 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from '@/app/i18n/i18n.service';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { BreadcrumbComponent } from '@/app/shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzButtonModule,
     FormsModule,
     NzSelectModule,
-    NzDrawerModule
+    NzDrawerModule,
+    BreadcrumbComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

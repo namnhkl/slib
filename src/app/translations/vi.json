@@ -54,7 +54,7 @@
   "payment_deadline": "Hạn trả",
   "overdue": "Quá hạn",
   "format": "Định dạng",
-  "see_more": "Xem thêm",
+  "view_more": "Xem thêm",
   "please_confirm_your_password": "Vui lòng xác nhận mật khẩu của bạn!",
   "the_two_passwords_you_entered_are_inconsistent": "Hai mật khẩu bạn nhập không nhất quán",
   "dkcb": "ĐKCB",
@@ -85,7 +85,7 @@
   "publisher": "Nhà xuất bản",
   "storage_location": "Nơi lưu trữ",
   "you_may_also_like": "Bạn có thể thích",
-  "details": "Thông tin chi tiết",
+  "details": "Chi tiết",
   "book_series":"Bộ sách",
   "no_topics_found":"Không tìm thấy chuyên đề nào",
   "documents_borrowed_or_read":"Tài liệu đã mượn hoặc đã đọc",
@@ -106,6 +106,8 @@
   "error_while_removing_favorites":"Lỗi khi xóa mục yêu thích",
   "untitled_item":"Mục không tên",
   "you_are_not_logged_in":"Bạn chưa đăng nhập",
-  "please_login_to_use_this_function":"Vui lòng đăng nhập để sử dụng chức năng này"
+  "please_login_to_use_this_function":"Vui lòng đăng nhập để sử dụng chức năng này",
+  "show":"Hiển thị",
+  "all":"Tất cả"
 
 }

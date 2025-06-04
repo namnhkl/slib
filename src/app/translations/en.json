@@ -54,7 +54,7 @@
   "payment_deadline": "Payment deadline",
   "overdue": "Overdue",
   "format": "Format",
-  "see_more": "See more",
+  "view_more": "View more",
   "please_confirm_password": "Please confirm your password",
   "passwords_inconsistent": "The two passwords you entered are inconsistent",
   "close": "Close",
@@ -109,6 +109,8 @@
   "error_while_removing_favorites":"Error while removing favorites",
   "untitled_item":"Untitled item",
   "you_are_not_logged_in":"You are not logged in",
-  "please_login_to_use_this_function":"Please login to use this function"
+  "please_login_to_use_this_function":"Please login to use this function",
+  "show":"Show",
+  "all":"All"
 
 }

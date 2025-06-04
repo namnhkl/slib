@@ -8,7 +8,7 @@
           <ng-container [ngTemplateOutlet]="title" >
           </ng-container>
         }
-        <a [routerLink]="['documents']" class="viewmore">{{'see_more'|translate}}</a>
+        <a [routerLink]="['/documents']" class="viewmore">{{'view_more'|translate}}</a>
       </h2>
       <div class="mt-20 bookSlider">
         <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"

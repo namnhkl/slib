@@ -1,79 +1,75 @@
 <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
- <div class="wrapp-news">
-  <div class="container">
-    <div class="row-news">
-      <div class="box-news col-sm-7">
-        <!-- News Item 1 -->
-        @for (_new of (news | async); track $index) {
-        <div class="news-item d-flex">
-          <a [routerLink]="[_new.id]">
-            <div class="news-img">
-              <img [src]="_new.anhDaiDien" alt="Post Image 1" class="img-fluid">
-            </div>
-            <div class="news-content">
-              <h3 class="news-title">{{ _new.ten }}</h3>
-              <p class="news-date"><i class="fa fa-calendar"></i> {{
-                _new.ngayDangTin }}
-                <p class="news-description" [innerHTML]="_new.moTa"></p>
-                <button class="btn btn-primary btn-sm">Chi tiết</button>
+  <div class="wrapp-news">
+    <div class="container">
+      <div class="row-news">
+        <!-- Hiển thị tin tức -->
+        <div class="box-news col-sm-7">
+          <div class="news-item d-flex" *ngFor="let _new of newsData">
+            <div class="d-flex w-100">
+              <div class="news-img w-full">
+                <a [routerLink]="[_new.id]">
+                  <img [src]="_new.anhDaiDien" alt="Post Image" class="img-fluid w-100" />
+                </a>
               </div>
-            </a>
+              <div class="news-content w-full" style="padding-left: 15px;">
+                <a [routerLink]="[_new.id]" class="text-decoration-none text-dark">
+                  <h3 class="news-title mb-2">{{ _new.ten }}</h3>
+                </a>
+                <p class="news-date mb-1" style="font-size: 12px;">
+                  <i class="fa fa-calendar"></i> {{ _new.ngayDangTin }}
+                </p>
+                <p class="news-description line-clamp-2" [innerHTML]="_new.moTa"></p>
+              </div>
+            </div>
           </div>
-          }
 
+          <!-- Phân trang -->
           <div class="page_sort_item">
             <div class="item_page_detail">
               <div class="d-flex align-items-center groupSelect">
-                <label for="numberSelect" class="form-label">Hiển thị</label>
-                <select class="form-select" id="numberSelect"
-                  aria-label="Chọn số">
-                  <option value selected disabled>0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                <label for="numberSelect" class="form-label">{{ 'show' | translate }}</label>
+                <select class="form-select" id="numberSelect" (change)="onPageSizeChange($event.target.value)">
+                  <option value="5" [selected]="pageSize === 5">5</option>
+                  <option value="10" [selected]="pageSize === 10">10</option>
+                  <option value="20" [selected]="pageSize === 20">20</option>
                 </select>
               </div>
             </div>
             <div class="item_page_detail">
               <div class="showPage">
-                <span>1/10</span>
-                <button class="btn pre-btn"><span class="btnPre"
-                    aria-label="Previous">‹</span></button>
-                <button class="btn next-btn active"><span class="btnPre"
-                    aria-label="Next">›</span></button>
+                <span>{{ pageIndex }}/{{ totalPages }}</span>
+                <button class="btn pre-btn" (click)="onPageChange('prev')" [disabled]="pageIndex === 1">
+                  <span class="btnPre" aria-label="Previous">‹</span>
+                </button>
+                <button class="btn next-btn" (click)="onPageChange('next')" [disabled]="pageIndex === totalPages">
+                  <span class="btnPre" aria-label="Next">›</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
 
+
         <div class="sidebar-news box-news col-sm-5">
           <div class="views-box">
             <h3>Xem nhiều</h3>
             <ul>
-              @for (_new of news | async; track $index) {
-              <li>
-                <a href="#">
+              <li *ngFor="let _new of newsDataMostViewed">
+                <a [routerLink]="[_new.id]">
                   <div class="sidenews-item">
-                    <h4>{{ _new.moTa }}</h4>
-                    <span><i class="fa fa-regular fa-eye"></i> 524 lượt
-                      xem</span>
+                    <h4 class="title">{{ _new.ten }}</h4>
+                    <span><i class="fa fa-eye"></i> {{ _new.slXem || 0 }} lượt xem</span>
                   </div>
                   <div class="sidenews-item">
-                    <img [src]="_new.anhDaiDien" alt="sách hay">
+                    <img [src]="_new.anhDaiDien" alt="sách hay" class="img-fluid" />
                   </div>
                 </a>
               </li>
-              }
             </ul>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>

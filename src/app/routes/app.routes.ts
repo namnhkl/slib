@@ -19,17 +19,22 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: { breadcrumb: 'home' }
   },
-  { path: URL_ROUTER.chuyende, component: ChuyenDeListComponent }, // Trang chuyên đề,
-  { path: URL_ROUTER.chuyendeitem, component: ChuyenDeItemComponent },
+  { path: URL_ROUTER.chuyende, component: ChuyenDeListComponent,
+    data: { breadcrumb: 'chuyen_de' }
+   }, // Trang chuyên đề,
+  { path: URL_ROUTER.chuyendeitem, component: ChuyenDeItemComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
   {
     path: URL_ROUTER.news,
     loadChildren:  () => import('../pages/news/news-routing.module').then(module => module.NewRoutingModule),
+    data: { breadcrumb: 'news' }
   },
   {
     path: URL_ROUTER.searchResult,
     loadChildren: async () =>
       (await import('../pages/search-result/search-result.module')).SearchResultsModule,
+    data: { breadcrumb: 'search' }
   },
   {
     path: URL_ROUTER.profile,
@@ -37,14 +42,17 @@ export const routes: Routes = [
       import('../pages/profile/profile-routing.module')
         .then(module => module.ProfileRoutingModule),
     canMatch: [authGuard()],
+    data: { breadcrumb: 'profile' }
   },
   {
     path: URL_ROUTER.contact,
     component: ContactComponent,
+    data: { breadcrumb: 'contact' }
   },
   {
     path: URL_ROUTER.documents,
     loadChildren: () => import('../pages/documents/document-routing.module').then(module => module.DocumentRoutingModule),
+    data: { breadcrumb: 'document' }
   },
   {
     path: URL_ROUTER.notFound,
