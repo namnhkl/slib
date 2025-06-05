@@ -129,3 +129,10 @@ export interface imageUrlsBase64 {
   page: number;
   base64: string;
 }
+
+export interface IDocumentQueryParams {
+  pageIndex?: number,
+  pageSize?: number,
+  bsThuVienId?: string;
+  bmDmDangTaiLieuId?: string;
+}

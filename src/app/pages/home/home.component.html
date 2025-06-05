@@ -16,6 +16,7 @@
 <div *ngFor="let dang of dangtailieus">
   <ng-container *ngIf="allowedDangTaiLieu.includes(dang.ma) && docsByType[dang.id]?.data?.length > 0">
     <app-s-slider 
+      [bmDmDangTaiLieuId]="dang.id"
       [children]="defaultTemplate" 
       [title]="dang.ten" 
       [data]="docsByType[dang.id].data">

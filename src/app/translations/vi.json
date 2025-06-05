@@ -71,7 +71,7 @@
   "list_of_topics_item": "Danh sách tài liệu trong chuyên đề",
   "explore_the_latest_topics_item_in_the_library": "Khám phá các tài liệu mới nhất trong thư viện",
   "found": "Tìm thấy",
-  "number_of_document": "Số lượng tài liệu",
+  "number_of_documents": "Số lượng tài liệu",
   "old_password": "Mật khẩu cũ",
   "please_input_old_password": "Vui lòng nhập mật khẩu cũ của bạn!",
   "password_must_contain_uppercase_lowercase_number_special": "Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt",
@@ -97,7 +97,7 @@
   "enter_language": "Chọn ngôn ngữ",
   "enter_format":"Chọn định dạng",
   "language":"Ngôn ngữ",
-  "chuyen_de":"Chuyên đề",
+  "topics":"Chuyên đề",
   "no_description": "Chưa có mô tả",
   "notification":"Thông báo",
   "added_document_to_favorites_list":"Đã thêm tài liệu vào danh sách yêu thích",
@@ -108,6 +108,19 @@
   "you_are_not_logged_in":"Bạn chưa đăng nhập",
   "please_login_to_use_this_function":"Vui lòng đăng nhập để sử dụng chức năng này",
   "show":"Hiển thị",
-  "all":"Tất cả"
+  "all":"Tất cả",
+  "book_set":"Bộ sách",
+  "document_type":"Loại tài liệu",
+  "most_viewed_news":"Xem nhiều",
+  "view":"Lượt xem",
+  "please_select_library":"Xin vui lòng chọn Thư viện",
+  "please_enter_your_full_name":"Xin vui lòng nhập đầy đủ họ và tên",
+  "enter_your_name": "Nhập họ tên của bạn",
+  "email":"Email",
+  "enter_your_email": "Nhập Email của bạn",
+  "please_enter_a_valid_email":"Xin vui lòng nhập email hợp lệ",
+  "please_enter_contact_information":"Xin vui lòng nhập nội dung liên hệ",
+  "invalid_captcha_code":"Mã capcha không hợp lệ",
+  "please_enter_the_confirmation_code":"Xin vui lòng nhập mã xác nhận"
 
 }

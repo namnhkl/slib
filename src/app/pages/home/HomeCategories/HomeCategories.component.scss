@@ -104,50 +104,23 @@
         object-fit: fill
       }
     }
-  }
 
-  .viewmore{
-    font-size: 14px;
-    line-height: 50px;
-    color: rgb(0, 74, 173);
-    float: right;
-    position: absolute;
-    top: -5px;
-    right: 100px;
-    font-weight: bold;
-  }
-
-  .divToolChuyenDe{
-    position: relative;
-    margin-right: 0;
-    margin-bottom: -20px;
-    margin-top: 0;
-  }
-
-  .item-title{
-    position: relative;
-    display: block;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-
-  .owl-dots{
-    display: none !important;
-  }
-  .carousel-nav button{
-    color: black;
-  }
-
-  .carousel-nav button i{
-    font-size: 13px;
-    padding-bottom: 6px;
-    padding-right: 4px;
-    padding-left: 4px;
-  }
-
-  @media (max-width: 992px) {
+	.bookSlider{
+		display: none;
+	}
+	.viewmore{
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 50px;
+		color: rgb(0, 74, 173);
+		float: right;
+		position: absolute;
+		top: -5px;
+		font-weight: bold;
+	}
+	.box_class {
+		margin-top: 60px;
+	} 
 	.box-stand {
 		h2.the-title {
 			font-size: 25px;
@@ -210,7 +183,50 @@
 	.owl-theme .owl-nav {
 		display: none;
 	}
-}
+  }
+
+  .viewmore{
+    font-size: 14px;
+    line-height: 50px;
+    color: rgb(0, 74, 173);
+    float: right;
+    position: absolute;
+    top: -5px;
+    right: 100px;
+    font-weight: bold;
+  }
+
+  .divToolChuyenDe{
+    position: relative;
+    margin-right: 0;
+    margin-bottom: -20px;
+    margin-top: 0;
+  }
+
+  .item-title{
+    position: relative;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .owl-dots{
+    display: none !important;
+  }
+  .carousel-nav button{
+    color: black;
+  }
+
+  .carousel-nav button i{
+    font-size: 13px;
+    padding-bottom: 6px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+
 
 @media (max-width: 769px) {
 	.bannerTop .owl-nav {
@@ -219,8 +235,101 @@
 	.owl-theme .owl-nav {
 		display: none !important;
 	}
+	.item-thumbnail {
+      width: 145px;
+      height: 192px;
+      img {
+        width: 145px;
+        height: 192px;
+        max-height: unset;
+        max-width: unset;
+        object-fit: fill
+      }
+    }
+
+	.bookSlider{
+		display: none;
+	}
+	.viewmore{
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 50px;
+		color: rgb(0, 74, 173);
+		float: right;
+		position: absolute;
+		top: -5px;
+		font-weight: bold;
+	}
+	.box_class {
+		margin-top: 60px;
+	} 
+	.box-stand {
+		h2.the-title {
+			font-size: 25px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			justify-content: flex-start;
+			
+		}
+	}
 	.viewmore {
-/*		display: none;*/
+        background: url(/img/icons8-arrow-24.png) no-repeat center center #eee;
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+        text-indent: -999999px;
+        background-size: 12px 12px;
+        position: relative;
+        left: 0;
+        top: 0;
+        float: left;
+        margin-left: 156px;
+        margin-top: -28px;
+			}
+	.owl-carousel {
+		.owl-item {
+			.item-stand {
+				img {
+					height: 180px !important;
+				}
+			}
+			img {
+				height: 180px !important;
+			}
+		}
+	}
+	.classSlider {
+		.owl-stage {
+			.item-class {
+				a {
+					img {
+						height: 150px !important;
+					}
+				}
+			}
+		}
+	}
+	.owl-title {
+		display: none;
+	}
+	.bookCategories {
+		.owl-nav {
+			display: none;
+		}
+	}
+	.viewmore-mb {
+		display: flex;
+		img {
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: #e7e7e7;
+			padding: 4px;
+		}
+	}
+	.owl-theme .owl-nav {
+		display: none;
 	}
 
 }

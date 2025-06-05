@@ -3,6 +3,7 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from 'environments/environment';
 import {
   CarouselModule,
   OwlOptions,
@@ -25,7 +26,7 @@ interface ISimpleItem {
 export class HomeVideosComponent implements OnInit {
   constructor(private router: Router, public sanitizer: DomSanitizer) {}
   tinTucService = inject(TintucService);
-
+  tinVideoDefault = environment.ID_TIN_VIDEO_DEFAULT;
   customOptions: OwlOptions = {
     // autoWidth: true,
     loop: false,
@@ -79,9 +80,10 @@ export class HomeVideosComponent implements OnInit {
   console.log('HomeCategoriesComponent');
 
   this.tinTucService.qtndTtTinTuc({
-    qtndTtNhomTinTucId: '0414c195-1814-40bc-9e0f-8179f0a836e4',
+    qtndTtNhomTinTucId: this.tinVideoDefault, // '0414c195-1814-40bc-9e0f-8179f0a836e4',
     pageIndex: 0,
-    pageSize: 10
+    pageSize: environment.PAGE_SIZE
+
   }).subscribe({
     next: (response) => {
       console.log('response qtndTtTinTuc', response);

@@ -4,7 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { of, switchMap, tap } from 'rxjs';
 // eslint-disable-next-line id-length
 import _ from 'lodash';
-import { RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +25,8 @@ import { CommonModule } from '@angular/common';
   providers: [NewsService]
 })
 export class NewsComponent {
+  constructor(private route: ActivatedRoute) {}
+
   isLoading = true;
   readonly URL_DETAIL = URL_ROUTER.newDetail;
 
@@ -35,12 +37,14 @@ export class NewsComponent {
   totalPages = 0;
   newsData: any[] = [];
   newsDataMostViewed: any[] = [];
+  qtndTtNhomTinTucId = '';
   
   getNewsData() {
+    console.log('this.qtndTtNhomTinTucId',this.qtndTtNhomTinTucId);
     this.isLoading = true;
-
-    // ✅ truyền pageIndex - 1 nếu API yêu cầu 0-based
-    this.newService.getNews(this.pageIndex - 1, this.pageSize).pipe(
+    this.newService.getNews(this.pageIndex - 1, this.pageSize, {
+    qtndTtNhomTinTucId: this.qtndTtNhomTinTucId
+  }).pipe(
       tap(res => {
         if (res.messageCode === 1) {
           this.newsData = Array.isArray(res.data) ? res.data : [];
@@ -85,7 +89,12 @@ export class NewsComponent {
   }
 
   ngOnInit(): void {
-    this.getNewsData();
+     this.route.queryParams.subscribe(params => {
+      this.qtndTtNhomTinTucId = params['qtndTtNhomTinTucId'] || '';
+      console.log('qtndTtNhomTinTucId:', this.qtndTtNhomTinTucId);
+    });
+   
     this.getTopNewsData();
+     this.getNewsData();
   }
 }

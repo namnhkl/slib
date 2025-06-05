@@ -100,7 +100,7 @@
   "enter_language": "Select language",
   "enter_format":"Select format",
   "language":"Language",
-  "chuyen_de":"Topic",
+  "topics":"Topics",
   "no_description": "No description",
   "notification":"Notification",
   "added_document_to_favorites_list":"Added document to favorites list",
@@ -111,6 +111,22 @@
   "you_are_not_logged_in":"You are not logged in",
   "please_login_to_use_this_function":"Please login to use this function",
   "show":"Show",
-  "all":"All"
+  "all":"All",
+  "book_set":"Book set",
+  "document_type":"Document type",
+  "most_viewed_news":"Most viewed news",
+  "view":"View",
+  "list_of_topics_item":"List of topics item",
+  "explore_the_latest_topics_item_in_the_library":"Explore the latest topics item in the library",
+  "if_you_need_support_please_contact_us_we_will_try_to_respond_as_soon_as_possible": "If you need any assistance, please contact us, we will try to respond as soon as possible.",
+  "please_select_library":"Please select Library",
+  "please_enter_your_full_name":"Please enter your full name",
+  "enter_your_name": "Enter your name",
+  "email":"Email",
+  "enter_your_email": "Enter your Email",
+  "please_enter_a_valid_email":"Please enter a valid email",
+  "please_enter_contact_information":"Please enter contact information",
+  "invalid_captcha_code":"Invalid captcha code",
+  "please_enter_the_confirmation_code":"Please enter the confirmation code"
 
 }

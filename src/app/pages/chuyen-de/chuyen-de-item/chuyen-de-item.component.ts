@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IDocument } from '@/app/pages/documents/documents';
 import { ActivatedRoute } from '@angular/router';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { environment } from 'environments/environment';
 
 interface TacGia {
   giaTri: string;
@@ -65,7 +66,8 @@ export class ChuyenDeItemComponent implements OnInit {
   stsBoSuuTapId = '';
   tenChuyenDe = '';
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = environment.PAGE_SIZE;
+  itemPerpageOption = environment.ITEM_PER_PAGE_OPTION;
   totalRecord = 0;
 
   // Sử dụng BehaviorSubject để quản lý danh sách chuyên đề

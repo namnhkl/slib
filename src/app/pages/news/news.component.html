@@ -52,13 +52,13 @@
 
         <div class="sidebar-news box-news col-sm-5">
           <div class="views-box">
-            <h3>Xem nhiều</h3>
+            <h3>{{'most_viewed_news' | translate}}</h3>
             <ul>
               <li *ngFor="let _new of newsDataMostViewed">
                 <a [routerLink]="[_new.id]">
                   <div class="sidenews-item">
                     <h4 class="title">{{ _new.ten }}</h4>
-                    <span><i class="fa fa-eye"></i> {{ _new.slXem || 0 }} lượt xem</span>
+                    <span><i class="fa fa-eye"></i> {{ _new.slXem || 0 }} {{'view'|translate}}</span>
                   </div>
                   <div class="sidenews-item">
                     <img [src]="_new.anhDaiDien" alt="sách hay" class="img-fluid" />

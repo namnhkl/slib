@@ -20,6 +20,8 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { PreviewDocumentComponent } from 'app/pages/documents/preview-document/preview-document.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'app-chuyen-de-list',
   standalone: true,
@@ -32,7 +34,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     SafeHtmlPipe,
     NzCollapseModule,
     NzIconModule,
-    NzPopoverModule,NzButtonModule,NzBadgeModule,PreviewDocumentComponent,NzModalModule,TranslateModule
+    NzPopoverModule,
+    NzButtonModule,
+    NzBadgeModule,
+    PreviewDocumentComponent,
+    NzModalModule,
+    TranslateModule,
+    NzSelectModule
   ],
   templateUrl: './chuyen-de-list.component.html',
   styleUrls: ['./chuyen-de-list.component.scss'],
@@ -44,29 +52,19 @@ export class ChuyenDeListComponent implements OnInit {
     private seoService: SeoService,
     private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {
-
-  } 
+  ) {}
 
   chuyenDeService = inject(ChuyenDeService);
-  chuyenDeList = this.chuyenDeService.getChuyenDeList().pipe(
-    switchMap((res) => {
-      console.log('🚀 ~ ChuyenDeListComponent ~ switchMap ~ res:', res);
-      if (res.messageCode === 1) {
-        this.totalRecord = res.totalRecord || 0;
-        return of(get(res, 'data', []));
-      }
-      return [];
-    })
-  );
+  chuyenDeList: any = []; // khởi tạo rỗng, sẽ gán sau trong searchChuyenDe
 
   searchTerm = '';
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = environment.PAGE_SIZE;
+  itemPerpageOption = environment.ITEM_PER_PAGE_OPTION;
   totalRecord = 0;
+  
 
   ngOnInit(): void {
-    console.log('🚀 ~ ChuyenDeListComponent ~ ngOnInit');
     this.loaderService.setLoading(true);
     this.searchChuyenDe();
   }
@@ -78,25 +76,31 @@ export class ChuyenDeListComponent implements OnInit {
       pageSize: this.pageSize
     }).pipe(
       switchMap((res) => {
-        console.log('🚀 ~ ChuyenDeListComponent ~ searchChuyenDe ~ res:', res);
+        console.log('🚀 ~ searchChuyenDe ~ res:', res);
         if (res.messageCode === 1) {
           this.totalRecord = res.totalRecord || 0;
           return of(get(res, 'data', []));
         }
-        return [];
+        return of([]); // dùng of để Observable không bị lỗi
       })
     );
+
     this.changeDetectorRef.detectChanges();
   }
-
 
   onPageChange(page: number): void {
     this.pageIndex = page;
     this.searchChuyenDe();
   }
 
+  handleChangePageSize(newSize: number): void {
+    this.pageSize = newSize;
+    this.pageIndex = 1; // quay về trang đầu tiên
+    this.searchChuyenDe();
+  }
+
   getTotalPages(): number {
-    return Math.ceil(this.totalRecord / this.pageSize);
+    return Math.ceil(this.totalRecord / this.pageSize) || 1;
   }
 
   getImageUrl(chuyenDe: IChuyenDe): string {
@@ -108,8 +112,7 @@ export class ChuyenDeListComponent implements OnInit {
   }
 
   onSearchChange(): void {
-  this.pageIndex = 1; // Reset về trang đầu tiên khi tìm kiếm
-  this.searchChuyenDe();
-}
-
+    this.pageIndex = 1;
+    this.searchChuyenDe();
+  }
 }

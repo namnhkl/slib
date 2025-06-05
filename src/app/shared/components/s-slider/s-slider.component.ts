@@ -26,6 +26,7 @@ export class SSliderComponent implements OnInit, AfterViewInit {
   @Input() children: TemplateRef<unknown> | null = null;
 
   @Input() title: TemplateRef<unknown> | string = '';
+  @Input() bmDmDangTaiLieuId: TemplateRef<unknown> | string = '';
   @Input() categoryId = 1;
   @Input() data: any[] = [];
 

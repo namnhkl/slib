@@ -1,14 +1,17 @@
 <div class="box-stand pt-0">
   <div class="container">
     <div class="bookCategories">
-      <h2 class="the-title flex justify-between items-center">
+      <h2 class="the-title flex justify-between items-center ">
         @if (typeof title === 'string') {
-          <span>{{title}}</span>
+          <span class="uppercase">{{title}}</span>
         } @else {
           <ng-container [ngTemplateOutlet]="title" >
           </ng-container>
         }
-        <a [routerLink]="['/documents']" class="viewmore">{{'view_more'|translate}}</a>
+       <a [routerLink]="['/documents']" [queryParams]="{ bmDmDangTaiLieuId: bmDmDangTaiLieuId }" class="viewmore">
+        {{ 'view_more' | translate }}
+      </a>
+
       </h2>
       <div class="mt-20 bookSlider">
         <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"

@@ -1,47 +1,33 @@
 <div class="box-stand categories_section">
   <div class="container">
-    <h2 class="the-title text-center">{{'chuyen_de'|translate}}</h2>
-<div class="divToolChuyenDe">
-  <a [routerLink]="['chuyen-de']" class="viewmore">{{'view_more'|translate}}</a>
+    <h2 class="the-title text-center">{{'topics'|translate}}</h2>
+    <div class="divToolChuyenDe">
+      <a [routerLink]="['chuyen-de']" class="viewmore">{{'view_more'|translate}}</a>
 
-  <div class="carousel-nav text-end mb-2 bookSlider">
-    <button class="btn btn-outline-secondary me-2" (click)="goToPrev()">
-      <i class="fas fa-chevron-left"></i>
-    </button>
-    <button class="btn btn-outline-secondary" (click)="goToNext()">
-      <i class="fas fa-chevron-right"></i>
-    </button>
-  </div>
-</div>
-    
+      <div class="carousel-nav text-end mb-2 bookSlider">
+        <button class="btn btn-outline-secondary me-2" (click)="goToPrev()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-secondary" (click)="goToNext()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
     <div class="box_class">
-     
-      <owl-carousel-o
-  #owlCar
-  [options]="customOptions"
-  (translated)="getPassedData($event)"
-  (change)="getChangeData($event)"
-  (changed)="getChangedData($event)"
-  class="classSlider"
->
-
+      <owl-carousel-o #owlCar [options]="customOptions" (translated)="getPassedData($event)"
+        (change)="getChangeData($event)" (changed)="getChangedData($event)" class="classSlider">
         <!-- Loop qua mảng data trong $chuyende -->
-       
         @for (item of ($chuyende | async)?.data; track item.id) {
-          <ng-template carouselSlide [id]="item.id">
-            <div class="item-wrapper" *ngIf="item">
-              <a 
-                [routerLink]="['/chuyen-de-item']"
-                [queryParams]="{ stsBoSuuTapId: item?.id }"
-                title="{{ item?.ten }}"
-              >
-                <div class="item-thumbnail">
-                  <img [src]="item?.anhDaiDien" [alt]="item?.ten" />
-                </div>
-                <span class="item-title" title="{{ item?.ten }}" >{{ item?.ten }}</span>
-              </a>
-            </div>
-          </ng-template>
+        <ng-template carouselSlide [id]="item.id">
+          <div class="item-wrapper" *ngIf="item">
+            <a [routerLink]="['/chuyen-de-item']" [queryParams]="{ stsBoSuuTapId: item?.id }" title="{{ item?.ten }}">
+              <div class="item-thumbnail">
+                <img [src]="item?.anhDaiDien" [alt]="item?.ten" />
+              </div>
+              <span class="item-title" title="{{ item?.ten }}">{{ item?.ten }}</span>
+            </a>
+          </div>
+        </ng-template>
         }
       </owl-carousel-o>
     </div>

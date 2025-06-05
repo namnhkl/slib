@@ -11,10 +11,11 @@
             <nz-form-item>
               <div class="widget_searchAdv">
                 <div class="d-flex items-center">
-                  <h3>Bộ sách</h3>
+                  <h3>{{'book_set'|translate}}</h3>
                   @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
                   .valueChanges | async);
-                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')" [disabled]="!disabledCleanBsThuVien">
+                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')"
+                    [disabled]="!disabledCleanBsThuVien">
                     <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
@@ -29,18 +30,19 @@
             <nz-form-item>
               <div class="widget_searchAdv">
                 <div class="d-flex items-center">
-                  <h3>Loại tài liệu</h3>
+                  <h3>{{'document_type'|translate}}</h3>
                   @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
                   .valueChanges | async);
-                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')" [disabled]="!disabledCleanDmDangTaiLieu">
+                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')"
+                    [disabled]="!disabledCleanDmDangTaiLieu">
                     <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
 
                 <nz-radio-group formControlName="bmDmDangTaiLieuId">
-                  <label nz-radio nzValue="sach-giao-khoa">Sách giáo khoa</label>
-                  <label nz-radio nzValue="sach-tham-khao">Sách tham khảo</label>
-                  <label nz-radio nzValue="sach-nghiep-vu">Sách nghiệp vụ</label>
+                  @for (item of dangTaiLieus; track $index) {
+                  <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
+                  }
                 </nz-radio-group>
               </div>
             </nz-form-item>
@@ -67,7 +69,7 @@
         <div class="page_sort_item">
           <div class="item_page_detail">
             <div class="d-flex align-items-center groupSelect">
-              <label for="numberSelect" class="form-label">Hiển thị</label>
+              <label for="numberSelect" class="form-label">{{'show'|translate}}</label>
               <nz-select [(ngModel)]="pageSizes" (ngModelChange)="changePageSize($event)" id="numberSelect">
                 @for (size of sizeItems; track $index) {
                 <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
@@ -77,11 +79,11 @@
           </div>
           <div class="item_page_detail">
             <div class="showPage">
-              <span>1/10</span>
-              <button class="btn pre-btn" type="button">
+              <span>{{ pageIndex + 1 }}/{{ totalPage }}</span>
+              <button class="btn pre-btn" type="button" [disabled]="pageIndex === 0" (click)="prevPage()">
                 <span class="btnPre" aria-label="Previous">‹</span>
               </button>
-              <button class="btn next-btn active" type="button">
+              <button class="btn next-btn" type="button" [disabled]="pageIndex + 1 >= totalPage" (click)="nextPage()">
                 <span class="btnPre" aria-label="Next">›</span>
               </button>
             </div>
@@ -89,8 +91,5 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </div>

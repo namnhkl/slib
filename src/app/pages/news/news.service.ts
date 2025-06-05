@@ -9,6 +9,7 @@ import { IPageParams } from '@/app/shared/types/common';
 import { Observable } from 'rxjs';
 interface INewsQueryObject extends IPageParams {
   id?: string;
+  qtndTtNhomTinTucId?:string;
 }
 @Injectable()
 @HttpRequestInjectable('/tintuc')
@@ -37,7 +38,7 @@ getNews(
     endpoint: 'qtndTtTinTuc',
     queryObject: query,
   });
-
+  console.log('url',url);
   return this._http.get<IResNews>(url);
 }
 }

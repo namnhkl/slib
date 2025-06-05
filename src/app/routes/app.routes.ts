@@ -22,7 +22,7 @@ export const routes: Routes = [
     data: { breadcrumb: 'home' }
   },
   { path: URL_ROUTER.chuyende, component: ChuyenDeListComponent,
-    data: { breadcrumb: 'chuyen_de' }
+    data: { breadcrumb: 'topics' }
    }, // Trang chuyên đề,
   { path: URL_ROUTER.chuyendeitem, component: ChuyenDeItemComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
   {

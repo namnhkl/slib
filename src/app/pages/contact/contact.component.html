@@ -3,15 +3,15 @@
     <div class="row-contact">
       <div class="col-sm-5">
         <div class="contact-form">
-          <h2>Liên hệ với chúng tôi</h2>
-          <p>Nếu bạn cần được hỗ trợ, hãy liên hệ với chúng tôi. Chúng tôi sẽ cố gắng phản hồi sớm nhất!</p>
+          <h2>{{'contact_us'|translate}}</h2>
+          <p>{{'if_you_need_support_please_contact_us_we_will_try_to_respond_as_soon_as_possible'| translate}}</p>
           <div class="formBox">
             <div class="form-group">
               <form nz-form  [formGroup]="validateForm" (ngSubmit)="submitForm()">
-                <label for="listBookLibary"><sup>(*)</sup>Thư viện</label>
+                <label for="listBookLibary"><sup>(*)</sup>{{'library'|translate}}</label>
                 <nz-form-item>
-                  <nz-form-control nzErrorTip="Xin vui lòng chọn thư viện">
-                  <nz-select class="select-thu-vien" nzShowSearch nzAllowClear >
+                  <nz-form-control nzErrorTip="{{'please_select_library'|translate}}">
+                  <nz-select class="select-thu-vien" nzShowSearch nzAllowClear formControlName="thuVien">
                     @for (option of $optionsCategory | async; track option.id) {
                     <nz-option [nzLabel]="option.ten" [nzValue]="option.id"></nz-option>
                     }
@@ -19,45 +19,46 @@
                   </nz-form-control>
                 </nz-form-item>
                 <div class="form-group">
-                  <label for="hoTen"><sup>(*)</sup>Họ tên</label>
+                  <label for="hoTen"><sup>(*)</sup>{{'full_name'|translate}}</label>
                   <nz-form-item>
-                    <nz-form-control nzErrorTip="Xin vui lòng nhập đầy đủ họ và tên">
-                      <input formControlName="hoTen" nz-input placeholder="Nhập họ tên của bạn" />
+                    <nz-form-control nzErrorTip="{{'please_enter_your_full_name'|translate}}">
+                      <input formControlName="hoTen" nz-input placeholder="{{'enter_your_name'|translate}}" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="form-group">
-                  <label for="email"><sup>(*)</sup>Email</label>
+                  <label for="email"><sup>(*)</sup>{{'email'|translate}}</label>
                     <nz-form-item>
-                    <nz-form-control nzErrorTip="Xin vui lòng nhập email hợp lệ">
-                      <input formControlName="email" nz-input type="email" placeholder="Nhập email của bạn" />
+                    <nz-form-control nzErrorTip="{{'please_enter_a_valid_email'|translate}}">
+                      <input formControlName="email" nz-input type="email" placeholder="{{'enter_your_email'|translate}}" />
                     </nz-form-control>
                     </nz-form-item>
                 </div>
                 <div class="form-group">
-                  <label for="noiDung"><sup>(*)</sup>Nội dung liên hệ</label>
+                  <label for="noiDung"><sup>(*)</sup>{{'contact_content'|translate}}</label>
                     <nz-form-item>
-                    <nz-form-control nzErrorTip="Xin vui lòng nhập nội dung liên hệ">
-                      <textarea formControlName="noiDung" rows="3" id="messaContact" nz-input placeholder="Nhập nội dung"></textarea>
+                    <nz-form-control nzErrorTip="{{'please_enter_contact_information'|translate}}">
+                      <textarea formControlName="noiDung" rows="3" id="messaContact" nz-input placeholder=""></textarea>
                     </nz-form-control>
                     </nz-form-item>
                 </div>
                 <div class="form-group">
-                  <label for="ip"><sup>(*)</sup>Mã xác nhận</label>
+                  <label for="ip"><sup>(*)</sup>{{'confirmation_code'|translate}}</label>
                   <div class="capchaID">
                     <nz-form-item>
                       <nz-form-control [nzErrorTip]="errorCapcha" >
-                      <input type="text" formControlName="ip"  placeholder="Nhập mã xác nhận" nz-input />
+                      <input type="text" formControlName="ip"  placeholder="" nz-input />
                       </nz-form-control>
                     </nz-form-item>
                     <ng-template #errorCapcha let-control>
-                      @if (control.errors?.['notMatch']) {
-                        Mã capcha không hợp lệ
-                      }
-                      @if (control.errors?.['required']) {
-                        Xin vui lòng nhập mã xác nhận
-                      }
+                      <ng-container *ngIf="control.errors?.['notMatch']">
+                        {{ 'invalid_captcha_code' | translate }}
+                      </ng-container>
+                      <ng-container *ngIf="control.errors?.['required']">
+                        {{ 'please_enter_the_confirmation_code' | translate }}
+                      </ng-container>
                     </ng-template>
+
                     <!-- <img class="imgCapcha" src="img/capcha.png" alt="" /> -->
                      <div class="imgCapcha">
                        @for (digit of $capcha | async; track $index) {
@@ -68,8 +69,8 @@
                   </div>
                 </div>
                 <div class="form-group form-group-btn">
-                  <button class="btn btn-reset" type="reset">Đặt lại</button>
-                  <button class="btn btn-primary">Gửi thông tin</button>
+                  <button class="btn btn-reset" type="reset">{{ 'reset' | translate }}</button>
+                  <button class="btn btn-primary" type="submit">{{ 'send_information' | translate }}</button>
                 </div>
               </form>
             </div>

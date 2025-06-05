@@ -11,7 +11,7 @@
   (ngModelChange)="searchChuyenDeItem()"
 />
 <button (click)="searchChuyenDeItem()">
-  <i class="fa-regular fa-magnifying-glass icon-search"></i> {{'search' | translate}}
+  <i class="fa-regular fa-magnifying-glass icon-search"></i>
 </button>
 </div>
 
@@ -41,9 +41,9 @@
       <div class="page_sort_item">
         <div class="item_page_detail">
           <div class="d-flex align-items-center groupSelect">
-            <label for="numberSelect" class="form-label">Hiển thị</label>
-            <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect" [nzCustomTemplate]="iconTemplate" [nzShowArrow]="false">
-              @for (size of [5, 10, 50, 100]; track $index) {
+            <label for="numberSelect" class="form-label">{{'show'|translate}}</label>
+            <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect" [nzCustomTemplate]="iconTemplate" [nzShowArrow]="true">
+              @for (size of itemPerpageOption; track $index) {
                 <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
               }
             </nz-select>
