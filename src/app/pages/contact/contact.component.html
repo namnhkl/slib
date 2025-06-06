@@ -22,7 +22,7 @@
                   <label for="hoTen"><sup>(*)</sup>{{'full_name'|translate}}</label>
                   <nz-form-item>
                     <nz-form-control nzErrorTip="{{'please_enter_your_full_name'|translate}}">
-                      <input formControlName="hoTen" nz-input placeholder="{{'enter_your_name'|translate}}" />
+                      <input formControlName="hoTen" nz-input />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
@@ -30,7 +30,7 @@
                   <label for="email"><sup>(*)</sup>{{'email'|translate}}</label>
                     <nz-form-item>
                     <nz-form-control nzErrorTip="{{'please_enter_a_valid_email'|translate}}">
-                      <input formControlName="email" nz-input type="email" placeholder="{{'enter_your_email'|translate}}" />
+                      <input formControlName="email" nz-input type="email" />
                     </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -38,7 +38,7 @@
                   <label for="noiDung"><sup>(*)</sup>{{'contact_content'|translate}}</label>
                     <nz-form-item>
                     <nz-form-control nzErrorTip="{{'please_enter_contact_information'|translate}}">
-                      <textarea formControlName="noiDung" rows="3" id="messaContact" nz-input placeholder=""></textarea>
+                      <textarea formControlName="noiDung" rows="3" id="messaContact" nz-input></textarea>
                     </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -47,7 +47,7 @@
                   <div class="capchaID">
                     <nz-form-item>
                       <nz-form-control [nzErrorTip]="errorCapcha" >
-                      <input type="text" formControlName="ip"  placeholder="" nz-input />
+                      <input type="text" formControlName="ip"  nz-input />
                       </nz-form-control>
                     </nz-form-item>
                     <ng-template #errorCapcha let-control>

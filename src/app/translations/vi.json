@@ -121,6 +121,10 @@
   "please_enter_a_valid_email":"Xin vui lòng nhập email hợp lệ",
   "please_enter_contact_information":"Xin vui lòng nhập nội dung liên hệ",
   "invalid_captcha_code":"Mã capcha không hợp lệ",
-  "please_enter_the_confirmation_code":"Xin vui lòng nhập mã xác nhận"
+  "please_enter_the_confirmation_code":"Xin vui lòng nhập mã xác nhận",
+  "success":"Thành công",
+  "failure":"Thất bại",
+  "feedback_sent_successfully":"Gửi ý kiến góp ý thành công",
+  "sending_feedback_failed":"Gửi ý kiến góp ý thất bại"
 
 }

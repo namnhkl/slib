@@ -43,7 +43,7 @@ export class LoginButtonComponent implements OnInit, OnChanges {
     this.validateForm = this.fb.group({
       username: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required]),
-      remember: this.fb.control(true),
+      remember: this.fb.control(false),
     });
     this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
@@ -54,7 +54,7 @@ export class LoginButtonComponent implements OnInit, OnChanges {
 
   async submitForm() {
     if (this.validateForm.valid) {
-      const { username, password } = this.validateForm.value;
+      const { username, password, remember } = this.validateForm.value;
       this.authService
         .login({
           soThe: username,
@@ -64,7 +64,7 @@ export class LoginButtonComponent implements OnInit, OnChanges {
           next: (res) => {
             console.log('res', res);
             if (res.messageCode) {
-              this.authService.saveSession(res.data[0], res.accessToken);
+              this.authService.saveSession(res.data[0], res.accessToken,remember);
               //redirect to profile after login
               this.router.navigate(['/']);
             } else {

@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profile = storage.getItem('appSession');
+    const raw = storage.getItem('appSession') || sessionStorage.getItem('appSession');
+this.profile = typeof raw === 'string' ? JSON.parse(raw) : raw;
     this.customOptions = {
       // autoWidth: true,
       loop: true,

@@ -20,7 +20,7 @@ export class ChatbotComponent {
   iframeUrl: SafeResourceUrl | null = null;
 
   constructor(private sanitizer: DomSanitizer) {
-    const appSession = localStorage.getItem('appSession');
+    const appSession = localStorage.getItem('appSession') || sessionStorage.getItem('appSession');
 
     if (appSession) {
       try {

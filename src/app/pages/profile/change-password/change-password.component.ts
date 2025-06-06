@@ -162,15 +162,19 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('appSession');
-  
-    // Chuyển về trang login
-    this.router.navigateByUrl('login').then(() => {
-      // Sau khi điều hướng xong thì reload lại trang
-      window.location.reload();
-    });
-  }
+  // Xóa dữ liệu từ cả localStorage và sessionStorage
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('appSession');
+
+  sessionStorage.removeItem('access_token');
+  sessionStorage.removeItem('appSession');
+
+  // Điều hướng về trang login và reload
+  this.router.navigateByUrl('login').then(() => {
+    window.location.reload();
+  });
+}
+
   
 
 }

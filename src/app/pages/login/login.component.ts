@@ -81,46 +81,60 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(event: Event) {
-    this.isLoading = true;
-    if (this.form!.valid) {
-      event.preventDefault();
-      this.loginModel = {
-        userName: this.form?.value.userName,
-        password: this.form?.value.password,
-        rememberMe: this.form?.value.remember,
-      };
-      this.loginService.login(this.loginModel).subscribe(
-        (res: HttpResponse<any>) => {
-          if (this.commonService.checkStausByCode(res.status)) {
-            if (res.body.accessToken) {
-              localStorage.setItem('access_token', res?.body.accessToken);
-              localStorage.setItem('expires_in', res?.body.expireTime);
-              this.router.navigate(['/']);
+  this.isLoading = true;
+  if (this.form!.valid) {
+    event.preventDefault();
+    this.loginModel = {
+      userName: this.form?.value.userName,
+      password: this.form?.value.password,
+      rememberMe: this.form?.value.remember,
+    };
+
+    this.loginService.login(this.loginModel).subscribe(
+      (res: HttpResponse<any>) => {
+        if (this.commonService.checkStausByCode(res.status)) {
+          if (res.body.accessToken) {
+            const accessToken = res.body.accessToken;
+            const expiresIn = res.body.expireTime ?? ''; // nếu có expireTime từ backend
+
+            // ✅ Chọn nơi lưu token tùy theo 'remember'
+            if (this.form?.value.remember) {
+              // Ghi nhớ: Lưu vào localStorage (giữ lâu)
+              localStorage.setItem('access_token', accessToken);
+              localStorage.setItem('expires_in', expiresIn);
+            } else {
+              // Không nhớ: Lưu vào sessionStorage (tự xóa khi đóng tab)
+              sessionStorage.setItem('access_token', accessToken);
+              sessionStorage.setItem('expires_in', expiresIn);
             }
-          } else {
-            console.error('Request failed with error:', res);
-            this.loginError = res.statusText;
-            this.isLoading = false;
+
+            this.router.navigate(['/']);
           }
-        },
-        (error) => {
+        } else {
+          console.error('Request failed with error:', res);
+          this.loginError = res.statusText;
           this.isLoading = false;
-          if (error.status === 0) this.loginError = 'Lỗi kết nối!';
-          else this.loginError = error.error.problemDetails.errors[0].message;
-          console.error(
-            'Request failed with error:',
-            error.error.problemDetails.errors[0].message
-          );
         }
-      );
-    } else {
-      Object.values(this.form!.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-      this.isLoading = false;
-    }
+      },
+      (error) => {
+        this.isLoading = false;
+        if (error.status === 0) this.loginError = 'Lỗi kết nối!';
+        else this.loginError = error.error.problemDetails.errors[0].message;
+        console.error(
+          'Request failed with error:',
+          error.error.problemDetails.errors[0].message
+        );
+      }
+    );
+  } else {
+    Object.values(this.form!.controls).forEach((control) => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
+    this.isLoading = false;
   }
+}
+
 }

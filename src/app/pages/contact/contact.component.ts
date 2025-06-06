@@ -12,7 +12,7 @@ import { CategoryService } from './category.service';
 import _ from 'lodash';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { generateUniqueSixDigitNumber } from './utils';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
@@ -37,7 +37,7 @@ export class ContactComponent {
 
   $capcha = (new BehaviorSubject(generateUniqueSixDigitNumber()));
 
-  constructor(private fb: NonNullableFormBuilder, private contactService: ContactService, private notificationService: NzNotificationService) {
+  constructor(private fb: NonNullableFormBuilder, private contactService: ContactService, private notificationService: NzNotificationService, private translate: TranslateService) {
     this.validateForm = this.fb.group({
       hoTen: this.fb.control('', [Validators.required]),
       email: this.fb.control('', [Validators.required, Validators.email]),
@@ -84,12 +84,12 @@ export class ContactComponent {
       .pipe(
         tap(res => {
           if (res.messageCode === 1) {
-            this.notificationService.success('Thành công', res.messageText)
+            this.notificationService.success(this.translate.instant('success'), this.translate.instant('feedback_sent_successfully'))
             this.validateForm.reset();
             this.handleResetCapcha()
           }
           else{
-            this.notificationService.error('Thất bại', res.messageText)
+            this.notificationService.error(this.translate.instant('failure'), this.translate.instant('sending_feedback_failed'))
           }
         })
       )

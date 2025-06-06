@@ -127,6 +127,10 @@
   "please_enter_a_valid_email":"Please enter a valid email",
   "please_enter_contact_information":"Please enter contact information",
   "invalid_captcha_code":"Invalid captcha code",
-  "please_enter_the_confirmation_code":"Please enter the confirmation code"
+  "please_enter_the_confirmation_code":"Please enter the confirmation code",
+  "success":"Success",
+  "failure":"Failure",
+  "feedback_sent_successfully":"Feedback sent successfully",
+  "sending_feedback_failed":"Sending feedback failed"
 
 }

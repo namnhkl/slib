@@ -70,9 +70,10 @@ export class AuthService extends _HttpRequestInjector {
     })
   }
 
-  isAuthenticated$ = new BehaviorSubject<boolean>(
-    !!storage.getItem('appSession')
-  );
+// Observable để theo dõi trạng thái đăng nhập
+isAuthenticated$ = new BehaviorSubject<boolean>(
+  !!(localStorage.getItem('appSession') || sessionStorage.getItem('appSession'))
+);
 
   get isAuthenticated(): boolean {
     return this.isAuthenticated$.getValue();
@@ -107,17 +108,23 @@ return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
     return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
-  saveSession(data: IResponseAuthData, accessToken: string): void {
-    storage.setItem('appSession', data);
-    storage.setItem('access_token', accessToken);
-    this.isAuthenticated$.next(true);
-  }
+// Hàm lưu session: thêm tham số 'rememberMe'
+saveSession(data: IResponseAuthData, accessToken: string, rememberMe: boolean): void {
+  const storage = rememberMe ? localStorage : sessionStorage;
 
-  logout(): void {
-    storage.removeItem('appSession');
-    storage.removeItem('access_token');
-    //redirect to home after logout
-    // this.router.navigate(['/']);
-    this.isAuthenticated$.next(false);
-  }
+  storage.setItem('appSession', JSON.stringify(data));
+  storage.setItem('access_token', JSON.stringify(accessToken));
+  this.isAuthenticated$.next(true);
+}
+
+// Hàm đăng xuất: xóa cả hai nơi lưu
+logout(): void {
+  localStorage.removeItem('appSession');
+  localStorage.removeItem('access_token');
+
+  sessionStorage.removeItem('appSession');
+  sessionStorage.removeItem('access_token');
+
+  this.isAuthenticated$.next(false);
+}
 }
