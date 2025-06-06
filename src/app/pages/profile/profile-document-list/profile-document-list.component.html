@@ -1,0 +1,151 @@
+  <nz-tabset>
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tabTitleTemplate">
+      <ng-template #tabTitleTemplate>
+        <nz-icon [nzType]="tab.icon"></nz-icon>
+        <span class="font-bold">{{ tab.name }} ({{ tab.count }})</span>
+      </ng-template>
+
+      <!-- Nội dung từng tab -->
+      <div *ngIf="tab.key === 'dangmuontailieuin'">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-profile-document-item *ngFor="let doc of borrowedDocuments" [document]="doc">
+          </app-profile-document-item>
+        </div>
+
+        <!-- Phân trang borrowed -->
+        <div class="page_sort_item">
+          <div class="item_page_detail d-flex align-items-center groupSelect">
+            <label for="numberSelectBorrowed" class="form-label">{{ 'show' | translate }}</label>
+            <nz-select [(ngModel)]="borrowedPageSize" (ngModelChange)="changeBorrowedPageSize($event)"
+              id="numberSelectBorrowed">
+              <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
+            </nz-select>
+          </div>
+          <div class="item_page_detail showPage">
+            <span>{{ borrowedPageIndex + 1 }}/{{ borrowedTotalPage }}</span>
+            <button class="btn pre-btn" [disabled]="borrowedPageIndex === 0" (click)="prevBorrowedPage()">
+              <span class="btnPre" aria-label="Previous">‹</span>
+            </button>
+            <button class="btn next-btn" [disabled]="borrowedPageIndex + 1 >= borrowedTotalPage"
+              (click)="nextBorrowedPage()">
+              <span class="btnPre" aria-label="Next">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="tab.key === 'lichsumuontailieuin'">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-profile-document-item *ngFor="let doc of cirhistoryDocuments" [document]="doc">
+          </app-profile-document-item>
+        </div>
+
+        <!-- Phân trang cirhistory -->
+        <div class="page_sort_item">
+          <div class="item_page_detail d-flex align-items-center groupSelect">
+            <label for="numberSelectCirHistory" class="form-label">{{ 'show' | translate }}</label>
+            <nz-select [(ngModel)]="cirhistoryPageSize" (ngModelChange)="changeCirHistoryPageSize($event)"
+              id="numberSelectCirHistory">
+              <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
+            </nz-select>
+          </div>
+          <div class="item_page_detail showPage">
+            <span>{{ cirhistoryPageIndex + 1 }}/{{ cirhistoryTotalPage }}</span>
+            <button class="btn pre-btn" [disabled]="cirhistoryPageIndex === 0" (click)="prevCirHistoryPage()">
+              <span class="btnPre" aria-label="Previous">‹</span>
+            </button>
+            <button class="btn next-btn" [disabled]="cirhistoryPageIndex + 1 >= cirhistoryTotalPage"
+              (click)="nextCirHistoryPage()">
+              <span class="btnPre" aria-label="Next">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="tab.key === 'dangmuontailieuso'">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-profile-document-item *ngFor="let doc of cirhistoryDigitalDocuments" [document]="doc">
+          </app-profile-document-item>
+        </div>
+
+
+        <!-- Phân trang cirhistoryDigital -->
+        <div class="page_sort_item">
+          <div class="item_page_detail d-flex align-items-center groupSelect">
+            <label for="numberSelectcirhistoryDigital" class="form-label">{{ 'show' | translate }}</label>
+            <nz-select [(ngModel)]="cirhistoryDigitalPageSize" (ngModelChange)="changecirhistoryDigitalPageSize($event)"
+              id="numberSelectcirhistoryDigital">
+              <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
+            </nz-select>
+          </div>
+          <div class="item_page_detail showPage">
+            <span>{{ cirhistoryDigitalPageIndex + 1 }}/{{ cirhistoryDigitalTotalPage }}</span>
+            <button class="btn pre-btn" [disabled]="cirhistoryDigitalPageIndex === 0"
+              (click)="prevcirhistoryDigitalPage()">
+              <span class="btnPre" aria-label="Previous">‹</span>
+            </button>
+            <button class="btn next-btn" [disabled]="cirhistoryDigitalPageIndex + 1 >= cirhistoryDigitalTotalPage"
+              (click)="nextcirhistoryDigitalPage()">
+              <span class="btnPre" aria-label="Next">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="tab.key === 'lichsumuontratailieuso'">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-profile-document-item *ngFor="let doc of readBooks" [document]="doc">
+          </app-profile-document-item>
+        </div>
+        <!-- Phân trang read -->
+        <div class="page_sort_item">
+          <div class="item_page_detail d-flex align-items-center groupSelect">
+            <label for="numberSelectRead" class="form-label">{{ 'show' | translate }}</label>
+            <nz-select [(ngModel)]="readPageSize" (ngModelChange)="changeReadPageSize($event)" id="numberSelectRead">
+              <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
+            </nz-select>
+          </div>
+          <div class="item_page_detail showPage">
+            <span>{{ readPageIndex + 1 }}/{{ readTotalPage }}</span>
+            <button class="btn pre-btn" [disabled]="readPageIndex === 0" (click)="prevReadPage()">
+              <span class="btnPre" aria-label="Previous">‹</span>
+            </button>
+            <button class="btn next-btn" [disabled]="readPageIndex + 1 >= readTotalPage" (click)="nextReadPage()">
+              <span class="btnPre" aria-label="Next">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="tab.key === 'favorite'">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-profile-document-item *ngFor="let doc of favoriteDocuments" [document]="doc">
+          </app-profile-document-item>
+        </div>
+        <!-- Phân trang favorite -->
+        <div class="page_sort_item">
+          <div class="item_page_detail d-flex align-items-center groupSelect">
+            <label for="numberSelectFavorite" class="form-label">{{ 'show' | translate }}</label>
+            <nz-select [(ngModel)]="favoritePageSize" (ngModelChange)="changeFavoritePageSize($event)"
+              id="numberSelectFavorite">
+              <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
+            </nz-select>
+          </div>
+          <div class="item_page_detail showPage">
+            <span>{{ favoritePageIndex + 1 }}/{{ favoriteTotalPage }}</span>
+            <button class="btn pre-btn" [disabled]="favoritePageIndex === 0" (click)="prevFavoritePage()">
+              <span class="btnPre" aria-label="Previous">‹</span>
+            </button>
+            <button class="btn next-btn" [disabled]="favoritePageIndex + 1 >= favoriteTotalPage"
+              (click)="nextFavoritePage()">
+              <span class="btnPre" aria-label="Next">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nz-tab>
+  </nz-tabset>

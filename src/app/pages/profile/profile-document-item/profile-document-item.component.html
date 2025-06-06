@@ -1,0 +1,36 @@
+<div class="document-item border rounded-xl shadow-sm p-4 mb-4 bg-white hover:shadow-md transition-all">
+  <div class="flex items-center space-x-4">
+    <img *ngIf="document.anhDaiDien" [src]="document.anhDaiDien" alt="Ảnh đại diện" class="w-24 h-32 object-cover rounded-md border">
+    
+    <div class="flex-1">
+      <h3 *ngIf="document.tieuDe" class="text-lg font-semibold text-gray-800 mb-1">{{ document.tieuDe }}</h3>
+
+      <p *ngIf="document.maDkcb" class="text-sm text-gray-600">
+        <strong class="font-medium">{{'dkcb'|translate}}:</strong> {{ document.maDkcb }}
+      </p>
+
+      <p *ngIf="document.ngayGhiMuon" class="text-sm text-gray-600">
+        <strong class="font-medium">{{'borrowed_date'|translate}}:</strong> {{ document.ngayGhiMuon }}
+      </p>
+
+      <p *ngIf="document.ngayTraDuKien" class="text-sm text-gray-600">
+        <strong class="font-medium">{{'payment_deadline'|translate}}:</strong> {{ document.ngayTraDuKien }}
+      </p>
+
+      <p *ngIf="document.quaHanSoNgay > 0" class="text-sm text-gray-600">
+        <strong class="font-medium text-red-600">{{'overdue'|translate}}:</strong> {{ document.quaHanSoNgay }} {{'day'|translate}}
+      </p>
+
+      <p *ngIf="document.tacGia?.length" class="text-sm text-gray-600">
+        <strong class="font-medium">{{'author'|translate}}:</strong>
+        <span *ngFor="let tg of document.tacGia; let i = index">
+          {{ tg.giaTri }}<span *ngIf="i < document.tacGia.length - 1">, </span>
+        </span>
+      </p>
+
+      <p *ngIf="document.thongTinXuatBan" class="text-sm text-gray-600">
+        <strong class="font-medium">{{'publication_information'|translate}}:</strong> {{ document.thongTinXuatBan }}
+      </p>
+    </div>
+  </div>
+</div>

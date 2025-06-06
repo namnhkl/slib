@@ -84,12 +84,12 @@ export class ContactComponent {
       .pipe(
         tap(res => {
           if (res.messageCode === 1) {
-            this.notificationService.success(this.translate.instant('success'), this.translate.instant('feedback_sent_successfully'))
+            this.notificationService.success(this.translate.instant('success'), this.translate.instant('feedback_sent_successfully'));
             this.validateForm.reset();
             this.handleResetCapcha()
           }
           else{
-            this.notificationService.error(this.translate.instant('failure'), this.translate.instant('sending_feedback_failed'))
+            this.notificationService.error(this.translate.instant('failure'), this.translate.instant('sending_feedback_failed'));
           }
         })
       )

@@ -43,5 +43,6 @@ export const URL_ROUTER = {
   chuyende:'chuyen-de',
   chuyendeitem:'chuyen-de-item',
   viewdocument:'viewdocument',
+  intro:'intro'
   // document end
 } as const;

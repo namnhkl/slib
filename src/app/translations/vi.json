@@ -125,6 +125,16 @@
   "success":"Thành công",
   "failure":"Thất bại",
   "feedback_sent_successfully":"Gửi ý kiến góp ý thành công",
-  "sending_feedback_failed":"Gửi ý kiến góp ý thất bại"
-
+  "sending_feedback_failed":"Gửi ý kiến góp ý thất bại",
+  "incorrect_password_or_account":"Mật khẩu hoặc tài khoản không chính xác",
+  "password_change_failed":"Đổi mật khẩu thất bại",
+  "password_changed_successfully":"Mật khẩu đã được thay đổi thành công",
+  "invalid_password": "Mật khẩu không hợp lệ",
+  "invalid_data":"Dữ liệu không hợp lệ",
+  "publication_information":"Thông tin xuất bản",
+  "day":"Ngày",
+  "print_documents_borrowed": "Tài liệu in đang mượn",
+  "print_document_return_history": "Lịch sử mượn trả tài liệu in",
+  "digital_documents_borrowed": "Tài liệu số đang mượn",
+  "digital_document_return_history": "Lịch sử mượn trả tài liệu số"
 }

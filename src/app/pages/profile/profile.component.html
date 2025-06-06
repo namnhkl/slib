@@ -38,7 +38,11 @@
         </div>
       </div>
     </div>
-    <div class="pt-5 documentBox">
+    <div class="mt-10">
+<app-profile-document-list></app-profile-document-list>
+    </div>
+    
+    <!-- <div class="pt-5 documentBox">
       @let borrowDocument = ($borrowedDocuments | async);
       <ng-template #title1>
         <span>{{'documents_are_borrowed'|translate}} <span class="count">({{ borrowDocument.totalRecord }})</span></span>
@@ -71,6 +75,6 @@
       <ng-template #item3 let-item="item">
       <app-book-borrowed [item]="item" />
       </ng-template>
-    </div>
+    </div> -->
   </div>
 </div>

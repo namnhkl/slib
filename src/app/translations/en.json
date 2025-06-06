@@ -131,6 +131,17 @@
   "success":"Success",
   "failure":"Failure",
   "feedback_sent_successfully":"Feedback sent successfully",
-  "sending_feedback_failed":"Sending feedback failed"
+  "sending_feedback_failed":"Sending feedback failed",
+  "incorrect_password_or_account":"Incorrect password or account",
+  "password_change_failed":"Password Change Failed",
+  "password_changed_successfully":"Password Changed Successfully",
+  "invalid_password": "Invalid Password",
+  "invalid_data":"Invalid Data",
+  "publication_information":"Publication information",
+  "day":"Day",
+  "print_documents_borrowed": "Printed Documents Borrowed",
+  "print_document_return_history": "Print Document Return History",
+  "digital_documents_borrowed": "Digital Documents Borrowed",
+  "digital_document_return_history": "Digital Document Return History"
 
 }

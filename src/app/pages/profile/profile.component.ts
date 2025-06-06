@@ -8,10 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { BookBorrowedComponent } from "../../shared/components/book-borrowed/book-borrowed.component";
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ProfileDocumentListComponent } from './profile-document-list/profile-document-list.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [AsyncPipe, JsonPipe, RouterLink, SharedModule, TranslateModule, BookBorrowedComponent],
+  imports: [AsyncPipe, JsonPipe, RouterLink, SharedModule, TranslateModule, BookBorrowedComponent, ProfileDocumentListComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
     this.$readBooks = this.authService.countReadBooks();
     this.$favoriteDocuments = this.authService.getFavoriteDocuments();
     this.$borrowedDocuments = this.authService.getBorrowedDocuments();
-    this.$borrowedBooks = this.authService.countBorrowedBooks();
+    this.$borrowedBooks = this.authService.getCirHistoryItem();
   }
 
   ngOnInit() {

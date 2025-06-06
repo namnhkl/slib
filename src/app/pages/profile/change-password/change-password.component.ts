@@ -14,7 +14,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule, NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ProfileService } from '../profile.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -48,6 +48,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       private banDocsService: ProfileService,
       private notification: NzNotificationService,
       private router: Router,
+      private translate: TranslateService
     ) {}
   private fb = inject(NonNullableFormBuilder);
   private destroy$ = new Subject<void>();
@@ -90,6 +91,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
    // Hàm gọi API khi nhấn "Đổi mật khẩu"
    onSubmitChangePassword(): void {
     // Mark all fields as touched to trigger validation errors
+    //this.notificationService.error(this.translate.instant('error'), this.translate.instant('incorrect_password_or_account'));
   Object.values(this.validateForm.controls).forEach(control => {
     control.markAsTouched();
     control.updateValueAndValidity();
@@ -103,11 +105,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
         this.banDocsService.bdBanDocDoiMatKhau(matKhauCu, matKhau).subscribe(
           (response) => {
             if(response.messageCode.toString() === "0"){
-              this.createNotification("error", "Thông báo", response.messageText);
+              this.createNotification("error", this.translate.instant('notification'), this.translate.instant('password_change_failed'));
               console.error('Đổi mật khẩu thất bại', response.messageText);
             }
             else{
-              this.createNotification("success", "Thông báo", "Mật khẩu đã được thay đổi thành công: ");
+              this.createNotification("success", this.translate.instant('notification'), this.translate.instant('password_changed_successfully'));
               console.log('Mật khẩu đã được thay đổi thành công', response);
               setTimeout(() => {
                 this.logout();
@@ -116,7 +118,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
             
           },
           (error) => {
-            this.createNotification("error", "Thông báo", "Đổi mật khẩu thất bại");
+            this.createNotification("error", this.translate.instant('notification'), this.translate.instant('password_change_failed'));
             console.error('Đổi mật khẩu thất bại', error);
           },
           () => {
@@ -124,11 +126,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.createNotification("error", "Thông báo", "Mật khẩu không hợp lệ");
+        this.createNotification("error", this.translate.instant('notification'), this.translate.instant('invalid_password'));
         console.error('Mật khẩu không hợp lệ');
       }
     } else {
-      this.createNotification("error", "Thông báo", "Dữ liệu không hợp lệ");
+      this.createNotification("error", this.translate.instant('notification'), this.translate.instant('invalid_data'));
       console.log('Dữ liệu không hợp lệ');
     }
   }

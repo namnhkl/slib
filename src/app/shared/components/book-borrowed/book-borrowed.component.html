@@ -12,11 +12,9 @@
 
 
 <ng-template #titleTemplate>
-  <nz-icon nzType="close" />
   {{ item.tieuDe }}
 </ng-template>
 <ng-template #contentTemplate>
-  <nz-icon nzType="check" />
   <div class="books-info">
     <p>{{'dkcb'|translate}}: <span>{{ item.maDkcb }}</span></p>
     <p>{{'borrowed_date'|translate}}: <span>{{ item.ngayGhiMuon }}</span></p>

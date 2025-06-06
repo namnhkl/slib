@@ -10,6 +10,7 @@ import { HomeComponent } from '../pages/home/home.component';
 import { authGuard } from '../guardrouter/auth.guard';
 import { ChuyenDeListComponent } from '../pages/chuyen-de/chuyen-de-list/chuyen-de-list.component';
 import { ChuyenDeItemComponent } from '../pages/chuyen-de/chuyen-de-item/chuyen-de-item.component';
+import { IntroComponent } from '../shared/components/intro/intro.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -48,6 +49,11 @@ export const routes: Routes = [
     path: URL_ROUTER.contact,
     component: ContactComponent,
     data: { breadcrumb: 'contact' }
+  },
+  {
+    path: URL_ROUTER.intro,
+    component: IntroComponent,
+    data: { breadcrumb: 'intro' }
   },
   {
     path: URL_ROUTER.documents,

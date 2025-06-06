@@ -85,23 +85,32 @@ isAuthenticated$ = new BehaviorSubject<boolean>(
     return this._http.post<IResponseAuth>(url, body);
   }
 
-  countBorrowedBooks(queryObject: IPageParams = this.defaultPageParams) {
+  //Lịch sử mượn tài liệu in
+  getCirHistoryItem(queryObject: IPageParams = this.defaultPageParams) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocLtMuonTraBmTaiLieu', queryObject });
     return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
+//Đang mượn tài liệu số
+getDangMuonTaiLieuSo(queryObject: IPageParams = this.defaultPageParams) {
+    const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocLtMuonTraDangMuonStsTaiLieu', queryObject });
+    return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
+  }
+  
+//Lịch sử tls
   countReadBooks(queryObject: IPageParams = this.defaultPageParams) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocLtMuonTraStsTaiLieu', queryObject });
-
-return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
+    return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
+  //Đang mượn tài liệu in
   getBorrowedDocuments(queryObject: IPageParams = this.defaultPageParams) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocLtMuonTraDangMuonBmTaiLieu', queryObject });
 
     return this._http.get(url).pipe(this.pipeGetFinalResult() as any);
   }
 
+  //Yêu thích
   getFavoriteDocuments(queryObject: IPageParams = this.defaultPageParams) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocBmTaiLieuQuanTam', queryObject });
 
@@ -127,4 +136,17 @@ logout(): void {
 
   this.isAuthenticated$.next(false);
 }
+
+setRedirectUrl(url: string) {
+  localStorage.setItem('redirectUrl', url);
+}
+
+// AuthService
+getRedirectUrl(): string | null {
+  const url = localStorage.getItem('redirectUrl');
+  // Xóa sau khi dùng để tránh redirect lặp
+  localStorage.removeItem('redirectUrl');
+  return url;
+}
+
 }
