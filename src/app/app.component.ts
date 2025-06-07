@@ -25,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
 import { ChatbotComponent } from './shared/components/chatbot/chatbot.component';
 import { environment } from '../environments/environment';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -45,7 +46,8 @@ import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.c
     FooterComponent,
     NzSpinModule,
     ChatbotComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    DatePipe
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

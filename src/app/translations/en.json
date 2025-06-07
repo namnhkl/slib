@@ -142,6 +142,26 @@
   "print_documents_borrowed": "Printed Documents Borrowed",
   "print_document_return_history": "Print Document Return History",
   "digital_documents_borrowed": "Digital Documents Borrowed",
-  "digital_document_return_history": "Digital Document Return History"
+  "digital_document_return_history": "Digital Document Return History",
+  "send_code": "Send code",
+  "verify_code": "Verify code",
+  "security_code": "Security code",
+  "new_password": "New password",
+  "step_1": "Step 1",
+  "step_2": "Step 2",
+  "step_3": "Step 3",
+  "error":"Error",
+  "get_the_security_code":"Get the security code",
+  "security_code_sent": "Security code has been sent, please check your email",
+  "cannot_send_security_code": "Unable to send security code",
+  "verification_code_valid": "Verification code is valid",
+  "cannot_verify_code": "Cannot verify the code",
+  "password_changed": "Password has been changed",
+  "registration_successful": "Registration successful",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "birthdate": "Birth date",
+  "register": "Register"
 
 }

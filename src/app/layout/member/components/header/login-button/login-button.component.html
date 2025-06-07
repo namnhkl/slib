@@ -1,44 +1,315 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div *ngIf="isAuthenticated$ | async; else notAuthorized">
   <button nz-button [nzType]="'primary'" (click)="goProfile()">
     <i class="fa-solid fa-user"></i>
-    <span class="capitalize" style="margin-left: 5px">{{'profile'|translate}}</span>
+    <span class="capitalize" style="margin-left: 5px">{{
+      "profile" | translate
+    }}</span>
   </button>
 </div>
 <ng-template #notAuthorized>
-  <button nz-button class="capitalize" [nzType]="'primary'" (click)="showModal()"><span>{{'login'|translate}}</span></button>
-  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="'login'|translate" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-    [nzFooter]="null">
+  <button
+    nz-button
+    class="capitalize"
+    [nzType]="'primary'"
+    (click)="showModal()"
+  >
+    <span>{{ "login" | translate }}</span>
+  </button>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="'login' | translate"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzFooter]="null"
+  >
     <ng-container *nzModalContent>
-      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <form
+        nz-form
+        [formGroup]="validateForm"
+        class="login-form"
+        (ngSubmit)="submitForm()"
+      >
         <nz-form-item>
-          <nz-form-control [nzErrorTip]="'please_input_your_username'|translate">
+          <nz-form-control
+            [nzErrorTip]="'please_input_your_username' | translate"
+          >
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="username" [placeholder]="'username'|translate" />
+              <input
+                type="text"
+                nz-input
+                formControlName="username"
+                [placeholder]="'username' | translate"
+              />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control [nzErrorTip]="'please_input_your_password'|translate">
+          <nz-form-control
+            [nzErrorTip]="'please_input_your_password' | translate"
+          >
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input formControlName="password" [placeholder]="'password'|translate" />
+              <input
+                type="password"
+                nz-input
+                formControlName="password"
+                [placeholder]="'password' | translate"
+              />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <div nz-row class="login-form-margin">
           <div nz-col [nzSpan]="12">
             <label nz-checkbox formControlName="remember" for="">
-              <span>{{'remember_me'|translate}}</span>
+              <span>{{ "remember_me" | translate }}</span>
             </label>
           </div>
           <div nz-col [nzSpan]="12">
-            <a class="login-form-forgot">{{'forgot_password'|translate}}</a>
+            <a class="login-form-forgot" (click)="openForgotPasswordModal()">{{
+              "forgot_password" | translate
+            }}</a>
           </div>
         </div>
-        <button nz-button class="login-form-button login-form-margin"
-          [nzType]="'primary'">{{'login'|translate}}</button>
-        {{'or' | translate}}
-        <a>{{'register_now'|translate}}!</a>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+        >
+          {{ "login" | translate }}
+        </button>
+        {{ "or" | translate }}
+        <a (click)="showRegisterModal()">{{ "register_now" | translate }}!</a>
       </form>
     </ng-container>
   </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="forgotPasswordVisible"
+    [nzTitle]="'forgot_password' | translate"
+    (nzOnCancel)="handleForgotCancel()"
+    [nzFooter]="null"
+    nzWidth="30vw"
+  >
+    <ng-container *nzModalContent>
+      <nz-steps [nzCurrent]="currentStep" style="margin-bottom: 16px">
+        <nz-step [nzTitle]="'get_the_security_code' | translate"></nz-step>
+        <nz-step [nzTitle]="'verify_code' | translate"></nz-step>
+        <nz-step [nzTitle]="'change_password' | translate"></nz-step>
+      </nz-steps>
+
+      <form [formGroup]="forgotPasswordForm">
+        <ng-container [ngSwitch]="currentStep">
+          <!-- Step 1 -->
+          <ng-container *ngSwitchCase="0">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    formControlName="soThe"
+                    nz-input
+                    [placeholder]="'card_number' | translate"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group nzPrefixIcon="mail">
+                  <input
+                    formControlName="email"
+                    nz-input
+                    [placeholder]="'email' | translate"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <button nz-button [nzType]="'primary'" (click)="handleStep1()">
+              {{ "get_the_security_code" | translate }}
+            </button>
+          </ng-container>
+
+          <!-- Step 2 -->
+          <ng-container *ngSwitchCase="1">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group nzPrefixIcon="safety-certificate">
+                  <input
+                    formControlName="maBaoMat"
+                    nz-input
+                    [placeholder]="'security_code' | translate"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <button nz-button [nzType]="'primary'" (click)="handleStep2()">
+              {{ "verify_code" | translate }}
+            </button>
+          </ng-container>
+
+         <!-- Step 3 -->
+<ng-container *ngSwitchCase="2">
+  <!-- Mật khẩu mới -->
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group
+        nzPrefixIcon="key"
+        [nzSuffix]="passwordIcon"
+      >
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="matKhau"
+          nz-input
+          [placeholder]="'new_password' | translate"
+        />
+      </nz-input-group>
+      <ng-template #passwordIcon>
+        <i
+          nz-icon
+          [nzType]="showPassword ? 'eye-invisible' : 'eye'"
+          nzTheme="outline"
+          (click)="togglePasswordVisibility()"
+          style="cursor: pointer"
+        ></i>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Nhập lại mật khẩu -->
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group
+        nzPrefixIcon="key"
+        [nzSuffix]="confirmPasswordIcon"
+      >
+        <input
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          formControlName="nhapLaiMatKhau"
+          nz-input
+          [placeholder]="'confirm_password' | translate"
+        />
+      </nz-input-group>
+      <ng-template #confirmPasswordIcon>
+        <i
+          nz-icon
+          [nzType]="showConfirmPassword ? 'eye-invisible' : 'eye'"
+          nzTheme="outline"
+          (click)="toggleConfirmPasswordVisibility()"
+          style="cursor: pointer"
+        ></i>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+<div 
+  class="ant-form-item-explain-error" 
+  *ngIf="forgotPasswordForm.hasError('passwordMismatch') 
+      && forgotPasswordForm.get('matKhau')?.dirty 
+      && forgotPasswordForm.get('nhapLaiMatKhau')?.dirty">
+  {{'the_two_passwords_you_entered_are_inconsistent'| translate}}
+</div>
+  <button 
+  nz-button 
+  [nzType]="'primary'" 
+  (click)="handleStep3()" 
+  [disabled]="forgotPasswordForm.invalid || forgotPasswordForm.hasError('passwordMismatch')">
+  {{ "change_password" | translate }}
+</button>
+
+
+</ng-container>
+
+        </ng-container>
+      </form>
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal
+  [(nzVisible)]="registerVisible"
+  [nzTitle]="'register' | translate"
+  (nzOnCancel)="handleRegisterCancel()"
+  [nzFooter]="null"
+  nzWidth="30vw"
+>
+  <ng-container *nzModalContent>
+  <form [formGroup]="registerForm " (ngSubmit)="submitRegisterForm()" nz-form [nzLayout]="'vertical'">
+
+    <!-- Chọn Thư viện -->
+         <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="bsThuVienId" required>
+          {{ "library" | translate }}
+        </nz-form-label>
+        <nz-form-control [nzSpan]="18" [nzErrorTip]="'required' | translate">
+          <nz-select
+            formControlName="bsThuVienId"
+            [nzPlaceHolder]="'select_library' | translate"
+          >
+            <nz-option
+              *ngFor="let item of thuVienList"
+              [nzValue]="item.id"
+              [nzLabel]="item.tenThuVien"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+  <!-- Họ tên -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" [nzFor]="'hoTen'" [nzRequired]="true">{{ 'full_name' | translate }}</nz-form-label>
+    <nz-form-control [nzSpan]="18" [nzErrorTip]="'required' | translate">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          nz-input
+          formControlName="hoTen"
+          [placeholder]="'enter_full_name' | translate"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Email -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" [nzFor]="'email'" [nzRequired]="true">{{ 'email' | translate }}</nz-form-label>
+    <nz-form-control [nzSpan]="18" [nzErrorTip]="'invalid_email' | translate">
+      <nz-input-group nzPrefixIcon="mail">
+        <input
+          nz-input
+          formControlName="email"
+          type="email"
+          [placeholder]="'email' | translate"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Giới tính -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" [nzFor]="'gioiTinh'" [nzRequired]="true">{{ 'gender' | translate }}</nz-form-label>
+    <nz-form-control [nzSpan]="18" [nzErrorTip]="'required' | translate">
+      <nz-radio-group formControlName="gioiTinh">
+        <label nz-radio nzValue="1">{{'male'|translate}}</label>
+        <label nz-radio nzValue="0">{{'female'|translate}}</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Ngày sinh -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" [nzFor]="'ngaySinh'" [nzRequired]="true">{{ 'birthdate' | translate }}</nz-form-label>
+    <nz-form-control [nzSpan]="18" [nzErrorTip]="'required' | translate">
+      <nz-date-picker formControlName="ngaySinh" nzFormat="dd/MM/yyyy" class="w-full" nzShowTime></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Nút Đăng ký -->
+  <nz-form-item>
+    <nz-form-control [nzSpan]="24">
+      <button nz-button nzType="primary" [disabled]="!registerForm .valid">
+        {{ 'register' | translate }}
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+</ng-container>
+</nz-modal> 
+
 </ng-template>

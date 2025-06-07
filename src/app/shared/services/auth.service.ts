@@ -42,6 +42,23 @@ interface LoginModel {
   soThe: string;
   matKhau: string;
 }
+
+export class DangKyTaiKhoanRequest {
+  bsThuVienId!: string;
+  hoTen!: string;
+  gioiTinh!: number;
+  ngaySinh!: string; // dạng 'dd/MM/yyyy'
+  email!: string;
+  dienThoai?: string;
+  bdDmQuocGiaId?: string;
+  bdDmTinhThanhId?: string;
+  diaChi?: string;
+  bdDmDanTocId?: string;
+  bdDmTrinhDoVanHoaId?: string;
+  bdDmNgheNghiepId?: string;
+  bdDmThanhPhanXaHoiId?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -84,6 +101,29 @@ isAuthenticated$ = new BehaviorSubject<boolean>(
 
     return this._http.post<IResponseAuth>(url, body);
   }
+
+  quenMatKhauLayMaBaoMat(body: { soThe: string; email: string }) {
+    const url = this.urlObject.buildUrl({ endpoint: 'quenMatKhauLayMaBaoMat' });
+    return this._http.post<IResponse<any>>(url, body);
+  }
+
+  xacNhanMaBaoMat(body: { maBaoMat: string; email: string }) {
+    const url = this.urlObject.buildUrl({ endpoint: 'quenMatKhauXacNhanMaBaoMat' });
+    return this._http.post<IResponse<any>>(url, body);
+  }
+
+  doiMatKhau(body: { maBaoMat: string; email: string; matKhau: string }) {
+    const url = this.urlObject.buildUrl({ endpoint: 'quenMatKhauDoiMatKhau' });
+    return this._http.post<IResponse<any>>(url, body);
+  }
+
+
+
+dangKyTaiKhoan(body: DangKyTaiKhoanRequest) {
+  const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocThemMoi' });
+  return this._http.post<IResponse<any>>(url, body);
+}
+
 
   //Lịch sử mượn tài liệu in
   getCirHistoryItem(queryObject: IPageParams = this.defaultPageParams) {
