@@ -236,13 +236,13 @@
 
     <!-- Chọn Thư viện -->
          <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="bsThuVienId" required>
+        <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="bsThuVienId" required>
           {{ "library" | translate }}
         </nz-form-label>
         <nz-form-control [nzSpan]="18" [nzErrorTip]="'required' | translate">
           <nz-select
             formControlName="bsThuVienId"
-            [nzPlaceHolder]="'select_library' | translate"
+            
           >
             <nz-option
               *ngFor="let item of thuVienList"
@@ -260,7 +260,7 @@
         <input
           nz-input
           formControlName="hoTen"
-          [placeholder]="'enter_full_name' | translate"
+          
         />
       </nz-input-group>
     </nz-form-control>
@@ -275,7 +275,7 @@
           nz-input
           formControlName="email"
           type="email"
-          [placeholder]="'email' | translate"
+          
         />
       </nz-input-group>
     </nz-form-control>
@@ -299,11 +299,28 @@
       <nz-date-picker formControlName="ngaySinh" nzFormat="dd/MM/yyyy" class="w-full" nzShowTime></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
+<!-- CAPTCHA Image -->
+<nz-form-item>
+  <nz-form-label [nzSpan]="6">{{ 'captcha' | translate }}</nz-form-label>
+  <nz-form-control [nzSpan]="18">
+    <canvas #captchaCanvas width="120" height="40" style="border: 1px solid #d9d9d9; border-radius: 4px;"></canvas>
+    <a (click)="generateCaptcha()" >{{ 'reload_captcha' | translate }}</a>
+  </nz-form-control>
+</nz-form-item>
+
+<!-- CAPTCHA Answer -->
+<nz-form-item>
+  <nz-form-label [nzSpan]="6" [nzRequired]="true">{{ 'enter_captcha' | translate }}</nz-form-label>
+  <nz-form-control [nzSpan]="18" [nzErrorTip]="'wrong_captcha' | translate">
+    <input nz-input formControlName="captchaText" />
+  </nz-form-control>
+</nz-form-item>
+
 
   <!-- Nút Đăng ký -->
   <nz-form-item>
     <nz-form-control [nzSpan]="24">
-      <button nz-button nzType="primary" [disabled]="!registerForm .valid">
+      <button class="w-full ant-btn mt-10" nz-button nzType="primary" [disabled]="!registerForm .valid">
         {{ 'register' | translate }}
       </button>
     </nz-form-control>

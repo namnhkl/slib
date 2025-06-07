@@ -156,5 +156,10 @@
   "male": "Nam",
   "female": "Nữ",
   "birthdate": "Ngày sinh",
-  "register": "Đăng ký"
+  "register": "Đăng ký",
+  "captcha": "Mã xác minh",
+  "enter_captcha": "Nhập mã CAPTCHA",
+  "wrong_captcha": "Mã xác minh không đúng",
+  "reload_captcha": "Tạo mã mới",
+  "invalid_email":"Email không hợp lệ"
 }

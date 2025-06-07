@@ -6,7 +6,7 @@ import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
+import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +35,16 @@ export class DanhmucService extends _HttpRequestInjector {
         },
       });
       return this._http.get<IResponse<IDangTaiLieu[]>>(url);
+    }
+
+    getThuvien() {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bsThuVien',
+        queryObject: {
+         
+        },
+      });
+      return this._http.get<IResponse<IBsThuvien[]>>(url);
     }
   
 }

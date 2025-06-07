@@ -39,3 +39,15 @@ export interface IDangTaiLieu {
 }
 
 
+export interface IBsThuvien {
+  id:string,
+  ma:string,
+  ten:string,
+  diaChi:string,
+  sapXep:number
+}
+
+
+
+
+

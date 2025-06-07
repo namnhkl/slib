@@ -109,19 +109,13 @@ export class HomeSlidersComponent implements OnInit {
 
   getPassedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent');
-    console.log(this.activeSlides());
   }
 
   getChangeData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> change');
-    console.log(data);
   }
 
   getChangedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> changed');
-    console.log(data);
   }
 }

@@ -1,8 +1,10 @@
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable id-length */
 /* eslint-disable newline-before-return */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { AuthService, DangKyTaiKhoanRequest } from '@/app/shared/services/auth.service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormGroup,
@@ -24,6 +26,8 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { DanhmucService } from '@/app/shared/services/danhmuc.service';
+
 
 @Component({
   selector: 'app-login-button',
@@ -46,7 +50,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzDatePickerModule 
   ],
 })
-export class LoginButtonComponent implements OnInit, OnChanges {
+export class LoginButtonComponent implements AfterViewInit,OnInit, OnChanges  {
   validateForm: FormGroup;
   isVisible = false;
   isAuthenticated$;
@@ -55,14 +59,13 @@ export class LoginButtonComponent implements OnInit, OnChanges {
   currentStep = 0;
   showPassword = false;
   showConfirmPassword = false;
+  @ViewChild('captchaCanvas', { static: false }) captchaCanvas!: ElementRef<HTMLCanvasElement>;
+
+  captchaCode: string = '';
 
 registerForm: FormGroup;
 registerVisible = false;
-thuVienList = [
-  { id: "7", tenThuVien: 'Thư viện A' },
-  { id: "2", tenThuVien: 'Thư viện B' },
-  { id: "3", tenThuVien: 'Thư viện C' },
-]; 
+thuVienList: { id: string; tenThuVien: string }[] = [];
 
   forgotPasswordForm: FormGroup;
   constructor(
@@ -70,7 +73,8 @@ thuVienList = [
     private authService: AuthService,
     private router: Router,
     private notificationService: NzNotificationService, private translate: TranslateService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private  danhmucService: DanhmucService
   ) {
       this.forgotPasswordForm = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
@@ -91,12 +95,13 @@ thuVienList = [
     });
 
     this.registerForm = this.fb.group({
-    bsThuVienId: [null, Validators.required],
-    hoTen: ['', Validators.required],
-    gioiTinh: [true],
-    ngaySinh: [null],
-    email: ['', [Validators.required, Validators.email]],
-  });
+      bsThuVienId: [null, Validators.required],
+      hoTen: ['', Validators.required],
+      gioiTinh: [true],
+      ngaySinh: [null],
+      email: ['', [Validators.required, Validators.email]],
+      captchaText: ['', Validators.required],
+    });
 
     this.isAuthenticated$ = this.authService.isAuthenticated$;
         this.forgotPasswordForm.get('matKhau')?.valueChanges.subscribe(() => {
@@ -104,13 +109,37 @@ thuVienList = [
 });
   }
 
+ngAfterViewInit(): void {
+    this.generateCaptcha(); // gọi ở đây thay vì ngOnInit
+  }
+  
   ngOnInit(): void {
      this.authService.setRedirectUrl(this.router.url);
     console.log('isAuthenticated$', this.isAuthenticated$);
-
-
+    this.loadThuVienList();
+    
 
   }
+
+  loadThuVienList(): void {
+  this.danhmucService.getThuvien().subscribe({
+    next: (response) => {
+      if (response && response.messageCode === 1 && Array.isArray(response.data)) {
+        this.thuVienList = response.data.map((item: any) => ({
+          id: item.id,
+          tenThuVien: item.ten
+        }));
+      } else {
+        this.thuVienList = [];
+      }
+    },
+    error: (err) => {
+      console.error('Lấy dữ liệu thư viện lỗi:', err);
+      this.thuVienList = [];
+    }
+  });
+}
+
 
   async submitForm() {
     if (this.validateForm.valid) {
@@ -249,12 +278,27 @@ handleRegisterCancel(): void {
 }
 
 showRegisterModal(): void {
+  this.isVisible = false;
   this.registerForm.reset();
   this.registerVisible = true;
+  // Đợi DOM cập nhật sau khi modal mở
+  setTimeout(() => {
+    this.generateCaptcha();
+  }, 0);
 }
 
 submitRegisterForm(): void {
   if (this.registerForm.valid) {
+      const userCaptcha = this.registerForm.value.captchaText?.trim();
+      if (userCaptcha !== this.captchaCode) {
+        this.notificationService.error(
+          this.translate.instant('error'),
+          this.translate.instant('wrong_captcha')
+        );
+        this.generateCaptcha(); // tạo lại
+        return;
+      }
+
     const formValue = this.registerForm.value;
 
     const body = new DangKyTaiKhoanRequest();
@@ -309,6 +353,37 @@ passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   return password === confirmPassword ? null : { passwordMismatch: true };
 }
 
+generateCaptcha(): void {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // bỏ O và 0 dễ nhầm
+  this.captchaCode = '';
+  for (let i = 0; i < 5; i++) {
+    this.captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
 
+  const canvas = this.captchaCanvas.nativeElement;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Nền
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Vẽ mã
+    ctx.font = '20px Arial';
+    ctx.fillStyle = '#000';
+    ctx.setTransform(1, 0.1, -0.1, 1, 0, 0); // nhẹ biến dạng
+    ctx.fillText(this.captchaCode, 15, 30);
+
+    // Nhiễu
+    for (let i = 0; i < 5; i++) {
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * 120, Math.random() * 40);
+      ctx.lineTo(Math.random() * 120, Math.random() * 40);
+      ctx.strokeStyle = '#ccc';
+      ctx.stroke();
+    }
+  }
+}
 
 }

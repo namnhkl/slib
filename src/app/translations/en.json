@@ -162,6 +162,11 @@
   "male": "Male",
   "female": "Female",
   "birthdate": "Birth date",
-  "register": "Register"
+  "register": "Register",
+  "captcha": "Verification Code",
+  "enter_captcha": "Enter CAPTCHA Code",
+  "wrong_captcha": "Incorrect verification code",
+  "reload_captcha": "Reload CAPTCHA",
+  "invalid_email":"Invalid email"
 
 }
