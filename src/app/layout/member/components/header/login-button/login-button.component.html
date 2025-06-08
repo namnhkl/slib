@@ -2,22 +2,49 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div *ngIf="isAuthenticated$ | async; else notAuthorized">
-  <button nz-button [nzType]="'primary'" (click)="goProfile()">
+<!-- Nút đầy đủ (chỉ hiện trên desktop) -->
+ <button nz-button [nzType]="'primary'" (click)="goProfile()" class="desktop-only">
     <i class="fa-solid fa-user"></i>
     <span class="capitalize" style="margin-left: 5px">{{
       "profile" | translate
     }}</span>
   </button>
+
+<!-- Link đơn giản (chỉ hiện trên mobile/tablet) -->
+<a
+  class="profile-link mobile-only"
+  (click)="goProfile()"
+>
+  <i class="fa-solid fa-user"></i>
+  <span style="margin-left: 3px">
+    {{ "profile" | translate }}
+  </span>
+</a>
+
+
+
 </div>
 <ng-template #notAuthorized>
   <button
     nz-button
-    class="capitalize"
+    class="capitalize desktop-only"
     [nzType]="'primary'"
     (click)="showModal()"
   >
     <span>{{ "login" | translate }}</span>
   </button>
+
+  <!-- Link đơn giản (chỉ hiện trên mobile/tablet) -->
+<a
+  class="profile-link mobile-only"
+  (click)="showModal()"
+>
+  <i class="fa-solid fa-sign-in"></i>
+  <span style="margin-left: 3px">
+    {{ "login" | translate }}
+  </span>
+</a>
+
   <nz-modal
     [(nzVisible)]="isVisible"
     [nzTitle]="'login' | translate"
@@ -90,14 +117,23 @@
     [nzTitle]="'forgot_password' | translate"
     (nzOnCancel)="handleForgotCancel()"
     [nzFooter]="null"
-    nzWidth="30vw"
   >
     <ng-container *nzModalContent>
-      <nz-steps [nzCurrent]="currentStep" style="margin-bottom: 16px">
-        <nz-step [nzTitle]="'get_the_security_code' | translate"></nz-step>
-        <nz-step [nzTitle]="'verify_code' | translate"></nz-step>
-        <nz-step [nzTitle]="'change_password' | translate"></nz-step>
-      </nz-steps>
+
+      
+
+    <nz-steps
+      [nzCurrent]="currentStep"
+      style="margin-bottom: 16px"
+      [nzSize]="'small'"
+      [nzDirection]="isMobile ? 'vertical' : 'horizontal'"
+      [ngStyle]="{ width: isMobile ? '100vw' : '490px', 'margin-bottom': '16px', 'font-size': '12px' }"
+    >
+      <nz-step [nzTitle]="'get_the_security_code' | translate"></nz-step>
+      <nz-step [nzTitle]="'verify_code' | translate"></nz-step>
+      <nz-step [nzTitle]="'change_password' | translate"></nz-step>
+    </nz-steps>
+
 
       <form [formGroup]="forgotPasswordForm">
         <ng-container [ngSwitch]="currentStep">
@@ -229,7 +265,7 @@
   [nzTitle]="'register' | translate"
   (nzOnCancel)="handleRegisterCancel()"
   [nzFooter]="null"
-  nzWidth="30vw"
+  [nzWidth]="isMobile ? '95vw' : '680px'"
 >
   <ng-container *nzModalContent>
   <form [formGroup]="registerForm " (ngSubmit)="submitRegisterForm()" nz-form [nzLayout]="'vertical'">

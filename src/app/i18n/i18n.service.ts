@@ -52,38 +52,37 @@ export class I18nService {
    * @param language The IETF language code to set.
    */
   set language(language: string) {
-    let newLanguage =
-      language ||
-      localStorage.getItem(languageKey) ||
-      this._translateService.getBrowserCultureLang() ||
-      '';
-    console.log(newLanguage);
-    console.log('supportedLanguages',this.supportedLanguages);
-    let isSupportedLanguage = this.supportedLanguages.includes(newLanguage);
+  let newLanguage =
+    language ||
+    localStorage.getItem(languageKey) ||
+    this.defaultLanguage ||  //Ưu tiên fallback về defaultLanguage
+    this._translateService.getBrowserCultureLang() ||
+    '';
 
-    if (language !== this._languageSubject.value) {
-      this._languageSubject.next(newLanguage);
-    }
+  let isSupportedLanguage = this.supportedLanguages.includes(newLanguage);
 
-    // If no exact match is found, search without the region
-    if (newLanguage && !isSupportedLanguage) {
-      newLanguage = newLanguage.split('-')[0];
-      newLanguage =
-        this.supportedLanguages.find((supportedLanguage) =>
-          supportedLanguage.startsWith(newLanguage)
-        ) || '';
-      isSupportedLanguage = Boolean(newLanguage);
-    }
-
-    // Fallback if language is not supported
-    if (!newLanguage || !isSupportedLanguage) {
-      newLanguage = this.defaultLanguage;
-    }
-
-    language = newLanguage;
-
-    this._translateService.use(language);
+  // Nếu không khớp hoàn toàn, thử so sánh không bao gồm region (e.g. vi thay vì vi-VN)
+  if (newLanguage && !isSupportedLanguage) {
+    const shortLang = newLanguage.split('-')[0];
+    newLanguage = this.supportedLanguages.find((supportedLanguage) =>
+      supportedLanguage.startsWith(shortLang)
+    ) || '';
+    isSupportedLanguage = Boolean(newLanguage);
   }
+
+  // Nếu vẫn không hợp lệ => fallback defaultLanguage
+  if (!newLanguage || !isSupportedLanguage) {
+    newLanguage = this.defaultLanguage;
+  }
+
+  if (newLanguage !== this._languageSubject.value) {
+    this._languageSubject.next(newLanguage);
+  }
+
+  localStorage.setItem(languageKey, newLanguage);
+
+  this._translateService.use(newLanguage);
+}
 
   /**
    * Initializes i18n for the application.

@@ -39,7 +39,7 @@ export class HeaderComponent {
     },
     {
       title: 'introduction',
-      url: URL_ROUTER.about,
+      url: URL_ROUTER.intro,
     },
     {
       title: 'news',

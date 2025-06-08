@@ -32,18 +32,20 @@
                         <a class="navbar-brand order-lg-1" href="#">
                             <img src="./img/logo/logo-slibk12.svg" alt="Logo">
                         </a>
-                        <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i
-                                class="fa fa-solid fa-user"></i>{{'file'|translate}}</button>
-                        <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i
-                                class="fa fa-sign-out"></i>{{'sign_out'|translate}}</button>
+                       <app-login-button></app-login-button>
                     </div>
                     <ul class="navbar-nav mx-auto">
                         @for (link of links; track $index) {
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="{{link.url}}">{{link.title | translate}}</a>
+                            <a class="nav-link" routerLink="{{link.url}}" (click)="close()">{{link.title | translate}}</a>
                         </li>
                         }
                     </ul>
+                    <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
+                        [nzCustomTemplate]="iconTemplate">
+                        <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
+                        <nz-option nzValue="en-US" translate [nzLabel]="'english'|translate"></nz-option>
+                    </nz-select>
                 </div>
             </ng-container>
         </nz-drawer>
@@ -51,21 +53,7 @@
 
         <!-- Menu ở giữa -->
         <div class="navbarNav navbar-collapse order-lg-2" id="navbarNav">
-            <div class="forMb rightBar d-flex align-items-center order-lg-3">
-                <a class="navbar-brand order-lg-1" href="#">
-                    <img src="./img/logo/logo-slibk12.svg" alt="Logo">
-                </a>
-                <button class="loginBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-solid fa-user"></i>Hồ
-                    sơ</button>
-                <button class="logOutBtn btn btn-outline-primary me-2 btnProfile"><i class="fa fa-sign-out"></i> Đăng
-                    xuất</button>
-            </div>
             <ul class="navbar-nav mx-auto">
-                <!-- @for (link of links; track $index) {
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink="{{link.url}}">{{link.title | translate}}</a>
-                </li>
-                } -->
                 <li 
                 class="nav-item" 
                 *ngFor="let link of links; let i = index;" 
@@ -94,6 +82,3 @@
         </div>
     </div>
 </nav>
-<!-- <div class="container mt-0">
-  <app-breadcrumb></app-breadcrumb>
-</div> -->

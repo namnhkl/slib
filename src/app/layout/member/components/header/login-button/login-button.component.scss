@@ -21,3 +21,37 @@
 .ant-picker-input > input::placeholder {
   color: transparent !important;
 }
+
+/* Ẩn mặc định */
+.mobile-only,
+.desktop-only {
+  display: none;
+}
+
+/* Desktop ≥ 992px: hiện nút */
+@media (min-width: 992px) {
+  .desktop-only {
+    display: inline-flex;
+  }
+
+  .profile-button {
+    // padding: 4px 10px;
+    font-size: 14px;
+    height: auto;
+  }
+}
+
+/* Mobile & Tablet < 992px: hiện link */
+@media (max-width: 991.98px) {
+  .mobile-only {
+display: inline;
+        font-size: 14px;
+        color: #2c4aaa;
+        cursor: pointer;
+        text-decoration: underline;
+        margin-left: -15px;
+        font-weight: 700;
+  }
+}
+
+

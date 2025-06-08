@@ -27,7 +27,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-login-button',
@@ -59,6 +59,7 @@ export class LoginButtonComponent implements AfterViewInit,OnInit, OnChanges  {
   currentStep = 0;
   showPassword = false;
   showConfirmPassword = false;
+   isMobile = false;
   @ViewChild('captchaCanvas', { static: false }) captchaCanvas!: ElementRef<HTMLCanvasElement>;
 
   captchaCode: string = '';
@@ -74,7 +75,8 @@ thuVienList: { id: string; tenThuVien: string }[] = [];
     private router: Router,
     private notificationService: NzNotificationService, private translate: TranslateService,
     private datePipe: DatePipe,
-    private  danhmucService: DanhmucService
+    private  danhmucService: DanhmucService,
+    private breakpointObserver: BreakpointObserver
   ) {
       this.forgotPasswordForm = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
@@ -117,6 +119,10 @@ ngAfterViewInit(): void {
      this.authService.setRedirectUrl(this.router.url);
     console.log('isAuthenticated$', this.isAuthenticated$);
     this.loadThuVienList();
+     this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet])
+      .subscribe(result => {
+        this.isMobile = result.matches;
+      });
     
 
   }
@@ -192,9 +198,11 @@ ngAfterViewInit(): void {
     this.isVisible = false;
   }
 
-  goProfile() {
-    this.router.navigate(['/profile']);
-  }
+goProfile() {
+  this.router.navigateByUrl('/profile').then(() => {
+    window.location.reload();
+  });
+}
 
   ngOnChanges() {
     console.log('isAuthenticated123$', this.isAuthenticated$);
