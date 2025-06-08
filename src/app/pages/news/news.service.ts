@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 interface INewsQueryObject extends IPageParams {
   id?: string;
   qtndTtNhomTinTucId?:string;
+  ten?:string;
 }
 @Injectable()
 @HttpRequestInjectable('/tintuc')

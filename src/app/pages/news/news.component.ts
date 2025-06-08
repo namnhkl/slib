@@ -1,7 +1,10 @@
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable id-length */
 import { Component, inject } from '@angular/core';
 import { NewsService } from './news.service';
 import { AsyncPipe } from '@angular/common';
-import { of, switchMap, tap } from 'rxjs';
+import { debounceTime, of, Subject, switchMap, tap } from 'rxjs';
 // eslint-disable-next-line id-length
 import _ from 'lodash';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
@@ -9,6 +12,7 @@ import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-news',
@@ -18,7 +22,8 @@ import { CommonModule } from '@angular/common';
     RouterModule,
     NzSpinModule,
     TranslateModule,
-    CommonModule
+    CommonModule,
+    FormsModule 
   ],
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss',
@@ -38,28 +43,34 @@ export class NewsComponent {
   newsData: any[] = [];
   newsDataMostViewed: any[] = [];
   qtndTtNhomTinTucId = '';
+  searchKeyword = '';
+  searchKeywordChanged = new Subject<string>();
   
   getNewsData() {
-    console.log('this.qtndTtNhomTinTucId',this.qtndTtNhomTinTucId);
-    this.isLoading = true;
-    this.newService.getNews(this.pageIndex - 1, this.pageSize, {
-    qtndTtNhomTinTucId: this.qtndTtNhomTinTucId
+  this.isLoading = true;
+  this.newService.getNews(this.pageIndex - 1, this.pageSize, {
+    qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
+    ten: this.searchKeyword.trim()
   }).pipe(
-      tap(res => {
-        if (res.messageCode === 1) {
-          this.newsData = Array.isArray(res.data) ? res.data : [];
-
-          // ✅ tính tổng số trang đúng
-          this.totalPages = Math.ceil((res.totalRecord ?? 1) / this.pageSize);
-        } else {
-          this.newsData = [];
-        }
-
-        this.isLoading = false;
-      })
-    ).subscribe();
-  }
-
+    tap(res => {
+      console.log('dddd: ', res);
+      if (res.messageCode === 1) {
+        this.newsData = Array.isArray(res.data) ? res.data : [];
+        this.totalPages = Math.ceil((res.totalRecord ?? 1) / this.pageSize);
+      } else {
+        this.newsData = [];
+      }
+      this.isLoading = false;
+    })
+  ).subscribe();
+}
+onSearchDebounce(value: string) {
+  this.searchKeywordChanged.next(value);
+}
+onSearch() {
+  this.pageIndex = 1;
+  this.getNewsData();
+}
  getTopNewsData() {
   this.newService.getNews(0, 9999).pipe(
     tap(res => {
@@ -87,14 +98,24 @@ export class NewsComponent {
     this.getNewsData();
     
   }
+  
+ngOnInit(): void {
+  // Lắng nghe thay đổi query params
+  this.route.queryParams.subscribe(params => {
+    this.qtndTtNhomTinTucId = params['qtndTtNhomTinTucId'] || '';
+    console.log('qtndTtNhomTinTucId:', this.qtndTtNhomTinTucId);
+  });
 
-  ngOnInit(): void {
-     this.route.queryParams.subscribe(params => {
-      this.qtndTtNhomTinTucId = params['qtndTtNhomTinTucId'] || '';
-      console.log('qtndTtNhomTinTucId:', this.qtndTtNhomTinTucId);
-    });
-   
-    this.getTopNewsData();
-     this.getNewsData();
-  }
+  // Gọi dữ liệu ban đầu
+  this.getTopNewsData();
+  this.getNewsData();
+
+  // Đăng ký debounce khi searchKeyword thay đổi
+  this.searchKeywordChanged.pipe(
+    debounceTime(500) // đợi 500ms sau khi ngừng gõ
+  ).subscribe(value => {
+    this.searchKeyword = value;
+    this.onSearch();
+  });
+}
 }

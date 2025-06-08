@@ -1,6 +1,6 @@
-<div class="document-item border rounded-xl shadow-sm p-4 mb-4 bg-white hover:shadow-md transition-all">
+<div class="document-item border rounded-xl shadow p-4 mb-4 bg-white hover:shadow-md transition-all">
   <div class="flex items-center space-x-4">
-    <img *ngIf="document.anhDaiDien" [src]="document.anhDaiDien" alt="Ảnh đại diện" class="w-24 h-32 object-cover rounded-md border">
+    <img *ngIf="document.anhDaiDien" [src]="document.anhDaiDien" alt="Ảnh đại diện" class="object-cover border shadow" style="height: 230px; width: 180px;">
     
     <div class="flex-1">
       <h3 *ngIf="document.tieuDe" class="text-lg font-semibold text-gray-800 mb-1">{{ document.tieuDe }}</h3>

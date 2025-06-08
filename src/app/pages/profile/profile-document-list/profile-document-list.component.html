@@ -1,8 +1,9 @@
-  <nz-tabset>
+<hr>
+<nz-tabset>
     <nz-tab *ngFor="let tab of tabs" [nzTitle]="tabTitleTemplate">
       <ng-template #tabTitleTemplate>
         <nz-icon [nzType]="tab.icon"></nz-icon>
-        <span class="font-bold">{{ tab.name }} ({{ tab.count }})</span>
+        <span class="font-bold" style="font-size: 18px;">{{ tab.name }} ({{ tab.count }})</span>
       </ng-template>
 
       <!-- Nội dung từng tab -->
