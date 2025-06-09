@@ -16,19 +16,29 @@
               {{currentDocument.tieuDe}}</h3>
             <!-- <app-preview-document class="fixHeight" [details]="currentDocument.tomTat" /> -->
            <div class="box-btn-info">
-              <button class="btn btn-read" (click)="isLogin ? showModal() : showLoginWarning()">
-                <i class="fa fa-folder-open"></i> {{'read_a_book'|translate}}
+              <button class="btn btn-read"
+                      [disabled]="!currentDocument?.dsBanSo || currentDocument.dsBanSo.length === 0"
+                      (click)="isLogin ? showModal() : showLoginWarning()">
+                <i class="fa fa-folder-open"></i> {{'read_a_book' | translate}}
               </button>
 
-              <!-- Nếu chưa đặt mượn thì hiện nút Đặt mượn -->
-            <button *ngIf="!dadatMuonTaiLieu " class="btn btn-read" (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
-              <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
-            </button>
+               <!-- Nút Đặt mượn: chỉ disable nếu isEmptyDKCB = true -->
+              <button class="btn btn-read"
+                      [disabled]="isEmptyDKCB"
+                      *ngIf="!dadatMuonTaiLieu"
+                      (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
+                <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
+              </button>
 
-            <!-- Nếu đã đặt mượn thì hiện nút Hủy đăng ký -->
-            <button *ngIf="dadatMuonTaiLieu " class="btn btn-danger" (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
-              <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
-            </button>
+              <!-- Nút Hủy đăng ký: chỉ disable nếu isEmptyDKCB = true -->
+              <button class="btn btn-danger"
+                      [disabled]="isEmptyDKCB"
+                      *ngIf="dadatMuonTaiLieu"
+                      (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
+                <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
+              </button>
+
+
 
 
             </div>

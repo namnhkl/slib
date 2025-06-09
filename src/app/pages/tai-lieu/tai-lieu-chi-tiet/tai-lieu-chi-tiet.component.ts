@@ -83,6 +83,7 @@ export class TaiLieuChiTietComponent implements OnInit {
   convertingPdf: boolean = false;
   safeSrc: SafeResourceUrl | null = null;
   dadatMuonTaiLieu: boolean = false;
+  isEmptyDKCB: boolean = false;
 
   homeService = inject(HomeService);
   bandocService = inject(ProfileService);
@@ -113,29 +114,40 @@ export class TaiLieuChiTietComponent implements OnInit {
     return get(obj, path, false);
   };
 
-  getTrangThaiDatMuonTaiLieu(id: string) {
+ getTrangThaiDatMuonTaiLieu(id: string) {
   const trimmedId = id.trim();
   const query: IDanhSachTaiLieuDatMuonParams = {
     bmTaiLieuId: trimmedId,
   };
 
+  // Kiểm tra nếu dsBanIn rỗng hoặc không tồn tại thì gán isEmptyDKCB = true
+  if (!this.currentDocument?.dsBanIn || this.currentDocument.dsBanIn.length === 0) {
+    this.isEmptyDKCB = true;
+  } else {
+    this.isEmptyDKCB = false;
+  }
+
   this.banDocsService.bdBanDocLtDangKyMuonDs(query).subscribe(
     (res) => {
       if (res?.data?.length > 0) {
-        const taiLieu = res.data.find((x) => String(x.bmTaiLieuId).trim() === trimmedId);
-        this.dadatMuonTaiLieu = !!taiLieu; // Cập nhật trạng thái
+        const taiLieu = res.data.find(
+          (x) => String(x.bmTaiLieuId).trim() === trimmedId
+        );
+        this.dadatMuonTaiLieu = !!taiLieu;
       } else {
-        this.dadatMuonTaiLieu = false; // Đặt lại trạng thái nếu không có dữ liệu
+        this.dadatMuonTaiLieu = false;
       }
+
       this.cdr.detectChanges(); // Buộc cập nhật giao diện
     },
     (error) => {
       console.error('Lỗi khi gọi API:', error);
       this.dadatMuonTaiLieu = false;
-      this.cdr.detectChanges(); // Cập nhật giao diện ngay cả khi có lỗi
+      this.cdr.detectChanges(); // Buộc cập nhật giao diện ngay cả khi lỗi
     }
   );
 }
+
 
 datMuonTaiLieu() {
   if (
@@ -143,7 +155,12 @@ datMuonTaiLieu() {
     this.currentDocument.dsBanIn &&
     this.currentDocument.dsBanIn.length > 0
   ) {
-    const dsId = this.currentDocument.dsBanIn.map((item) => item.id);
+    // Chỉ lấy những item có laDatMuon = 1
+  const dsId = this.currentDocument.dsBanIn
+    .filter(item => item.laDatMuon === 1)
+    .map(item => item.id);
+    console.log('dkcb: ',dsId);
+    console.log('docs: ',this.currentDocument);
     const randomIndex = Math.floor(Math.random() * dsId.length);
     const id = dsId[randomIndex];
 
@@ -186,7 +203,7 @@ datMuonTaiLieu() {
     this.createNotification(
       'error',
       this.translate.instant('notification'),
-      this.translate.instant('khong_tim_thay_danh_sach_ban_in')
+      this.translate.instant('bdbandoc_khong_tim_thay_danh_sach_ban_in')
     );
   }
 }

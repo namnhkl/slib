@@ -168,5 +168,6 @@
   "bdbandoc_da_dat_muon_tai_lieu_roi":"Bạn đã đăng ký đặt mượn tài liệu này",
   "bdbandoc_huy_dat_muon_tai_lieu_thanh_cong":"Huỷ đăng ký đặt mượn tài liệu thành công",
   "bdbandoc_khong_tim_thay_yeu_cau":"Không tìm thấy yêu cầu",
-  "bdbandoc_huy_yeu_cau_dang_ky_dat_muon":"Huỷ yêu cầu đặt mượn"
+  "bdbandoc_huy_yeu_cau_dang_ky_dat_muon":"Huỷ yêu cầu đặt mượn",
+  "bdbandoc_khong_tim_thay_danh_sach_ban_in":"Không có mã ĐKCB"
 }
