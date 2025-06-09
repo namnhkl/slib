@@ -43,7 +43,7 @@ export class HeaderComponent {
     },
     {
       title: 'news',
-      url: URL_ROUTER.news,
+      url: URL_ROUTER.QtndTinTuc,
     },
     {
       title: 'good_books',

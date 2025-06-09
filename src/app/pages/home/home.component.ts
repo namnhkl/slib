@@ -11,12 +11,12 @@ import { HomeVideosComponent } from './HomeVideos/HomeVideos.component';
 import { HomeSearchAdvancedComponent } from './HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { IBook, IBookSearchResponse } from './HomeSearchAdvanced/type';
-import { ChuyenDeListComponent } from '@/app/pages/chuyen-de/chuyen-de-list/chuyen-de-list.component';
+import { stsBoSuuTapDsChuyenDeListComponent } from '@/app/pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-list/stsBoSuuTapDs-chuyen-de-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { environment } from 'environments/environment';
-import { DocumentsService } from '../documents/documents.service';
-import { IDocument } from '../documents/documents';
+import {  TaiLieuService } from '../tai-lieu/tai-lieu.service';
+import { IDocument } from '../tai-lieu/tai-lieu';
 import { IResponse } from '@/app/shared/types/common';
 
 @Component({
@@ -34,7 +34,7 @@ import { IResponse } from '@/app/shared/types/common';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [HomeService, DocumentsService],
+  providers: [HomeService, TaiLieuService],
   standalone:true
 })
 export class HomeComponent implements OnInit {
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 
   homeService = inject(HomeService);
   danhmucService = inject(DanhmucService);
-  documentService = inject(DocumentsService);
+  documentService = inject(TaiLieuService);
   dangtailieus: any[] = [];
   chuyendes: IDocument[] = [];
   docsByType: { [id: string]: { id: string; ten: string; data: IBook[] } } = {};

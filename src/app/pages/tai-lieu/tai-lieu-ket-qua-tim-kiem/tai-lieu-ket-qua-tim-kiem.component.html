@@ -1,0 +1,188 @@
+<div class="searchBar">
+  <div class="container">
+    <app-home-search-advanced (searchResultsChange)="searchList($event)" />
+  </div>
+</div>
+
+
+<div class="list_book_search modalStand">
+  <div class="container">
+    <div class="wrap-flex">
+      <div class="modalStand_box">
+        <div class="title-result">
+        </div>
+                <form [formGroup]="formCriteriaFilter">
+          <div class="advSearch">
+            <h3>{{'filter_criteria'|translate}}</h3>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>{{'book_set'|translate}}</h3>
+                  @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')"
+                    [disabled]="!disabledCleanBsThuVien">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                  </button>
+                </div>
+
+                <nz-radio-group formControlName="bsThuVienId">
+                  <label nz-radio nzValue="canh-dieu">Cánh diều</label>
+                  <label nz-radio nzValue="chan-troi-sang-tao">Chân trời sáng tạo</label>
+                  <label nz-radio nzValue="ket-noi-tri-thuc">Kết nối tri thức</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>{{'document_type'|translate}}</h3>
+                  @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')"
+                    [disabled]="!disabledCleanDmDangTaiLieu">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                  </button>
+                </div>
+
+                <nz-radio-group formControlName="bmDmDangTaiLieuId">
+                  @for (item of dangTaiLieus; track $index) {
+                  <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
+                  }
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+          </div>
+        </form>
+        <!-- <form [formGroup]="formCriteriaFilter">
+
+          <div class="advSearch">
+            <h3>Tiêu chí lọc</h3>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>Bộ sách</h3>
+                  @let disabledCleanBsThuVien = (this.formCriteriaFilter.controls['bsThuVienId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bsThuVienId')" [disabled]="!disabledCleanBsThuVien">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                  </button>
+                </div>
+
+                <nz-radio-group formControlName="bsThuVienId">
+                  <label nz-radio nzValue="canh-dieu">Cánh diều</label>
+                  <label nz-radio nzValue="chan-troi-sang-tao">Chân trời sáng tạo</label>
+                  <label nz-radio nzValue="ket-noi-tri-thuc">Kết nối tri thức</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <div class="widget_searchAdv">
+                <div class="d-flex items-center">
+                  <h3>Loại tài liệu</h3>
+                  @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
+                  .valueChanges | async);
+                  <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')" [disabled]="!disabledCleanDmDangTaiLieu">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                  </button>
+                </div>
+
+                <nz-radio-group formControlName="bmDmDangTaiLieuId">
+                  <label nz-radio nzValue="sach-giao-khoa">Sách giáo khoa</label>
+                  <label nz-radio nzValue="sach-tham-khao">Sách tham khảo</label>
+                  <label nz-radio nzValue="sach-nghiep-vu">Sách nghiệp vụ</label>
+                </nz-radio-group>
+              </div>
+            </nz-form-item>
+          </div>
+        </form> -->
+      </div>
+      <div class="modalStand_box">
+        <div class="title-result">
+          <p>{{'found'|translate}} <span>{{booksSearched.totalRecord}}</span> {{'results'|translate}}</p>
+        </div>
+        <div class="box_result_book">
+          @for (book of booksSearched.data; track $index) {
+          <app-book-item [book]="book"></app-book-item>
+          }
+        </div>
+        <div class="page_sort_item">
+          <div class="item_page_detail">
+            <div class="d-flex align-items-center groupSelect">
+              <label for="numberSelect" class="form-label">{{'show'|translate}}</label>
+              <nz-select [ngModel]="pageSize" (ngModelChange)="handleChangePageSize($event)" id="numberSelect">
+                @for (size of pageSizes; track $index) {
+                <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
+                }
+              </nz-select>
+            </div>
+          </div>
+          <div class="item_page_detail">
+            @if(booksSearched.totalRecord) {
+            <div class="showPage">
+              <span>{{pageIndex+1}}/{{pageTotal}}</span>
+              <button class="btn pre-btn active" (click)="this.handleChangePage(true)"><span class="btnPre"
+                  aria-label="Previous">‹</span></button>
+              <button class="btn next-btn active" (click)="this.handleChangePage(false)"><span class="btnPre"
+                  aria-label="Next">›</span></button>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">Tìm kiếm nâng cao</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- Nhan đề -->
+          <div class="mb-3">
+            <label for="titleInput" class="form-label">Nhan đề:</label>
+            <input type="text" class="form-control" id="titleInput" placeholder="Nhập tên nhan đề">
+          </div>
+          <!-- Tác giả -->
+          <div class="mb-3">
+            <label for="authorInput" class="form-label">Tác giả:</label>
+            <input type="text" class="form-control" id="authorInput" placeholder="Nhập tên tác giả">
+          </div>
+          <!-- Định dạng -->
+          <div class="mb-3">
+            <label for="formatSelect" class="form-label">Định dạng:</label>
+            <select class="form-select" id="formatSelect">
+              <option>Tất cả</option>
+              <option>PDF</option>
+              <option>ePub</option>
+              <option>Hardcover</option>
+              <option>Paperback</option>
+            </select>
+          </div>
+          <!-- Ngôn ngữ -->
+          <div class="mb-3">
+            <label for="languageSelect" class="form-label">Ngôn ngữ:</label>
+            <select class="form-select" id="languageSelect">
+              <option>Tất cả</option>
+              <option>Tiếng Việt</option>
+              <option>English</option>
+              <option>Français</option>
+              <option>Español</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="resetButton">Đặt lại</button>
+        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+      </div>
+    </div>
+  </div>
+</div>

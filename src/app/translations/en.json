@@ -114,7 +114,7 @@
   "all":"All",
   "book_set":"Book set",
   "document_type":"Document type",
-  "most_viewed_news":"Most viewed news",
+  "qtndtintuc_most_viewed_news":"Most viewed news",
   "view":"View",
   "list_of_topics_item":"List of topics item",
   "explore_the_latest_topics_item_in_the_library":"Explore the latest topics item in the library",
@@ -167,6 +167,13 @@
   "enter_captcha": "Enter CAPTCHA Code",
   "wrong_captcha": "Incorrect verification code",
   "reload_captcha": "Reload CAPTCHA",
-  "invalid_email":"Invalid email"
+  "invalid_email":"Invalid email",
+  "results":"Results",
+  "filter_criteria":"Filter riteria",
+  "bdbandoc_dat_muon_tai_lieu_thanh_cong":"Successfully registered to borrow documents",
+  "bdbandoc_da_dat_muon_tai_lieu_roi":"You have registered to borrow this document.",
+  "bdbandoc_huy_dat_muon_tai_lieu_thanh_cong":"Cancellation of document borrowing registration successful",
+  "bdbandoc_khong_tim_thay_yeu_cau":"Request not found",
+  "bdbandoc_huy_yeu_cau_dang_ky_dat_muon":"Cancel loan request"
 
 }

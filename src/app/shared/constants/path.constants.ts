@@ -3,8 +3,8 @@ export const URL_ROUTER = {
   home: '',
   about: 'about',
   /* tin tức */
-  news: 'news',
-  newDetail: 'details',
+  QtndTinTuc: 'QtndTinTuc',
+  QtndTinTucChiTiet: 'QtndTinTucChiTiet',
   /* end tin tức */
   contact: 'contact',
   searchResult: 'search-results',
@@ -39,9 +39,9 @@ export const URL_ROUTER = {
   },
   // end map form
   // document start
-  documents: 'documents',
-  chuyende:'chuyen-de',
-  chuyendeitem:'chuyen-de-item',
+  documents: 'tai-lieu',
+  chuyende:'stsBoSuuTapDs-chuyen-de',
+  chuyendeitem:'stsBoSuuTapDs-chuyen-de-item',
   viewdocument:'viewdocument',
   intro:'intro'
   // document end

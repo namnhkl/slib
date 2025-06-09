@@ -21,7 +21,7 @@
     <p>{{'payment_deadline'|translate}}: <span>{{ item.ngayTraDuKien }}</span></p>
     <p>{{'overdue'|translate}}: <span>{{ item.quaHanSoNgay }}</span></p>
     <p>{{'format'|translate}}: <span>{{ item.moTaVatLy }}</span></p>
-  <a [routerLink]="['/documents', item?.bmTaiLieuId]"> {{'details'|translate}}</a>
+  <a [routerLink]="['/tai-lieu', item?.bmTaiLieuId]"> {{'details'|translate}}</a>
   </div>
 </ng-template>
   

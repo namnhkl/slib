@@ -8,8 +8,8 @@ import { URL_ROUTER } from '../shared/constants/path.constants';
 import { ContactComponent } from '../pages/contact/contact.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { authGuard } from '../guardrouter/auth.guard';
-import { ChuyenDeListComponent } from '../pages/chuyen-de/chuyen-de-list/chuyen-de-list.component';
-import { ChuyenDeItemComponent } from '../pages/chuyen-de/chuyen-de-item/chuyen-de-item.component';
+import { stsBoSuuTapDsChuyenDeListComponent } from '../pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-list/stsBoSuuTapDs-chuyen-de-list.component';
+import { stsBoSuuTapDsChuyenDeItemComponent } from '../pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-item/stsBoSuuTapDs-chuyen-de-item.component';
 import { IntroComponent } from '../shared/components/intro/intro.component';
 export const routes: Routes = [
   {
@@ -22,19 +22,19 @@ export const routes: Routes = [
     component: HomeComponent,
     data: { breadcrumb: 'home' }
   },
-  { path: URL_ROUTER.chuyende, component: ChuyenDeListComponent,
+  { path: URL_ROUTER.chuyende, component: stsBoSuuTapDsChuyenDeListComponent,
     data: { breadcrumb: 'topics' }
    }, // Trang chuyên đề,
-  { path: URL_ROUTER.chuyendeitem, component: ChuyenDeItemComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
+  { path: URL_ROUTER.chuyendeitem, component: stsBoSuuTapDsChuyenDeItemComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
   {
-    path: URL_ROUTER.news,
-    loadChildren:  () => import('../pages/news/news-routing.module').then(module => module.NewRoutingModule),
+    path: URL_ROUTER.QtndTinTuc,
+    loadChildren:  () => import('../pages/QtndTinTuc/QtndTinTuc-routing.module').then(module => module.QtndTinTucRoutingModule),
     data: { breadcrumb: 'news' }
   },
   {
     path: URL_ROUTER.searchResult,
     loadChildren: async () =>
-      (await import('../pages/search-result/search-result.module')).SearchResultsModule,
+      (await import('../pages/tai-lieu/tai-lieu-ket-qua-tim-kiem/tai-lieu-ket-qua-tim-kiem.module')).SearchResultsModule,
     data: { breadcrumb: 'search' }
   },
   {
@@ -57,7 +57,7 @@ export const routes: Routes = [
   },
   {
     path: URL_ROUTER.documents,
-    loadChildren: () => import('../pages/documents/document-routing.module').then(module => module.DocumentRoutingModule),
+    loadChildren: () => import('../pages/tai-lieu/tai-lieu-routing.module').then(module => module.TaiLieuRoutingModule),
     data: { breadcrumb: 'document' }
   },
   {

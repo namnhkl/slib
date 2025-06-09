@@ -3,7 +3,7 @@
     <div class="bookCategories">
       <h2 class="the-title flex justify-between items-center ">
         <span class="uppercase">Video</span>
-        <a href="/news?qtndTtNhomTinTucId={{tinVideoDefault}}" class="viewmore text-blue-600 hover:underline">{{'view_more'|translate}}</a>
+        <a href="/QtndTinTuc?qtndTtNhomTinTucId={{tinVideoDefault}}" class="viewmore text-blue-600 hover:underline">{{'view_more'|translate}}</a>
       </h2>
 
       <owl-carousel-o [options]="customOptions" 
@@ -27,7 +27,7 @@
               </iframe>
             </div>
             <div class="w-full text-left px-1">
-              <a href="/news/{{item.id}}">
+              <a href="/QtndTinTuc/{{item.id}}">
               <h3 class="text-base font-medium text-gray-800 truncate" title="{{item.title}}">
                 {{ item.title }}
               </h3>

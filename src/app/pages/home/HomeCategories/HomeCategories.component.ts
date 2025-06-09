@@ -12,7 +12,7 @@ import {
 } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { AuthService } from '@/app/shared/services/auth.service';
-import { DocumentsService } from '../../documents/documents.service';
+import { TaiLieuService } from '../../tai-lieu/tai-lieu.service';
 
 interface ISimpleItem {
   id: string;
@@ -37,7 +37,7 @@ export class HomeCategoriesComponent implements OnInit {
     this.owlCar.prev();
   }
   $chuyende: Observable<any> | null;
-  constructor( private router: Router, private documentSer : DocumentsService) {
+  constructor( private router: Router, private documentSer : TaiLieuService) {
       this.$chuyende= this.documentSer.getChuyenDes();
      // Debug dữ liệu từ Observable
 

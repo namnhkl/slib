@@ -5,6 +5,7 @@ import {
 import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
+import { DanhSachTaiLieuDatMuon, IDanhSachTaiLieuDatMuonParams } from '../tai-lieu/tai-lieu';
 
 @Injectable({
   providedIn: 'root',
@@ -46,4 +47,29 @@ export class ProfileService extends _HttpRequestInjector {
       });
       return this._http.post<IResponse<any[]>>(url, { matKhauCu: matKhauCu, matKhau: matKhau });
     }
+
+    bdBanDocDangKyMuon(id: string ) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocDangKyMuon'
+      });
+      return this._http.post<IResponse<any[]>>(url, { id });
+
+    }
+
+    bdBanDocDangKyMuonXoa(id: string ) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocDangKyMuonXoa'
+      });
+      return this._http.post<IResponse<any[]>>(url, { id });
+
+    }
+
+    bdBanDocLtDangKyMuonDs(queryObject: IDanhSachTaiLieuDatMuonParams) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'bdBanDocLtDangKyMuonDs',
+      queryObject,
+    });
+
+    return this._http.get<IResponse<DanhSachTaiLieuDatMuon[]>>(url);
+  }
 }

@@ -111,7 +111,7 @@
   "all":"Tất cả",
   "book_set":"Bộ sách",
   "document_type":"Loại tài liệu",
-  "most_viewed_news":"Xem nhiều",
+  "qtndtintuc_most_viewed_news":"Xem nhiều",
   "view":"Lượt xem",
   "please_select_library":"Xin vui lòng chọn Thư viện",
   "please_enter_your_full_name":"Xin vui lòng nhập đầy đủ họ và tên",
@@ -161,5 +161,12 @@
   "enter_captcha": "Nhập mã CAPTCHA",
   "wrong_captcha": "Mã xác minh không đúng",
   "reload_captcha": "Tạo mã mới",
-  "invalid_email":"Email không hợp lệ"
+  "invalid_email":"Email không hợp lệ",
+  "results":"Kết quả",
+  "filter_criteria":"Tiêu chí lọc",
+  "bdbandoc_dat_muon_tai_lieu_thanh_cong":"Đăng ký đặt mượn tài liệu thành công",
+  "bdbandoc_da_dat_muon_tai_lieu_roi":"Bạn đã đăng ký đặt mượn tài liệu này",
+  "bdbandoc_huy_dat_muon_tai_lieu_thanh_cong":"Huỷ đăng ký đặt mượn tài liệu thành công",
+  "bdbandoc_khong_tim_thay_yeu_cau":"Không tìm thấy yêu cầu",
+  "bdbandoc_huy_yeu_cau_dang_ky_dat_muon":"Huỷ yêu cầu đặt mượn"
 }

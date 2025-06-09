@@ -1,5 +1,5 @@
 <div [class]="'item-wrapper ' + className" *ngIf="book">
-  <a [routerLink]="['/documents', book?.id]" title="{{ book?.title || book?.tieuDe }}">
+  <a [routerLink]="['/tai-lieu', book?.id]" title="{{ book?.title || book?.tieuDe }}">
     <div class="item-thumbnail">
       <img [src]="getImageUrl(book)" [alt]="book?.title || book?.tieuDe" />
     </div>

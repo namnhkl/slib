@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="the-title text-center">{{'topics'|translate}}</h2>
     <div class="divToolChuyenDe">
-      <a [routerLink]="['chuyen-de']" class="viewmore">{{'view_more'|translate}}</a>
+      <a [routerLink]="['stsBoSuuTapDs-chuyen-de']" class="viewmore">{{'view_more'|translate}}</a>
 
       <div class="carousel-nav text-end mb-2 bookSlider">
         <button class="btn btn-outline-secondary me-2" (click)="goToPrev()">
@@ -20,7 +20,7 @@
         @for (item of ($chuyende | async)?.data; track item.id) {
         <ng-template carouselSlide [id]="item.id">
           <div class="item-wrapper" *ngIf="item">
-            <a [routerLink]="['/chuyen-de-item']" [queryParams]="{ stsBoSuuTapId: item?.id }" title="{{ item?.ten }}">
+            <a [routerLink]="['/stsBoSuuTapDs-chuyen-de-item']" [queryParams]="{ stsBoSuuTapId: item?.id }" title="{{ item?.ten }}">
               <div class="item-thumbnail">
                 <img [src]="item?.anhDaiDien" [alt]="item?.ten" />
               </div>

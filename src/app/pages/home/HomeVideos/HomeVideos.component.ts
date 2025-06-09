@@ -1,4 +1,4 @@
-import { TintucService } from '@/app/shared/services/tintuc.service';
+import { QtndTinTucService } from '@/app/shared/services/QtndTinTuc.service';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ interface ISimpleItem {
 })
 export class HomeVideosComponent implements OnInit {
   constructor(private router: Router, public sanitizer: DomSanitizer) {}
-  tinTucService = inject(TintucService);
+  tinTucService = inject(QtndTinTucService);
   tinVideoDefault = environment.ID_TIN_VIDEO_DEFAULT;
   customOptions: OwlOptions = {
     // autoWidth: true,
