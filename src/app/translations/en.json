@@ -179,6 +179,10 @@
   "bmtailieuds_phamvi":"Format",
   "bmtailieuds_print_documents":"Print documents",
   "bmtailieuds_digital_documents":"Digital documents",
-  "bskho_kho":"Location"
+  "bskho_kho":"Location",
+  "qtndtintuc_tim_kiem_tin_tuc": "Search news",
+  "qtndtintuc_tin_tuc": "News",
+  "qtndtintuc_kham_pha_ngay": "Explore now",
+  "qtndtintuc_hay_theo_doi": "Stay updated with the latest news, announcements, and events about the library"
 
 }

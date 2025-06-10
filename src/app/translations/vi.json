@@ -173,5 +173,9 @@
   "bmtailieuds_phamvi":"Phạm vi",
   "bmtailieuds_print_documents":"Tài liệu in",
   "bmtailieuds_digital_documents":"Tài liệu số",
-  "bskho_kho":"Kho"
+  "bskho_kho":"Kho",
+  "qtndtintuc_tim_kiem_tin_tuc":"Tìm kiếm tin tức",
+  "qtndtintuc_tin_tuc":"Tin tức",
+  "qtndtintuc_kham_pha_ngay":"Khám phá ngay",
+  "qtndtintuc_hay_theo_doi":"Hãy theo dõi các tin tức, thông báo, sự kiện mới nhất về thư viện"
 }

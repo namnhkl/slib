@@ -1,3 +1,4 @@
+/* eslint-disable newline-before-return */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable id-length */
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-qtndtintuc',
@@ -26,7 +28,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     TranslateModule,
     CommonModule,
     FormsModule,
-    NzSelectModule
+    NzSelectModule,
+    NzPaginationModule
   ],
   templateUrl: './QtndTinTuc.component.html',
   styleUrl: './QtndTinTuc.component.scss',
@@ -41,7 +44,7 @@ export class QtndTinTucComponent {
   newService = inject(QtndTinTucService);
   
   pageIndex = 1;
-  pageSizes = environment.PAGE_SIZE;
+  pageSizes = 4;
   sizeItems = environment.ITEM_PER_PAGE_OPTION;
   totalPages = 0;
   newsData: any[] = [];
@@ -52,22 +55,54 @@ export class QtndTinTucComponent {
   
   getNewsData() {
   this.isLoading = true;
-  this.newService.getNews(this.pageIndex - 1, this.pageSizes, {
-    qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
-    ten: this.searchKeyword.trim()
-  }).pipe(
-    tap(res => {
-      console.log('dddd: ', res);
-      if (res.messageCode === 1) {
-        this.newsData = Array.isArray(res.data) ? res.data : [];
-        this.totalPages = Math.ceil((res.totalRecord ?? 1) / this.pageSizes);
-      } else {
-        this.newsData = [];
-      }
-      this.isLoading = false;
+  this.newService
+    .getNews(this.pageIndex - 1, this.pageSizes, {
+      qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
+      ten: this.searchKeyword.trim(),
     })
-  ).subscribe();
+    .pipe(
+      tap((res) => {
+        console.log('dddd: ', res);
+        if (res.messageCode === 1) {
+          this.newsData = Array.isArray(res.data)
+            ? res.data.map((item) => ({
+                ...item,
+                ngayDangTin: this.parseDate(item.ngayDangTin),
+              }))
+            : [];
+          this.totalPages = Math.ceil((res.totalRecord ?? 1) / this.pageSizes);
+        } else {
+          this.newsData = [];
+        }
+        this.isLoading = false;
+      })
+    )
+    .subscribe();
 }
+
+// Hàm hỗ trợ chuyển đổi chuỗi ngày DD/MM/YYYY thành Date
+private parseDate(dateString: string): Date | null {
+  if (!dateString) return null;
+  try {
+    const [day, month, year] = dateString.split('/').map(Number);
+    // Kiểm tra xem ngày có hợp lệ không
+    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+      return null;
+    }
+    const date = new Date(year, month - 1, day); // month - 1 vì tháng trong Date bắt đầu từ 0
+    // Kiểm tra xem Date có hợp lệ không
+    return isNaN(date.getTime()) ? null : date;
+  } catch {
+    return null;
+  }
+}
+
+// Handle page index change
+  onPageIndexChange(pageIndex: number) {
+    this.pageIndex = pageIndex;
+    this.getNewsData();
+  }
+
 onSearchDebounce(value: string) {
   this.searchKeywordChanged.next(value);
 }
@@ -79,10 +114,10 @@ onSearch() {
   this.newService.getNews(0, 9999).pipe(
     tap(res => {
       if (res.messageCode === 1) {
-        // ✅ Lọc top 5 tin có nhiều lượt xem nhất
+        // ✅ Lọc top  tin có nhiều lượt xem nhất
         this.newsDataMostViewed = (Array.isArray(res.data) ? res.data : [])
           .sort((a, b) => (b.slXem || 0) - (a.slXem || 0))
-          .slice(0, 5);
+          .slice(0, 6);
       } else {
         this.newsDataMostViewed = [];
       }
@@ -103,6 +138,19 @@ onSearch() {
     
   }
   
+  getPageNumbers(): number[] {
+  const maxPagesToShow = 9;
+  const pages: number[] = [];
+  const startPage = Math.max(1, this.pageIndex - Math.floor(maxPagesToShow / 2));
+  const endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
+
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+  
+return pages;
+}
+
 ngOnInit(): void {
   // Lắng nghe thay đổi query params
   this.route.queryParams.subscribe(params => {
