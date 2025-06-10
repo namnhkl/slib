@@ -362,6 +362,11 @@ passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 generateCaptcha(): void {
+  if (!this.captchaCanvas?.nativeElement) {
+    console.warn('captchaCanvas chưa được khởi tạo');
+    return;
+  }
+
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // bỏ O và 0 dễ nhầm
   this.captchaCode = '';
   for (let i = 0; i < 5; i++) {

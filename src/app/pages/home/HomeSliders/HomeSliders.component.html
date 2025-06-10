@@ -1,10 +1,10 @@
-<div class="bannerTop">
+<!-- <div class="bannerTop">
   <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
     class="rousel bannerAuto" (changed)="getChangedData($event)" #owlCar>
     @for (item of carouselData(); track item.id) {
     <ng-template carouselSlide [id]="item.id" [width]="item.width">
       <div class="item-slide">
-        <img src="./img/imageBanner/slider1.png" alt="slider 1">
+        <img src="item.src" alt="slider 1">
         <div class="slider-content">
           <h1>Superhero Dads</h1>
           <p>Books about growing and learning with Dad.</p>
@@ -12,6 +12,30 @@
         </div>
       </div>
     </ng-template>
+    }
+  </owl-carousel-o>
+</div> -->
+
+<div class="bannerTop">
+  <owl-carousel-o
+    [options]="customOptions"
+    (translated)="getPassedData($event)"
+    (change)="getChangeData($event)"
+    (changed)="getChangedData($event)"
+    class="rousel bannerAuto"
+    #owlCar
+  >
+    @for (item of carouselData(); track item.id) {
+      <ng-template carouselSlide [id]="item.id" [width]="item.width">
+        <div class="item-slide">
+          <img [src]="item.src" [alt]="item.text">
+          <div class="slider-content">
+            <!-- <h1>{{ item.text }}</h1>
+            <p>Books about growing and learning with Dad.</p>
+            <a href="#" class="btn btn-primary">Xem thêm <i class="fa fa-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </ng-template>
     }
   </owl-carousel-o>
 </div>

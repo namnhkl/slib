@@ -282,28 +282,60 @@ huyDangKyDatMuon(id: string) {
   );
 }
 
- ngOnInit() {
+//  ngOnInit() {
+//   this.router.params.subscribe((params) => {
+//     const id = get(params, 'id', '').trim();
+
+//     if (id.length > 0) {
+//       this.documentsService.getDocsDetails(id).subscribe((res) => {
+//         this.currentDocument = res.data[0];
+
+//         // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
+//         if (this.currentDocument && this.currentDocument.id) {
+//           this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
+//         }
+
+//         // Buộc Angular cập nhật giao diện
+//         this.cdr.detectChanges();
+//       });
+//     }
+//   });
+
+//   this.isLogin = this.authService.isAuthenticated;
+// }
+
+ngOnInit() {
   this.router.params.subscribe((params) => {
     const id = get(params, 'id', '').trim();
 
     if (id.length > 0) {
-      this.documentsService.getDocsDetails(id).subscribe((res) => {
-        this.currentDocument = res.data[0];
+      this.documentsService.getDocsDetails(id).subscribe({
+        next: (res) => {
+          if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
+            this.currentDocument = res.data[0];
 
-        // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
-        if (this.currentDocument && this.currentDocument.id) {
-          this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
+            // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
+            if (this.currentDocument && this.currentDocument.id) {
+              this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
+            }
+
+            // Buộc Angular cập nhật giao diện
+            this.cdr.detectChanges();
+          } else {
+            console.error('Dữ liệu trả về không hợp lệ hoặc rỗng:', res);
+            // Xử lý trường hợp không có dữ liệu, ví dụ: hiển thị thông báo lỗi
+          }
+        },
+        error: (err) => {
+          console.error('Lỗi khi lấy chi tiết tài liệu:', err);
+          // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi cho người dùng
         }
-
-        // Buộc Angular cập nhật giao diện
-        this.cdr.detectChanges();
       });
     }
   });
 
   this.isLogin = this.authService.isAuthenticated;
 }
-
 
   toggleFavorite() {
     const newStatus = this.currentDocument.laTaiLieuQuanTam === 1 ? 0 : 1;

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone:true,
   templateUrl: './profile-document-item.component.html',
   styleUrls: ['./profile-document-item.component.scss'],
-  imports:[CommonModule,TranslateModule]
+  imports:[CommonModule,TranslateModule,RouterLink]
 })
 export class ProfileDocumentItemComponent {
   @Input() document: any;

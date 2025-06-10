@@ -48,20 +48,61 @@
       <nz-form-item>
         <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">{{'format'|translate}}</nz-form-label>
         <nz-form-control label >
-          <nz-select formControlName="dinhDang" nzPlaceHolder="{{'enter_format'|translate}}">
-            <nz-option nzValue="pdf" nzLabel="PDF"></nz-option>
-            <nz-option nzValue="doc" nzLabel="DOC"></nz-option>
-            <nz-option nzValue="ppt" nzLabel="PPT"></nz-option>
+          <nz-select formControlName="phamVi" nzPlaceHolder="{{'bmtailieuds_phamvi'|translate}}">
+            <nz-option nzValue="" nzLabel="{{'all'|translate}}"></nz-option>
+            <nz-option nzValue="0" nzLabel="{{'bmtailieuds_print_documents'|translate}}"></nz-option>
+            <nz-option nzValue="1" nzLabel="{{'bmtailieuds_digital_documents'|translate}}"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">{{'bskho_kho'|translate}}</nz-form-label>
+        <nz-form-control label>
+          <nz-select
+            formControlName="bsKhoId"
+            nzPlaceHolder="{{ 'bskho_kho' | translate }}"
+            [nzShowSearch]="true"
+          >
+            <nz-option
+              *ngFor="let kho of bsKhos"
+              [nzValue]="kho.id"
+              [nzLabel]="kho.ten"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">{{'document_type'|translate}}</nz-form-label>
+        <nz-form-control label>
+          <nz-select
+            formControlName="bmDmDangTaiLieuId"
+            nzPlaceHolder="{{ 'document_type' | translate }}"
+            [nzShowSearch]="true"
+          >
+            <nz-option
+              *ngFor="let dangtailieu of dangTaiLieu"
+              [nzValue]="dangtailieu.id"
+              [nzLabel]="dangtailieu.ten"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
         <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="type" nzLabelAlign="left">{{'language'|translate}}</nz-form-label>
         <nz-form-control label>
-          <nz-select formControlName="ngonNgu" nzPlaceHolder="{{'enter_language'|translate}}">
-            <nz-option nzValue="all" nzLabel="Tất cả"></nz-option>
-            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
-            <nz-option nzValue="en" nzLabel="Tiếng Anh"></nz-option>
+          <nz-select
+            formControlName="ngonNgu"
+            nzPlaceHolder="{{ 'enter_language' | translate }}"
+            [nzShowSearch]="true"
+            [nzFilterOption]="filterLanguage"
+          >
+            <nz-option
+              *ngFor="let lang of languages"
+              [nzValue]="lang.code"
+              [nzLabel]="lang.name"
+            ></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>

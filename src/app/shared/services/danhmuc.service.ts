@@ -7,6 +7,8 @@ import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
+import { environment } from 'environments/environment';
+import { BsKho } from '@/app/interfaces/bskho.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +17,7 @@ import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/ty
 @Stoppable()
 export class DanhmucService extends _HttpRequestInjector {
 
+  maThuVien: string = environment.MA_THU_VIEN;
 
   getPdf(p: string) {
     // Gọi trực tiếp URL p đã được decode
@@ -22,10 +25,6 @@ export class DanhmucService extends _HttpRequestInjector {
       responseType: 'blob' as 'json',
     });
   }
-
-  getPdfAsImages(pdfUrl: string): Observable<string[]> {
-  return this._http.post<string[]>('https://localhost:7083/api/Magazine/pdf-as-base64', pdfUrl);
-}
 
    bmDmDangTaiLieu() {
       const url = this.urlObject.buildUrl({
@@ -41,10 +40,20 @@ export class DanhmucService extends _HttpRequestInjector {
       const url = this.urlObject.buildUrl({
         endpoint: 'bsThuVien',
         queryObject: {
-         
+         ma: this.maThuVien
         },
       });
       return this._http.get<IResponse<IBsThuvien[]>>(url);
+    }
+
+    getKho(bsThuVienId: string) {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bsKho',
+        queryObject: {
+         bsThuVienId: bsThuVienId
+        },
+      });
+      return this._http.get<IResponse<BsKho[]>>(url);
     }
   
 }

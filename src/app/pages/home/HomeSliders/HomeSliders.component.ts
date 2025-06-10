@@ -1,3 +1,4 @@
+import { NhacViecService } from '@/app/shared/services/nhacviec.service';
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -24,6 +25,10 @@ interface CarouselData {
   imports: [CarouselModule],
 })
 export class HomeSlidersComponent implements OnInit {
+
+
+
+
   carouselData: WritableSignal<CarouselData[]> = signal([
     {
       id: 'slide-1',
@@ -77,9 +82,25 @@ export class HomeSlidersComponent implements OnInit {
 
   activeSlides: WritableSignal<SlidesOutputData | null> = signal(null);
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private nhacviecService: NhacViecService,) {}
 
   ngOnInit() {
+    this.nhacviecService.qtndQlQuangCao().subscribe((res: any) => {
+  if (res?.data && Array.isArray(res.data)) {
+    const transformed: CarouselData[] = res.data.map((item: { ten: string; tepTinDuLieu: string; sapXep: number }, index: number) => ({
+      id: `slide-${index + 1}`,
+      text: item.ten,
+      width: 500,
+      dotContent: `text${index + 1}`,
+      src: item.tepTinDuLieu || '',
+    }));
+
+    this.carouselData.set(transformed);
+    console.log('carouselData',this.carouselData);
+  }
+});
+
+
     this.route.fragment
       .pipe(
         tap((fragment) => this.fragment.set(fragment))

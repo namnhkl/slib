@@ -21,6 +21,7 @@ import { IBookSearchResponse } from '../home/HomeSearchAdvanced/type';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from 'environments/environment';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-tai-lieu',
@@ -46,6 +47,7 @@ import { environment } from 'environments/environment';
 export class TaiLieuComponent implements OnInit {
   activatedRouter = inject(ActivatedRoute);
   danhMucService = inject(DanhmucService);
+  sharedService= inject(SharedService);
   documents: any[] = [];
   pageSizes = environment.PAGE_SIZE;
   sizeItems = environment.ITEM_PER_PAGE_OPTION;
@@ -63,10 +65,10 @@ export class TaiLieuComponent implements OnInit {
     private loaderService: LoaderService,
     private fb: NonNullableFormBuilder,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.formCriteriaFilter = this.fb.group({
-      bsThuVienId: this.fb.control(''),
+      bsThuVienId: [''],
       bmDmDangTaiLieuId: this.fb.control(''),
     });
   }
@@ -76,9 +78,10 @@ ngOnInit() {
   this.activatedRouter.queryParams
     .pipe(
       map((queryParams: any) => ({
+        
         pageIndex: isNaN(Number(queryParams.pageIndex)) ? 0 : Number(queryParams.pageIndex),
         pageSize: isNaN(Number(queryParams.pageSize)) ? 10 : Number(queryParams.pageSize),
-        bsThuVienId: queryParams.bsThuVienId,
+        bsThuVienId: this.sharedService.thuVienId,
         bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
       })),
       tap((value) => {
@@ -86,7 +89,7 @@ ngOnInit() {
         this.pageSize = value.pageSize;
 
         this.formCriteriaFilter.setValue({
-          bsThuVienId: value.bsThuVienId || '',
+          bsThuVienId: this.sharedService.thuVienId,
           bmDmDangTaiLieuId: value.bmDmDangTaiLieuId || '',
         }, { emitEvent: false });
 
@@ -132,12 +135,12 @@ ngOnInit() {
 
   loadDocuments() {
   this.loaderService.setLoading(true);
-  const { bsThuVienId, bmDmDangTaiLieuId } = this.formCriteriaFilter.value;
-
-  this.documentsService.getDocs({
+  const { bmDmDangTaiLieuId } = this.formCriteriaFilter.value;
+  console.log('SharedService.thuVienId:', this.sharedService.thuVienId);
+  this.documentsService.bmTaiLieuDs({
     pageIndex: this.pageIndex,
     pageSize: this.pageSize,
-    bsThuVienId,
+    bsThuVienId: this.sharedService.thuVienId,
     bmDmDangTaiLieuId
   }).subscribe((res) => {
     this.documents = res.data;

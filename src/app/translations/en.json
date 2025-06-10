@@ -151,7 +151,7 @@
   "step_2": "Step 2",
   "step_3": "Step 3",
   "error":"Error",
-  "get_the_security_code":"Get the security code",
+  "get_the_security_code":"Get code",
   "security_code_sent": "Security code has been sent, please check your email",
   "cannot_send_security_code": "Unable to send security code",
   "verification_code_valid": "Verification code is valid",
@@ -175,6 +175,10 @@
   "bdbandoc_huy_dat_muon_tai_lieu_thanh_cong":"Cancellation of document borrowing registration successful",
   "bdbandoc_khong_tim_thay_yeu_cau":"Request not found",
   "bdbandoc_huy_yeu_cau_dang_ky_dat_muon":"Cancel loan request",
-  "bdbandoc_khong_tim_thay_danh_sach_ban_in":"Item is empty"
+  "bdbandoc_khong_tim_thay_danh_sach_ban_in":"Item is empty",
+  "bmtailieuds_phamvi":"Format",
+  "bmtailieuds_print_documents":"Print documents",
+  "bmtailieuds_digital_documents":"Digital documents",
+  "bskho_kho":"Location"
 
 }

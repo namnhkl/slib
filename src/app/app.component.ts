@@ -26,6 +26,7 @@ import { ChatbotComponent } from './shared/components/chatbot/chatbot.component'
 import { environment } from '../environments/environment';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { DatePipe } from '@angular/common';
+import { SharedService } from './shared/services/shared.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -60,7 +61,8 @@ export class AppComponent implements OnInit, OnDestroy {
     injector: Injector,
     private readonly _i18nService: I18nService,
     private loadingService: LoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private sharedService: SharedService
   ) {
     InjectorService.setInjector(injector);
   }
@@ -71,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isSpinning = res;
       this.cdr.detectChanges();
     });
-
+    this.sharedService.initThuVien();
   //   // Cấm chuột phải
   // document.addEventListener('contextmenu', (e) => e.preventDefault());
 

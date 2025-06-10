@@ -6,6 +6,7 @@ import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { DanhSachTaiLieuDatMuon, IDanhSachTaiLieuDatMuonParams } from '../tai-lieu/tai-lieu';
+import { BdBanDocProfile } from '@/app/interfaces/bdbandocprofile.interface copy';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,14 @@ export class ProfileService extends _HttpRequestInjector {
         endpoint: 'bdBanDocDangKyMuonXoa'
       });
       return this._http.post<IResponse<any[]>>(url, { id });
+
+    }
+
+    bdBanDocChiTiet() {
+      const url = this.urlObject.buildUrl({
+        endpoint: 'bdBanDocChiTiet'
+      });
+      return this._http.get<IResponse<BdBanDocProfile[]>>(url);
 
     }
 

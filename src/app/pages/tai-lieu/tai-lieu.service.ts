@@ -36,6 +36,18 @@ export class TaiLieuService extends _HttpRequestInjector {
       endpoint: 'bmTaiLieuMoiNhatDs',
       queryObject,
     });
+console.log('Query URL:', url);
+    return this._http.get<IResponse<IDocument[]>>(url);
+  }
+
+     bmTaiLieuDs(
+    queryObject: IDocumentQueryParams = {
+    }
+  ) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'bmTaiLieuDs',
+      queryObject,
+    });
 
     return this._http.get<IResponse<IDocument[]>>(url);
   }

@@ -47,7 +47,11 @@ export interface IBsThuvien {
   sapXep:number
 }
 
-
+export interface IAnhQuangCao{
+  ten: string;
+  tepTinDuLieu:string;
+  sapXep:number;
+}
 
 
 

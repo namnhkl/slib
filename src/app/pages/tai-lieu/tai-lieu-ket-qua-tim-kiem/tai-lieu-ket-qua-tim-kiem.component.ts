@@ -23,6 +23,8 @@ import { HomeSearchAdvancedComponent } from '../../home/HomeSearchAdvanced/HomeS
 import { IBookSearchResponse } from '../../home/HomeSearchAdvanced/type';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from 'environments/environment';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-search-result',
@@ -46,11 +48,11 @@ import { TranslateModule } from '@ngx-translate/core';
 export class SearchResultComponent implements OnInit {
   activatedRouter = inject(ActivatedRoute);
    danhMucService = inject(DanhmucService);
-  pageSizes = DEFAULT_PAGINATION_OPTIONS;
+  pageSizes = environment.ITEM_PER_PAGE_OPTION;
   pageIndex = 0;
   pageTotal = 0;
 
-  pageSize = 10;
+  pageSize = environment.PAGE_SIZE;
 
   formCriteriaFilter: FormGroup;
   
@@ -59,10 +61,11 @@ export class SearchResultComponent implements OnInit {
   constructor(
     private fb: NonNullableFormBuilder,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private sharedService: SharedService
   ) {
     this.formCriteriaFilter = this.fb.group({
-      bsThuVienId: this.fb.control(''),
+      bsThuVienId: [''],
       bmDmDangTaiLieuId: this.fb.control(''),
     });
   }
@@ -86,14 +89,14 @@ export class SearchResultComponent implements OnInit {
         map((queryParams: any) => ({
           pageIndex: Number(queryParams.pageIndex),
           pageSize: Number(queryParams.pageSize),
-          bsThuVienId: queryParams.bsThuVienId,
+          bsThuVienId: this.sharedService.thuVienId,
           bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
         })),
         tap((value) => {
           this.pageIndex = value.pageIndex;
           this.pageSize = value.pageSize;
           this.formCriteriaFilter.setValue({
-            bsThuVienId: value.bsThuVienId || '',
+            bsThuVienId: this.sharedService.thuVienId,
             bmDmDangTaiLieuId: value.bmDmDangTaiLieuId || '',
           });
         })
@@ -113,7 +116,7 @@ export class SearchResultComponent implements OnInit {
 
   booksSearched: Partial<IBookSearchResponse> = {
     data: [],
-    totalRecord: 10,
+    totalRecord: environment.PAGE_SIZE,
   };
 
   searchList(results: IBookSearchResponse) {

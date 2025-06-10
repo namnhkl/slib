@@ -137,16 +137,6 @@
               class="content-area"
               style="flex-grow: 1; margin:0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; overflow-y: auto;"
             >
-              <!-- <ng-container *ngIf="selectedSection?.tepTinDinhDang === '.pdf'">
-                  <iframe
-                  *ngIf="currentContentUrl && selectedSection?.tepTinDinhDang === '.pdf'"
-                  [src]="currentContentUrl"
-                  width="100%"
-                  height="850px"
-                ></iframe>
-
-              </ng-container> -->
-
              <ngx-extended-pdf-viewer
                 *ngIf="selectedSection?.tepTinDinhDang === '.pdf' && currentContentUrl"
                 [src]="currentContentUrl"

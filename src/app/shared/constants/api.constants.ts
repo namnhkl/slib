@@ -122,7 +122,8 @@ export const API_PREFIX = {
   '/chuyen-de': '/chuyen-de',
   '/chuyen-de-item': '/chuyen-de-item',
   '/viewdocument': '/viewdocument',
-  '/intro':'/intro'
+  '/intro':'/intro',
+  '/nhacviec':'/nhacviec'
 };
 
 export type TApiPrefix = keyof typeof API_PREFIX;
