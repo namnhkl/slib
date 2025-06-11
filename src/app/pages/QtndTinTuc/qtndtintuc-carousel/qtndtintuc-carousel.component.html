@@ -1,55 +1,44 @@
-<div class="max-w-[1200px] mx-auto px-4 pt-16 pb-20 relative z-10">
+<div class=" mx-auto px-4 pt-16 pb-20 relative z-10">
   <div class="text-center mb-8">
     <p class="text-[13px] font-semibold text-[#f47c20] tracking-widest mb-2 uppercase font-montserrat">
-      {{'qtndtintuc_kham_pha_ngay'|translate}}
+      {{ 'qtndtintuc_kham_pha_ngay' | translate }}
     </p>
-     <a href="/QtndTinTuc">
-    <h2 class="text-3xl font-extrabold text-[#333333] mb-2 font-montserrat">
-      {{'qtndtintuc_tin_tuc'|translate}}
-    </h2>
+    <a href="/QtndTinTuc">
+      <h2 class="text-3xl font-extrabold text-[#333333] mb-2 font-montserrat">
+        {{ 'qtndtintuc_tin_tuc' | translate }}
+      </h2>
     </a>
     <p class="text-gray-600 text-sm max-w-[400px] mx-auto">
-      {{'qtndtintuc_hay_theo_doi'|translate}}
+      {{ 'qtndtintuc_hay_theo_doi' | translate }}
     </p>
   </div>
 
-  <div class="relative flex items-center justify-center slider-wrapper">
- 
-    <!-- Nút điều hướng trước -->
-    <button (click)="prevSlide()" aria-label="Previous"
-      class="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-80 rounded-full w-12 h-12 flex justify-center items-center text-gray-400 hover:text-gray-700 transition z-20">
-      <i class="fas fa-chevron-left text-xl"></i>
-    </button>
-
-    <!-- Container slides -->
-    <div class="overflow-hidden w-full max-w-[1200px]">
-      <div class="flex transition-transform duration-700 ease-in-out"
-           [style.transform]="'translateX(-' + currentIndex * (100 / slidesPerView) + '%)'">
-        <div *ngFor="let slide of slides" 
-             class="slide-item flex-shrink-0 px-2 transition-all duration-300"
-             [style.width.%]="100 / slidesPerView">
-          <!-- Nội dung slide -->
-          <article class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px]">
-            <a href="/QtndTinTuc/{{slide.id}}">
-            <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[200px] object-cover" />
-            <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200">
-              <p class="text-[#f47c20] text-sm font-medium font-montserrat">{{ slide.qtndTtNhomTinTuc }}</p>
-              <p class="bg-[#f47c20] text-white font-semibold text-sm px-4 py-1 font-montserrat">{{ slide.ngayDangTin }}</p>
-            </div>
-            <div class="px-4 py-4 flex-1 flex flex-col">
-              <h3 class="font-montserrat font-extrabold text-[#333333] text-lg leading-tight mb-2">{{ slide.ten }}</h3>
-              <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto">{{ slide.moTa }}</p>
-            </div>
-            </a>
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <!-- Nút điều hướng sau -->
-    <button (click)="nextSlide()" aria-label="Next"
-      class="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-80 rounded-full w-12 h-12 flex justify-center items-center text-gray-400 hover:text-gray-700 transition z-20">
-      <i class="fas fa-chevron-right text-xl"></i>
-    </button>
-  </div>
+  <swiper-container
+  [navigation]="false"
+  autoplay-delay="2500"
+  [speed]="800"
+  [grabCursor]="true"
+    [attr.slides-per-view]="slidesPerView"
+    space-between="20"
+    pagination="true"
+    loop="true"
+    class="w-full h-full"
+    style="--swiper-navigation-color: #333; --swiper-pagination-color: #f47c20;"
+  >
+    <swiper-slide *ngFor="let slide of slides">
+      <article class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px]">
+        <a [routerLink]="['/QtndTinTuc', slide.id]">
+          <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[200px] object-cover" />
+          <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200">
+            <p class="text-[#f47c20] text-sm font-medium font-montserrat">{{ slide.qtndTtNhomTinTuc }}</p>
+            <p class="bg-[#f47c20] text-white font-semibold text-sm px-4 py-1 font-montserrat">{{ slide.ngayDangTin }}</p>
+          </div>
+          <div class="px-4 py-4 flex-1 flex flex-col">
+            <h3 class="font-montserrat font-extrabold text-[#333333] text-lg leading-tight mb-2">{{ slide.ten }}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto">{{ slide.moTa }}</p>
+          </div>
+        </a>
+      </article>
+    </swiper-slide>
+  </swiper-container>
 </div>

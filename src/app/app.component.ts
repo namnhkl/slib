@@ -28,6 +28,8 @@ import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.c
 import { DatePipe } from '@angular/common';
 import { SharedService } from './shared/services/shared.service';
 import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -50,10 +52,11 @@ import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carou
     ChatbotComponent,
     BreadcrumbComponent,
     QtndTinTucCarouselComponent,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent implements OnInit, OnDestroy {
   isChatbotActive = environment.isActiveChatbot;
