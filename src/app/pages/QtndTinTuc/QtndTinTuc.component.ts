@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { QtndTinTucCarouselComponent } from './qtndtintuc-carousel/qtndtintuc-carousel.component';
 
 @Component({
   selector: 'app-qtndtintuc',
@@ -29,7 +30,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     CommonModule,
     FormsModule,
     NzSelectModule,
-    NzPaginationModule
+    NzPaginationModule,
+    QtndTinTucCarouselComponent
   ],
   templateUrl: './QtndTinTuc.component.html',
   styleUrl: './QtndTinTuc.component.scss',
@@ -44,7 +46,7 @@ export class QtndTinTucComponent {
   newService = inject(QtndTinTucService);
   
   pageIndex = 1;
-  pageSizes = 4;
+  pageSizes = 6;
   sizeItems = environment.ITEM_PER_PAGE_OPTION;
   totalPages = 0;
   newsData: any[] = [];

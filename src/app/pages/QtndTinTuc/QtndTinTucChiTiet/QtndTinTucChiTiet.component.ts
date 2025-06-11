@@ -6,13 +6,14 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { HomeVideosComponent } from '../../home/HomeVideos/HomeVideos.component';
+import { QtndTinTucCarouselComponent } from '../qtndtintuc-carousel/qtndtintuc-carousel.component';
 
 @Component({
   selector: 'app-details',
   templateUrl: './QtndTinTucChiTiet.component.html',
   styleUrl: './QtndTinTucChiTiet.component.scss',
   providers: [QtndTinTucService],
-  imports: [CommonModule, HomeVideosComponent],
+  imports: [CommonModule, HomeVideosComponent,],
 })
 export class QtndTinTucChiTietComponent implements OnInit {
   newDetail: any = {};

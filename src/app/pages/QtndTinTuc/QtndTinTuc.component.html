@@ -2,10 +2,10 @@
     <main class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
       <!-- Header -->
       <section class="text-center max-w-3xl mx-auto mb-10">
-        <p class="text-[12px] font-semibold text-[#2c4aaa] tracking-widest mb-2 uppercase">
+        <p class="text-[12px]  text-[#2c4aaa] tracking-widest mb-2 uppercase">
           {{ 'qtndtintuc_kham_pha_ngay' | translate }}
         </p>
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-2 leading-tight">
+        <h1 class="text-4xl text-gray-800 mb-2 leading-tight">
           {{ 'qtndtintuc_tin_tuc' | translate }}
         </h1>
         <p class="text-gray-500 text-sm sm:text-base">
@@ -33,24 +33,24 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Danh sách tin tức -->
         <section class="lg:col-span-2">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
             <article *ngFor="let _new of newsData" class="bg-white shadow-md">
               <a [routerLink]="[_new.id]">
                 <img
                   [src]="_new.anhDaiDien"
                   [alt]="_new.ten"
-                  class="w-full h-[180px] object-cover"
+                  class="w-full h-[140px] object-cover"
                 />
                 <div class="p-4">
                   <div class="flex justify-between items-center mb-2">
-                    <p class="text-[#2c4aaa] text-sm font-medium">
+                    <p class="text-[#2c4aaa] text-sm ">
                       {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
                     </p>
-                    <time class="bg-[#2c4aaa] text-white text-xs font-semibold px-3 py-1" [attr.datetime]="_new.ngayDangTin">
+                    <time class="bg-[#2c4aaa] text-white text-xs  px-3 py-1" [attr.datetime]="_new.ngayDangTin">
                       {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
                     </time>
                   </div>
-                  <h2 class="font-extrabold text-gray-900 text-base mb-2 leading-snug">
+                  <h2 class=" text-gray-900 text-base mb-2 leading-snug">
                     {{ _new.ten }}
                   </h2>
                   <p class="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2" [innerHTML]="_new.moTa">
@@ -100,7 +100,7 @@
         <!-- Sidebar tin tức nổi bật -->
         <aside class="lg:col-span-1">
           <div class="bg-white shadow-md p-4">
-            <h3 class="text-lg font-extrabold text-gray-800 mb-4">
+            <h3 class="text-lg text-gray-800 mb-4">
               {{ 'qtndtintuc_most_viewed_news' | translate }}
             </h3>
             <ul>
@@ -112,7 +112,7 @@
                     class="w-16 h-16 object-cover rounded"
                   />
                   <div>
-                    <h4 class="text-sm font-semibold text-gray-900 leading-snug">
+                    <h4 class="text-sm  text-gray-900 leading-snug">
                       {{ _new.ten }}
                     </h4>
                     <span class="text-xs text-gray-600">
@@ -129,7 +129,7 @@
       <!-- Phân trang cho số lượng tin mỗi trang -->
       <!-- <div class="flex items-center justify-center mt-6">
         <div class="flex items-center space-x-2">
-          <label for="numberSelect" class="text-sm font-semibold text-gray-700">
+          <label for="numberSelect" class="text-sm  text-gray-700">
             {{ 'show' | translate }}
           </label>
           <nz-select
@@ -144,3 +144,4 @@
       </div> -->
     </main>
   </nz-spin>
+  <app-qtndtintuc-carousel></app-qtndtintuc-carousel>
