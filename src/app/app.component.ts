@@ -27,6 +27,7 @@ import { environment } from '../environments/environment';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { DatePipe } from '@angular/common';
 import { SharedService } from './shared/services/shared.service';
+import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -48,6 +49,7 @@ import { SharedService } from './shared/services/shared.service';
     NzSpinModule,
     ChatbotComponent,
     BreadcrumbComponent,
+    QtndTinTucCarouselComponent,
     DatePipe
   ],
   templateUrl: './app.component.html',

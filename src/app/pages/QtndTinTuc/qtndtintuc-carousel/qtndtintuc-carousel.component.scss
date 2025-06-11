@@ -1,0 +1,11 @@
+.slide-item {
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Đảm bảo khoảng cách giữa các slide không bị mất khi resize */
+@media (min-width: 1024px) {
+  .slide-item {
+    padding: 0 12px !important;
+  }
+}

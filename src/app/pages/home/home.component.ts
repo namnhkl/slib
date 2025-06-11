@@ -18,6 +18,8 @@ import { environment } from 'environments/environment';
 import {  TaiLieuService } from '../tai-lieu/tai-lieu.service';
 import { IDocument } from '../tai-lieu/tai-lieu';
 import { IResponse } from '@/app/shared/types/common';
+import { QtndTinTucCarouselComponent } from '../QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +32,10 @@ import { IResponse } from '@/app/shared/types/common';
     HomeVideosComponent,
     HomeSearchAdvancedComponent,
     TranslateModule,
-    CommonModule
+    CommonModule,
+    QtndTinTucCarouselComponent,
+    RouterLink,
+    RouterModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
