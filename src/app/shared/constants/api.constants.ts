@@ -121,6 +121,7 @@ export const API_PREFIX = {
   '/lienhe': '/lienhe',
   '/chuyen-de': '/chuyen-de',
   '/chuyen-de-item': '/chuyen-de-item',
+  '/chuyen-de-detail':'/chuyen-de-detail',
   '/viewdocument': '/viewdocument',
   '/intro':'/intro',
   '/nhacviec':'/nhacviec'

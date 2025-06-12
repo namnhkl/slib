@@ -1,18 +1,7 @@
 <app-home-sliders></app-home-sliders>
 <app-home-search-advanced (searchResultsChange)="searchList($event)"></app-home-search-advanced>
 <div class="container">
-  <app-homecategories></app-homecategories>
-   <!-- <ng-container>
-    <app-s-slider 
-      [children]="defaultTemplate" 
-      [title]="'Chuyên đề'" 
-      [data]="chuyendes">
-    </app-s-slider>
-  </ng-container> -->
-  
-
-
-
+<app-chuyen-de-slide></app-chuyen-de-slide>
 <div *ngFor="let dang of dangtailieus">
   <ng-container *ngIf="allowedDangTaiLieu.includes(dang.ma) && docsByType[dang.id]?.data?.length > 0">
     <app-s-slider 
@@ -27,22 +16,9 @@
 <ng-template #defaultTemplate let-item="item">
   <app-book-item-slider [book]="item"></app-book-item-slider>
 </ng-template>
-
-  <!-- @let docs$ = docs | async;
-  @if (docs$) {
-    <app-s-slider [children]="audio" title="Audio" [data]="docs$"></app-s-slider>
-    <ng-template #audio let-item="item">
-      <app-book-item-slider [book]="item" />
-    </ng-template>
-    <app-s-slider [children]="video" title="Video" [data]="docs$"></app-s-slider>
-    <ng-template #video let-item="item">
-      <app-book-item-slider [book]="item" />
-    </ng-template>
-  } -->
-
   <section>
-    <app-qtndtintuc-carousel></app-qtndtintuc-carousel>
+    <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate" [text2]="'qtndtintuc_tin_tuc'|translate" [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
   </section>
-  <app-homevideos></app-homevideos>
+ <app-qtndtintuc-video-slide></app-qtndtintuc-video-slide>
 </div>
 

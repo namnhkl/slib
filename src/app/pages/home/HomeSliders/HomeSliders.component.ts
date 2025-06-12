@@ -1,5 +1,6 @@
 import { NhacViecService } from '@/app/shared/services/nhacviec.service';
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { SharedService } from '@/app/shared/services/shared.service';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   CarouselModule,
@@ -30,38 +31,7 @@ export class HomeSlidersComponent implements OnInit {
 
 
   carouselData: WritableSignal<CarouselData[]> = signal([
-    {
-      id: 'slide-1',
-      text: 'Slide 1 HM',
-      dataMerge: 2,
-      width: 300,
-      dotContent: 'text1',
-    },
-    {
-      id: 'slide-2',
-      text: 'Slide 2 HM',
-      dataMerge: 1,
-      width: 500,
-      dotContent: 'text2',
-    },
-    {
-      id: 'slide-3',
-      text: 'Slide 3 HM',
-      dataMerge: 3,
-      width: 500,
-      dotContent: 'text3',
-    },
-    { id: 'slide-4', text: 'Slide 4 HM', width: 450, dotContent: 'text4' },
-    {
-      id: 'slide-5',
-      text: 'Slide 5 HM',
-      dataMerge: 2,
-      width: 500,
-      dotContent: 'text5',
-    },
-    { id: 'slide-6', text: 'Slide 6', width: 500, dotContent: 'text5' },
-    { id: 'slide-7', text: 'Slide 7', width: 500, dotContent: 'text6' },
-    { id: 'slide-8', text: 'Slide 8', width: 500, dotContent: 'text8' },
+   
   ]);
 
   customOptions: OwlOptions = {
@@ -79,13 +49,13 @@ export class HomeSlidersComponent implements OnInit {
 
   currentUrl: WritableSignal<string> = signal('');
   fragment: WritableSignal<string | null> = signal('');
-
+  sharedService= inject(SharedService);
   activeSlides: WritableSignal<SlidesOutputData | null> = signal(null);
 
   constructor(private route: ActivatedRoute, private router: Router, private nhacviecService: NhacViecService,) {}
 
   ngOnInit() {
-    this.nhacviecService.qtndQlQuangCao().subscribe((res: any) => {
+    this.nhacviecService.qtndQlQuangCao(this.sharedService.thuVienId).subscribe((res: any) => {
   if (res?.data && Array.isArray(res.data)) {
     const transformed: CarouselData[] = res.data.map((item: { ten: string; tepTinDuLieu: string; sapXep: number }, index: number) => ({
       id: `slide-${index + 1}`,
@@ -96,7 +66,7 @@ export class HomeSlidersComponent implements OnInit {
     }));
 
     this.carouselData.set(transformed);
-    console.log('carouselData',this.carouselData);
+    // console.log('carouselData',this.carouselData);
   }
 });
 
@@ -106,7 +76,7 @@ export class HomeSlidersComponent implements OnInit {
         tap((fragment) => this.fragment.set(fragment))
       )
       .subscribe((res) => {
-        console.log('fragment', res);
+        // console.log('fragment', res);
       });
 
     this.route.url
@@ -118,7 +88,7 @@ export class HomeSlidersComponent implements OnInit {
         })
       )
       .subscribe((res) => {
-        console.log('url', res);
+        // console.log('url', res);
       });
   }
 

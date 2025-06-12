@@ -12,9 +12,8 @@ import { IBookSearchResponse, IDangTaiLieu } from './HomeSearchAdvanced/type';
 @Stoppable()
 export class HomeService extends _HttpRequestInjector {
   getDocsLatest(
-    queryObject: IPageParams = {
-      pageIndex: 0,
-      pageSize: 10,
+    queryObject: IPageParams & {
+      bsThuvienId: string
     }
   ) {
     const url = this.urlObject.buildUrl({
@@ -36,7 +35,7 @@ export class HomeService extends _HttpRequestInjector {
     return this._http.get<IBookSearchResponse>(url);
   }
 
-  bmTaiLieuMoiNhatDs(queryObject: IPageParams & { bmDmDangTaiLieuId: string }) {
+  bmTaiLieuMoiNhatDs(queryObject: IPageParams & { bmDmDangTaiLieuId: string, bsThuvienId: string }) {
     const url = this.urlObject.buildUrl({
       endpoint: 'bmTaiLieuMoiNhatDs',
       queryObject,

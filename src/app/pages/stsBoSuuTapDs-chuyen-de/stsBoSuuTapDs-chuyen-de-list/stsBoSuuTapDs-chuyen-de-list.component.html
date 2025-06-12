@@ -18,8 +18,8 @@
       <img [src]="getImageUrl(chuyenDe)" [alt]="chuyenDe.ten">
       <div class="card-content">
         <div class="card-title">{{ chuyenDe.ten }}</div>
-        <div class="card-count" *ngIf="chuyenDe.slTaiLieu > 0" [routerLink]="['/stsBoSuuTapDs-chuyen-de-item']"
-          [queryParams]="{ stsBoSuuTapId: chuyenDe?.id }">
+        <div class="card-count" *ngIf="chuyenDe.slTaiLieu > 0" [routerLink]="['/stsBoSuuTapDs-chuyen-de-detail']"
+          [queryParams]="{ id: chuyenDe?.id }">
           <b> <i class="fas fa-file-alt me-1"></i> {{'number_of_documents' |translate}}: {{ chuyenDe.slTaiLieu > 0 ?
             chuyenDe.slTaiLieu : 0 }}</b>
         </div>

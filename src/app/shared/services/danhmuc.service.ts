@@ -26,11 +26,11 @@ export class DanhmucService extends _HttpRequestInjector {
     });
   }
 
-   bmDmDangTaiLieu() {
+   bmDmDangTaiLieu(bsThuVienId:string) {
       const url = this.urlObject.buildUrl({
         endpoint: 'bmDmDangTaiLieu',
         queryObject: {
-         
+         bsThuVienId:bsThuVienId
         },
       });
       return this._http.get<IResponse<IDangTaiLieu[]>>(url);

@@ -102,19 +102,19 @@ export class SSliderComponent implements OnInit, AfterViewInit {
 
   getPassedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent');
+    // console.log('HomeComponent');
     console.log(this.activeSlides());
   }
 
   getChangeData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> change');
+    // console.log('HomeComponent -> change');
     console.log(data);
   }
 
   getChangedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> changed');
+    // console.log('HomeComponent -> changed');
     console.log(data);
   }
 
@@ -127,10 +127,10 @@ export class SSliderComponent implements OnInit, AfterViewInit {
       const element = this.titleElement.nativeElement;
       const lineHeight = parseInt('20', 10);
       const height = element.offsetHeight;
-      console.log(
-        '🚀 ~ SSliderComponent ~ checkTitleHeight ~ height:',
-        element.innerText
-      );
+      // console.log(
+      //   '🚀 ~ SSliderComponent ~ checkTitleHeight ~ height:',
+      //   element.innerText
+      // );
       const lines = height / lineHeight;
 
       if (lines > 1) {

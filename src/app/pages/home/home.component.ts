@@ -6,8 +6,6 @@ import { HomeService } from './home.service';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { get } from 'lodash';
 import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
-import { HomeCategoriesComponent } from './HomeCategories/HomeCategories.component';
-import { HomeVideosComponent } from './HomeVideos/HomeVideos.component';
 import { HomeSearchAdvancedComponent } from './HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { IBook, IBookSearchResponse } from './HomeSearchAdvanced/type';
@@ -20,6 +18,10 @@ import { IDocument } from '../tai-lieu/tai-lieu';
 import { IResponse } from '@/app/shared/types/common';
 import { QtndTinTucCarouselComponent } from '../QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
 import { RouterLink, RouterModule } from '@angular/router';
+import { SharedService } from '@/app/shared/services/shared.service';
+import { ChuyenDeSlideComponent } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-slide/stsBoSuuTapDs-chuyen-de-slide.component';
+import { TinTucVideoSlideComponent } from '../QtndTinTuc/qtndtintuc-video-slide/qtndtintuc-video-slide.component';
+import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.type';
 
 @Component({
   selector: 'app-home',
@@ -27,15 +29,15 @@ import { RouterLink, RouterModule } from '@angular/router';
     AsyncPipe,
     JsonPipe,
     SharedModule,
-    HomeCategoriesComponent,
     HomeSlidersComponent,
-    HomeVideosComponent,
+    TinTucVideoSlideComponent,
     HomeSearchAdvancedComponent,
     TranslateModule,
     CommonModule,
     QtndTinTucCarouselComponent,
     RouterLink,
-    RouterModule
+    RouterModule,
+    ChuyenDeSlideComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -59,8 +61,9 @@ export class HomeComponent implements OnInit {
   homeService = inject(HomeService);
   danhmucService = inject(DanhmucService);
   documentService = inject(TaiLieuService);
+  sharedService = inject(SharedService);
   dangtailieus: any[] = [];
-  chuyendes: IDocument[] = [];
+  chuyendes: IChuyenDe[] = [];
   docsByType: { [id: string]: { id: string; ten: string; data: IBook[] } } = {};
   @ViewChild('default', { static: true }) defaultTemplate!: TemplateRef<any>;
   templateMap: { [key: string]: TemplateRef<any> } = {};
@@ -69,35 +72,25 @@ export class HomeComponent implements OnInit {
 
 
 
-  docs = this.homeService.getDocsLatest().pipe(
+  docs = this.homeService.getDocsLatest({bsThuvienId:this.sharedService.thuVienId}).pipe(
     switchMap((res) => {
-      console.log('🚀 ~ HomeComponent ~ switchMap ~ res:', res);
+      // console.log('🚀 ~ HomeComponent ~ switchMap ~ res:', res);
       if (res.messageCode === 1) return of(get(res, 'data', []));
 
       return [];
     })
   );
 
-  docsGiaoTrinh = this.homeService.bmTaiLieuMoiNhatDs({ bmDmDangTaiLieuId: '15' }).pipe(
-    switchMap((res) => {
-      console.log('Giáo trình:', res);
-      if (res.messageCode === 1) return of(get(res, 'data', []));
-      return of([]); // Fix: return observable, not array
-    })
-  );
-
-  
-
 
 ngOnInit() {
   this.loaderService.setLoading(true);
 
-  this.danhmucService.bmDmDangTaiLieu().subscribe((res) => {
-    console.log('Danh mục:', res);
+  this.danhmucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe((res) => {
+    // console.log('Danh mục:', res);
     this.dangtailieus = (res.data || []).filter(item => item && item.id);
 
     const requests = this.dangtailieus.map((item) =>
-      this.homeService.bmTaiLieuMoiNhatDs({ bmDmDangTaiLieuId: item.id }).pipe(
+      this.homeService.bmTaiLieuMoiNhatDs({ bmDmDangTaiLieuId: item.id,bsThuvienId: this.sharedService.thuVienId }).pipe(
         switchMap((res) => {
           const result = {
             id: String(item.id),
@@ -122,9 +115,9 @@ ngOnInit() {
           return map;
         }, {} as { [key: string]: TemplateRef<any> });
   this.changeDetectorRef.detectChanges();
-  this.documentService.getChuyenDes().subscribe(response => {
+  this.documentService.getChuyenDes(this.sharedService.thuVienId).subscribe(response => {
     this.chuyendes = response.data;  // Lấy đúng mảng IDocument[]
-    console.log('Chuyên đề: ', this.chuyendes);
+    // console.log('Chuyên đề: ', this.chuyendes);
   });
 
 

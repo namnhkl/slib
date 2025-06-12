@@ -23,6 +23,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AuthService } from '@/app/shared/services/auth.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 declare var $: any;
 
@@ -87,8 +88,9 @@ export class TaiLieuChiTietComponent implements OnInit {
 
   homeService = inject(HomeService);
   bandocService = inject(ProfileService);
+  sharedService= inject(SharedService);
 
-  docs = this.homeService.getDocsLatest().pipe(
+  docs = this.homeService.getDocsLatest({bsThuvienId: this.sharedService.thuVienId}).pipe(
     switchMap((res) => {
       if (res.messageCode === 1) return of(get(res, 'data', []));
       return [];

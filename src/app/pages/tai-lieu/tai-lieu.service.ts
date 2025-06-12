@@ -7,6 +7,7 @@ import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
 import { IDocument, IDocumentQueryParams, imageUrlsBase64, TaiLieuChiTiet, TaiLieuMucLucChiTiet } from './tai-lieu';
 import { Observable } from 'rxjs';
+import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.type';
 
 @Injectable({
   providedIn: 'root' // Đảm bảo có dòng này
@@ -15,9 +16,8 @@ import { Observable } from 'rxjs';
 @Stoppable()
 export class TaiLieuService extends _HttpRequestInjector {
   getDocsLatest(
-    queryObject: IPageParams = {
-      pageIndex: 0,
-      pageSize: 10,
+    queryObject: IPageParams & {
+      bsThuvienId: string
     }
   ) {
     const url = this.urlObject.buildUrl({
@@ -62,14 +62,14 @@ console.log('Query URL:', url);
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 
-  getChuyenDes() {
+  getChuyenDes(bsThuVienId: string) {
     const url = this.urlObject.buildUrl({
       endpoint: 'stsBoSuuTapDs',
       queryObject: {
-
+        bsThuVienId: bsThuVienId
       },
     });
-    return this._http.get<IResponse<IDocument[]>>(url);
+    return this._http.get<IResponse<IChuyenDe[]>>(url);
   }
 
   stsTaiLieuChiTiet(id: string, ipClient:string) {

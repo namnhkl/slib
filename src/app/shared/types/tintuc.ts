@@ -56,7 +56,7 @@ export interface INhomTinTucQueryParams {
   qtndHtNgonNguId?:string,
   ten?:string,
   sapXep?:number,
-  moTa?:string
+  moTa?:string,
 }
 
 export interface IChiTietTinTuc {

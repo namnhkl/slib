@@ -1,0 +1,62 @@
+<div class="container mt-10">
+  <div class="flex gap-6 p-6 bg-white rounded-lg shadow-md">
+ 
+    <div class="w-1/5 max-h-[600px] overflow-auto  border-gray-200 rounded-lg p-4 bg-gray-50">
+      <h2 class="text-lg font-semibold mb-4 text-gray-700">{{'list_of_topics'|translate}}</h2>
+      <nz-tree
+        #treeComponent
+        [nzData]="treeData"
+        [nzExpandAll]="false"
+        [nzShowLine]="true"
+        [nzShowIcon]="true"
+        [(nzSelectedKeys)]="selectedKeys"
+        (nzClick)="onTreeNodeClick($event)">
+      </nz-tree>
+
+    </div>
+
+    <div class="w-4/5  border-gray-200 rounded-lg p-2 bg-white">
+      <div class="modalStand_box">
+        <div class="title-result">
+          <p>{{'found'|translate}} <span>{{totalRecords}}</span> {{'results'|translate}}</p>
+        </div>
+        <div class="box_result_book mt-10">
+          @for (item of documents; track $index) {
+          <div class="box_item">
+            <a [routerLink]="['/tai-lieu', item.id]">
+              <p>
+              <img [src]="item.anhDaiDien ? item.anhDaiDien : '/img/imageBook/book_default.png'" alt="Book 1">
+                <span class="leftSideBookSearch"></span>
+              </p>
+              <span class="title">{{item.tieuDe}}</span>
+            </a>
+          </div>
+          }
+        </div>
+        <div class="page_sort_item">
+          <div class="item_page_detail">
+            <div class="d-flex align-items-center groupSelect">
+              <label for="numberSelect" class="form-label">{{'show'|translate}}</label>
+              <nz-select [(ngModel)]="pageSizes" (ngModelChange)="changePageSize($event)" id="numberSelect">
+                @for (size of sizeItems; track $index) {
+                <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
+                }
+              </nz-select>
+            </div>
+          </div>
+          <div class="item_page_detail">
+            <div class="showPage">
+              <span>{{ pageIndex + 1 }}/{{ totalPage }}</span>
+              <button class="btn pre-btn" type="button" [disabled]="pageIndex === 0" (click)="prevPage()">
+                <span class="btnPre" aria-label="Previous">‹</span>
+              </button>
+              <button class="btn next-btn" type="button" [disabled]="pageIndex + 1 >= totalPage" (click)="nextPage()">
+                <span class="btnPre" aria-label="Next">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

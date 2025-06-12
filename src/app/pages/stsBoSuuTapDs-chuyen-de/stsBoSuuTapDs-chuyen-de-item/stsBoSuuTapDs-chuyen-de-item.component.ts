@@ -22,6 +22,7 @@ import { IDocument } from '@/app/pages/tai-lieu/tai-lieu';
 import { ActivatedRoute } from '@angular/router';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { environment } from 'environments/environment';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 interface TacGia {
   giaTri: string;
@@ -59,6 +60,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
   ) {}
 
   chuyenDeService = inject(stsBoSuuTapDsChuyenDeService);
+  sharedService = inject(SharedService);
 
   searchTerm = '';
   stsBoSuuTapId = '';
@@ -94,7 +96,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
 
       // Lấy tên chuyên đề
       this.chuyenDeService
-        .getChuyenDeById({ id: this.stsBoSuuTapId })
+        .getChuyenDeById({ id: this.stsBoSuuTapId, bsThuvienId: this.sharedService.thuVienId})
         .pipe(
           switchMap((res) => {
             console.log('🚀 ~ getChuyenDeById ~ res:', res);
@@ -136,6 +138,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
         tieuDe: this.searchTerm,
         pageIndex: this.pageIndex - 1,
         pageSize: this.pageSize,
+        bsThuvienId: this.sharedService.thuVienId
       })
       .pipe(
         switchMap((res) => {

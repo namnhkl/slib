@@ -42,6 +42,7 @@ export const URL_ROUTER = {
   documents: 'tai-lieu',
   chuyende:'stsBoSuuTapDs-chuyen-de',
   chuyendeitem:'stsBoSuuTapDs-chuyen-de-item',
+  chuyendedetail:'stsBoSuuTapDs-chuyen-de-detail',
   viewdocument:'viewdocument',
   intro:'intro'
   // document end

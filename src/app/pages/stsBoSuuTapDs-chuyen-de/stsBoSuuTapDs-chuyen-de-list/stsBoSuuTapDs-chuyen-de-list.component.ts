@@ -21,6 +21,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { environment } from 'environments/environment';
+import { SharedService } from '@/app/shared/services/shared.service';
 @Component({
   selector: 'app-chuyen-de-list',
   standalone: true,
@@ -53,6 +54,7 @@ export class stsBoSuuTapDsChuyenDeListComponent implements OnInit {
   ) {}
 
   chuyenDeService = inject(stsBoSuuTapDsChuyenDeService);
+  sharedService = inject(SharedService);
   chuyenDeList: any = []; // khởi tạo rỗng, sẽ gán sau trong searchChuyenDe
 
   searchTerm = '';
@@ -68,23 +70,29 @@ export class stsBoSuuTapDsChuyenDeListComponent implements OnInit {
   }
 
   searchChuyenDe(): void {
-    this.chuyenDeList = this.chuyenDeService.getChuyenDeList({
-      tieuDe: this.searchTerm,
-      pageIndex: this.pageIndex - 1,
-      pageSize: this.pageSize
-    }).pipe(
-      switchMap((res) => {
-        console.log('🚀 ~ searchChuyenDe ~ res:', res);
-        if (res.messageCode === 1) {
-          this.totalRecord = res.totalRecord || 0;
-          return of(get(res, 'data', []));
-        }
-        return of([]); // dùng of để Observable không bị lỗi
-      })
-    );
+  this.chuyenDeList = this.chuyenDeService.getChuyenDeList({
+    tieuDe: this.searchTerm,
+    pageIndex: this.pageIndex - 1,
+    pageSize: this.pageSize,
+    bsThuvienId: this.sharedService.thuVienId
+  }).pipe(
+    switchMap((res) => {
+      console.log('🚀 ~ searchChuyenDe ~ res:', res);
+      if (res.messageCode === 1) {
+        this.totalRecord = res.totalRecord || 0;
 
-    this.changeDetectorRef.detectChanges();
-  }
+        // Chỉ lấy stsBoSuuTapId === "0"
+        const filteredData = (get(res, 'data', []) || []).filter(item => item.stsBoSuuTapId === "0");
+
+        return of(filteredData);
+      }
+      return of([]); // dùng of để Observable không bị lỗi
+    })
+  );
+
+  this.changeDetectorRef.detectChanges();
+}
+
 
   onPageChange(page: number): void {
     this.pageIndex = page;

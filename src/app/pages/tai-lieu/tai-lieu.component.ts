@@ -154,7 +154,7 @@ ngOnInit() {
 
 
   getDangTaiLieu() {
-    this.danhMucService.bmDmDangTaiLieu().subscribe((res) => {
+    this.danhMucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe((res) => {
       this.dangTaiLieus = res.data;
       console.log('dang tai lieu:', this.dangTaiLieus);
     });

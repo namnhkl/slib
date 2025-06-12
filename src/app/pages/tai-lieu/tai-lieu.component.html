@@ -57,17 +57,6 @@
           @for (item of documents; track $index) {
           <app-book-item [book]="item"></app-book-item>
           }
-          <!-- @for (item of documents; track $index) {
-          <div class="box_item">
-            <a [routerLink]="['/documents', item.id]">
-              <p>
-                <img [src]="item.anhDaiDien" alt="Book 1">
-                <span class="leftSideBookSearch"></span>
-              </p>
-              <span class="title">{{item.tieuDe}}</span>
-            </a>
-          </div>
-          } -->
         </div>
         <div class="page_sort_item">
           <div class="item_page_detail">

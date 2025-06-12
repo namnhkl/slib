@@ -104,6 +104,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
             pageIndex: 0,
             pageSize: 10,
             tieuDe,
+            bsThuvienId: this.sharedService.thuVienId
           });
         }
 
@@ -114,7 +115,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
   }
 
   handleSelect(event: any) {
-    console.log('event', event);
+    // console.log('event', event);
   }
 
 filterLanguage = (search: string, item: any): boolean => {
@@ -140,21 +141,21 @@ loadBsKho(thuVIenId:string) {
     next: (res) => {
       if (res && res.data) {
           this.bsKhos = res.data;
-        console.log('Danh sách kho:', this.bsKhos);
+        // console.log('Danh sách kho:', this.bsKhos);
       } else {
         this.bsKhos = [];
-        console.warn('Không có dữ liệu kho.');
+        // console.warn('Không có dữ liệu kho.');
       }
     },
     error: (err) => {
-      console.error('Lỗi khi tải danh sách kho:', err);
+      // console.error('Lỗi khi tải danh sách kho:', err);
       this.bsKhos = [];
     }
   });
 }
 
 loadDangTaiLieu() {
-  this.danhmucService.bmDmDangTaiLieu().subscribe({
+  this.danhmucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe({
     next: (res) => {
       if (res && res.data) {
           this.dangTaiLieu = res.data;
@@ -263,7 +264,7 @@ this.activatedRouter.queryParams
 
   submitForm(): void {
     if (this.formAdvanceSearch.valid) {
-      console.log('submit', this.formAdvanceSearch.value);
+      // console.log('submit', this.formAdvanceSearch.value);
       this.router.navigate([URL_ROUTER.searchResult], {
         queryParams: {
           ...this.formAdvanceSearch.value,
@@ -286,12 +287,12 @@ this.activatedRouter.queryParams
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
+    // console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
+    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 

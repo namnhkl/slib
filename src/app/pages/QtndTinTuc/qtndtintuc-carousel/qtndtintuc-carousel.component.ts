@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, HostListener, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, inject, Input, SimpleChanges } from '@angular/core';
 import { QtndTinTucService } from '../QtndTinTuc.service';
 import { tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,6 +23,10 @@ export class QtndTinTucCarouselComponent implements OnInit {
   currentIndex: number = 0;
   slidesPerView: number = 4; // Giá trị mặc định cho desktop
 
+  @Input() qtndTtNhomTinTucId: string = '';
+  @Input() text1: string = '';
+  @Input() text2: string = '';
+  @Input() text3: string = '';
 
   constructor(private cdr: ChangeDetectorRef, private newService: QtndTinTucService ) {}
 
@@ -30,6 +34,26 @@ export class QtndTinTucCarouselComponent implements OnInit {
     this.updateSlidesPerView();
     this.getTopNewsData();
     window.addEventListener('resize', this.updateSlidesPerView.bind(this));
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+  
+    if (changes['qtndTtNhomTinTucId'] && !changes['qtndTtNhomTinTucId'].firstChange) {
+      this.getTopNewsData();
+    }
+
+
+    if (changes['text1'] && !changes['text1'].firstChange) {
+      // console.log('text1 changed:', this.text1);
+    }
+
+    if (changes['text2'] && !changes['text2'].firstChange) {
+      // console.log('text2 changed:', this.text2);
+    }
+
+    if (changes['text3'] && !changes['text3'].firstChange) {
+      // console.log('text3 changed:', this.text3);
+    }
   }
 
   
@@ -41,7 +65,7 @@ updateSlidesPerView() {
 }
 
   getTopNewsData() {
-    this.newService.getNews(0, 9999).pipe(
+    this.newService.getNews(0, 9999, {qtndTtNhomTinTucId: this.qtndTtNhomTinTucId}).pipe(
       tap(res => {
         if (res.messageCode === 1) {
           this.slides = Array.isArray(res.data) ? res.data.slice(0, 6) : [];

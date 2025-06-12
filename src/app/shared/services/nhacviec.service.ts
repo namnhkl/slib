@@ -15,11 +15,11 @@ import { IAnhQuangCao } from '@/app/pages/home/HomeSearchAdvanced/type';
 @Stoppable()
 export class NhacViecService extends _HttpRequestInjector {
 
-   qtndQlQuangCao() {
+   qtndQlQuangCao(bsThuVienId: string) {
       const url = this.urlObject.buildUrl({
         endpoint: 'qtndQlQuangCao',
         queryObject: {
-         
+         bsThuVienId: bsThuVienId
         },
       });
       return this._http.get<IResponse<IAnhQuangCao[]>>(url);

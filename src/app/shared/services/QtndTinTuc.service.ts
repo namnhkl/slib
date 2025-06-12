@@ -14,7 +14,7 @@ import { IChiTietTinTuc, IChiTietTinTucQueryParams, INhomTinTuc, INhomTinTucQuer
 @Stoppable()
 export class QtndTinTucService extends _HttpRequestInjector {
 
-  qtndTtTinTuc(queryParams: ITinTucQueryParams = {}) {
+  qtndTtTinTuc(queryParams: ITinTucQueryParams & {bsThuvienId: string}) {
     const url = this.urlObject.buildUrl({
       endpoint: 'qtndTtTinTuc',
       queryObject: queryParams,
@@ -22,7 +22,7 @@ export class QtndTinTucService extends _HttpRequestInjector {
     return this._http.get<IResponse<ITinTuc[]>>(url);
   }
 
-  qtndTtNhomTinTuc(queryParams: INhomTinTucQueryParams = {}) {
+  qtndTtNhomTinTuc(queryParams: INhomTinTucQueryParams & {bsThuvienId: string}) {
     const url = this.urlObject.buildUrl({
       endpoint: 'qtndTtNhomTinTuc',
       queryObject: queryParams,
@@ -30,10 +30,10 @@ export class QtndTinTucService extends _HttpRequestInjector {
     return this._http.get<IResponse<INhomTinTuc[]>>(url);
   }
 
-  ChiTietTinTuc(id: string) {
+  ChiTietTinTuc(id: string, bsThuVienId: string) {
   const url = this.urlObject.buildUrl({
     endpoint: 'qtndTtTinTuc',
-    queryObject: { id }
+    queryObject: { id, bsThuVienId }
   });
       console.log('url api video ct',url)
 

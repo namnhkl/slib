@@ -5,19 +5,23 @@ import { QtndTinTucService } from '../QtndTinTuc.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
-import { HomeVideosComponent } from '../../home/HomeVideos/HomeVideos.component';
 import { QtndTinTucCarouselComponent } from '../qtndtintuc-carousel/qtndtintuc-carousel.component';
+import { TinTucVideoSlideComponent } from '../qtndtintuc-video-slide/qtndtintuc-video-slide.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
   templateUrl: './QtndTinTucChiTiet.component.html',
   styleUrl: './QtndTinTucChiTiet.component.scss',
   providers: [QtndTinTucService],
-  imports: [CommonModule, HomeVideosComponent,],
+  imports: [CommonModule, TinTucVideoSlideComponent,QtndTinTucCarouselComponent,TranslateModule],
 })
 export class QtndTinTucChiTietComponent implements OnInit {
   newDetail: any = {};
   safeContent: SafeHtml = '';
+  currentUrl: string = '';
+  encodedUrl: string = '';
+  encodedTitle: string = '';
   
   constructor(
     private newService: QtndTinTucService,
@@ -26,6 +30,7 @@ export class QtndTinTucChiTietComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.router.params.subscribe((params) => {
       const id = _.get(params, 'id', '');
       if (id.length > 0) {
@@ -35,6 +40,9 @@ export class QtndTinTucChiTietComponent implements OnInit {
             const noiDungRaw = _.get(res, 'data.0.noiDung', '');
             this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
             console.log('nd: ', this.safeContent);
+            this.currentUrl = window.location.href;
+            this.encodedUrl = encodeURIComponent(this.currentUrl);
+            this.encodedTitle = encodeURIComponent(this.newDetail?.ten ?? '');
           }
         });
       }

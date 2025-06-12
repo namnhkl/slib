@@ -72,29 +72,7 @@
               nzShowQuickJumper="false"
             ></nz-pagination>
           </div>
-          <!-- <div class="page_sort_item">
-            <div class="item_page_detail">
-              <div class="d-flex align-items-center groupSelect">
-                <label for="numberSelect" class="form-label">{{ 'show' | translate }}</label>
-                <nz-select [(ngModel)]="pageSizes" (ngModelChange)="onPageSizeChange($event)" id="numberSelect">
-                @for (size of sizeItems; track $index) {
-                <nz-option [nzValue]="size" [nzLabel]="size"></nz-option>
-                }
-              </nz-select>
-              </div>
-            </div>
-            <div class="item_page_detail">
-              <div class="showPage">
-                <span>{{ pageIndex }}/{{ totalPages }}</span>
-                <button class="btn pre-btn" (click)="onPageChange('prev')" [disabled]="pageIndex === 1">
-                  <span class="btnPre" aria-label="Previous">‹</span>
-                </button>
-                <button class="btn next-btn" (click)="onPageChange('next')" [disabled]="pageIndex === totalPages">
-                  <span class="btnPre" aria-label="Next">›</span>
-                </button>
-              </div>
-            </div>
-          </div> -->
+    
         </section>
 
         <!-- Sidebar tin tức nổi bật -->
@@ -125,22 +103,5 @@
           </div>
         </aside>
       </div>
-
-      <!-- Phân trang cho số lượng tin mỗi trang -->
-      <!-- <div class="flex items-center justify-center mt-6">
-        <div class="flex items-center space-x-2">
-          <label for="numberSelect" class="text-sm  text-gray-700">
-            {{ 'show' | translate }}
-          </label>
-          <nz-select
-            [(ngModel)]="pageSizes"
-            (ngModelChange)="onPageSizeChange($event)"
-            id="numberSelect"
-            class="w-20"
-          >
-            <nz-option *ngFor="let size of sizeItems" [nzValue]="size" [nzLabel]="size"></nz-option>
-          </nz-select>
-        </div>
-      </div> -->
     </main>
   </nz-spin>
