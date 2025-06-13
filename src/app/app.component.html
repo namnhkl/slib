@@ -1,4 +1,4 @@
-<div class="wrapperStand" >
+<!-- <div class="wrapperStand" >
   <ng-template #indicatorTemplate>
     <nz-icon nzType="loading" />
   </ng-template>
@@ -10,4 +10,31 @@
     <app-footer></app-footer>
     <app-chatbot *ngIf="isChatbotActive"></app-chatbot>
   </nz-spin>
+</div> -->
+
+<!-- app.component.html -->
+
+<!-- app.component.html -->
+<div class="wrapperStand">
+  <!-- Custom loading spinner icon -->
+  <ng-template #indicatorTemplate>
+    <nz-icon nzType="loading" nzTheme="outline" class="text-3xl text-blue-500"></nz-icon>
+  </ng-template>
+
+  <!-- Wrapper spin -->
+  <nz-spin [nzSpinning]="!isReady" [nzIndicator]="indicatorTemplate">
+    <app-header></app-header>
+
+    <!-- Main content -->
+    <main>
+      <router-outlet (activate)="handleActive($event)"></router-outlet>
+    </main>
+
+    <!-- Footer & Chatbot chỉ hiển thị khi isReady -->
+    <ng-container *ngIf="isReady">
+      <app-footer></app-footer>
+      <app-chatbot *ngIf="isChatbotActive"></app-chatbot>
+    </ng-container>
+  </nz-spin>
 </div>
+

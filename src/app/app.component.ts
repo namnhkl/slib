@@ -30,6 +30,7 @@ import { SharedService } from './shared/services/shared.service';
 import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -62,23 +63,28 @@ export class AppComponent implements OnInit, OnDestroy {
   isChatbotActive = environment.isActiveChatbot;
   isCollapsed = false;
   isSpinning = false;
+  isReady = false;
   constructor(
     injector: Injector,
+    private sharedService: SharedService,
     private readonly _i18nService: I18nService,
     private loadingService: LoaderService,
     private cdr: ChangeDetectorRef,
-    private sharedService: SharedService
+    
   ) {
     InjectorService.setInjector(injector);
   }
   ngOnInit() {
+    this.sharedService.initThuVien(() => {
+      this.isReady = true; // Chỉ render footer sau khi có thư viện
+    });
     // Initialize i18nService with default language and supported languages
     this._i18nService.init('vi-VN', ['vi-VN', 'en-US']);
     this.loadingService.getLoading$().subscribe((res) => {
       this.isSpinning = res;
       this.cdr.detectChanges();
     });
-    this.sharedService.initThuVien();
+    
   //   // Cấm chuột phải
   // document.addEventListener('contextmenu', (e) => e.preventDefault());
 

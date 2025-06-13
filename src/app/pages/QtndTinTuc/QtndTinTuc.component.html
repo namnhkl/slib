@@ -33,31 +33,32 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Danh sách tin tức -->
         <section class="lg:col-span-2">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-            <article *ngFor="let _new of newsData" class="bg-white shadow-md">
-              <a [routerLink]="[_new.id]">
-                <img
-                  [src]="_new.anhDaiDien"
-                  [alt]="_new.ten"
-                  class="w-full h-[140px] object-cover"
-                />
-                <div class="p-4">
-                  <div class="flex justify-between items-center mb-2">
-                    <p class="text-[#2c4aaa] text-sm ">
-                      {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
-                    </p>
-                    <time class="bg-[#2c4aaa] text-white text-xs  px-3 py-1" [attr.datetime]="_new.ngayDangTin">
-                      {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
-                    </time>
-                  </div>
-                  <h2 class=" text-gray-900 text-base mb-2 leading-snug">
-                    {{ _new.ten }}
-                  </h2>
-                  <p class="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2" [innerHTML]="_new.moTa">
-                  </p>
-                </div>
-              </a>
-            </article>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+           <article *ngFor="let _new of newsData" class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px] border-b">
+  <a [routerLink]="['/QtndTinTuc', _new.id]">
+    <img
+      [src]="_new.anhDaiDien"
+      [alt]="_new.ten"
+      class="w-full h-[180px] object-cover"
+    />
+    <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200" style="border-bottom: 1px solid #dcdcdc;">
+      <p class="text-[#004aad] text-sm font-medium font-montserrat">
+        {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
+      </p>
+      <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">
+        {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
+      </p>
+    </div>
+    <div class="px-4 flex-1 flex flex-col">
+      <h3 class="font-montserrat text-[#333333] text-lg leading-tight mb-2 mt-1">
+        {{ _new.ten }}
+      </h3>
+      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto" [innerHTML]="_new.moTa">
+      </p>
+    </div>
+  </a>
+</article>
+
           </div>
 <!-- Ng-Zorro Pagination -->
           <div class="flex justify-center items-center mt-6">

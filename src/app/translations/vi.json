@@ -173,10 +173,16 @@
   "bmtailieuds_phamvi":"Phạm vi",
   "bmtailieuds_print_documents":"Tài liệu in",
   "bmtailieuds_digital_documents":"Tài liệu số",
+  "bmtailieuds_luot_yeu_thich":"Lượt yêu thích",
+  "bmtailieuds_so_ban_so":"Số lượng bản số",
+  "bmtailieuds_so_ban_in":"Số lượng bản in",
   "bskho_kho":"Kho",
   "qtndtintuc_tim_kiem_tin_tuc":"Tìm kiếm tin tức",
   "qtndtintuc_tin_tuc":"Tin tức",
   "qtndtintuc_kham_pha_ngay":"Khám phá ngay",
   "qtndtintuc_hay_theo_doi":"Hãy theo dõi các tin tức, thông báo, sự kiện mới nhất về thư viện",
-  "qtndtintuc_same_category":"Cùng chuyên mục"
+  "qtndtintuc_same_category":"Cùng chuyên mục",
+  "bdbandoc_khong_lay_duoc_danh_sach_dkcb":"Không lấy được danh sách ĐKCB",
+  "qtndtintuc_share":"Chia sẻ",
+  "copied":"Đã sao chép nội dung"
 }

@@ -8,7 +8,7 @@
 
       <!-- Nội dung từng tab -->
       <div *ngIf="tab.key === 'dangmuontailieuin'">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <app-profile-document-item *ngFor="let doc of borrowedDocuments" [document]="doc">
           </app-profile-document-item>
         </div>
@@ -36,7 +36,7 @@
       </div>
 
       <div *ngIf="tab.key === 'lichsumuontailieuin'">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <app-profile-document-item *ngFor="let doc of cirhistoryDocuments" [document]="doc">
           </app-profile-document-item>
         </div>
@@ -65,7 +65,7 @@
 
 
       <div *ngIf="tab.key === 'dangmuontailieuso'">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <app-profile-document-item *ngFor="let doc of cirhistoryDigitalDocuments" [document]="doc">
           </app-profile-document-item>
         </div>
@@ -97,7 +97,7 @@
 
       <div *ngIf="tab.key === 'lichsumuontratailieuso'">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <app-profile-document-item *ngFor="let doc of readBooks" [document]="doc">
           </app-profile-document-item>
         </div>
@@ -123,7 +123,7 @@
 
       <div *ngIf="tab.key === 'favorite'">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <app-profile-document-item *ngFor="let doc of favoriteDocuments" [document]="doc">
           </app-profile-document-item>
         </div>

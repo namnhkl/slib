@@ -6,19 +6,34 @@
     <div class="top-profile">
       <div class="user-box">
         <div class="avatar-user">
-          <img [src]="bdBanDocChiTiet.anhDaiDien" alt="" />
+          <img [src]="bdBanDocChiTiet?.anhDaiDien || '/img/imageUser/default.png'" alt="Ảnh đại diện" />
         </div>
         <div class="detail-profile-box">
-          <p>{{'full_name'|translate}}: <span>{{bdBanDocChiTiet.hoTen}}</span></p>
-          <p>{{'card_number'|translate}}: <span>{{ bdBanDocChiTiet.soThe }}</span></p>
-          <p>{{'class'|translate}}: <span>{{bdBanDocChiTiet.mhDmLopHocTen}}</span></p>
-          <p>{{'school_year'|translate}}: <span>
-              {{ getNam(bdBanDocChiTiet.ngayBatDau) }} - {{ getNam(bdBanDocChiTiet.ngayKetThuc) }}
-            </span>
-
+          <p *ngIf="bdBanDocChiTiet?.hoTen">
+            {{ 'full_name' | translate }}: <span>{{ bdBanDocChiTiet.hoTen }}</span>
           </p>
-          <p>{{'reading_group'|translate}}: <span>{{ bdBanDocChiTiet.bdNhomTen }}</span></p>
-          <p>{{'expiration_date'|translate}}: <span>{{bdBanDocChiTiet.ngayKetThuc}}</span></p>
+
+          <p *ngIf="bdBanDocChiTiet?.soThe">
+            {{ 'card_number' | translate }}: <span>{{ bdBanDocChiTiet.soThe }}</span>
+          </p>
+
+          <p *ngIf="bdBanDocChiTiet?.mhDmLopHocTen">
+            {{ 'class' | translate }}: <span>{{ bdBanDocChiTiet.mhDmLopHocTen }}</span>
+          </p>
+
+          <p *ngIf="bdBanDocChiTiet?.ngayBatDau && bdBanDocChiTiet?.ngayKetThuc">
+            {{ 'school_year' | translate }}:
+            <span>{{ getNam(bdBanDocChiTiet.ngayBatDau) }} - {{ getNam(bdBanDocChiTiet.ngayKetThuc) }}</span>
+          </p>
+
+          <p *ngIf="bdBanDocChiTiet?.bdNhomTen">
+            {{ 'reading_group' | translate }}: <span>{{ bdBanDocChiTiet.bdNhomTen }}</span>
+          </p>
+
+          <p *ngIf="bdBanDocChiTiet?.ngayKetThuc">
+            {{ 'expiration_date' | translate }}: <span>{{ bdBanDocChiTiet.ngayKetThuc }}</span>
+          </p>
+
           <div class="btn-change-info">
             <a class="btn btn-secondary capitalize" [routerLink]="['/profile','change-password']"><i
                 class="fa fa-solid fa-lock"></i> {{'change_password'|translate}}</a>

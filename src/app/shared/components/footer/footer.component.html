@@ -1,31 +1,25 @@
-<footer class="footerPage mt-3">
-  <div class="container">
-    <div class="top-footer-menu">
-      <div class="item-menu-footer">
-        <h3>{{'electronic_library_system'|translate|uppercase}}</h3>
-        <ul class="list-info">
-          <li>
-            <i class="fa-solid fa-house"></i>
-            {{'address'}}: {{'hoang_cau_o_cho_dua_ward_dong_da_district_hanoi'|translate}}
-          </li>
-          <li><i class="fa fa-solid fa-phone"></i>{{'phone'|translate}}: + 84972220XXX - + 84972220XXX</li>
-          <li><i class="fa fa-solid fa-envelope"></i> Email: hotro&amp;slib.com.vn</li>
-          <li><i class="fa fa-solid fa-globe"></i> Website: http://slib.vn</li>
-        </ul>
+<footer class="bg-gray-100 text-gray-700 mt-3 py-6">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between gap-6 mb-6">
+      <!-- Thông tin liên hệ -->
+      <div *ngIf="IqtndTtLienHe?.noiDung" class="flex-1">
+        <h3 class="text-lg font-bold uppercase mb-2">
+          {{ 'electronic_library_system' | translate | uppercase }}
+        </h3>
+        <div class="text-sm" [innerHTML]="IqtndTtLienHe.noiDung"></div>
       </div>
-      <div class="item-menu-footer">
-        <h3>{{'connect_with_us'|translate}}</h3>
-        <ul class="list-info">
-          <li><a href="#"><img src="./img/icon-fb.svg" alt="" /> Fanpage</a></li>
-          <li><a href="#"><img src="./img/icon-ytb.svg" alt="" /> Youtube</a></li>
-        </ul>
-      </div>
-      <div class="item-menu-footer">
-        <h3>1 {{'online_visits'|translate}} | 2.908 {{'total_visits'|translate}}</h3>
+
+      <!-- Thống kê truy cập -->
+      <div class="flex-1 md:text-right">
+        <h3 class="text-base font-semibold">
+          1 {{ 'online_visits' | translate }} | 2.908 {{ 'total_visits' | translate }}
+        </h3>
       </div>
     </div>
-    <div class="bottom-menu-footer">
-      <p>&amp;{{'2020_copyright_belongs_to_slibvn'|translate}}</p>
+
+    <!-- Bản quyền -->
+    <div class="border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
+      &copy; {{ '2020_copyright_belongs_to_slibvn' | translate }}
     </div>
   </div>
 </footer>

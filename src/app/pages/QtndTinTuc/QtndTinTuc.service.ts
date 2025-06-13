@@ -11,6 +11,7 @@ interface INewsQueryObject extends IPageParams {
   id?: string;
   qtndTtNhomTinTucId?:string;
   ten?:string;
+  bsThuvienId?:string
 }
 @Injectable()
 @HttpRequestInjectable('/tintuc')

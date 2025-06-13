@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { get } from 'lodash';
 import { of, switchMap } from 'rxjs';
 import { HomeService } from '../../home/home.service';
-import { IDanhSachTaiLieuDatMuonParams, IDocument } from '../tai-lieu';
+import { DsBanIn, IDanhSachTaiLieuDatMuonParams, IDocument } from '../tai-lieu';
 import { TaiLieuService } from '../tai-lieu.service';
 import { BookBorrowedComponent } from '../../../shared/components/book-borrowed/book-borrowed.component';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -24,6 +24,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AuthService } from '@/app/shared/services/auth.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SharedService } from '@/app/shared/services/shared.service';
+import { ShareButtonsComponent } from '@/app/shared/components/share-buttons/share-buttons.component';
 
 declare var $: any;
 
@@ -66,13 +67,15 @@ interface PdfToBase64Response {
     NzSplitterModule,
     NzTreeModule,
     NgxExtendedPdfViewerModule,
-    TranslateModule
+    TranslateModule,
+    ShareButtonsComponent 
   ],
-  providers: [TaiLieuService, HomeService],
+  providers: [TaiLieuService, HomeService, ],
   standalone: true,
 })
 export class TaiLieuChiTietComponent implements OnInit {
   currentDocument!: IDocument;
+  dkcbs: any;
   isVisible = false;
   isLogin = false;
   treeStructure: TreeNode[] = [];
@@ -85,6 +88,8 @@ export class TaiLieuChiTietComponent implements OnInit {
   safeSrc: SafeResourceUrl | null = null;
   dadatMuonTaiLieu: boolean = false;
   isEmptyDKCB: boolean = false;
+  currentUrl: string = '';
+  encodedUrl: string = '';
 
   homeService = inject(HomeService);
   bandocService = inject(ProfileService);
@@ -152,63 +157,82 @@ export class TaiLieuChiTietComponent implements OnInit {
 
 
 datMuonTaiLieu() {
-  if (
-    this.currentDocument &&
-    this.currentDocument.dsBanIn &&
-    this.currentDocument.dsBanIn.length > 0
-  ) {
-    // Chỉ lấy những item có laDatMuon = 1
-  const dsId = this.currentDocument.dsBanIn
-    .filter(item => item.laDatMuon === 1)
-    .map(item => item.id);
-    console.log('dkcb: ',dsId);
-    console.log('docs: ',this.currentDocument);
-    const randomIndex = Math.floor(Math.random() * dsId.length);
-    const id = dsId[randomIndex];
+  this.documentsService.getDKCBs(this.sharedService.thuVienId, this.currentDocument.id,'','').subscribe((res) => {
+    if (res.messageCode === 1) {
+      this.dkcbs = res.data;
+      console.log('dkcbs:', this.dkcbs);
 
-    this.banDocsService.bdBanDocDangKyMuon(id).subscribe(
-      (res) => {
-        if (res.messageCode === 1) {
-          this.createNotification(
-            'success',
-            this.translate.instant('notification'),
-            this.translate.instant('bdbandoc_dat_muon_tai_lieu_thanh_cong')
-          );
-          // Kiểm tra lại trạng thái đặt mượn
-          this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
-        } else if (res.messageCode === 0) {
+      if (this.dkcbs && this.dkcbs.length > 0) {
+        const dsId = this.dkcbs
+          .filter((item: { laDatMuon: number }) => item.laDatMuon === 1)
+          .map((item: { id: any }) => item.id);
+
+        console.log('dkcb: ', dsId);
+        console.log('docs: ', this.dkcbs);
+
+        if (dsId.length === 0) {
           this.createNotification(
             'error',
             this.translate.instant('notification'),
-            res.messageText
+            this.translate.instant('bdbandoc_khong_tim_thay_ban_in_duoc_phep_dat_muon')
           );
-        } else {
-          this.createNotification(
-            'warning',
-            this.translate.instant('notification'),
-            this.translate.instant('error')
-          );
+          return;
         }
-        this.cdr.detectChanges(); // Buộc cập nhật giao diện
-      },
-      (error) => {
-        console.error('Lỗi khi gọi API:', error);
+
+        const randomIndex = Math.floor(Math.random() * dsId.length);
+        const id = dsId[randomIndex];
+
+        this.banDocsService.bdBanDocDangKyMuon(id).subscribe(
+          (res) => {
+            if (res.messageCode === 1) {
+              this.createNotification(
+                'success',
+                this.translate.instant('notification'),
+                this.translate.instant('bdbandoc_dat_muon_tai_lieu_thanh_cong')
+              );
+              this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
+            } else if (res.messageCode === 0) {
+              this.createNotification(
+                'error',
+                this.translate.instant('notification'),
+                res.messageText
+              );
+            } else {
+              this.createNotification(
+                'warning',
+                this.translate.instant('notification'),
+                this.translate.instant('error')
+              );
+            }
+            this.cdr.detectChanges();
+          },
+          (error) => {
+            console.error('Lỗi khi gọi API:', error);
+            this.createNotification(
+              'error',
+              this.translate.instant('notification'),
+              error
+            );
+            this.cdr.detectChanges();
+          }
+        );
+      } else {
         this.createNotification(
           'error',
           this.translate.instant('notification'),
-          error
+          this.translate.instant('bdbandoc_khong_tim_thay_danh_sach_ban_in')
         );
-        this.cdr.detectChanges();
       }
-    );
-  } else {
-    this.createNotification(
-      'error',
-      this.translate.instant('notification'),
-      this.translate.instant('bdbandoc_khong_tim_thay_danh_sach_ban_in')
-    );
-  }
+    } else {
+      this.createNotification(
+        'error',
+        this.translate.instant('notification'),
+        this.translate.instant('bdbandoc_khong_lay_duoc_danh_sach_dkcb')
+      );
+    }
+  });
 }
+
 
 
 huyDangKyDatMuon(id: string) {
@@ -315,7 +339,9 @@ ngOnInit() {
         next: (res) => {
           if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
             this.currentDocument = res.data[0];
-
+            console.log('data dc', this.currentDocument);
+            this.currentUrl = window.location.href;
+            this.encodedUrl = encodeURIComponent(this.currentUrl);
             // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
             if (this.currentDocument && this.currentDocument.id) {
               this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
@@ -596,5 +622,9 @@ findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
     this.createNotification('warning', this.translate.instant('you_are_not_logged_in'), this.translate.instant('please_login_to_use_this_function'));
   }
 
+
+cleanText(text: string): string {
+  return text?.trim().replace(/^[.,\s]+|[.,\s]+$/g, '');
+}
 
 }

@@ -1,0 +1,18 @@
+.share-icon {
+  @apply w-8 h-8 flex items-center justify-center rounded-full text-sm hover:opacity-80 transition-all duration-300 ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

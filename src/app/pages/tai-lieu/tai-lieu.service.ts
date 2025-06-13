@@ -5,7 +5,7 @@ import {
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Injectable } from '@angular/core';
-import { IDocument, IDocumentQueryParams, imageUrlsBase64, TaiLieuChiTiet, TaiLieuMucLucChiTiet } from './tai-lieu';
+import { DsBanIn, IDocument, IDocumentQueryParams, imageUrlsBase64, TaiLieuChiTiet, TaiLieuMucLucChiTiet } from './tai-lieu';
 import { Observable } from 'rxjs';
 import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.type';
 
@@ -60,6 +60,20 @@ console.log('Query URL:', url);
       },
     });
     return this._http.get<IResponse<IDocument[]>>(url);
+  }
+
+  getDKCBs(bsThuVienId: string, bmTaiLieuId:string, bsKhoId?:string, maDkcb?:string) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'bmTaiLieuDkcb',
+      queryObject: {
+        bsThuVienId: bsThuVienId,
+        bmTaiLieuId: bmTaiLieuId,
+        bsKhoId: bsKhoId,
+        maDkcb:maDkcb
+      },
+    });
+    console.log('url dkcb:', url);
+    return this._http.get<IResponse<DsBanIn[]>>(url);
   }
 
   getChuyenDes(bsThuVienId: string) {

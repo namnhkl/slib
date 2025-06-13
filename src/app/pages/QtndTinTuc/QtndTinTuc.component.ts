@@ -18,6 +18,7 @@ import { environment } from 'environments/environment';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { QtndTinTucCarouselComponent } from './qtndtintuc-carousel/qtndtintuc-carousel.component';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-qtndtintuc',
@@ -44,9 +45,10 @@ export class QtndTinTucComponent {
   readonly URL_DETAIL = URL_ROUTER.QtndTinTucChiTiet;
 
   newService = inject(QtndTinTucService);
+  sharedService = inject(SharedService);
   
   pageIndex = 1;
-  pageSizes = 6;
+  pageSizes = 4;
   sizeItems = environment.ITEM_PER_PAGE_OPTION;
   totalPages = 0;
   newsData: any[] = [];
@@ -61,6 +63,8 @@ export class QtndTinTucComponent {
     .getNews(this.pageIndex - 1, this.pageSizes, {
       qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
       ten: this.searchKeyword.trim(),
+      bsThuvienId:  this.sharedService.thuVienId
+
     })
     .pipe(
       tap((res) => {
@@ -113,13 +117,13 @@ onSearch() {
   this.getNewsData();
 }
  getTopNewsData() {
-  this.newService.getNews(0, 9999).pipe(
+  this.newService.getNews(0, 9999,{bsThuvienId: this.sharedService.thuVienId}).pipe(
     tap(res => {
       if (res.messageCode === 1) {
         // ✅ Lọc top  tin có nhiều lượt xem nhất
         this.newsDataMostViewed = (Array.isArray(res.data) ? res.data : [])
           .sort((a, b) => (b.slXem || 0) - (a.slXem || 0))
-          .slice(0, 6);
+          .slice(0, 8);
       } else {
         this.newsDataMostViewed = [];
       }

@@ -1,0 +1,81 @@
+<!-- Share Toggle Wrapper -->
+<div class="relative inline-block text-left" style="margin-left: 37px;">
+  <!-- Toggle Button -->
+  <button
+  nz-tooltip nzTooltipTitle="{{'qtndtintuc_share'|translate}}"
+    type="button"
+    (click)="toggleShareMenu()"
+    class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-black hover:bg-gray-400 transition"
+    aria-label="Toggle share options" style="    position: absolute; margin-top: 8px; margin-left: -39px;">
+    <i class="fas fa-share-alt"></i>
+  </button>
+
+  <!-- Share Options -->
+  <div
+    *ngIf="isShareOpen"
+     @fadeSlide
+    class="flex items-center gap-2 mt-2 flex-wrap z-10">
+    
+    <!-- Facebook -->
+    <a
+      [href]="'https://www.facebook.com/sharer/sharer.php?u=' + encode(url)"
+      target="_blank"
+      class="share-icon bg-[#3b5998] text-white"
+      aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <!-- Twitter -->
+    <a
+      [href]="'https://twitter.com/intent/tweet?url=' + encode(url)"
+      target="_blank"
+      class="share-icon bg-[#1da1f2] text-white"
+      aria-label="Twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a
+      [href]="'https://www.linkedin.com/shareArticle?mini=true&url=' + encode(url) + '&title=' + encode(title)"
+      target="_blank"
+      class="share-icon bg-[#0077b5] text-white"
+      aria-label="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+
+    <!-- Telegram -->
+    <a
+      [href]="'https://t.me/share/url?url=' + encode(url) + '&text=' + encode(title)"
+      target="_blank"
+      class="share-icon bg-[#0088cc] text-white"
+      aria-label="Telegram">
+      <i class="fab fa-telegram-plane"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    <a
+      [href]="'https://wa.me/?text=' + encode(title + ' ' + url)"
+      target="_blank"
+      class="share-icon bg-[#25D366] text-white"
+      aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Email -->
+    <a
+      [href]="'mailto:?subject=' + encode(title) + '&body=' + encode(url)"
+      class="share-icon bg-gray-200 text-gray-700"
+      aria-label="Email">
+      <i class="fas fa-envelope"></i>
+    </a>
+
+    <!-- Copy link -->
+    <button
+      type="button"
+      (click)="copyToClipboard()"
+      class="share-icon bg-gray-400 text-white"
+      aria-label="Copy link">
+      <i class="fas fa-link"></i>
+    </button>
+  </div>
+</div>

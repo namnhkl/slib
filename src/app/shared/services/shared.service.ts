@@ -13,20 +13,21 @@ export class SharedService {
    /**
    * Gọi API lấy thư viện và lưu thuVienId
    */
-  initThuVien(): void {
-    this.danhmucService.getThuvien().subscribe({
-      next: (res: IResponse<IBsThuvien[]>) => {
-        const thuVien = res?.data?.[0];
-        if (thuVien) {
-          this.thuVienId = thuVien.id;
-          console.log('SharedService -> thuVienId:', this.thuVienId);
-        } else {
-          console.warn('Không có thư viện trong dữ liệu trả về.');
-        }
-      },
-      error: (err) => {
-        console.error('Lỗi khi gọi API thư viện:', err);
+  initThuVien(done?: () => void): void {
+  this.danhmucService.getThuvien().subscribe({
+    next: (res) => {
+      const thuVien = res?.data?.[0];
+      if (thuVien) {
+        this.thuVienId = thuVien.id;
+        console.log('SharedService -> thuVienId:', this.thuVienId);
+        done?.(); // gọi callback nếu có
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Lỗi khi gọi API thư viện:', err);
+      done?.(); // vẫn gọi callback để tránh treo
+    }
+  });
+}
+
 }
