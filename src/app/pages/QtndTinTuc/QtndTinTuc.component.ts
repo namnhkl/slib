@@ -117,11 +117,12 @@ onSearch() {
   this.getNewsData();
 }
  getTopNewsData() {
-  this.newService.getNews(0, 9999,{bsThuvienId: this.sharedService.thuVienId}).pipe(
+  this.newService.getNews(0, 9999, { bsThuvienId: this.sharedService.thuVienId }).pipe(
     tap(res => {
       if (res.messageCode === 1) {
-        // ✅ Lọc top  tin có nhiều lượt xem nhất
+        // ✅ Lọc item có slXem > 0 trước, sau đó sắp xếp giảm dần
         this.newsDataMostViewed = (Array.isArray(res.data) ? res.data : [])
+          .filter(item => (item.slXem || 0) > 0)
           .sort((a, b) => (b.slXem || 0) - (a.slXem || 0))
           .slice(0, 8);
       } else {
@@ -130,6 +131,7 @@ onSearch() {
     })
   ).subscribe();
 }
+
 
   onPageChange(type: 'next' | 'prev') {
     if (type === 'next' && this.pageIndex < this.totalPages) this.pageIndex++;
