@@ -49,6 +49,13 @@ import { SharedService } from '@/app/shared/services/shared.service';
     TranslateModule,
     CommonModule
   ],
+  styles: [
+    `
+      nz-select {
+        width: 100%;
+      }
+    `
+  ]
 })
 export class HomeSearchAdvancedComponent implements OnInit {
   @Output() searchResultsChange = new EventEmitter();
@@ -80,17 +87,18 @@ export class HomeSearchAdvancedComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.formAdvanceSearch = this.fb.group({
-      tieuDe: this.fb.control(''),
-      tacGia: this.fb.control(''),
-      dkcb: this.fb.control(''),
-      tuKhoa: this.fb.control(''),
-      bsKhoId: this.fb.control(''),
-      bmDmDangTaiLieuId: this.fb.control(''),
-      phamVi: this.fb.control(''),
-      nhaXuatBan: this.fb.control(''),
-      ngonNgu: this.fb.control(''),
-      bsThuVienId: [''],
-    });
+  tieuDe: this.fb.control(''),
+  tacGia: this.fb.control(''),
+  dkcb: this.fb.control(''),
+  tuKhoa: this.fb.control(''),
+  bsKhoId: this.fb.control([]), // <- mảng
+  bmDmDangTaiLieuId: this.fb.control([]), // <- mảng
+  phamVi: this.fb.control(''),
+  nhaXuatBan: this.fb.control(''),
+  ngonNgu: this.fb.control(''),
+  bsThuVienId: [''],
+});
+
 
     this.formBasicSearch = this.fb.group({
       tieuDe: this.fb.control(''),
@@ -214,10 +222,17 @@ this.activatedRouter.queryParams
       };
     }),
     tap(({ formData }) => {
-      this.loadingService.setLoading(true);
-      this.formAdvanceSearch.setValue(formData); // bsThuVienId đã được thêm vào đây
-      this.formBasicSearch.setValue({ tieuDe: formData.tieuDe });
-    }),
+  const newFormData = {
+    ...formData,
+    bsKhoId: formData.bsKhoId ? formData.bsKhoId.split(',') : [],
+    bmDmDangTaiLieuId: formData.bmDmDangTaiLieuId ? formData.bmDmDangTaiLieuId.split(',') : [],
+    ngonNgu: formData.ngonNgu ? formData.ngonNgu : [],
+  };
+
+  this.formAdvanceSearch.setValue(newFormData);
+  this.formBasicSearch.setValue({ tieuDe: newFormData.tieuDe });
+}),
+
     switchMap(({ formData, queryPage }) =>
       this.TaiLieuService.bmTaiLieuDs({ ...formData, ...queryPage }).pipe(
         map((res) => ({
@@ -262,25 +277,28 @@ this.activatedRouter.queryParams
     }
   }
 
-  submitForm(): void {
-    if (this.formAdvanceSearch.valid) {
-      // console.log('submit', this.formAdvanceSearch.value);
-      this.router.navigate([URL_ROUTER.searchResult], {
-        queryParams: {
-          ...this.formAdvanceSearch.value,
-          ...DEFAULT_PAGINATION_OPTION,
-        },
-      });
-    } else {
-      Object.values(this.formAdvanceSearch.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
+submitForm(): void {
+  if (this.formAdvanceSearch.valid) {
+    const formValue = this.formAdvanceSearch.value;
+
+    const queryParams = {
+      ...DEFAULT_PAGINATION_OPTION,
+      ...formValue,
+      bsKhoId: (formValue.bsKhoId || []).join(','),
+      bmDmDangTaiLieuId: (formValue.bmDmDangTaiLieuId || []).join(','),
+      ngonNgu: (formValue.ngonNgu || ''),
+    };
+
+    this.router.navigate([URL_ROUTER.searchResult], {
+      queryParams
+    });
     this.isVisible = false;
   }
+  else{
+    this.formAdvanceSearch.markAllAsTouched();
+  }
+}
+
 
   showModal(): void {
     this.isVisible = true;

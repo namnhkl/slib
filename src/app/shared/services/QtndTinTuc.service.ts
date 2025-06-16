@@ -39,5 +39,28 @@ export class QtndTinTucService extends _HttpRequestInjector {
 
   return this._http.get<IResponse<IChiTietTinTuc[]>>(url);
 }
+
+
+qtndTtTinTucAudio(queryParams: ITinTucQueryParams & {bsThuvienId: string}) {
+  const url = this.urlObject.buildUrl({
+    endpoint: 'qtndTtTinTucAudio',
+    queryObject: queryParams
+  });
+      console.log('url api audio ct',url)
+
+  return this._http.get<IResponse<IChiTietTinTuc[]>>(url);
+}
+
+qtndTtTinTucVideo(queryParams: ITinTucQueryParams & {bsThuvienId: string}) {
+  const url = this.urlObject.buildUrl({
+    endpoint: 'qtndTtTinTucVideo',
+    queryObject: queryParams
+  });
+      console.log('url api video ct',url)
+
+  return this._http.get<IResponse<IChiTietTinTuc[]>>(url);
+}
+
+
   
 }

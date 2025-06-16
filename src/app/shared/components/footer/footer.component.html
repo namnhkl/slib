@@ -1,16 +1,16 @@
 <footer class="bg-gray-100 text-gray-700 mt-3 py-6">
   <div class="container mx-auto px-4">
-    <div class="flex flex-col md:flex-row justify-between gap-6 mb-6">
-      <!-- Thông tin liên hệ -->
-      <div *ngIf="IqtndTtLienHe?.noiDung" class="flex-1">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
+      <!-- Thông tin liên hệ : col-8 -->
+      <div *ngIf="IqtndTtLienHe?.noiDung" class="md:col-span-9">
         <h3 class="text-lg font-bold uppercase mb-2">
           {{ 'electronic_library_system' | translate | uppercase }}
         </h3>
         <div class="text-sm" [innerHTML]="IqtndTtLienHe.noiDung"></div>
       </div>
 
-      <!-- Thống kê truy cập -->
-      <div class="flex-1 md:text-right">
+      <!-- Thống kê truy cập : col-4 -->
+      <div class="md:col-span-3 md:text-right">
         <h3 class="text-base font-semibold">
           1 {{ 'online_visits' | translate }} | 2.908 {{ 'total_visits' | translate }}
         </h3>

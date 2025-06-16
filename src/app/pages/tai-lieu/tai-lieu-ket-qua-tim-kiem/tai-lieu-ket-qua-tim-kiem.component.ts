@@ -66,7 +66,7 @@ export class SearchResultComponent implements OnInit {
   ) {
     this.formCriteriaFilter = this.fb.group({
       bsThuVienId: [''],
-      bmDmDangTaiLieuId: this.fb.control(''),
+      bmDmDangTaiLieuId: this.fb.control<string[]>([]),
     });
   }
 
@@ -87,31 +87,42 @@ export class SearchResultComponent implements OnInit {
     this.activatedRouter.queryParams
       .pipe(
         map((queryParams: any) => ({
-          pageIndex: Number(queryParams.pageIndex),
-          pageSize: Number(queryParams.pageSize),
-          bsThuVienId: this.sharedService.thuVienId,
-          bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId,
-        })),
-        tap((value) => {
-          this.pageIndex = value.pageIndex;
-          this.pageSize = value.pageSize;
-          this.formCriteriaFilter.setValue({
-            bsThuVienId: this.sharedService.thuVienId,
-            bmDmDangTaiLieuId: value.bmDmDangTaiLieuId || '',
-          });
-        })
+  pageIndex: Number(queryParams.pageIndex),
+  pageSize: Number(queryParams.pageSize),
+  bsThuVienId: this.sharedService.thuVienId,
+  bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId
+    ? queryParams.bmDmDangTaiLieuId.split(',')
+    : [],
+})),
+       tap((value) => {
+  this.pageIndex = value.pageIndex;
+  this.pageSize = value.pageSize;
+  this.formCriteriaFilter.setValue({
+    bsThuVienId: this.sharedService.thuVienId,
+    bmDmDangTaiLieuId: value.bmDmDangTaiLieuId || [],
+  });
+})
+
       )
       .subscribe();
       //(booksSearched.totalRecord/pageSize)
     this.formCriteriaFilter.valueChanges.subscribe((value) => {
-      this.booksSearched = value;
-      this.router.navigate([URL_ROUTER.searchResult], {
-        queryParams: {
-          ...queryParamObject(),
-          ..._.omitBy(value, !_.isUndefined),
+  this.booksSearched = value;
+
+  this.router.navigate([URL_ROUTER.searchResult], {
+    queryParams: {
+      ...queryParamObject(),
+      ..._.omitBy(
+        {
+          ...value,
+          bmDmDangTaiLieuId: value.bmDmDangTaiLieuId?.join(','),
         },
-      });
-    });
+        _.isUndefined
+      ),
+    },
+  });
+});
+
   }
 
   booksSearched: Partial<IBookSearchResponse> = {

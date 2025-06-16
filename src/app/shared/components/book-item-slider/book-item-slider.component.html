@@ -1,7 +1,7 @@
 <div [class]="'item-wrapper ' + className" *ngIf="book">
   <a [routerLink]="['/tai-lieu', book?.id]" title="{{ book?.title || book?.tieuDe }}">
     <div class="item-thumbnail">
-      <img [src]="getImageUrl(book)" [alt]="book?.title || book?.tieuDe" />
+      <img [src]="getImageUrl(book) || '/img/imageBook/book_default.svg'" [alt]="book?.title || book?.tieuDe" />
     </div>
     <span class="item-title" #titleElement>{{ book?.title || book?.tieuDe }}</span>
   </a>

@@ -6,7 +6,7 @@ export const environment = {
     ...applicationBase,
   },
   production: false,
-  authServer: 'https://api.demo.slib.vn:6787/api/thuvien',
+  authServer: 'https://api.k12.slib.vn:6787/api/thuvien',
    isActiveChatbot: false,
    API_URL: 'https://chat.slib.vn/api/chat',
   VOICE_CHAT_API_URL: 'https://chat.slib.vn/api/voice-chat-to-text',
@@ -14,9 +14,9 @@ export const environment = {
   COLLECTION_NAME: 'SLIB',
   MODEL_NAME: 'gemini-2.0-flash',
   IFRAME_URL_CHATBOT: 'https://chat.slib.vn/Chatbot/Chatbot.aspx',
-  ALLOWED_DANG_TAI_LIEU: ['GT','SH'],
-  ID_TIN_VIDEO_DEFAULT: '0414c195-1814-40bc-9e0f-8179f0a836e4',
+  ALLOWED_DANG_TAI_LIEU: [],
+  ID_TIN_VIDEO_DEFAULT: '',
   ITEM_PER_PAGE_OPTION: [5,10,20,50,100],
   PAGE_SIZE: 10,
-  MA_THU_VIEN: 'SLIB'
+  MA_THU_VIEN: '242'
 };

@@ -76,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.sharedService.initThuVien(() => {
-      this.isReady = true; // Chỉ render footer sau khi có thư viện
+      this.isReady = true; // Chỉ render  sau khi có thư viện
     });
     // Initialize i18nService with default language and supported languages
     this._i18nService.init('vi-VN', ['vi-VN', 'en-US']);

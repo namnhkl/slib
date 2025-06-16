@@ -18,6 +18,11 @@ npm run start (yarn start)
 npm run build (yarn build)
 ```
 
+## Build subpath
+```cmd
+ng build --base-href /app1/
+```
+
 ## Sync Multi Language
 ```bash
 npm run s (yarn s)

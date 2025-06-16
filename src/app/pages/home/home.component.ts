@@ -22,6 +22,7 @@ import { SharedService } from '@/app/shared/services/shared.service';
 import { ChuyenDeSlideComponent } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-slide/stsBoSuuTapDs-chuyen-de-slide.component';
 import { TinTucVideoSlideComponent } from '../QtndTinTuc/qtndtintuc-video-slide/qtndtintuc-video-slide.component';
 import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.type';
+import { TinTucAudioSlideComponent } from '../QtndTinTuc/qtndtintuc-audio-slide/qtndtintuc-audio-slide.component';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.ty
     QtndTinTucCarouselComponent,
     RouterLink,
     RouterModule,
-    ChuyenDeSlideComponent
+    ChuyenDeSlideComponent,
+    TinTucAudioSlideComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -86,17 +88,18 @@ ngOnInit() {
   this.loaderService.setLoading(true);
 
   this.danhmucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe((res) => {
-    // console.log('Danh mục:', res);
+    console.log('Danh mục:', res);
     this.dangtailieus = (res.data || []).filter(item => item && item.id);
 
     const requests = this.dangtailieus.map((item) =>
-      this.homeService.bmTaiLieuMoiNhatDs({ bmDmDangTaiLieuId: item.id,bsThuvienId: this.sharedService.thuVienId }).pipe(
+      this.documentService.bmTaiLieuDs({bsThuVienId: this.sharedService.thuVienId, bmDmDangTaiLieuId:item.id}).pipe(
         switchMap((res) => {
           const result = {
             id: String(item.id),
             ten: item.ten,
             data: res.messageCode === 1 && res.data ? res.data : []
           };
+          console.log('result list', result);
           return of(result);
         })
       )
@@ -117,7 +120,7 @@ ngOnInit() {
   this.changeDetectorRef.detectChanges();
   this.documentService.getChuyenDes(this.sharedService.thuVienId).subscribe(response => {
     this.chuyendes = response.data;  // Lấy đúng mảng IDocument[]
-    // console.log('Chuyên đề: ', this.chuyendes);
+    console.log('Chuyên đề: ', this.chuyendes);
   });
 
 

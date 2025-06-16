@@ -48,7 +48,7 @@ console.log('Query URL:', url);
       endpoint: 'bmTaiLieuDs',
       queryObject,
     });
-
+    console.log('bmTaiLieuDs url', url);
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 
@@ -86,7 +86,19 @@ console.log('Query URL:', url);
     return this._http.get<IResponse<IChuyenDe[]>>(url);
   }
 
-  stsTaiLieuChiTiet(id: string, ipClient:string) {
+  bmTaiLieuTheoStsBoSuuTap(stsBoSuuTapId: string, bsThuVienId:string) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'bmTaiLieuTheoStsBoSuuTap',
+      queryObject: {
+        stsBoSuuTapId: stsBoSuuTapId,
+        bsThuVienId: bsThuVienId
+      },
+    });
+    console.log('url list book', url);
+    return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
+  }
+
+    stsTaiLieuChiTiet(id: string, ipClient:string) {
     const url = this.urlObject.buildUrl({
       endpoint: 'stsTaiLieuChiTiet',
       queryObject: {

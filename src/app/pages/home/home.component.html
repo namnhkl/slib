@@ -3,7 +3,7 @@
 <div class="container">
 <app-chuyen-de-slide></app-chuyen-de-slide>
 <div *ngFor="let dang of dangtailieus">
-  <ng-container *ngIf="allowedDangTaiLieu.includes(dang.ma) && docsByType[dang.id]?.data?.length > 0">
+  <ng-container *ngIf="docsByType[dang.id]?.data?.length > 0">
     <app-s-slider 
       [bmDmDangTaiLieuId]="dang.id"
       [children]="defaultTemplate" 
@@ -20,5 +20,8 @@
     <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate" [text2]="'qtndtintuc_tin_tuc'|translate" [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
   </section>
  <app-qtndtintuc-video-slide></app-qtndtintuc-video-slide>
+ <section>
+  <app-qtndtintuc-audio-slide></app-qtndtintuc-audio-slide>
+ </section>
 </div>
 

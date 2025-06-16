@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://api.demo.slib.vn:6787",
+      "target": "https://api.k12.slib.vn:6787",
       "secure": false,
       "changeOrigin": true,
       "logLevel": "debug"
