@@ -52,11 +52,12 @@ console.log('Query URL:', url);
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 
-  getDocsDetails(id: string) {
+  getDocsDetails(id: string,bsThuVienId: string) {
     const url = this.urlObject.buildUrl({
       endpoint: 'bmTaiLieuChiTiet',
       queryObject: {
         id,
+        bsThuVienId
       },
     });
     return this._http.get<IResponse<IDocument[]>>(url);
@@ -98,23 +99,25 @@ console.log('Query URL:', url);
     return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
   }
 
-    stsTaiLieuChiTiet(id: string, ipClient:string) {
+    stsTaiLieuChiTiet(id: string, ipClient:string,bsThuVienId: string) {
     const url = this.urlObject.buildUrl({
       endpoint: 'stsTaiLieuChiTiet',
       queryObject: {
         id,
-        ipClient
+        ipClient,
+        bsThuVienId
       },
     });
     return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
   }
 
-  stsTaiLieuMucLucChiTiet(id:string, ipClient:string) {
+  stsTaiLieuMucLucChiTiet(id:string, ipClient:string, bsThuVienId: string) {
     const url = this.urlObject.buildUrl({
       endpoint: 'stsTaiLieuMucLucChiTiet',
       queryObject: {
         id,
-        ipClient
+        ipClient,
+        bsThuVienId
       },
     });
     return this._http.get<IResponse<TaiLieuMucLucChiTiet[]>>(url);

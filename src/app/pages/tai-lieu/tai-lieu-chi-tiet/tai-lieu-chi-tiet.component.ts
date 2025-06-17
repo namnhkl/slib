@@ -335,7 +335,7 @@ ngOnInit() {
     const id = get(params, 'id', '').trim();
 
     if (id.length > 0) {
-      this.documentsService.getDocsDetails(id).subscribe({
+      this.documentsService.getDocsDetails(id,this.sharedService.thuVienId).subscribe({
         next: (res) => {
           if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
             this.currentDocument = res.data[0];
@@ -413,7 +413,7 @@ ngOnInit() {
   dsBanSo.forEach((item) => {
     const docId = item.id.toString();
 
-    this.documentsService.stsTaiLieuChiTiet(docId, '0:0:0:1').subscribe({
+    this.documentsService.stsTaiLieuChiTiet(docId, '0:0:0:1',this.sharedService.thuVienId).subscribe({
       next: (res) => {
         const firstDocument = res?.data?.[0];
         const treePart = firstDocument?.stsTaiLieuMucDs || [];
@@ -557,7 +557,7 @@ findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
   this.currentContentUrl = null;
   this.currentImageIndex = 0;
 
-  this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1').subscribe({
+  this.documentsService.stsTaiLieuMucLucChiTiet(item.id, '0:0:0:1', this.sharedService.thuVienId).subscribe({
     next: (res) => {
       const firstDocument = res?.data?.[0];
       let fileUrl = firstDocument?.tepTinDuLieu;

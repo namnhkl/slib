@@ -42,9 +42,16 @@
       class="w-full h-[180px] object-cover"
     />
     <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200" style="border-bottom: 1px solid #dcdcdc;">
-      <p class="text-[#004aad] text-sm font-medium font-montserrat">
+      <!-- <p class="text-[#004aad] text-sm font-medium font-montserrat">
         {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
-      </p>
+      </p> -->
+      <p
+  class="text-[#004aad] text-sm font-medium font-montserrat"
+  *ngFor="let nhom of _new.qtndTtNhomTinTuc"
+>
+  {{ nhom.ten }}
+</p>
+
       <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">
         {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
       </p>

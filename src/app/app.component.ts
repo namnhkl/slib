@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
 import { SharedService } from './shared/services/shared.service';
 import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MediaLibraryComponent } from './pages/home/MediaLibrary/MediaLibrary.component';
 
 
 @Component({
@@ -54,6 +55,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BreadcrumbComponent,
     QtndTinTucCarouselComponent,
     DatePipe,
+    MediaLibraryComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

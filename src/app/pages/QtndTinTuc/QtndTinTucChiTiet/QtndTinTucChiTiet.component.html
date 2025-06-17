@@ -47,11 +47,17 @@
 
         <!-- Các phần liên quan -->
         <section class="mt-8">
-          <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="newDetail.qtndTtNhomTinTucId" [text1]="''"
-            [text2]="'qtndtintuc_same_category' | translate" [text3]="''">
+          <app-qtndtintuc-carousel
+            [qtndTtNhomTinTucId]="newDetail.qtndTtNhomTinTuc[0]?.id"
+            [text1]="''"
+            [text2]="'qtndtintuc_same_category' | translate"
+            [text3]="''"
+            [removeid]="newDetail.id"
+            >
           </app-qtndtintuc-carousel>
+
         </section>
 
-        <app-qtndtintuc-video-slide class="mt-6"></app-qtndtintuc-video-slide>
+        <!-- <app-qtndtintuc-video-slide class="mt-6"></app-qtndtintuc-video-slide> -->
       </div>
     </div>

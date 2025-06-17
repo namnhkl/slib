@@ -9,6 +9,7 @@ import { QtndTinTucCarouselComponent } from '../qtndtintuc-carousel/qtndtintuc-c
 import { TinTucVideoSlideComponent } from '../qtndtintuc-video-slide/qtndtintuc-video-slide.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ShareButtonsComponent } from '@/app/shared/components/share-buttons/share-buttons.component';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-details',
@@ -29,6 +30,7 @@ export class QtndTinTucChiTietComponent implements OnInit, AfterViewInit {
     private newService: QtndTinTucService,
     private router: ActivatedRoute,
     private sanitizer: DomSanitizer,
+    private sharedService: SharedService
   ) {}
   ngAfterViewInit(): void {
    
@@ -39,9 +41,10 @@ export class QtndTinTucChiTietComponent implements OnInit, AfterViewInit {
     this.router.params.subscribe((params) => {
       const id = _.get(params, 'id', '');
       if (id.length > 0) {
-        this.newService.getNews({ id }).subscribe((res) => {
+        this.newService.getNews({ id,bsThuvienId:this.sharedService.thuVienId }).subscribe((res) => {
           if (res.messageCode === 1) {
             this.newDetail = _.get(res, 'data.0', {});
+            console.log('newDetail',this.newDetail);
             const noiDungRaw = _.get(res, 'data.0.noiDung', '');
             this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
             console.log('nd: ', this.safeContent);

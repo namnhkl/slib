@@ -12,6 +12,7 @@ import { stsBoSuuTapDsChuyenDeListComponent } from '../pages/stsBoSuuTapDs-chuye
 import { stsBoSuuTapDsChuyenDeItemComponent } from '../pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-item/stsBoSuuTapDs-chuyen-de-item.component';
 import { IntroComponent } from '../shared/components/intro/intro.component';
 import { stsBoSuuTapDsChuyenDeDetailComponent } from '../pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-detail/stsBoSuuTapDs-chuyen-de-detail.component';
+import { MediaLibraryComponent } from '../pages/home/MediaLibrary/MediaLibrary.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -28,6 +29,7 @@ export const routes: Routes = [
    }, // Trang chuyên đề,
   { path: URL_ROUTER.chuyendeitem, component: stsBoSuuTapDsChuyenDeItemComponent,data: { breadcrumb: 'Danh sách item trong chuyên đề' } },
    { path: URL_ROUTER.chuyendedetail, component: stsBoSuuTapDsChuyenDeDetailComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
+   { path: URL_ROUTER.medialibrary, component: MediaLibraryComponent,data: { breadcrumb: 'Thư viện Video, Audio' } },
   {
     path: URL_ROUTER.QtndTinTuc,
     loadChildren:  () => import('../pages/QtndTinTuc/QtndTinTuc-routing.module').then(module => module.QtndTinTucRoutingModule),

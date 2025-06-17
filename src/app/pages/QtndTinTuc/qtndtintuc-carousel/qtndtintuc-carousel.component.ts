@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { register } from 'swiper/element/bundle';
 import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SharedService } from '@/app/shared/services/shared.service';
 register(); // Gọi 1 lần duy nhất
 
 @Component({
@@ -27,8 +28,9 @@ export class QtndTinTucCarouselComponent implements OnInit {
   @Input() text1: string = '';
   @Input() text2: string = '';
   @Input() text3: string = '';
+   @Input() removeid: string = '';
 
-  constructor(private cdr: ChangeDetectorRef, private newService: QtndTinTucService ) {}
+  constructor(private cdr: ChangeDetectorRef, private newService: QtndTinTucService, private sharedService: SharedService ) {}
 
   ngOnInit(): void {
     this.updateSlidesPerView();
@@ -65,18 +67,27 @@ updateSlidesPerView() {
 }
 
   getTopNewsData() {
-    this.newService.getNews(0, 9999, {qtndTtNhomTinTucId: this.qtndTtNhomTinTucId}).pipe(
-      tap(res => {
-        if (res.messageCode === 1) {
-          this.slides = Array.isArray(res.data) ? res.data.slice(0, 6) : [];
-          this.updateSlidesPerView();
-        } else {
-          this.slides = [];
-        }
-        this.cdr.detectChanges();
-      })
-    ).subscribe();
-  }
+  this.newService.getNews(0, 9999, {
+    qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
+    bsThuvienId: this.sharedService.thuVienId
+  }).pipe(
+    tap(res => {
+      if (res.messageCode === 1) {
+        // Lọc ra những item không trùng với this.removeid
+        const filtered = Array.isArray(res.data)
+          ? res.data.filter(item => item.id !== this.removeid)
+          : [];
+
+        this.slides = filtered.slice(0, 6);
+        console.log('slides', this.slides);
+        this.updateSlidesPerView();
+      } else {
+        this.slides = [];
+      }
+      this.cdr.detectChanges();
+    })
+  ).subscribe();
+}
 
   
 }

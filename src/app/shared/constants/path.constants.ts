@@ -44,6 +44,7 @@ export const URL_ROUTER = {
   chuyendeitem:'stsBoSuuTapDs-chuyen-de-item',
   chuyendedetail:'stsBoSuuTapDs-chuyen-de-detail',
   viewdocument:'viewdocument',
-  intro:'intro'
+  intro:'intro',
+   medialibrary:'medialibrary'
   // document end
 } as const;

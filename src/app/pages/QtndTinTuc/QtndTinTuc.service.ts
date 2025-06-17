@@ -32,7 +32,7 @@ getNews(
     query = {
       ...arg3,
       pageIndex: arg1,
-      pageSize: arg2
+      pageSize: arg2,
     };
   }
 

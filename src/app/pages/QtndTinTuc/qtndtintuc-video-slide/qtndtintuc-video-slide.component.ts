@@ -15,7 +15,6 @@ import { forkJoin } from 'rxjs';
 
 interface ISimpleItem {
   id: string;
-  video: SafeResourceUrl;
   title: string;
 }
 
@@ -79,88 +78,46 @@ export class TinTucVideoSlideComponent implements OnInit {
   activeSlides: WritableSignal<SlidesOutputData | null> = signal(null);
   sharedService = inject(SharedService);
 
-    ngOnInit() {
-      console.log('HomeCategoriesComponent - ngOnInit');
-    
-      this.tinTucService.qtndTtTinTucVideo({
-        pageIndex: 0,
-        pageSize: environment.PAGE_SIZE,
-        bsThuvienId: this.sharedService.thuVienId
-      }).subscribe({
-        next: (response) => {
-          console.log('===> Audio API Response:', response);
-    
-          const items = response?.data ?? [];
-    
-          if (!Array.isArray(items) || items.length === 0) {
-            this.simpleData = [];
-            return;
-          }
-    
-          // Gọi detail cho tất cả các item
-          const detailRequests = items.map(item => {
-            return this.tinTucService.qtndTtTinTucVideo({
-              pageIndex: 0,
-              pageSize: environment.PAGE_SIZE,
-              bsThuvienId: this.sharedService.thuVienId,
-              id: item.id
-            });
-          });
-    
-          // Chờ tất cả các request hoàn thành
-          forkJoin(detailRequests).subscribe({
-            next: (allResponses) => {
-              const allVideoItems: ISimpleItem[] = [];
-    
-              allResponses.forEach((r, groupIndex) => {
-                const itemDetail: IChiTietTinTuc[] = r?.data ?? [];
-    
-                console.log(`📦 Group ${groupIndex + 1} có ${itemDetail.length} bản ghi`);
-    
-                const groupAudioItems = itemDetail
-                  .map((chiTiet, index) => {
-                    const rawUrl =
-                      chiTiet.tepTin01DuongDan?.trim() ||
-                      chiTiet.tepTin02DuongDan?.trim() ||
-                      chiTiet.tepTin03DuongDan?.trim() ||
-                      chiTiet.tepTin04DuongDan?.trim() ||
-                      chiTiet.tepTin05DuongDan?.trim() ||
-                      '';
-    
-                    if (!rawUrl) return null;
-    
-                    const fixedUrl = this.normalizeUrl(rawUrl);
-    
-                    return {
-                      id: chiTiet.id,
-                      video: this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl),
-                      title: chiTiet.ten || `Video ${groupIndex + 1}-${index + 1}`,
-                      ngayDangTin: chiTiet.ngayDangTin,
-                      moTa: chiTiet.moTa || '', // nếu có mô tả
-                      anhDaiDien: chiTiet.anhDaiDien?.trim() || '/img/default-video.png'
-                    };
-                  })
-                  .filter(item => item !== null);
-    
-                allVideoItems.push(...groupAudioItems);
-              });
-    
-              this.simpleData = allVideoItems;
-              console.log('🎯 Tổng simpleData:', this.simpleData);
-            },
-            error: (err) => {
-              console.error('🔥 Lỗi khi load chi tiết video:', err);
-              this.simpleData = [];
-            }
-          });
-        },
-        error: (err) => {
-          console.error('🔥 Lỗi khi lấy danh sách tin tức video:', err);
-          this.simpleData = [];
-        }
-      });
+   ngOnInit() {
+  console.log('HomeCategoriesComponent - ngOnInit');
+
+  this.tinTucService.qtndTtTinTucVideo({
+    pageIndex: 0,
+    pageSize: environment.PAGE_SIZE,
+    bsThuvienId: this.sharedService.thuVienId
+  }).subscribe({
+    next: (response) => {
+      console.log('===> Audio API Response:', response);
+
+      const items: IChiTietTinTuc[] = response?.data ?? [];
+
+      if (!Array.isArray(items) || items.length === 0) {
+        this.simpleData = [];
+        return;
+      }
+
+      // Map trực tiếp từ items mà không cần gọi thêm API
+      const allVideoItems: ISimpleItem[] = items.map((chiTiet, index) => {
+
+        return {
+          id: chiTiet.id,
+          title: chiTiet.ten || `Video ${index + 1}`,
+          ngayDangTin: chiTiet.ngayDangTin,
+          moTa: chiTiet.moTa || '',
+          anhDaiDien: chiTiet.anhDaiDien?.trim() || '/img/default-video.png'
+        };
+      }).filter(item => item !== null) as ISimpleItem[];
+
+      this.simpleData = allVideoItems;
+      console.log('🎯 Tổng simpleData:', this.simpleData);
+    },
+    error: (err) => {
+      console.error('🔥 Lỗi khi lấy danh sách tin tức video:', err);
+      this.simpleData = [];
     }
-    
+  });
+}
+
 
  normalizeUrl(url: string): string {
   return url

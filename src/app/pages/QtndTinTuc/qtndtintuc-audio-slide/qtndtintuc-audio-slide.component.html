@@ -3,40 +3,29 @@
     <div class="bookCategories">
       <h2 class="the-title flex justify-between items-center ">
         <span class="uppercase">Audio</span>
-        <a href="/QtndTinTuc?qtndTtNhomTinTucId={{tinVideoDefault}}"
+        <a href="/medialibrary?type=audio"
           class="viewmore text-blue-600 hover:underline">{{'view_more'|translate}}</a>
       </h2>
       <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" (change)="getChangeData($event)"
         (changed)="getChangedData($event)" #owlCar class="mt-6 videosBox">
         @for (item of simpleData; track item.id) {
         <ng-template carouselSlide [id]="item.id">
-          <div class="item-books-4 bg-white rounded-lg p-2 flex flex-col hover:shadow-lg transition"
+          <div class="item-books-4 bg-white rounded-lg border p-2 flex flex-col hover:shadow-md transition"
             style="margin-bottom: 5px;">
+               <a [routerLink]="['/medialibrary']" [queryParams]="{ type: 'audio', id: item.id }">
             <!-- Ảnh đại diện -->
             <div class="w-full mb-2">
               <img [src]="item.anhDaiDien" alt="Ảnh đại diện" class="w-full h-40 object-cover rounded-md">
             </div>
-
-            <!-- Audio player -->
-            <div class="w-full">
-              <audio class="w-full rounded-lg" controls>
-                <source [src]="item.audio" type="audio/mpeg" />
-                Trình duyệt của bạn không hỗ trợ phần tử audio.
-              </audio>
-            </div>
-
             <!-- Thông tin -->
             <div class="w-full text-left px-1">
-              <a [routerLink]="['/QtndTinTuc', item.id]">
+            
                 <h3 class="text-base font-medium text-gray-800 truncate" title="{{item.title}}">
                   {{ item.title }}
                 </h3>
-                <p class="text-sm text-gray-500 mt-1">
-                  <i class="far fa-calendar-alt mr-1"></i>{{ item.ngayDangTin }}
-                </p>
-                <!-- <p class="text-sm mt-1">{{item.moTa}}</p> -->
-              </a>
+            
             </div>
+              </a>
           </div>
         </ng-template>
 

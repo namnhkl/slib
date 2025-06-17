@@ -16,12 +16,13 @@
 <ng-template #defaultTemplate let-item="item">
   <app-book-item-slider [book]="item"></app-book-item-slider>
 </ng-template>
-  <section>
-    <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate" [text2]="'qtndtintuc_tin_tuc'|translate" [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
-  </section>
+  
  <app-qtndtintuc-video-slide></app-qtndtintuc-video-slide>
  <section>
   <app-qtndtintuc-audio-slide></app-qtndtintuc-audio-slide>
  </section>
+ <section>
+    <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate" [text2]="'qtndtintuc_tin_tuc'|translate" [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
+  </section>
 </div>
 

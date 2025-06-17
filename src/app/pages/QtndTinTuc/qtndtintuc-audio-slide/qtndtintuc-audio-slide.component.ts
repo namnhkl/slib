@@ -15,7 +15,6 @@ import { forkJoin } from 'rxjs';
 
 interface ISimpleItem {
   id: string;
-  audio: SafeResourceUrl;
   title: string;
 }
 
@@ -89,70 +88,29 @@ ngOnInit() {
     next: (response) => {
       console.log('===> Audio API Response:', response);
 
-      const items = response?.data ?? [];
+      const items: IChiTietTinTuc[] = response?.data ?? [];
 
       if (!Array.isArray(items) || items.length === 0) {
         this.simpleData = [];
         return;
       }
 
-      // Gọi detail cho tất cả các item
-      const detailRequests = items.map(item => {
-        return this.tinTucService.qtndTtTinTucAudio({
-          pageIndex: 0,
-          pageSize: environment.PAGE_SIZE,
-          bsThuvienId: this.sharedService.thuVienId,
-          id: item.id
-        });
-      });
+      // Map trực tiếp từ items
+      const allAudioItems: ISimpleItem[] = items
+        .map((chiTiet, index) => {
+        
+          return {
+            id: chiTiet.id,
+            title: chiTiet.ten || `Audio ${index + 1}`,
+            ngayDangTin: chiTiet.ngayDangTin,
+            moTa: chiTiet.moTa || '',
+            anhDaiDien: chiTiet.anhDaiDien?.trim() || '/img/default-audio.png'
+          };
+        })
+        .filter(item => item !== null) as ISimpleItem[];
 
-      // Chờ tất cả các request hoàn thành
-      forkJoin(detailRequests).subscribe({
-        next: (allResponses) => {
-          const allAudioItems: ISimpleItem[] = [];
-
-          allResponses.forEach((r, groupIndex) => {
-            const itemDetail: IChiTietTinTuc[] = r?.data ?? [];
-
-            console.log(`📦 Group ${groupIndex + 1} có ${itemDetail.length} bản ghi`);
-
-            const groupAudioItems = itemDetail
-              .map((chiTiet, index) => {
-                const rawUrl =
-                  chiTiet.tepTin01DuongDan?.trim() ||
-                  chiTiet.tepTin02DuongDan?.trim() ||
-                  chiTiet.tepTin03DuongDan?.trim() ||
-                  chiTiet.tepTin04DuongDan?.trim() ||
-                  chiTiet.tepTin05DuongDan?.trim() ||
-                  '';
-
-                if (!rawUrl) return null;
-
-                const fixedUrl = this.normalizeUrl(rawUrl);
-
-                return {
-                  id: chiTiet.id,
-                  audio: this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl),
-                  video: null, // 👈 nếu ISimpleItem yêu cầu
-                  title: chiTiet.ten || `Audio ${groupIndex + 1}-${index + 1}`,
-                  ngayDangTin: chiTiet.ngayDangTin,
-                  moTa: chiTiet.moTa || '', // nếu có mô tả
-                  anhDaiDien: chiTiet.anhDaiDien?.trim() || '/img/default-audio.png'
-                };
-              })
-              .filter(item => item !== null);
-
-            allAudioItems.push(...groupAudioItems);
-          });
-
-          this.simpleData = allAudioItems;
-          console.log('🎯 Tổng simpleData:', this.simpleData);
-        },
-        error: (err) => {
-          console.error('🔥 Lỗi khi load chi tiết audio:', err);
-          this.simpleData = [];
-        }
-      });
+      this.simpleData = allAudioItems;
+      console.log('🎯 Tổng simpleData:', this.simpleData);
     },
     error: (err) => {
       console.error('🔥 Lỗi khi lấy danh sách tin tức audio:', err);

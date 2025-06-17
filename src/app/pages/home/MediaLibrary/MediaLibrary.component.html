@@ -1,0 +1,188 @@
+<div class="container mx-auto px-4 py-8 space-y-8 bg-gray-50 rounded-2xl shadow-inner">
+  <!-- Tiêu đề -->
+  <h2 class="text-3xl font-extrabold text-center text-blue-600 flex items-center justify-center gap-2">
+    <i class="fas fa-photo-film text-4xl"></i>
+    {{ 'library' | translate }}
+    {{
+      type === 'video'
+        ? 'Video'
+        : type === 'audio'
+        ? 'Audio'
+        : 'Video & Audio'
+    }}
+  </h2>
+
+  <!-- Bộ lọc loại -->
+  <div class="flex flex-wrap justify-center gap-3">
+    <button
+      (click)="setType(null)"
+      [ngClass]="type === null ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white'"
+      class="px-4 py-2 rounded-full text-sm font-medium transition shadow-sm flex items-center gap-2"
+    >
+      <i class="fas fa-list"></i> {{ 'all' | translate }}
+    </button>
+    <button
+      (click)="setType('video')"
+      [ngClass]="type === 'video' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white'"
+      class="px-4 py-2 rounded-full text-sm font-medium transition shadow-sm flex items-center gap-2"
+    >
+      <i class="fas fa-video"></i> Video
+    </button>
+    <button
+      (click)="setType('audio')"
+      [ngClass]="type === 'audio' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white'"
+      class="px-4 py-2 rounded-full text-sm font-medium transition shadow-sm flex items-center gap-2"
+    >
+      <i class="fas fa-headphones-alt"></i> Audio
+    </button>
+  </div>
+
+  <!-- Tìm kiếm -->
+  <div class="max-w-2xl mx-auto">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="searchChanged.next($event)"
+      placeholder="🔍 {{ 'search' | translate }} ..."
+      class="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Vùng chi tiết -->
+  <div
+    id="mediaViewer"
+    class="relative bg-white p-6 rounded-2xl shadow-xl"
+    *ngIf="selectedItem"
+    @fadeInOut
+  >
+    <button
+      (click)="closeViewer()"
+      class="absolute top-0 right-2 text-gray-400 hover:text-red-500 text-2xl font-bold"
+    >
+      &times;
+    </button>
+
+    <!-- Trình phát -->
+    <div class="mb-4 rounded-xl overflow-hidden space-y-4" id="mediaPlayer">
+      <iframe
+        *ngIf="selectedItem?.video"
+        class="w-full rounded-lg h-96"
+        [src]="selectedItem.video"
+        frameborder="0"
+        allowfullscreen
+        sandbox="allow-scripts allow-same-origin"
+      ></iframe>
+
+      <audio
+        *ngIf="selectedItem?.audio"
+        controls
+        class="w-full mt-2"
+        controlsList="nodownload"
+        oncontextmenu="return false"
+      >
+        <source [src]="selectedItem.audio" type="audio/mpeg" />
+      </audio>
+
+      <img
+        *ngIf="!selectedItem?.video && !selectedItem?.audio && selectedItem?.anhDaiDien"
+        [src]="selectedItem.anhDaiDien"
+        class="rounded-lg mx-auto max-w-xs"
+        alt="Ảnh đại diện"
+      />
+    </div>
+
+    <!-- Thông tin -->
+    <div id="mediaDetails" class="space-y-2">
+      <h3 class="text-2xl font-semibold text-blue-700">
+        {{ selectedItem?.title }}
+      </h3>
+
+      <div class="flex flex-wrap gap-4 text-gray-600 text-sm">
+        <div class="flex items-center gap-1" *ngIf="selectedItem?.tacGia">
+          <i class="fas fa-user"></i>
+          {{ selectedItem.tacGia }}
+        </div>
+        <div class="flex items-center gap-1" *ngIf="selectedItem?.ngayDangTin">
+          <i class="fas fa-calendar-alt"></i>
+          {{ selectedItem.ngayDangTin }}
+        </div>
+        <div class="flex items-center gap-1" *ngIf="selectedItem?.slXem">
+          <i class="fas fa-eye"></i>
+          {{ selectedItem.slXem }}
+        </div>
+      </div>
+
+      <p class="text-gray-700" *ngIf="selectedItem?.moTa">
+        <i class="fas fa-file-alt mr-1"></i> {{ selectedItem.moTa }}
+      </p>
+
+      <div
+        class="text-gray-700"
+        *ngIf="selectedItem?.noiDung"
+        [innerHTML]="selectedItem.noiDung"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Danh sách media -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      *ngFor="let item of pagedData"
+      (click)="selectItem(item)"
+      class="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer space-y-2"
+    >
+      <img
+        *ngIf="item?.anhDaiDien"
+        [src]="item.anhDaiDien"
+        alt="Ảnh đại diện"
+        class="rounded-lg h-40 w-full object-cover"
+      />
+
+      <!-- Tiêu đề -->
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold text-gray-800 truncate">
+          <i
+            [ngClass]="item?.video ? 'fas fa-video' : 'fas fa-headphones-alt'"
+            class="mr-1"
+          ></i>
+          {{ item?.title }}
+        </h3>
+      </div>
+
+      <!-- Thông tin bổ sung -->
+      <div
+        class="flex flex-wrap gap-x-4 gap-y-1 text-gray-500 text-xs"
+        *ngIf="item"
+      >
+        <span class="flex items-center gap-1" *ngIf="item?.tacGia">
+          <i class="fas fa-user"></i> {{ item.tacGia }}
+        </span>
+        <span class="flex items-center gap-1" *ngIf="item?.ngayDangTin">
+          <i class="fas fa-calendar-alt"></i> {{ item.ngayDangTin }}
+        </span>
+        <span class="flex items-center gap-1" *ngIf="item?.slXem">
+          <i class="fas fa-eye"></i> {{ item.slXem }}
+        </span>
+      </div>
+
+      <!-- Mô tả -->
+      <p class="text-sm text-gray-600 line-clamp-3 mt-1" *ngIf="item?.moTa">
+        <i class="fas fa-file-alt mr-1"></i> {{ item.moTa }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="flex justify-center pt-4">
+    <nz-pagination
+      [(nzPageIndex)]="pageIndex"
+      [nzTotal]="filteredData.length"
+      [nzPageSize]="pageSize"
+      (nzPageIndexChange)="onPageIndexChange($event)"
+      (nzPageSizeChange)="onPageSizeChange($event)"
+      [nzShowSizeChanger]="false"
+      [nzPageSizeOptions]="[6, 12, 24, 48]"
+      nzShowQuickJumper="false"
+    ></nz-pagination>
+  </div>
+</div>
