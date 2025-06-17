@@ -90,7 +90,7 @@ export class TaiLieuChiTietComponent implements OnInit {
   isEmptyDKCB: boolean = false;
   currentUrl: string = '';
   encodedUrl: string = '';
-
+  isTomTatModalVisible = false;
   homeService = inject(HomeService);
   bandocService = inject(ProfileService);
   sharedService= inject(SharedService);
@@ -308,30 +308,6 @@ huyDangKyDatMuon(id: string) {
     }
   );
 }
-
-
-
-//  ngOnInit() {
-//   this.router.params.subscribe((params) => {
-//     const id = get(params, 'id', '').trim();
-
-//     if (id.length > 0) {
-//       this.documentsService.getDocsDetails(id).subscribe((res) => {
-//         this.currentDocument = res.data[0];
-
-//         // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
-//         if (this.currentDocument && this.currentDocument.id) {
-//           this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
-//         }
-
-//         // Buộc Angular cập nhật giao diện
-//         this.cdr.detectChanges();
-//       });
-//     }
-//   });
-
-//   this.isLogin = this.authService.isAuthenticated;
-// }
 
 ngOnInit() {
   this.router.params.subscribe((params) => {
@@ -629,5 +605,12 @@ findNodeByKey(nodes: TreeNode[], key: string): TreeNode | undefined {
 cleanText(text: string): string {
   return text?.trim().replace(/^[.,\s]+|[.,\s]+$/g, '');
 }
+
+openTomTatModal() {
+  console.log('===> currentDocument:', this.currentDocument);
+  console.log('===> Tóm tắt:', this.currentDocument?.tomTat);
+  this.isTomTatModalVisible = true;
+}
+
 
 }

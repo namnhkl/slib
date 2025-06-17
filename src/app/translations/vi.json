@@ -176,6 +176,7 @@
   "bmtailieuds_luot_yeu_thich":"Lượt yêu thích",
   "bmtailieuds_so_ban_so":"Số lượng bản số",
   "bmtailieuds_so_ban_in":"Số lượng bản in",
+  "bmtailieuds_tom_tat_chi_tiet":"Tóm tắt chi tiết",
   "bskho_kho":"Kho",
   "qtndtintuc_tim_kiem_tin_tuc":"Tìm kiếm tin tức",
   "qtndtintuc_tin_tuc":"Tin tức",
@@ -186,4 +187,5 @@
   "bdbandoc_khong_lay_duoc_danh_sach_dkcb":"Không lấy được danh sách ĐKCB",
   "qtndtintuc_share":"Chia sẻ",
   "copied":"Đã sao chép nội dung"
+
 }

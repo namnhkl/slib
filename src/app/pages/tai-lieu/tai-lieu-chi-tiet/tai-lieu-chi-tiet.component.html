@@ -14,9 +14,16 @@
           <div class="img-itemColumnInfo">
             <h3 [nzTooltipTitle]="currentDocument.tieuDe" nzTooltipPlacement="bottomCenter" nz-button nz-tooltip>
               {{currentDocument.tieuDe}}</h3>
-            <p class="line-clamp-4">
+            <p class="line-clamp-3">
               {{ currentDocument.tomTat }}
             </p>
+
+            <!-- Nút "Xem thêm" -->
+            <a *ngIf="currentDocument?.tomTat" (click)="openTomTatModal()"
+              class="text-blue-500 hover:underline cursor-pointer">
+              {{ 'view_more' | translate }}
+            </a>
+
             <!-- <app-preview-document class="fixHeight" [details]="currentDocument.tomTat" /> -->
             <div class="box-btn-info">
               <button class="btn btn-read"
@@ -25,24 +32,17 @@
                 <i class="fa fa-folder-open"></i> {{'read_a_book' | translate}}
               </button>
 
-            <!-- Nút Đặt mượn -->
-<button class="btn btn-read"
-        [disabled]="isDisableDatMuon"
-        *ngIf="!dadatMuonTaiLieu"
-        (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
-  <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
-</button>
+              <!-- Nút Đặt mượn -->
+              <button class="btn btn-read" [disabled]="isDisableDatMuon" *ngIf="!dadatMuonTaiLieu"
+                (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
+                <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
+              </button>
 
-<!-- Nút Hủy đăng ký -->
-<button class="btn btn-danger"
-        *ngIf="dadatMuonTaiLieu"
-        (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
-  <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
-</button>
-
-
-
-
+              <!-- Nút Hủy đăng ký -->
+              <button class="btn btn-danger" *ngIf="dadatMuonTaiLieu"
+                (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
+                <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
+              </button>
             </div>
 
             <div class="box-love-book">
@@ -56,15 +56,12 @@
         </div>
         <div class="itemColumnInfo">
           <div class="info-author">
-            <app-share-buttons
-              [url]="encodedUrl"
-              [title]=""
-              [showLabel]="true">
+            <app-share-buttons [url]="encodedUrl" [title]="" [showLabel]="true">
             </app-share-buttons>
             <div class="box-profile">
               <ul>
                 <li *ngIf="getPropertyValue(currentDocument, 'tacGia[0].giaTri')">{{'author'|translate}}: <a
-                  [href]="'/search-results?tacGia=' + cleanText(currentDocument.tacGia[0]?.giaTri)" >{{currentDocument.tacGia[0].giaTri}}</a>
+                    [href]="'/search-results?tacGia=' + cleanText(currentDocument.tacGia[0]?.giaTri)">{{currentDocument.tacGia[0].giaTri}}</a>
                 </li>
                 <li *ngIf="currentDocument.thongTinXuatBan">{{'publication_information'|translate}}:
                   <span>{{currentDocument.thongTinXuatBan}}</span>
@@ -157,8 +154,22 @@
     </div>
   </ng-container>
 </nz-modal>
-
 }
+
+<nz-modal [(nzVisible)]="isTomTatModalVisible" [nzTitle]="'bmtailieuds_tom_tat_chi_tiet' | translate"
+  (nzOnCancel)="isTomTatModalVisible = false" [nzFooter]="null" [nzWidth]="600"
+  [nzBodyStyle]="{ 'max-height': '70vh', 'overflow-y': 'auto' }">
+  <ng-container *nzModalContent>
+    <div *ngIf="currentDocument?.tomTat">
+      <p style="white-space: pre-wrap;">
+        {{ currentDocument.tomTat }}
+      </p>
+    </div>
+    <div *ngIf="!currentDocument?.tomTat">
+      <i>Nội dung tóm tắt không khả dụng.</i>
+    </div>
+  </ng-container>
+</nz-modal>
 
 
 
