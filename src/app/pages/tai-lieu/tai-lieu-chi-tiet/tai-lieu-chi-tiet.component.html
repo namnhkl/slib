@@ -25,17 +25,20 @@
                 <i class="fa fa-folder-open"></i> {{'read_a_book' | translate}}
               </button>
 
-              <!-- Nút Đặt mượn: chỉ disable nếu isEmptyDKCB = true -->
-              <button class="btn btn-read" [disabled]="isEmptyDKCB" *ngIf="!dadatMuonTaiLieu"
-                (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
-                <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
-              </button>
+            <!-- Nút Đặt mượn -->
+<button class="btn btn-read"
+        [disabled]="isDisableDatMuon"
+        *ngIf="!dadatMuonTaiLieu"
+        (click)="isLogin ? datMuonTaiLieu() : showLoginWarning()">
+  <i class="fa fa-solid fa-book"></i> {{'borrow_book' | translate}}
+</button>
 
-              <!-- Nút Hủy đăng ký: chỉ disable nếu isEmptyDKCB = true -->
-              <button class="btn btn-danger" [disabled]="isEmptyDKCB" *ngIf="dadatMuonTaiLieu"
-                (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
-                <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
-              </button>
+<!-- Nút Hủy đăng ký -->
+<button class="btn btn-danger"
+        *ngIf="dadatMuonTaiLieu"
+        (click)="isLogin ? huyDangKyDatMuon(currentDocument.id) : showLoginWarning()">
+  <i class="fa fa-solid fa-close"></i> {{'bdbandoc_huy_yeu_cau_dang_ky_dat_muon' | translate}}
+</button>
 
 
 

@@ -127,12 +127,20 @@ export class TaiLieuChiTietComponent implements OnInit {
     bmTaiLieuId: trimmedId,
   };
 
-  // Kiểm tra nếu dsBanIn rỗng hoặc không tồn tại thì gán isEmptyDKCB = true
-  if (!this.currentDocument?.dsBanIn || this.currentDocument.dsBanIn.length === 0) {
-    this.isEmptyDKCB = true;
-  } else {
-    this.isEmptyDKCB = false;
-  }
+if (this.currentDocument?.dsBanIn) {
+  // Lọc trước: loại bỏ các item có trangThai = 20
+  this.currentDocument.dsBanIn = this.currentDocument.dsBanIn.filter(item => item.trangThai !== 20);
+}
+
+// Sau khi lọc, kiểm tra dsBanIn tồn tại và không rỗng
+if (!this.currentDocument?.dsBanIn || this.currentDocument.dsBanIn.length === 0) {
+  this.isEmptyDKCB = true;
+  this.cdr.detectChanges();
+} else {
+  this.isEmptyDKCB = false;
+  this.cdr.detectChanges();
+}
+
 
   this.banDocsService.bdBanDocLtDangKyMuonDs(query).subscribe(
     (res) => {
@@ -154,6 +162,13 @@ export class TaiLieuChiTietComponent implements OnInit {
     }
   );
 }
+
+get isDisableDatMuon(): boolean {
+  const ds = this.currentDocument?.dsBanIn;
+  if (!ds || ds.length === 0) return true;
+  return ds.filter(x => x.trangThai !== 20).length === 0;
+}
+
 
 
 datMuonTaiLieu() {
@@ -236,77 +251,65 @@ datMuonTaiLieu() {
 
 
 huyDangKyDatMuon(id: string) {
-  const query: IDanhSachTaiLieuDatMuonParams = {
-    bmTaiLieuId: id,
-  };
+  const query: IDanhSachTaiLieuDatMuonParams = { bmTaiLieuId: id };
 
   this.banDocsService.bdBanDocLtDangKyMuonDs(query).subscribe(
     (res) => {
-      if (res && res.data && res.data.length > 0) {
-        const taiLieu = res.data.find((x) => x.bmTaiLieuId === id);
-        if (taiLieu && taiLieu.id) {
-          this.banDocsService.bdBanDocDangKyMuonXoa(taiLieu.id).subscribe(
-            (res) => {
-              if (res.messageCode === 1) {
-                this.createNotification(
-                  'success',
-                  this.translate.instant('notification'),
-                  this.translate.instant('bdbandoc_huy_dat_muon_tai_lieu_thanh_cong')
-                );
-                // Kiểm tra lại trạng thái đặt mượn
-                this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
-              } else if (res.messageCode === 0) {
-                this.createNotification(
-                  'error',
-                  this.translate.instant('notification'),
-                  this.translate.instant('bdbandoc_khong_tim_thay_yeu_cau')
-                );
-              } else {
-                this.createNotification(
-                  'warning',
-                  this.translate.instant('notification'),
-                  this.translate.instant('error')
-                );
-              }
-              this.cdr.detectChanges();
-            },
-            (error) => {
-              console.error('Lỗi khi gọi API:', error);
+      const taiLieu = res?.data?.find(x => x.bmTaiLieuId === id);
+      if (taiLieu?.id) {
+        this.banDocsService.bdBanDocDangKyMuonXoa(taiLieu.id).subscribe(
+          (res) => {
+            if (res.messageCode === 1) {
               this.createNotification(
-                'error',
+                'success',
                 this.translate.instant('notification'),
-                this.translate.instant('error')
+                this.translate.instant('bdbandoc_huy_dat_muon_tai_lieu_thanh_cong')
               );
-              this.cdr.detectChanges();
+
+              // ✅ Gọi lại API chi tiết tài liệu
+              this.documentsService.getDocsDetails(id,this.sharedService.thuVienId).subscribe(
+                (res) => {
+                  if (res?.data) {
+                    this.currentDocument = res.data[0];
+
+                    // Cập nhật lại trạng thái đặt mượn
+                    this.getTrangThaiDatMuonTaiLieu(id);
+
+                    // Kiểm tra lại bản in hợp lệ
+                    const dsValid = this.currentDocument.dsBanIn?.filter(x => x.trangThai !== 20) || [];
+                    this.isEmptyDKCB = dsValid.length === 0;
+                  }
+                  this.cdr.detectChanges();
+                },
+                (err) => {
+                  console.error('Lỗi khi gọi lại getDKCBs:', err);
+                }
+              );
+            } else {
+              this.createNotification('error', this.translate.instant('notification'), this.translate.instant('bdbandoc_khong_tim_thay_yeu_cau'));
             }
-          );
-        } else {
-          this.createNotification(
-            'warning',
-            this.translate.instant('notification'),
-            this.translate.instant('error')
-          );
-        }
-      } else {
-        this.createNotification(
-          'info',
-          this.translate.instant('notification'),
-          this.translate.instant('error')
+            this.cdr.detectChanges();
+          },
+          (error) => {
+            console.error('Lỗi khi gọi API:', error);
+            this.createNotification('error', this.translate.instant('notification'), this.translate.instant('error'));
+            this.cdr.detectChanges();
+          }
         );
+      } else {
+        this.createNotification('warning', this.translate.instant('notification'), this.translate.instant('error'));
+        this.cdr.detectChanges();
       }
-      this.cdr.detectChanges();
     },
     (error) => {
       console.error('Lỗi khi gọi API:', error);
-      this.createNotification(
-        'error',
-        this.translate.instant('notification'),
-        this.translate.instant('error')
-      );
+      this.createNotification('error', this.translate.instant('notification'), this.translate.instant('error'));
       this.cdr.detectChanges();
     }
   );
 }
+
+
 
 //  ngOnInit() {
 //   this.router.params.subscribe((params) => {
