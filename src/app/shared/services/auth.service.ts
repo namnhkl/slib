@@ -43,6 +43,10 @@ interface LoginModel {
   matKhau: string;
 }
 
+interface LogoutModel {
+  secretKey: string;
+}
+
 export class DangKyTaiKhoanRequest {
   bsThuVienId!: string;
   hoTen!: string;
@@ -101,6 +105,15 @@ isAuthenticated$ = new BehaviorSubject<boolean>(
 
     return this._http.post<IResponseAuth>(url, body);
   }
+
+  
+  bdBanDocDangXuat(body: LogoutModel) {
+    const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocDangXuat' });
+    console.log('url logout', url);
+    
+    return this._http.post<IResponse<any>>(url, body);
+  }
+
 
   quenMatKhauLayMaBaoMat(body: { soThe: string; email: string }) {
     const url = this.urlObject.buildUrl({ endpoint: 'quenMatKhauLayMaBaoMat' });

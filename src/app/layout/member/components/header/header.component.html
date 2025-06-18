@@ -32,15 +32,42 @@
                         <a class="navbar-brand order-lg-1" href="#">
                             <img src="./img/logo/logo-slibk12.svg" alt="Logo">
                         </a>
-                       <app-login-button></app-login-button>
+                        <app-login-button></app-login-button>
                     </div>
-                    <ul class="navbar-nav mx-auto">
-                        @for (link of links; track $index) {
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="{{link.url}}" (click)="close()">{{link.title | translate}}</a>
+                    <ul class="flex flex-col space-y-2 px-4">
+                        <li *ngFor="let link of links; let i = index" class="relative">
+                            <!-- Nếu không có children -->
+                            <a *ngIf="!link.children?.length" [routerLink]="link.url"
+                                class="block text-gray-800 hover:text-blue-500 py-2" (click)="close()">
+                                {{ link.title | translate }}
+                            </a>
+
+                            <!-- Nếu có children -->
+                            <div *ngIf="link.children?.length"
+                                class="flex justify-between items-center py-2 text-gray-800 cursor-pointer hover:text-blue-500"
+                                (click)="toggleMobileDropdown(i)">
+                                <span>{{ link.title | translate }}</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200"
+                                    [ngClass]="{ 'rotate-180': openMobileDropdownIndex === i }" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+
+                            <!-- Submenu -->
+                            <ul *ngIf="openMobileDropdownIndex === i"
+                                class="ml-4 border-l border-gray-300 pl-4 space-y-1">
+                                <li *ngFor="let child of link.children">
+                                    <a [routerLink]="child.url" class="block text-gray-600 hover:text-blue-500 py-1"
+                                        (click)="close(); openMobileDropdownIndex = null">
+                                        {{ child.title }}
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        }
                     </ul>
+
                     <nz-select [(ngModel)]="language" [nzSize]="'small'" (ngModelChange)="changeLanguage($event)"
                         [nzCustomTemplate]="iconTemplate">
                         <nz-option nzValue="vi-VN" translate [nzLabel]="'vietnamese'|translate"></nz-option>
@@ -50,19 +77,41 @@
             </ng-container>
         </nz-drawer>
 
-
         <!-- Menu ở giữa -->
-        <div class="navbarNav navbar-collapse order-lg-2" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li 
-                class="nav-item" 
-                *ngFor="let link of links; let i = index;" 
-                [routerLinkActive]="'active'" 
-                [routerLinkActiveOptions]="{ exact: true }">
-                <a class="nav-link" [routerLink]="link.url">
-                  {{ link.title | translate }}
-                </a>
-              </li>
+        <div class="navbarNav order-lg-2" id="navbarNav">
+            <ul class="flex space-x-4 items-center mt-2">
+                <li *ngFor="let link of links" class="relative group">
+                    <!-- Cả 2 loại đều dùng <a>, chỉ khác nhau ở routerLink -->
+                    <a *ngIf="!link.children?.length" [routerLink]="link.url"
+                            [queryParams]="link.queryParams"
+                        routerLinkActive="border-b-4 border-blue-600 text-blue-600"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                        {{ link.title | translate }}
+                    </a>
+
+                    <!-- Dùng <a> giả làm button khi có children -->
+                    <a *ngIf="link.children?.length"
+                        class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500 cursor-pointer select-none">
+                        {{ link.title | translate }}
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+
+                    <!-- Submenu -->
+                    <ul *ngIf="link.children?.length"
+                        class="absolute top-full left-0 bg-white shadow-lg rounded-md mt-0 py-3 z-50 w-56 hidden group-hover:block">
+                        <li *ngFor="let child of link.children" class="border-b last:border-b-0">
+                            <a [routerLink]="child.url"  [queryParams]="child.queryParams" routerLinkActive="border-gray-300 border-blue-600 text-blue-600"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                                class="block px-4 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                                {{ child.title }}
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
             </ul>
         </div>
         <div id="menuOverlay" class=""></div>

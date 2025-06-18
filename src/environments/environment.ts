@@ -18,5 +18,6 @@ export const environment = {
   ID_TIN_VIDEO_DEFAULT: '',
   ITEM_PER_PAGE_OPTION: [5,10,20,50,100],
   PAGE_SIZE: 10,
-  MA_THU_VIEN: '242'
+  MA_THU_VIEN: '242',
+  SECRETKEY:'manhhv'
 };

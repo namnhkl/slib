@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from '@/app/i18n/i18n.service';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { BreadcrumbComponent } from '@/app/shared/components/breadcrumb/breadcrumb.component';
+import { GioiThieuService } from '@/app/shared/services/gioithieu';
+import { SharedService } from '@/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -40,6 +42,8 @@ export class HeaderComponent {
     {
       title: 'introduction',
       url: URL_ROUTER.intro,
+      children: []
+
     },
     {
       title: 'news',
@@ -50,8 +54,8 @@ export class HeaderComponent {
       url: URL_ROUTER.documents,
     },
     {
-      title: 'borrow_from_lien_tv',
-      url: URL_ROUTER.contact,
+      title: 'menu_vbqp_phapluat',
+      url: URL_ROUTER.vbqpphapluat,
     },
     {
       title: 'contact',
@@ -59,15 +63,21 @@ export class HeaderComponent {
     },
   ];
   language = 'vi-VN';
+  htNgonNgu: number = 1;
   visible = false;
+  public openDropdownIndex: number | null = null;
+  public openMobileDropdownIndex: number | null = null;
 
   constructor(
     private router: Router,
-    private readonly _i18nService: I18nService
-  ) {}
+    private readonly _i18nService: I18nService,
+    private gioiThieuService: GioiThieuService,
+    private sharedService: SharedService
+  ) { }
 
   ngOnInit() {
     this.language = this._i18nService.language;
+    this.loadIntroductionChildren();
   }
 
   logout() {
@@ -79,14 +89,17 @@ export class HeaderComponent {
     return this._i18nService.supportedLanguages;
   }
 
-  setLanguage(language: 'vi-VN' | 'en-US') {
-    this._i18nService.language = language;
-  }
-
-  changeLanguage(language: string) {
-    console.log("🚀 ~ HeaderComponent ~ setLanguage ~ language:", language)
-    this._i18nService.language = language;
-  }
+setLanguage(language: 'vi-VN' | 'en-US') {
+  this._i18nService.language = language;
+  this.htNgonNgu = language === 'vi-VN' ? 1 : 2;
+  this.loadIntroductionChildren();
+}
+ changeLanguage(language: 'vi-VN' | 'en-US') {
+  this._i18nService.language = language;
+  this.language = language;
+  this.htNgonNgu = language === 'vi-VN' ? 1 : 2; // THIẾT YẾU
+  this.loadIntroductionChildren(); // gọi lại API
+}
 
   open(): void {
     this.visible = true;
@@ -95,4 +108,52 @@ export class HeaderComponent {
   close(): void {
     this.visible = false;
   }
+
+  toggleDropdown(index: number) {
+    this.openDropdownIndex = this.openDropdownIndex === index ? null : index;
+  }
+
+  toggleMobileDropdown(index: number) {
+    this.openMobileDropdownIndex = this.openMobileDropdownIndex === index ? null : index;
+  }
+
+  private isLoadingIntroChildren = false;
+
+loadIntroductionChildren() {
+  if (this.isLoadingIntroChildren) return; // tránh gọi trùng
+  this.isLoadingIntroChildren = true;
+
+  this.gioiThieuService.qtndGioiThieu({
+    bsThuVienId: this.sharedService.thuVienId,
+    qtndHtNgonNguId: this.htNgonNgu
+  }).subscribe({
+    next: (res: any) => {
+      const introMenuIndex = this.links.findIndex(link => link.title === 'introduction');
+      if (introMenuIndex !== -1 && res?.data?.length) {
+        const updatedChildren = res.data.map((item: any) => ({
+          title: item.ten,
+          url: '/gioi-thieu-chi-tiet',
+          queryParams: { id: item.id }
+        }));
+
+        // Clone toàn bộ mảng links
+        const newLinks = [...this.links];
+
+        // Clone object menu "introduction" và gán children mới
+        newLinks[introMenuIndex] = {
+          ...newLinks[introMenuIndex],
+          children: updatedChildren
+        };
+
+        this.links = newLinks; // Gán lại để Angular detect thay đổi
+      }
+
+      this.isLoadingIntroChildren = false;
+    },
+    error: () => {
+      this.isLoadingIntroChildren = false;
+    }
+  });
+}
+
 }

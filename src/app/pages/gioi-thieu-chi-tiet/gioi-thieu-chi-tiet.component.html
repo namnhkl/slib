@@ -1,0 +1,15 @@
+<div class="py-8 px-4">
+  <div class="container mx-auto">
+    <!-- Card từ Ant Design -->
+    <nz-card [nzBordered]="false" class="rounded-xl shadow-md">
+      <div class="p-4 sm:p-6 lg:p-8">
+        <!-- Tiêu đề -->
+        <h2 class="text-3xl font-semibold mb-6 text-blue-800 tracking-wide">
+          {{ newDetail.ten }}
+        </h2>
+        <!-- Nội dung CKEditor -->
+        <div class="prose prose-blue max-w-none text-gray-800 ck-content" [innerHTML]="safeContent"></div>
+      </div>
+    </nz-card>
+  </div>
+</div>

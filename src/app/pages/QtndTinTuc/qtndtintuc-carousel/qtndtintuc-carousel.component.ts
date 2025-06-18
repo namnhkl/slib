@@ -8,6 +8,8 @@ import { register } from 'swiper/element/bundle';
 import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedService } from '@/app/shared/services/shared.service';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 register(); // Gọi 1 lần duy nhất
 
 @Component({
@@ -15,9 +17,18 @@ register(); // Gọi 1 lần duy nhất
   templateUrl: './qtndtintuc-carousel.component.html',
   styleUrls: ['./qtndtintuc-carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule,TranslateModule,RouterModule],
+  imports: [CommonModule,TranslateModule,RouterModule,NzDividerModule,NzIconModule],
   providers:[QtndTinTucService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styles: [
+    `
+     
+      nz-divider {
+        font-size:30px !important;
+          font-weight: bold;
+      }
+    `
+  ]
 })
 export class QtndTinTucCarouselComponent implements OnInit {
   slides: any[] = [];

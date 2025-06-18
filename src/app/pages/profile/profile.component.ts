@@ -12,6 +12,7 @@ import { ProfileDocumentListComponent } from './profile-document-list/profile-do
 import { ProfileService } from './profile.service';
 import { BdBanDocProfile } from '@/app/interfaces/bdbandocprofile.interface copy';
 import { IResponse } from '@/app/shared/types/common';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +21,7 @@ import { IResponse } from '@/app/shared/types/common';
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  secretkey: string = environment.SECRETKEY;
   profile: any;
   bdBanDocChiTiet: any;
   bdBanDocChiTietSubscription: Subscription | undefined;
@@ -103,10 +105,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   window.dispatchEvent(new Event('resize'));
 }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/');
-  }
+ logout() {
+  this.authService.bdBanDocDangXuat({secretKey: this.secretkey}).subscribe({
+    next: (res) => {
+      console.log('res logout',res);
+      if (res?.messageCode === 1) {
+        this.authService.logout();
+        this.router.navigateByUrl('/');
+      } else {
+        console.warn('Không thể đăng xuất: ', res?.messageText || 'Lỗi không xác định');
+      }
+    },
+    error: (err) => {
+      console.error('Lỗi khi gọi API đăng xuất:', err);
+    }
+  });
+}
+
 
 getNam(dateStr?: string): string {
   if (!dateStr) return '';

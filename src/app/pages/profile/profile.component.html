@@ -60,40 +60,5 @@
     <div class="mt-10">
       <app-profile-document-list></app-profile-document-list>
     </div>
-
-    <!-- <div class="pt-5 documentBox">
-      @let borrowDocument = ($borrowedDocuments | async);
-      <ng-template #title1>
-        <span>{{'documents_are_borrowed'|translate}} <span class="count">({{ borrowDocument.totalRecord }})</span></span>
-      </ng-template>
-      <app-s-slider [title]="title1" [children]="item1" [data]="borrowDocument.data" [customOptions]="customOptions">
-      </app-s-slider>
-      <ng-template #item1 let-item="item">
-        <app-book-borrowed [item]="item" />
-      </ng-template>
-    </div>
-
-    <div class="pt-5 documentBox">
-      @let borrowedBooks = ($borrowedBooks | async);
-      <ng-template #title2>
-        <span>{{'documents_borrowed_or_read'|translate}} <span class="count">({{ borrowedBooks.totalRecord }})</span></span>
-      </ng-template>
-      <app-s-slider [title]="title2" [children]="slideBorrowed" [data]="borrowedBooks.data" [customOptions]="customOptions"></app-s-slider>
-      <ng-template #slideBorrowed let-item="item">
-        <app-book-borrowed [item]="item" />
-      </ng-template>
-    </div>
-
-    <div class="pt-5 documentBox">
-      @let favoriteDocuments = ($favoriteDocuments | async);
-      <ng-template #title3>
-        <span>{{'favorite_documents'|translate}} <span class="count">({{ favoriteDocuments.totalRecord }})</span></span>
-      </ng-template>
-      <app-s-slider [title]="title3" [children]="item3" [data]="favoriteDocuments.data" [customOptions]="customOptions">
-      </app-s-slider>
-      <ng-template #item3 let-item="item">
-      <app-book-borrowed [item]="item" />
-      </ng-template>
-    </div> -->
   </div>
 </div>

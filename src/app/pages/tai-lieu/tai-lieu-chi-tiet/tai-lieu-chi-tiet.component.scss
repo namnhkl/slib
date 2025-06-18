@@ -392,3 +392,17 @@ $background-color_1: #2775db;
   50% { transform: translateY(-8px); }
   100% { transform: translateY(0); }
 }
+
+@media (max-width: 768px) {
+  .leftSideBookSearch {
+    position: fixed;
+    left: 0;
+    top: 50%;
+   	transform: translateX(103px);
+    width: 20px;
+    height: 60px;
+    border-radius: 0 5px 5px 0;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0.6;
+  }
+}
