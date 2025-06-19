@@ -143,3 +143,30 @@
     width: 100%;
   }
 }
+
+
+::ng-deep .scrollable-content {
+  max-height: 80vh;
+  overflow-y: auto;
+
+  // ✅ Tùy chỉnh thanh cuộn cho trình duyệt Webkit
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #c1c1c1 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0;
+  }
+}

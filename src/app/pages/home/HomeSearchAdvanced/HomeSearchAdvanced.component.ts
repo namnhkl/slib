@@ -28,6 +28,7 @@ import LanguageCodeJson from '@/app/utils/languagecode/LanguageCode.json';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { BsKho } from '@/app/interfaces/bskho.interface';
 import { SharedService } from '@/app/shared/services/shared.service';
+import { IBoSach } from '@/app/shared/types/danhmuc';
 
 @Component({
   selector: 'app-home-search-advanced',
@@ -73,6 +74,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
   thuVIenId: string = '';
   thuVien: IBsThuvien | null = null;
   bsKhos: BsKho[] = [];
+  boSach: IBoSach[]=[];
   dangTaiLieu: IDangTaiLieu[] = [];
   activatedRouter = inject(ActivatedRoute);
 
@@ -96,6 +98,7 @@ export class HomeSearchAdvancedComponent implements OnInit {
   phamVi: this.fb.control(''),
   nhaXuatBan: this.fb.control(''),
   ngonNgu: this.fb.control(''),
+  bmTuDienBoSachId: this.fb.control(''),
   bsThuVienId: [''],
 });
 
@@ -162,6 +165,22 @@ loadBsKho(thuVIenId:string) {
   });
 }
 
+loadBoSach(thuVIenId:string) {
+  this.danhmucService.getBoSach({bsThuVienId:thuVIenId}).subscribe({
+    next: (res) => {
+      console.log('bo sach',res);
+      if (res && res.data) {
+          this.boSach = res.data;
+      } else {
+        this.boSach = [];
+      }
+    },
+    error: (err) => {
+      this.boSach = [];
+    }
+  });
+}
+
 loadDangTaiLieu() {
   this.danhmucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe({
     next: (res) => {
@@ -189,6 +208,7 @@ loadDangTaiLieu() {
     this.loadLanguages();
     this.loadBsKho(this.thuVIenId);
     this.loadDangTaiLieu();
+    this.loadBoSach(this.thuVIenId);
 
     // Lắng nghe sự kiện thay đổi ngôn ngữ
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -207,17 +227,19 @@ this.activatedRouter.queryParams
           phamVi: _.get(value, 'phamVi', ''),
           nhaXuatBan: _.get(value, 'nhaXuatBan', ''),
           ngonNgu: _.get(value, 'ngonNgu', ''),
+          bmDmDangTaiLieuId: _.get(value, 'bmDmDangTaiLieuId', ''),
           dkcb: _.get(value, 'ngonNgu', ''),
           tuKhoa: _.get(value, 'tuKhoa', ''),
           bsThuVienId: bsThuVienId,
           bsKhoId: _.get(value, 'bsKhoId', ''),
-          bmDmDangTaiLieuId: _.get(value, 'bmDmDangTaiLieuId', ''),
+          bmTuDienBoSachId: _.get(value, 'bmTuDienBoSachId', ''),
         },
         queryPage: {
           pageIndex: Number(value.pageIndex) || 0,
           pageSize: Number(value.pageSize) || 10,
           bsThuVienId: bsThuVienId,
           bmDmDangTaiLieuId: value?.bmDmDangTaiLieuId || '',
+          bmTuDienBoSachId: value?.bmTuDienBoSachId || '',
         },
       };
     }),
@@ -227,6 +249,7 @@ this.activatedRouter.queryParams
     bsKhoId: formData.bsKhoId ? formData.bsKhoId.split(',') : [],
     bmDmDangTaiLieuId: formData.bmDmDangTaiLieuId ? formData.bmDmDangTaiLieuId.split(',') : [],
     ngonNgu: formData.ngonNgu ? formData.ngonNgu : [],
+    bmTuDienBoSachId: formData.bmTuDienBoSachId ? formData.bmTuDienBoSachId : [],
   };
 
   this.formAdvanceSearch.setValue(newFormData);
@@ -287,6 +310,7 @@ submitForm(): void {
       bsKhoId: (formValue.bsKhoId || []).join(','),
       bmDmDangTaiLieuId: (formValue.bmDmDangTaiLieuId || []).join(','),
       ngonNgu: (formValue.ngonNgu || ''),
+      bmTuDienBoSachId: (formValue.bmTuDienBoSachId || ''),
     };
 
     this.router.navigate([URL_ROUTER.searchResult], {

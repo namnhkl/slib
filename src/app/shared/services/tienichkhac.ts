@@ -6,7 +6,7 @@ import { IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { HtThanhChucNang, ThanhChucNangParams } from '../types/tienichkhac';
+import { CopyRight, CopyRightParams, HtThanhChucNang, ThanhChucNangParams } from '../types/tienichkhac';
 
 
 @Injectable({
@@ -29,6 +29,21 @@ export class TienIchKhacService extends _HttpRequestInjector {
     });
 
     return this._http.get<IResponse<HtThanhChucNang[]>>(url);
+  }
+
+    qtndQlFooterCopyright(params: CopyRightParams) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'qtndQlFooterCopyright',
+      queryObject: {
+        ...{
+          pageIndex: 0,
+          pageSize: 99999
+        },
+        ...params
+      },
+    });
+    console.log('url copy', url);
+    return this._http.get<IResponse<CopyRight[]>>(url);
   }
 }
 

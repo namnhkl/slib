@@ -194,6 +194,15 @@
   "qtndtintuc_share":"Share",
   "copied":"Copied",
   "search_video_audio":"Search for videos, audio",
-  "menu_vbqp_phapluat":"Legal documents"
+  "menu_vbqp_phapluat":"Legal documents",
+  "tai_file": "Download file",
+  "so_ky_hieu": "Document number",
+  "ngay_ban_hanh": "Issuance date",
+  "loai_van_ban": "Document type",
+  "co_quan_ban_hanh": "Issuing agency",
+  "nguoi_ky": "Signer",
+  "chuc_vu": "Position",
+  "content":"Content",
+  "info":"Info"
 
 }

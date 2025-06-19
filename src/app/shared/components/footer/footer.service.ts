@@ -10,6 +10,7 @@ import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/ty
 import { environment } from 'environments/environment';
 import { BsKho } from '@/app/interfaces/bskho.interface';
 import { IqtndTtLienHe } from './footer';
+import { CopyRight, CopyRightParams } from '../../types/tienichkhac';
 
 @Injectable({
   providedIn: 'root',

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
 import { environment } from 'environments/environment';
 import { BsKho } from '@/app/interfaces/bskho.interface';
+import { IBoSach, IBoSachParams } from '../types/danhmuc';
 
 @Injectable({
   providedIn: 'root',
@@ -56,4 +57,13 @@ export class DanhmucService extends _HttpRequestInjector {
       return this._http.get<IResponse<BsKho[]>>(url);
     }
   
+     getBoSach(params: IBoSachParams) {
+        const url = this.urlObject.buildUrl({
+          endpoint: 'bmTuDienBoSach',
+          queryObject: {
+            params
+          },
+        });
+        return this._http.get<IResponse<IBoSach[]>>(url);
+      }
 }

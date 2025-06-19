@@ -18,8 +18,9 @@
     </div>
 
     <!-- Bản quyền -->
-    <div class="border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
-      &copy; {{ '2020_copyright_belongs_to_slibvn' | translate }}
-    </div>
+    <div *ngIf="copyRight" class="border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
+  {{ copyRight.noiDung }}
+</div>
+
   </div>
 </footer>

@@ -51,7 +51,7 @@ export class HeaderComponent {
     },
     {
       title: 'good_books',
-      url: URL_ROUTER.documents,
+      url: URL_ROUTER.searchResult,
     },
     {
       title: 'menu_vbqp_phapluat',

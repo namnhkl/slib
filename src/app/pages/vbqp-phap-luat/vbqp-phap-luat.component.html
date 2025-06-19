@@ -1,115 +1,180 @@
 <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
-    <main class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-      <!-- Header -->
-      <section class="text-center max-w-3xl mx-auto mb-10">
-        <p class="text-[12px]  text-[#2c4aaa] tracking-widest mb-2 uppercase">
-          {{ 'qtndtintuc_kham_pha_ngay' | translate }}
-        </p>
-        <h1 class="text-4xl text-gray-800 mb-2 leading-tight">
-          {{ 'qtndtintuc_tin_tuc' | translate }}
-        </h1>
-        <p class="text-gray-500 text-sm sm:text-base">
-          {{ 'qtndtintuc_hay_theo_doi' | translate }}
-        </p>
-        <!-- Thanh tìm kiếm -->
-        <div class="flex items-center space-x-2 mt-4 max-w-md mx-auto">
-          <input
-            type="text"
-            placeholder="{{ 'qtndtintuc_tim_kiem_tin_tuc' | translate }}"
-            [(ngModel)]="searchKeyword"
-            (ngModelChange)="onSearchDebounce($event)"
-            class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2c4aaa] rounded"
-          />
-          <button
-            (click)="onSearch()"
-            class="px-4 py-2 bg-[#004aad] text-white hover:bg-blue-700 transition rounded"
-          >
-            <i class="fa-solid fa-search"></i>
-          </button>
+  <main class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+
+    <!-- Header -->
+    <section class="text-center max-w-3xl mx-auto mb-10">
+      <h1 class="text-4xl text-gray-800 mb-6 leading-tight">
+        {{ 'menu_vbqp_phapluat' | translate }}
+      </h1>
+
+
+      <!-- Thanh tìm kiếm -->
+      <div class="flex items-center space-x-2 mt-4 max-w-md mx-auto">
+        <input type="text" placeholder="{{ 'search' | translate }}" [(ngModel)]="searchKeyword"
+          (ngModelChange)="onSearchDebounce($event)"
+          class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2c4aaa] rounded" />
+        <button (click)="onSearch()" class="px-4 py-2 bg-[#004aad] text-white hover:bg-blue-700 transition rounded">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Nội dung chính -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Sidebar -->
+      <aside class="bg-white rounded-lg shadow-md p-4 h-fit border-t lg:col-span-1">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 ">
+          <i class="fas fa-filter mr-2 text-gray-500"></i>{{ 'loai_van_ban' | translate }}
+        </h3>
+        <ul class="divide-y divide-gray-200">
+          <li class="cursor-pointer px-3 py-2 hover:bg-blue-50 transition text-sm text-gray-700"
+            [class.font-semibold]="!loaiVanBanIdId" (click)="loaiVanBanIdId = ''; onSearch()">
+            <i class="fas fa-folder-open mr-1 text-gray-500"></i> --{{ 'all' | translate }}--
+          </li>
+          <li *ngFor="let loai of loaiVanBanList" (click)="loaiVanBanIdId = loai.id; onSearch()"
+            [class.bg-blue-100]="loaiVanBanIdId === loai.id"
+            class="cursor-pointer px-3 py-2 hover:bg-blue-50 transition text-sm text-gray-700 flex items-center gap-2">
+            <i class="fas fa-file-alt text-gray-400"></i> {{ loai.ten }}
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Danh sách văn bản -->
+      <section class="lg:col-span-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          <article *ngFor="let vbqpphapluat of VbqpPhapLuats"
+            class="bg-white rounded-lg border border-gray-200 hover:shadow-md transition overflow-hidden">
+            <a (click)="showModal(vbqpphapluat.id)" class="block p-4 space-y-3">
+              <!-- Tiêu đề -->
+              <h3 class="text-base font-semibold text-blue-800 leading-snug">
+                <i class="fas fa-file-signature mr-1 text-gray-400"></i> {{ vbqpphapluat.ten }}
+              </h3>
+
+              <!-- Bảng thông tin -->
+              <table class="text-sm text-gray-700 w-full border-t border-gray-100 pt-2">
+                <tbody>
+                  <tr class="border-b">
+                    <td class="font-medium pr-2 py-1 text-gray-500 w-40">
+                      <i class="fas fa-hashtag mr-1"></i> {{ 'so_ky_hieu' | translate }}:
+                    </td>
+                    <td class="py-1">{{ vbqpphapluat.soKyHieu }}</td>
+                  </tr>
+                  <tr class="border-b">
+                    <td class="font-medium pr-2 py-1 text-gray-500">
+                      <i class="fas fa-calendar-day mr-1"></i> {{ 'ngay_ban_hanh' | translate }}:
+                    </td>
+                    <td class="py-1">{{ vbqpphapluat.ngayBanHanh }}</td>
+                  </tr>
+                  <tr class="border-b">
+                    <td class="font-medium pr-2 py-1 text-gray-500">
+                      <i class="fas fa-building mr-1"></i> {{ 'co_quan_ban_hanh' | translate }}:
+                    </td>
+                    <td class="py-1">{{ vbqpphapluat.coQuan }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium pr-2 py-1 text-gray-500">
+                      <i class="fas fa-user-tie mr-1"></i> {{ 'nguoi_ky' | translate }}:
+                    </td>
+                    <td class="py-1">{{ vbqpphapluat.nguoiKy }} - {{ vbqpphapluat.chucVu }}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </a>
+          </article>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center items-center mt-6">
+          <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="totalPages * pageSizes" [nzPageSize]="pageSizes"
+            (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+            [nzShowSizeChanger]="false" [nzPageSizeOptions]="sizeItems" nzShowQuickJumper="false">
+          </nz-pagination>
         </div>
       </section>
-
-      <!-- Nội dung chính và Sidebar -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Danh sách tin tức -->
-        <section class="lg:col-span-2">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-           <article *ngFor="let _new of newsData" class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px] border-b">
-  <a [routerLink]="['/QtndTinTuc', _new.id]">
-    <img
-      [src]="_new.anhDaiDien"
-      [alt]="_new.ten"
-      class="w-full h-[180px] object-cover"
-    />
-    <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200" style="border-bottom: 1px solid #dcdcdc;">
-      <!-- <p class="text-[#004aad] text-sm font-medium font-montserrat">
-        {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
-      </p> -->
-      <p
-  class="text-[#004aad] text-sm font-medium font-montserrat"
-  *ngFor="let nhom of _new.qtndTtNhomTinTuc"
->
-  {{ nhom.ten }}
-</p>
-
-      <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">
-        {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
-      </p>
     </div>
-    <div class="px-4 flex-1 flex flex-col">
-      <h3 class="font-montserrat text-[#333333] text-lg leading-tight mb-2 mt-1">
-        {{ _new.ten }}
-      </h3>
-      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto" [innerHTML]="_new.moTa">
-      </p>
+  </main>
+</nz-spin>
+
+<nz-modal nzWidth="70vw" [(nzVisible)]="isVisible" [nzFooter]="null" nzDestroyOnClose="true" [nzStyle]="{ top: '5vh' }"
+  (nzOnCancel)="handleCancel()" [nzTitle]="VbqpPhapLuatDetail?.ten">
+  <ng-container *nzModalContent>
+    <div class="scrollable-content">
+      <ng-container *ngIf="VbqpPhapLuatDetail?.ten">
+        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-10 space-y-6">
+          <!-- Tiêu đề -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <!-- Các nút chức năng -->
+            
+          </div>
+
+          <!-- Bảng thông tin -->
+          <div class="overflow-x-auto">
+            <nz-collapse nzGhost>
+              <nz-collapse-panel [nzHeader]="'details'|translate" [nzActive]="true" [nzDisabled]="false">
+                <table class="min-w-full text-sm text-gray-700 border border-gray-200 rounded-lg">
+                  <tbody>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'menu_vbqp_phapluat'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.ten }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'loai_van_ban'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.qtndDmLoaiVanBan }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 w-1/3 bg-gray-50">{{'so_ky_hieu'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.soKyHieu }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'ngay_ban_hanh'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.ngayBanHanh }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'co_quan_ban_hanh'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.coQuan }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'nguoi_ky'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.nguoiKy }}</td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">{{'chuc_vu'|translate}}</td>
+                      <td class="px-4 py-2">{{ VbqpPhapLuatDetail.chucVu }}</td>
+                    </tr>
+                     <tr class="border-b">
+                      <td class="font-semibold px-4 py-2 bg-gray-50">#</td>
+                     <td class="px-4 py-2">
+                        <ng-container *ngIf="VbqpPhapLuatDetail.tepTin01DuongDan; else noLink">
+                          <a
+                            [href]="VbqpPhapLuatDetail.tepTin01DuongDan"
+                            target="_blank"
+                            download
+                            class="text-blue-600 hover:underline"
+                          >
+                          <i class="fas fa-file-alt"></i>  {{ 'tai_file' | translate }}
+                          </a>
+                        </ng-container>
+                        <ng-template #noLink>
+                          <span class="text-gray-400 italic"><i class="fas fa-file-alt"></i> {{ 'tai_file' | translate }}</span>
+                        </ng-template>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </nz-collapse-panel>
+            </nz-collapse>
+
+          </div>
+
+          <!-- Nội dung -->
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{'content'|translate}}</h3>
+            <div class="ck-content prose max-w-none text-gray-900" [innerHTML]="safeContent"></div>
+          </div>
+        </div>
+      </ng-container>
     </div>
-  </a>
-</article>
-
-          </div>
-<!-- Ng-Zorro Pagination -->
-          <div class="flex justify-center items-center mt-6">
-            <nz-pagination
-              [(nzPageIndex)]="pageIndex"
-              [nzTotal]="totalPages * pageSizes"
-              [nzPageSize]="pageSizes"
-              (nzPageIndexChange)="onPageIndexChange($event)"
-              (nzPageSizeChange)="onPageSizeChange($event)"
-              [nzShowSizeChanger]="false"
-              [nzPageSizeOptions]="sizeItems"
-              nzShowQuickJumper="false"
-            ></nz-pagination>
-          </div>
-    
-        </section>
-
-        <!-- Sidebar tin tức nổi bật -->
-        <aside class="lg:col-span-1">
-          <div class="bg-white shadow-md p-4">
-            <h3 class="text-lg text-gray-800 mb-4">
-              {{ 'qtndtintuc_most_viewed_news' | translate }}
-            </h3>
-            <ul>
-              <li *ngFor="let _new of newsDataMostViewed" class="mb-4 last:mb-0">
-                <a [routerLink]="[_new.id]" class="flex items-center space-x-3">
-                  <img
-                    [src]="_new.anhDaiDien"
-                    [alt]="_new.ten"
-                    class="w-16 h-16 object-cover rounded"
-                  />
-                  <div>
-                    <h4 class="text-sm  text-gray-900 leading-snug">
-                      {{ _new.ten }}
-                    </h4>
-                    <span class="text-xs text-gray-600">
-                      <i class="fa fa-eye"></i> {{ _new.slXem || 0 }} {{ 'view' | translate }}
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </main>
-  </nz-spin>
+  </ng-container>
+</nz-modal>

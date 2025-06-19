@@ -16,3 +16,24 @@ export interface ThanhChucNangParams {
   pageSize?: number;
   secretKey?:string;
 }
+
+
+export interface CopyRightParams {
+  bsThuVienId: string;
+  qtndHtNgonNguId: string;
+  pageIndex?: number;
+  pageSize?: number;
+  secretKey?:string;
+  ma?:string;
+}
+
+export interface CopyRight {
+  id: string;
+  ma: string;
+  ten: string;
+  noiDung: number;
+}
+
+
+
+

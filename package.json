@@ -42,7 +42,6 @@
     "rxjs": "~7.8.2",
     "swiper": "^11.2.8",
     "tslib": "^2.8.1",
-    "turn.js": "^1.0.5",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@
     </p>
   </div>
 
-  <swiper-container *ngIf="slides?.length > 0" [navigation]="false" autoplay-delay="2500" [speed]="800" [grabCursor]="true"
+  <swiper-container [navigation]="false" autoplay-delay="2500" [speed]="800" [grabCursor]="true"
     [attr.slides-per-view]="slidesPerView" space-between="20" pagination="false" loop="true" class="w-full h-full"
     style="--swiper-navigation-color: #333; --swiper-pagination-color: #004aad;">
     <swiper-slide *ngFor="let slide of slides">

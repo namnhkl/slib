@@ -607,8 +607,6 @@ cleanText(text: string): string {
 }
 
 openTomTatModal() {
-  console.log('===> currentDocument:', this.currentDocument);
-  console.log('===> Tóm tắt:', this.currentDocument?.tomTat);
   this.isTomTatModalVisible = true;
 }
 

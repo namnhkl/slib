@@ -14,6 +14,7 @@ import { IntroComponent } from '../shared/components/intro/intro.component';
 import { stsBoSuuTapDsChuyenDeDetailComponent } from '../pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-detail/stsBoSuuTapDs-chuyen-de-detail.component';
 import { MediaLibraryComponent } from '../pages/home/MediaLibrary/MediaLibrary.component';
 import { GioiThieuChiTietComponent } from '../pages/gioi-thieu-chi-tiet/gioi-thieu-chi-tiet.component';
+import { VbqpPhapLuatComponent } from '../pages/vbqp-phap-luat/vbqp-phap-luat.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -36,6 +37,11 @@ export const routes: Routes = [
     path: URL_ROUTER.QtndTinTuc,
     loadChildren:  () => import('../pages/QtndTinTuc/QtndTinTuc-routing.module').then(module => module.QtndTinTucRoutingModule),
     data: { breadcrumb: 'news' }
+  },
+  {
+    path: URL_ROUTER.vbqpphapluat,
+    loadChildren:  () => import('../pages/vbqp-phap-luat/vbqp-phap-luat-routing.module').then(module => module.VbqpPhapLuatRoutingModule),
+    data: { breadcrumb: 'vbqppl' }
   },
   {
     path: URL_ROUTER.searchResult,

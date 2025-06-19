@@ -62,11 +62,7 @@
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-2.0.3.min.js",
-              "src/assets/js/turn.min.js",
-              "src/assets/js/underscore-min.js",
-              "src/assets/js/backbone-min.js",
-              "src/assets/js/app.js"
+              
             ]
           },
           "configurations": {

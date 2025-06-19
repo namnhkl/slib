@@ -89,13 +89,13 @@ export interface DanhSachVanBan {
 
 
 export interface DanhSachVanBanQueryParams {
-  qtndHtNgonNguId: string;
-  qtndDmLoaiVanBanId: string;
-  id: string;
-  ten: string;
-  soKyHieu: string;
-  pageIndex: number;
-  pageSize: number;
+  qtndHtNgonNguId?: string;
+  qtndDmLoaiVanBanId?: string;
+  id?: string;
+  ten?: string;
+  soKyHieu?: string;
+  pageIndex?: number;
+  pageSize?: number;
   bsThuVienId: string;
 }
 
@@ -107,9 +107,9 @@ export interface LoaiVanBan {
 }
 
 export interface LoaiVanBanQueryParams {
-  qtndHtNgonNguId: string;
-  id: string;
-  ten: string;
+  qtndHtNgonNguId?: string;
+  id?: string;
+  ten?: string;
 }
 
 export interface IResLoaiVanBan {
