@@ -11,13 +11,13 @@
       <div class="modalStand_box">
         <div class="title-result">
         </div>
-        <form [formGroup]="formCriteriaFilter">
+        <form [formGroup]="formCriteriaFilter" class="shadow">
           <div class="advSearch">
             <h3>{{'filter_criteria'|translate}}</h3>
             <nz-form-item>
-              <div class="widget_searchAdv">
+              <div class="widget_searchAdv ">
                 <div class="d-flex items-center">
-                  <h3>{{'book_series'|translate}}</h3>
+                  <h3><i class="fas fa-books"></i> {{'book_series'|translate}}</h3>
                   @let disabledCleanbmTuDienBoSachId = (this.formCriteriaFilter.controls['bmTuDienBoSachId']
                   .valueChanges | async);
                   <button nz-button nzType="link"
@@ -27,7 +27,7 @@
                   </button>
                 </div>
 
-                <nz-radio-group formControlName="bmTuDienBoSachId">
+                <nz-radio-group class="p-2" formControlName="bmTuDienBoSachId">
                   @for (item of boSach; track $index) {
                   <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
                   }
@@ -37,7 +37,7 @@
             <nz-form-item>
               <div class="widget_searchAdv">
                 <div class="d-flex items-center">
-                  <h3>{{'document_type'|translate}}</h3>
+                  <h3><i class="fas fa-list"></i> {{'document_type'|translate}}</h3>
                   @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
                   .valueChanges | async);
                   <button nz-button nzType="link"
@@ -47,7 +47,7 @@
                   </button>
                 </div>
 
-                <nz-radio-group formControlName="bmDmDangTaiLieuId">
+                <nz-radio-group class="p-2" formControlName="bmDmDangTaiLieuId">
                   @for (item of dangTaiLieus; track $index) {
                   <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
                   }
@@ -58,7 +58,7 @@
         </form>
       </div>
       <div class="modalStand_box">
-        <div class="title-result">
+        <div class="title-result mb-2">
           <p>{{'found'|translate}} <span>{{booksSearched.totalRecord}}</span> {{'results'|translate}}</p>
         </div>
         <div class="box_result_book">

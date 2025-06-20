@@ -38,16 +38,16 @@
         <a [routerLink]="['/sach-hay', sachhay.id]" class="flex flex-col h-full">
           <img [src]="sachhay.anhDaiDien || 'assets/no-image.png'" [alt]="sachhay.ten"
             class="w-full h-[220px] object-cover" />
-          <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200">
+          <!-- <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200">
             <span class="bg-[#004aad] text-white text-sm font-medium px-3 py-1 rounded-md">
               {{ sachhay.ngayDangTin | date: 'dd-MM-yyyy' }}
             </span>
-          </div>
+          </div> -->
           <div class="px-4 pb-4 pt-2 flex flex-col flex-grow">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+            <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">
               {{ sachhay.ten }}
             </h3>
-            <p class="text-sm text-gray-600 line-clamp-3 mt-auto" [innerHTML]="sachhay.moTa"></p>
+            <p class="text-sm text-gray-600 line-clamp-3" [innerHTML]="sachhay.moTa"></p>
           </div>
         </a>
       </article>

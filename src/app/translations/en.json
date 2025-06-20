@@ -166,7 +166,7 @@
   "birthdate": "Birth date",
   "register": "Register",
   "captcha": "Verification Code",
-  "enter_captcha": "Enter CAPTCHA Code",
+  "enter_captcha": "Enter verification code",
   "wrong_captcha": "Incorrect verification code",
   "reload_captcha": "Reload CAPTCHA",
   "invalid_email":"Invalid email",
@@ -205,6 +205,8 @@
   "nguoi_ky": "Signer",
   "chuc_vu": "Position",
   "content":"Content",
-  "info":"Info"
+  "info":"Info",
+  "audio_list":"Audio list",
+  "noi_quy":"Rules"
 
 }

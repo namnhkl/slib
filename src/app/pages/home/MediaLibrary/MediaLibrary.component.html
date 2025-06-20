@@ -68,7 +68,7 @@
               <i class="fas fa-calendar-alt mr-2 text-yellow-300"></i> {{ selectedItem.ngayDangTin }}
             </p>
             <p *ngIf="selectedItem?.slXem">
-              <i class="fas fa-eye mr-2 text-green-300"></i> {{ selectedItem.slXem }} lượt xem
+              <i class="fas fa-eye mr-2 text-green-300"></i> {{ selectedItem.slXem }} {{'view'|translate}}
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@
               </div>
 
               <div class="pt-3 border-t">
-                <p class="text-sm font-medium text-gray-600 mb-2">Danh sách bài hát:</p>
+                <p class="text-sm font-medium text-gray-600 mb-2">{{'audio_list'|translate}}:</p>
                 <ul class="space-y-1">
                   <li *ngFor="let audio of selectedItem.audios; let i = index" (click)="selectAudio(i)" [ngClass]="{
                       'text-purple-700 font-semibold': i === currentAudioIndex,

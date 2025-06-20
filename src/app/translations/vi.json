@@ -160,7 +160,7 @@
   "birthdate": "Ngày sinh",
   "register": "Đăng ký",
   "captcha": "Mã xác minh",
-  "enter_captcha": "Nhập mã CAPTCHA",
+  "enter_captcha": "Nhập mã xác minh",
   "wrong_captcha": "Mã xác minh không đúng",
   "reload_captcha": "Tạo mã mới",
   "invalid_email":"Email không hợp lệ",
@@ -199,6 +199,8 @@
   "nguoi_ky":"Người ký",
   "chuc_vu":"Chức vụ",
   "content":"Nội dung",
-  "info":"Thông tin"
+  "info":"Thông tin",
+  "audio_list":"Danh sách audio",
+  "noi_quy":"Nội quy"
 
 }

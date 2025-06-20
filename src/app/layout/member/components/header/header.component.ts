@@ -7,7 +7,7 @@ import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { LoginButtonComponent } from './login-button/login-button.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { I18nService } from '@/app/i18n/i18n.service';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { BreadcrumbComponent } from '@/app/shared/components/breadcrumb/breadcrumb.component';
@@ -72,7 +72,8 @@ export class HeaderComponent {
     private router: Router,
     private readonly _i18nService: I18nService,
     private gioiThieuService: GioiThieuService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -138,7 +139,7 @@ loadIntroductionChildren() {
 
          // ✅ Thêm cứng 1 item vào cuối
     updatedChildren.push({
-      title: 'noi_quy',
+      title:  this.translate.instant('noi_quy'),
       url: '/noi-quy'
     });
         // Clone toàn bộ mảng links
