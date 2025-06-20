@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Pipe, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,23 +15,28 @@ import {
   animate
 } from '@angular/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { SafeUrlPipe } from '@/app/shared/Pipes/safe-url.pipe';
 
 interface ISimpleItem {
   id: string;
   title: string;
   moTa?: string;
   ngayDangTin?: string;
-  audio?: SafeResourceUrl;
-  video?: SafeResourceUrl;
+  audios?: { url: string; name: string }[];
+  videos?: { url: string; name: string }[];
   anhDaiDien?: string;
+  noiDung?: string;
+  tacGia?: string;
+  slXem?: number;
 }
+
 
 @Component({
   selector: 'app-media-library',
   templateUrl: './MediaLibrary.component.html',
   styleUrls: ['./MediaLibrary.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule,NzPaginationModule,TranslateModule],
+  imports: [CommonModule, FormsModule,NzPaginationModule,TranslateModule,SafeUrlPipe],
     animations: [
     trigger('fadeInOut', [
       transition(':enter', [
@@ -44,14 +49,15 @@ interface ISimpleItem {
     ]),
   ],
 })
-export class MediaLibraryComponent implements OnInit {
+
+export class MediaLibraryComponent implements OnInit, AfterViewInit {
   constructor(
     private route: ActivatedRoute,
     private tintucService: QtndTinTucService,
     private shareService: SharedService,
     public sanitizer: DomSanitizer
   ) {}
-
+@ViewChild('audioRef') audioRef!: ElementRef<HTMLAudioElement>;
   type: 'video' | 'audio' | null = null;
   pageIndex = 1; // bắt đầu từ 1
 pageSize = 6;
@@ -62,6 +68,11 @@ simpleData: ISimpleItem[] = [];
 
 selectedItem: ISimpleItem | null = null;
 searchChanged = new Subject<string>();
+
+
+
+
+
   ngOnInit(): void {
   this.route.queryParams.subscribe((params) => {
     const typeParam = params['type'];
@@ -78,8 +89,35 @@ searchChanged = new Subject<string>();
   });
 }
 
+currentAudioIndex = 0;
 
-  loadDocuments(selectedId?: string): void {
+selectAudio(index: number) {
+  this.currentAudioIndex = index;
+  const audioElement = document.querySelector('audio');
+  audioElement?.load();
+  audioElement?.play();
+}
+
+// Tự động phát bài tiếp theo khi bài hiện tại kết thúc
+ngAfterViewInit() {
+  const audio = document.querySelector('audio');
+  if (audio) {
+    audio.addEventListener('ended', () => {
+      this.playNextAudio();
+    });
+  }
+}
+
+playNextAudio() {
+  if (!this.selectedItem?.audios?.length) return;
+  this.currentAudioIndex = (this.currentAudioIndex + 1) % this.selectedItem.audios.length;
+  const audioElement = document.querySelector('audio');
+  audioElement?.load();
+  audioElement?.play();
+}
+
+
+loadDocuments(selectedId?: string): void {
   const requestParams = {
     pageIndex: 0,
     pageSize: 99999,
@@ -102,15 +140,18 @@ searchChanged = new Subject<string>();
     ];
   }
 
+  
+
   forkJoin(serviceCalls).subscribe({
     next: (responses) => {
+      console.log('serviceCalls',responses);
       const mergedItems = responses.flatMap((res) => res?.data || []);
       mergedItems.sort((a, b) => new Date(b.ngayDangTin).getTime() - new Date(a.ngayDangTin).getTime());
-
+      console.log('mergedItems',mergedItems);
       const detailRequests = mergedItems.map((item) => {
         const detailParams = {
           pageIndex: 0,
-          pageSize: 1,
+          pageSize: 9999999,
           bsThuvienId: this.shareService.thuVienId,
           id: item.id,
         };
@@ -119,38 +160,61 @@ searchChanged = new Subject<string>();
           ? this.tintucService.qtndTtTinTucVideo(detailParams)
           : this.tintucService.qtndTtTinTucAudio(detailParams);
       });
-
+       
       forkJoin(detailRequests).subscribe({
         next: (details) => {
           const allItems: ISimpleItem[] = [];
 
           details.forEach((res: any, groupIndex: number) => {
             const itemDetail: IChiTietTinTuc[] = res?.data ?? [];
+              console.log('itemDetail',itemDetail);
+            const groupItems = itemDetail.map((chiTiet: IChiTietTinTuc, index: number): ISimpleItem | null => {
+  const videos: { name: string; url: string; isYoutube?: boolean }[] = [];
+const audios: { name: string; url: string }[] = [];
 
-            const groupItems = itemDetail
-              .map((chiTiet: IChiTietTinTuc, index: number): ISimpleItem | null => {
-                const rawUrl = chiTiet.tepTin01DuongDan?.trim() || '';
-                if (!rawUrl) return null;
+for (let i = 1; i <= 5; i++) {
+  const fileUrl = (chiTiet as any)[`tepTin0${i}DuongDan`]?.trim();
+  const fileName = (chiTiet as any)[`tepTin0${i}Ten`]?.trim() || '';
+  if (!fileUrl) continue;
 
-                const fixedUrl = this.normalizeUrl(rawUrl);
-                const isVideo = chiTiet.laTinVideoYoutube === 1 || chiTiet.laTinVideo === 1;
+  const fixedUrl = this.normalizeUrl(fileUrl);
+  const lowerName = fileName.toLowerCase();
 
-                const commonData = {
-                  id: chiTiet.id,
-                  title: chiTiet.ten || `MEDIA ${groupIndex + 1}-${index + 1}`,
-                  ngayDangTin: chiTiet.ngayDangTin,
-                  moTa: chiTiet.moTa || '',
-                  noiDung: chiTiet.noiDung,
-                  slXem: chiTiet.slXem,
-                  tacGia:chiTiet.tacGia,
-                  anhDaiDien: chiTiet.anhDaiDien?.trim() || (isVideo ? '/img/default-video.png' : '/img/default-audio.png'),
-                };
+  // Nếu là video YouTube
+  if (chiTiet.laTinVideo === 1 && chiTiet.laTinVideoYoutube === 1) {
+    videos.push({ name: fileName || `YouTube ${i}`, url: fixedUrl, isYoutube: true });
+  }
+  // Nếu là video file
+  else if (lowerName.endsWith('.mp4') || lowerName.endsWith('.mov') || lowerName.endsWith('.avi') || lowerName.endsWith('.mkv')) {
+    videos.push({ name: fileName, url: fixedUrl });
+  }
+  // Nếu là audio
+  else if (lowerName.endsWith('.mp3') || lowerName.endsWith('.wav') || lowerName.endsWith('.ogg')) {
+    audios.push({ name: fileName, url: fixedUrl });
+  }
+}
 
-                return isVideo
-                  ? { ...commonData, video: this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl) }
-                  : { ...commonData, audio: this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl) };
-              })
-              .filter((item): item is ISimpleItem => item !== null);
+
+  if (videos.length === 0 && audios.length === 0) return null;
+
+  const commonData = {
+    id: chiTiet.id,
+    title: chiTiet.ten || `MEDIA ${groupIndex + 1}-${index + 1}`,
+    ngayDangTin: chiTiet.ngayDangTin,
+    moTa: chiTiet.moTa || '',
+    noiDung: chiTiet.noiDung,
+    slXem: chiTiet.slXem,
+    tacGia: chiTiet.tacGia,
+    anhDaiDien: chiTiet.anhDaiDien?.trim() || (videos.length > 0 ? '/img/default-video.png' : '/img/default-audio.png'),
+  };
+
+  return {
+    ...commonData,
+    audios,
+    videos,
+  };
+}).filter((item): item is ISimpleItem => item !== null);
+
 
             allItems.push(...groupItems);
           });
@@ -158,7 +222,6 @@ searchChanged = new Subject<string>();
           this.simpleData = allItems;
           this.applySearchFilter();
 
-          // 👉 Nếu có ID được truyền qua query params, tìm và tự động hiển thị
           if (selectedId) {
             const found = this.simpleData.find(item => item.id === selectedId);
             if (found) {
@@ -169,12 +232,12 @@ searchChanged = new Subject<string>();
         error: (err) => {
           console.error('🔥 Lỗi khi load chi tiết:', err);
           this.simpleData = [];
-        },
+        }
       });
     },
     error: (err) => {
       console.error('🔥 Lỗi khi tải danh sách:', err);
-    },
+    }
   });
 }
 
@@ -198,30 +261,37 @@ applySearchFilter(): void {
   this.pageIndex = 1;
   this.updatePagedData();
 }
+
 updatePagedData(): void {
   const start = (this.pageIndex - 1) * this.pageSize;
   const end = start + this.pageSize;
   this.pagedData = this.filteredData.slice(start, end);
 }
 
-  setType(type: 'video' | 'audio' | null) {
+setType(type: 'video' | 'audio' | null) {
     this.selectedItem = null;
     this.type = type;
     this.loadDocuments();
-  }
+}
 
-  selectItem(item: ISimpleItem): void {
-    this.selectedItem = item;
+ selectItem(item: ISimpleItem): void {
+
+    if (this.audioRef?.nativeElement) {
+      this.audioRef.nativeElement.pause();
+      this.audioRef.nativeElement.currentTime = 0;
+    }
+
+    this.selectedItem = { ...item };
+    this.currentAudioIndex = 0;
+
     setTimeout(() => {
       document.getElementById('mediaViewer')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   }
 
-  closeViewer(): void {
-    this.selectedItem = null;
-  }
-
-
+closeViewer(): void {
+  this.selectedItem = null;
+}
 
   onPageIndexChange(index: number): void {
   this.pageIndex = index;
@@ -233,5 +303,8 @@ onPageSizeChange(size: number): void {
   this.pageIndex = 1;
   this.updatePagedData();
 }
+transform(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 
 }

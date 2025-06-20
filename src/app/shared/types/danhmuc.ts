@@ -4,6 +4,13 @@ export interface IBoSach {
   sapXep:number
 }
 
+export interface IqtndDmLoaiThuMuc {
+  id:string,
+  ten:string,
+  sapXep:number
+}
+
+
 export interface IBoSachParams {
   bsThuVienId?: string;
   qtndHtNgonNguId?: string;
@@ -12,3 +19,5 @@ export interface IBoSachParams {
   secretKey?:string;
   ten?:string;
 }
+
+

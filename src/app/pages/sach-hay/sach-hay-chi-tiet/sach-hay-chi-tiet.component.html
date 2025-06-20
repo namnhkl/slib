@@ -1,0 +1,66 @@
+<div class="info-detail-section py-8">
+  <div class="container sm:w-full">
+    <div class="bg-white rounded-xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10">
+
+      <!-- Tiêu đề -->
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 leading-tight">
+        {{ sachHayDetail.ten }}
+      </h1>
+
+      <!-- Meta thông tin -->
+      <div class="flex flex-wrap items-center text-sm text-gray-500 border-y py-3 gap-4 mb-4">
+
+        <div class="flex items-center space-x-1">
+          <i class="fas fa-calendar-alt text-blue-500"></i>
+          <span>{{ sachHayDetail.ngayDangTin }}</span>
+        </div>
+
+        <div class="flex items-center space-x-1" *ngIf="sachHayDetail.tacGia">
+          <i class="fas fa-user text-green-500"></i>
+          <span>{{ sachHayDetail.tacGia }}</span>
+        </div>
+
+        <div class="flex items-center space-x-1" *ngIf="sachHayDetail.slXem">
+          <i class="fas fa-eye text-purple-500"></i>
+          <span>{{ sachHayDetail.slXem }}</span>
+        </div>
+
+        <div class="flex items-center space-x-1" *ngIf="sachHayDetail.nguonTin">
+          <i class="fas fa-globe text-yellow-500"></i>
+          <a [href]="sachHayDetail.nguonTin" target="_blank" class="underline hover:text-blue-600">
+            {{ 'qtndtintuc_nguon_tin' | translate }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Nút chia sẻ -->
+      <app-share-buttons [url]="encodedUrl" [title]="sachHayDetail.ten" [showLabel]="true" class="mb-4 text-sm">
+      </app-share-buttons>
+
+      <!-- Nội dung -->
+      <div class="group-info-detail mt-6">
+        <!-- Video -->
+        <div class="mb-6" *ngIf="sachHayDetail.laTinVideo == 1 && sachHayDetail.tepTin01DuongDan">
+          <iframe *ngIf="youtubeEmbedUrl" class="w-full rounded-lg shadow-sm" height="500" [src]="youtubeEmbedUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+
+        <!-- Nội dung CKEditor -->
+        <div class="ck-content prose max-w-none text-gray-800 [&_iframe]:mx-auto [&_video]:mx-auto [&_audio]:mx-auto"
+          [innerHTML]="safeContent"></div>
+
+
+        <!-- Tin cùng chuyên mục -->
+        <section class="mt-10">
+          <app-sach-hay-carousel [qtndTtNhomTinTucId]="sachHayDetail.qtndDmLoaiThuMucId?.id" [text1]="''"
+            [text2]="'qtndtintuc_same_category' | translate" [text3]="''" [removeid]="sachHayDetail.id">
+          </app-sach-hay-carousel>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>

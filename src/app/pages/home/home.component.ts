@@ -23,6 +23,7 @@ import { ChuyenDeSlideComponent } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs
 import { TinTucVideoSlideComponent } from '../QtndTinTuc/qtndtintuc-video-slide/qtndtintuc-video-slide.component';
 import { IChuyenDe } from '../stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de.type';
 import { TinTucAudioSlideComponent } from '../QtndTinTuc/qtndtintuc-audio-slide/qtndtintuc-audio-slide.component';
+import { SachHayCarouselComponent } from '../sach-hay/sach-hay-carousel/sach-hay-carousel.component';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,8 @@ import { TinTucAudioSlideComponent } from '../QtndTinTuc/qtndtintuc-audio-slide/
     RouterLink,
     RouterModule,
     ChuyenDeSlideComponent,
-    TinTucAudioSlideComponent
+    TinTucAudioSlideComponent,
+    SachHayCarouselComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

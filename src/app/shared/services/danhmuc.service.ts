@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { IBsThuvien, IDangTaiLieu } from '@/app/pages/home/HomeSearchAdvanced/type';
 import { environment } from 'environments/environment';
 import { BsKho } from '@/app/interfaces/bskho.interface';
-import { IBoSach, IBoSachParams } from '../types/danhmuc';
+import { IBoSach, IBoSachParams, IqtndDmLoaiThuMuc } from '../types/danhmuc';
 
 @Injectable({
   providedIn: 'root',
@@ -65,5 +65,16 @@ export class DanhmucService extends _HttpRequestInjector {
           },
         });
         return this._http.get<IResponse<IBoSach[]>>(url);
+      }
+
+        
+     getLoaiThuMuc() {
+        const url = this.urlObject.buildUrl({
+          endpoint: 'qtndDmLoaiThuMuc',
+          queryObject: {
+           
+          },
+        });
+        return this._http.get<IResponse<IqtndDmLoaiThuMuc[]>>(url);
       }
 }

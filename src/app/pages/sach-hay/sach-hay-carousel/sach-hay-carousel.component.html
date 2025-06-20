@@ -1,0 +1,38 @@
+<div class=" mx-auto px-4 pt-16 pb-20 relative z-10">
+  <div class="text-center mb-8">
+    <p class="text-[13px] font-semibold text-[#004aad] tracking-widest mb-2 uppercase font-montserrat">
+      {{ text1 | translate }}
+    </p>
+    <a href="/sach-hay">
+      
+      <h2 class="text-3xl font-extrabold text-[#333333] mb-2 font-montserrat">
+     
+        {{ text2 | translate }}
+      </h2>
+    </a>
+    <p class="text-gray-600 text-sm max-w-[400px] mx-auto">
+      {{ text3 | translate }}
+    </p>
+  </div>
+
+  <swiper-container *ngIf="slides?.length > 0" [navigation]="false" autoplay-delay="2500" [speed]="800" [grabCursor]="true"
+    [attr.slides-per-view]="slidesPerView" space-between="20" pagination="false" loop="true" class="w-full h-full"
+    style="--swiper-navigation-color: #333; --swiper-pagination-color: #004aad;">
+    <swiper-slide *ngFor="let slide of slides">
+      <article class="bg-white border w-full h-full rounded-xl flex flex-col min-h-[400px] border-bottom hover:shadow-xl">
+        <a [routerLink]="['/sach-hay', slide.id]">
+          <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[180px] object-cover" />
+          <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200"
+            style="border-bottom: 1px solid #dcdcdc;">
+            <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">{{ slide.ngayDangTin }}
+            </p>
+          </div>
+          <div class="px-4 flex-1 flex flex-col">
+            <h3 class="font-montserrat text-[#333333] text-lg leading-tight mb-2 mt-1">{{ slide.ten }}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto">{{ slide.moTa }}</p>
+          </div>
+        </a>
+      </article>
+    </swiper-slide>
+  </swiper-container>
+</div>

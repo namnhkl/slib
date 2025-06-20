@@ -15,6 +15,8 @@ import { stsBoSuuTapDsChuyenDeDetailComponent } from '../pages/stsBoSuuTapDs-chu
 import { MediaLibraryComponent } from '../pages/home/MediaLibrary/MediaLibrary.component';
 import { GioiThieuChiTietComponent } from '../pages/gioi-thieu-chi-tiet/gioi-thieu-chi-tiet.component';
 import { VbqpPhapLuatComponent } from '../pages/vbqp-phap-luat/vbqp-phap-luat.component';
+import { SachHayComponent } from '../pages/sach-hay/sach-hay.component';
+import { SachHayChiTietComponent } from '../pages/sach-hay/sach-hay-chi-tiet/sach-hay-chi-tiet.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -26,21 +28,29 @@ export const routes: Routes = [
     component: HomeComponent,
     data: { breadcrumb: 'home' }
   },
-  { path: URL_ROUTER.chuyende, component: stsBoSuuTapDsChuyenDeListComponent,
+  {
+    path: URL_ROUTER.chuyende, component: stsBoSuuTapDsChuyenDeListComponent,
     data: { breadcrumb: 'topics' }
-   }, // Trang chuyên đề,
-  { path: URL_ROUTER.chuyendeitem, component: stsBoSuuTapDsChuyenDeItemComponent,data: { breadcrumb: 'Danh sách item trong chuyên đề' } },
-   { path: URL_ROUTER.chuyendedetail, component: stsBoSuuTapDsChuyenDeDetailComponent,data: { breadcrumb: 'Chi tiết Chuyên đề' } },
-   { path: URL_ROUTER.medialibrary, component: MediaLibraryComponent,data: { breadcrumb: 'Thư viện Video, Audio' } },
-   { path: URL_ROUTER.gioithieuchitiet, component: GioiThieuChiTietComponent,data: { breadcrumb: 'Giới thiệu chi tiết' } },
+  },
+  { path: URL_ROUTER.chuyendeitem, component: stsBoSuuTapDsChuyenDeItemComponent, data: { breadcrumb: 'Danh sách item trong chuyên đề' } },
+  { path: URL_ROUTER.chuyendedetail, component: stsBoSuuTapDsChuyenDeDetailComponent, data: { breadcrumb: 'Chi tiết Chuyên đề' } },
+  { path: URL_ROUTER.medialibrary, component: MediaLibraryComponent, data: { breadcrumb: 'Thư viện Video, Audio' } },
+  { path: URL_ROUTER.gioithieuchitiet, component: GioiThieuChiTietComponent, data: { breadcrumb: 'Giới thiệu chi tiết' } },
+  // { path: URL_ROUTER.sachhay, component: SachHayComponent, data: { breadcrumb: 'Sách hay' } },
+  // { path: URL_ROUTER.sachhaychitiet, component: SachHayChiTietComponent, data: { breadcrumb: 'Sách hay chi tiết' } },
   {
     path: URL_ROUTER.QtndTinTuc,
-    loadChildren:  () => import('../pages/QtndTinTuc/QtndTinTuc-routing.module').then(module => module.QtndTinTucRoutingModule),
+    loadChildren: () => import('../pages/QtndTinTuc/QtndTinTuc-routing.module').then(module => module.QtndTinTucRoutingModule),
     data: { breadcrumb: 'news' }
   },
   {
+    path: URL_ROUTER.sachhay,
+    loadChildren: () => import('../pages/sach-hay/sach-hay-routing.module').then(module => module.SachHayRoutingModule),
+    data: { breadcrumb: 'Sách hay' }
+  },
+  {
     path: URL_ROUTER.vbqpphapluat,
-    loadChildren:  () => import('../pages/vbqp-phap-luat/vbqp-phap-luat-routing.module').then(module => module.VbqpPhapLuatRoutingModule),
+    loadChildren: () => import('../pages/vbqp-phap-luat/vbqp-phap-luat-routing.module').then(module => module.VbqpPhapLuatRoutingModule),
     data: { breadcrumb: 'vbqppl' }
   },
   {

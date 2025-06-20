@@ -47,5 +47,7 @@ export const URL_ROUTER = {
   intro:'intro',
   medialibrary:'medialibrary',
   gioithieuchitiet:'gioi-thieu-chi-tiet',
-  vbqpphapluat:'vbqp-phap-luat'
+  vbqpphapluat:'vbqp-phap-luat',
+  sachhay:'sach-hay',
+  sachhaychitiet:'sach-hay-chi-tiet'
 } as const;

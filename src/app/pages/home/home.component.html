@@ -1,28 +1,37 @@
 <app-home-sliders></app-home-sliders>
 <app-home-search-advanced (searchResultsChange)="searchList($event)"></app-home-search-advanced>
 <div class="container">
-<app-chuyen-de-slide></app-chuyen-de-slide>
-<div *ngFor="let dang of dangtailieus">
-  <ng-container *ngIf="docsByType[dang.id]?.data?.length > 0">
-    <app-s-slider 
-      [bmDmDangTaiLieuId]="dang.id"
-      [children]="defaultTemplate" 
-      [title]="dang.ten" 
-      [data]="docsByType[dang.id].data">
-    </app-s-slider>
-  </ng-container>
-</div>
+  <section>
+    <app-chuyen-de-slide></app-chuyen-de-slide>
+  </section>
+  <section>
+    <div *ngFor="let dang of dangtailieus">
+      <ng-container *ngIf="docsByType[dang.id]?.data?.length > 0">
+        <app-s-slider [bmDmDangTaiLieuId]="dang.id" [children]="defaultTemplate" [title]="dang.ten"
+          [data]="docsByType[dang.id].data">
+        </app-s-slider>
+      </ng-container>
+    </div>
 
-<ng-template #defaultTemplate let-item="item">
-  <app-book-item-slider [book]="item"></app-book-item-slider>
-</ng-template>
-  
- <app-qtndtintuc-video-slide></app-qtndtintuc-video-slide>
- <section>
-  <app-qtndtintuc-audio-slide></app-qtndtintuc-audio-slide>
- </section>
- <section>
-    <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate" [text2]="'qtndtintuc_tin_tuc'|translate" [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
+    <ng-template #defaultTemplate let-item="item">
+      <app-book-item-slider [book]="item"></app-book-item-slider>
+    </ng-template>
+  </section>
+
+  <section>
+    <app-qtndtintuc-video-slide></app-qtndtintuc-video-slide>
+  </section>
+
+  <section>
+    <app-qtndtintuc-audio-slide></app-qtndtintuc-audio-slide>
+  </section>
+  <section>
+    <app-qtndtintuc-carousel [qtndTtNhomTinTucId]="" [text1]="'qtndtintuc_kham_pha_ngay'|translate"
+      [text2]="'qtndtintuc_tin_tuc'|translate"
+      [text3]="'qtndtintuc_hay_theo_doi' | translate"></app-qtndtintuc-carousel>
+  </section>
+  <section>
+    <app-sach-hay-carousel [qtndDmLoaiThuMucId]="" [text1]="''|translate" [text2]="'good_books'|translate"
+      [text3]="'good_books_subtitle' | translate"></app-sach-hay-carousel>
   </section>
 </div>
-

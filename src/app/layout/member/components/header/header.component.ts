@@ -51,7 +51,7 @@ export class HeaderComponent {
     },
     {
       title: 'good_books',
-      url: URL_ROUTER.searchResult,
+      url: URL_ROUTER.sachhay,
     },
     {
       title: 'menu_vbqp_phapluat',
@@ -136,6 +136,11 @@ loadIntroductionChildren() {
           queryParams: { id: item.id }
         }));
 
+         // ✅ Thêm cứng 1 item vào cuối
+    updatedChildren.push({
+      title: 'noi_quy',
+      url: '/noi-quy'
+    });
         // Clone toàn bộ mảng links
         const newLinks = [...this.links];
 
@@ -144,7 +149,7 @@ loadIntroductionChildren() {
           ...newLinks[introMenuIndex],
           children: updatedChildren
         };
-
+   
         this.links = newLinks; // Gán lại để Angular detect thay đổi
       }
 
