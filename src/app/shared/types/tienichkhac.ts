@@ -35,5 +35,17 @@ export interface CopyRight {
 }
 
 
+export interface ThongKeTruyCapParams {
+  bsThuVienId: string;
+  secretKey?:string;
+}
+
+export interface ThongKeTruyCap {
+  tongSoTrucTuyen: number;
+  tongSoTruyCapTrongThang: number;
+  tongSoTruyCap: number;
+}
+
+
 
 

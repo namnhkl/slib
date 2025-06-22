@@ -6,7 +6,7 @@ import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-transla
 import { CommonModule } from '@angular/common';
 import { environment } from 'environments/environment';
 import { TienIchKhacService } from '../../services/tienichkhac';
-import { CopyRight } from '../../types/tienichkhac';
+import { CopyRight, ThongKeTruyCap } from '../../types/tienichkhac';
 
 @Component({
   selector: 'app-footer',
@@ -25,6 +25,7 @@ export class FooterComponent implements OnInit {
 
   IqtndTtLienHe: IqtndTtLienHe | undefined;
   copyRight: any | undefined;
+  ThongKeTruyCap: ThongKeTruyCap | undefined;
 
   ngOnInit(): void {
     // Gọi 1 lần ban đầu
@@ -70,6 +71,21 @@ getqtndTtLienHe(): void {
         console.log('Copy right:', this.copyRight);
       } else {
         console.warn('Không lấy được thông tin Copyright');
+      }
+    },
+    error: (err) => {
+      console.error('Lỗi khi lấy Copyright:', err);
+    }
+  });
+
+  this.tienIchKhacService.thongKeTruyCap({bsThuVienId:thuVienId,secretKey:environment.SECRETKEY }).subscribe({
+    next: (res) => {
+      console.log('res tktc',res);
+      if (res.messageCode === 1) {
+        this.ThongKeTruyCap = res.data;
+        console.log('tktc:', this.ThongKeTruyCap);
+      } else {
+        console.warn('Không lấy được thông tin tktc');
       }
     },
     error: (err) => {

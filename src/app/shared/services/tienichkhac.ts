@@ -6,7 +6,7 @@ import { IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CopyRight, CopyRightParams, HtThanhChucNang, ThanhChucNangParams } from '../types/tienichkhac';
+import { CopyRight, CopyRightParams, HtThanhChucNang, ThanhChucNangParams, ThongKeTruyCap, ThongKeTruyCapParams } from '../types/tienichkhac';
 
 
 @Injectable({
@@ -45,5 +45,19 @@ export class TienIchKhacService extends _HttpRequestInjector {
     console.log('url copy', url);
     return this._http.get<IResponse<CopyRight[]>>(url);
   }
+
+    thongKeTruyCap(params: ThongKeTruyCapParams) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'thongKeTruyCap',
+      queryObject: {
+        ...{
+        },
+        ...params
+      },
+    });
+    return this._http.get<IResponse<ThongKeTruyCap>>(url);
+  }
+
+  //thongKeTruyCap
 }
 
