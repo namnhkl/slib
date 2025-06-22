@@ -20,6 +20,7 @@ export class SharedService {
       if (thuVien) {
         this.thuVienId = thuVien.id;
         console.log('SharedService -> thuVienId:', this.thuVienId);
+        localStorage.setItem('bs_thuvien_id', this.thuVienId);
         done?.(); // gọi callback nếu có
       }
     },
