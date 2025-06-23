@@ -49,5 +49,6 @@ export const URL_ROUTER = {
   gioithieuchitiet:'gioi-thieu-chi-tiet',
   vbqpphapluat:'vbqp-phap-luat',
   sachhay:'sach-hay',
-  sachhaychitiet:'sach-hay-chi-tiet'
+  sachhaychitiet:'sach-hay-chi-tiet',
+  thuvienanh:'thu-vien-anh'
 } as const;

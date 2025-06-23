@@ -64,7 +64,52 @@ export interface QtndHtThanhChucNangParams {
   pageSize?: number;
 }
 
+export interface DanhMucAnh {
+  id: string;
+  qtndHtNgonNguId: string;
+  bsThuVienId: string;
+  ten: string;
+  ngayXuatBan: string;
+  anhDaiDien: string;
+  moTa: string;
+  noiDung: string;
+  trangChu: boolean | null;
+  trangThai: number;
+}
+
+export interface DanhMucAnhQuery {
+  qtndHtNgonNguId?: number | string;
+  bsThuVienId: number | string;
+  ten?: string;
+  pageIndex?: number;
+  pageSize?: number;
+}
 
 
+export interface ThuVienAnhChiTiet {
+  id: string;
+  ten: string;
+  tepTinDuongDan: string;
+  sapXep: number;
+}
+
+export interface ChiTietAnh {
+  id: string;
+  qtndHtNgonNguId: string;
+  bsThuVienId: string;
+  ten: string;
+  ngayXuatBan: string;
+  anhDaiDien: string;
+  moTa: string;
+  noiDung: string;
+  trangChu: boolean | null;
+  trangThai: number;
+  qtndGtThuVienAnhChiTiet: ThuVienAnhChiTiet[];
+}
 
 
+export interface ChiTietAnhQuery {
+  qtndHtNgonNguId: string | number;
+  bsThuVienId: string | number;
+  id: string;
+}

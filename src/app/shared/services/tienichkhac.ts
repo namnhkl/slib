@@ -6,7 +6,7 @@ import { IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CopyRight, CopyRightParams, HtThanhChucNang, QtndHtThanhChucNangItem, QtndHtThanhChucNangParams, ThanhChucNangParams, ThongKeTruyCap, ThongKeTruyCapParams } from '../types/tienichkhac';
+import { ChiTietAnhQuery, CopyRight, CopyRightParams, DanhMucAnh, DanhMucAnhQuery, HtThanhChucNang, QtndHtThanhChucNangItem, QtndHtThanhChucNangParams, ThanhChucNangParams, ThongKeTruyCap, ThongKeTruyCapParams, ThuVienAnhChiTiet } from '../types/tienichkhac';
 
 
 @Injectable({
@@ -71,6 +71,35 @@ export class TienIchKhacService extends _HttpRequestInjector {
     });
     console.log('url menu', url);
     return this._http.get<IResponse<QtndHtThanhChucNangItem[]>>(url);
+  }
+
+    getDanhMucAnh(params: DanhMucAnhQuery) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'qtndGtThuVienAnh',
+      queryObject: {
+        ...{
+          pageIndex: 0,
+          pageSize: 99999
+        },
+        ...params
+      },
+    });
+    console.log('url anh', url);
+    return this._http.get<IResponse<DanhMucAnh[]>>(url);
+  }
+
+  
+    getAnhChiTiet(params: ChiTietAnhQuery) {
+    const url = this.urlObject.buildUrl({
+      endpoint: 'qtndGtThuVienAnhChiTiet',
+      queryObject: {
+        ...{
+        },
+        ...params
+      },
+    });
+    console.log('url anh chi tiet', url);
+    return this._http.get<IResponse<ThuVienAnhChiTiet[]>>(url);
   }
 }
 

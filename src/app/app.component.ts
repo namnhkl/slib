@@ -30,7 +30,8 @@ import { SharedService } from './shared/services/shared.service';
 import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carousel/qtndtintuc-carousel.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MediaLibraryComponent } from './pages/home/MediaLibrary/MediaLibrary.component';
-
+import { GalleryModule } from 'ng-gallery';
+import { ThuVienAnhComponent } from './pages/thu-vien-anh/thu-vien-anh.component';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +56,8 @@ import { MediaLibraryComponent } from './pages/home/MediaLibrary/MediaLibrary.co
     BreadcrumbComponent,
     QtndTinTucCarouselComponent,
     DatePipe,
-    MediaLibraryComponent
+    MediaLibraryComponent,
+    ThuVienAnhComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

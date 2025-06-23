@@ -17,6 +17,7 @@ import { GioiThieuChiTietComponent } from '../pages/gioi-thieu-chi-tiet/gioi-thi
 import { VbqpPhapLuatComponent } from '../pages/vbqp-phap-luat/vbqp-phap-luat.component';
 import { SachHayComponent } from '../pages/sach-hay/sach-hay.component';
 import { SachHayChiTietComponent } from '../pages/sach-hay/sach-hay-chi-tiet/sach-hay-chi-tiet.component';
+import { ThuVienAnhComponent } from '../pages/thu-vien-anh/thu-vien-anh.component';
 export const routes: Routes = [
   {
     path: URL_ROUTER.login,
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: URL_ROUTER.chuyendedetail, component: stsBoSuuTapDsChuyenDeDetailComponent, data: { breadcrumb: 'Chi tiết Chuyên đề' } },
   { path: URL_ROUTER.medialibrary, component: MediaLibraryComponent, data: { breadcrumb: 'Thư viện Video, Audio' } },
   { path: URL_ROUTER.gioithieuchitiet, component: GioiThieuChiTietComponent, data: { breadcrumb: 'Giới thiệu chi tiết' } },
+  { path: URL_ROUTER.thuvienanh, component: ThuVienAnhComponent, data: { breadcrumb: 'Thư viện ảnh' } },
   // { path: URL_ROUTER.sachhay, component: SachHayComponent, data: { breadcrumb: 'Sách hay' } },
   // { path: URL_ROUTER.sachhaychitiet, component: SachHayChiTietComponent, data: { breadcrumb: 'Sách hay chi tiết' } },
   {

@@ -105,69 +105,63 @@
         </nz-drawer>
 
         <!-- Menu ở giữa -->
- <div class="navbarNav order-lg-2" id="navbarNav">
-  <ul class="flex space-x-4 items-center mt-2">
-    <li *ngFor="let link of treeMenus" class="relative group">
+        <div class="navbarNav order-lg-2" id="navbarNav">
+            <ul class="flex space-x-4 items-center mt-2">
+                <li *ngFor="let link of treeMenus" class="relative group">
 
-      <!-- 🔹 Link KHÔNG có children -->
-      <ng-container *ngIf="!link.children?.length">
-        <!-- Nếu là link ngoài -->
-        <a *ngIf="isExternalLink(link.url)"
-           [href]="link.url"
-           [attr.target]="link.target"
-           class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
-          {{ link.title | translate }}
-        </a>
+                    <!-- 🔹 Link KHÔNG có children -->
+                    <ng-container *ngIf="!link.children?.length">
+                        <!-- Nếu là link ngoài -->
+                        <a *ngIf="isExternalLink(link.url)" [href]="link.url" [attr.target]="link.target"
+                            class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                            {{ link.title | translate }}
+                        </a>
 
-        <!-- Nếu là link nội bộ -->
-        <a *ngIf="!isExternalLink(link.url)"
-           [routerLink]="getRouterLink(link.url)"
-           [queryParams]="getQueryParams(link.url)"
-           routerLinkActive="border-b-4 border-blue-600 text-blue-600"
-           [routerLinkActiveOptions]="{ exact: true }"
-           class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
-          {{ link.title | translate }}
-        </a>
-      </ng-container>
+                        <!-- Nếu là link nội bộ -->
+                        <a *ngIf="!isExternalLink(link.url)" [routerLink]="getRouterLink(link.url)"
+                            [queryParams]="getQueryParams(link.url)"
+                            routerLinkActive="border-b-4 border-blue-600 text-blue-600"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                            {{ link.title | translate }}
+                        </a>
+                    </ng-container>
 
-      <!-- 🔹 Link CÓ children -->
-      <a *ngIf="link.children?.length"
-         class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500 cursor-pointer select-none">
-        {{ link.title | translate }}
-        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
+                    <!-- 🔹 Link CÓ children -->
+                    <a *ngIf="link.children?.length"
+                        class="flex items-center px-3 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500 cursor-pointer select-none">
+                        {{ link.title | translate }}
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
 
-      <!-- 🔹 Submenu -->
-      <ul *ngIf="link.children?.length"
-          class="absolute top-full left-0 bg-white shadow-lg rounded-md mt-0 py-3 z-50 w-56 hidden group-hover:block">
-        <li *ngFor="let child of link.children" class="border-b last:border-b-0">
+                    <!-- 🔹 Submenu -->
+                    <ul *ngIf="link.children?.length"
+                        class="absolute top-full left-0 bg-white shadow-lg rounded-md mt-0 py-3 z-50 w-56 hidden group-hover:block">
+                        <li *ngFor="let child of link.children" class="border-b last:border-b-0">
 
-          <!-- Nếu là link ngoài -->
-          <a *ngIf="isExternalLink(child.url)"
-             [href]="child.url"
-             [attr.target]="child.target"
-             class="block px-4 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
-            {{ child.title }}
-          </a>
+                            <!-- Nếu là link ngoài -->
+                            <a *ngIf="isExternalLink(child.url)" [href]="child.url" [attr.target]="child.target"
+                                class="block px-4 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                                {{ child.title }}
+                            </a>
 
-          <!-- Nếu là link nội bộ -->
-          <a *ngIf="!isExternalLink(child.url)"
-             [routerLink]="getRouterLink(child.url)"
-             [queryParams]="getQueryParams(child.url)"
-             routerLinkActive="border-gray-300 border-blue-600 text-blue-600"
-             [routerLinkActiveOptions]="{ exact: true }"
-             class="block px-4 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
-            {{ child.title }}
-          </a>
+                            <!-- Nếu là link nội bộ -->
+                            <a *ngIf="!isExternalLink(child.url)" [routerLink]="getRouterLink(child.url)"
+                                [queryParams]="getQueryParams(child.url)"
+                                routerLinkActive="border-gray-300 border-blue-600 text-blue-600"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                                class="block px-4 py-2 transition-colors font-medium text-gray-700 hover:text-blue-500">
+                                {{ child.title }}
+                            </a>
 
-        </li>
-      </ul>
+                        </li>
+                    </ul>
 
-    </li>
-  </ul>
-</div>
+                </li>
+            </ul>
+        </div>
 
         <div id="menuOverlay" class=""></div>
 
