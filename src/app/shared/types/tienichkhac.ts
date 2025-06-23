@@ -11,7 +11,7 @@ export interface HtThanhChucNang {
 
 export interface ThanhChucNangParams {
   bsThuVienId: string;
-  qtndHtNgonNguId: string;
+  qtndHtNgonNguId: number | string;
   pageIndex?: number;
   pageSize?: number;
   secretKey?:string;
@@ -45,6 +45,25 @@ export interface ThongKeTruyCap {
   tongSoTruyCapTrongThang: number;
   tongSoTruyCap: number;
 }
+
+
+export interface QtndHtThanhChucNangItem {
+  id: string;
+  qtndHtNgonNguId: string;
+  qtndHtThanhChucNangId: string;
+  ten: string;
+  sapXep: number;
+  duongDan: string;
+  moCuaSoMoi: number;
+}
+
+export interface QtndHtThanhChucNangParams {
+  qtndHtNgonNguId: number | string;
+  bsThuVienId: number | string;
+  pageIndex?: number;
+  pageSize?: number;
+}
+
 
 
 

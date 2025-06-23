@@ -63,7 +63,8 @@ export class QtndTinTucComponent {
     .getNews(this.pageIndex - 1, this.pageSizes, {
       qtndTtNhomTinTucId: this.qtndTtNhomTinTucId,
       ten: this.searchKeyword.trim(),
-      bsThuvienId:  this.sharedService.thuVienId
+      bsThuvienId:  this.sharedService.thuVienId,
+      orderBy: 'SL_XEM DESC'
 
     })
     .pipe(
@@ -117,7 +118,7 @@ onSearch() {
   this.getNewsData();
 }
  getTopNewsData() {
-  this.newService.getNews(0, 9999, { bsThuvienId: this.sharedService.thuVienId }).pipe(
+  this.newService.getNews(0, 99, { bsThuvienId: this.sharedService.thuVienId, orderBy: 'SL_XEM DESC' }).pipe(
     tap(res => {
       if (res.messageCode === 1) {
         // ✅ Lọc item có slXem > 0 trước, sau đó sắp xếp giảm dần

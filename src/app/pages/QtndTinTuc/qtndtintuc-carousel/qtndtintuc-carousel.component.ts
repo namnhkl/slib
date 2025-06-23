@@ -84,12 +84,14 @@ updateSlidesPerView() {
   }).pipe(
     tap(res => {
       if (res.messageCode === 1) {
-        // Lọc ra những item không trùng với this.removeid
         const filtered = Array.isArray(res.data)
           ? res.data.filter(item => item.id !== this.removeid)
           : [];
 
-        this.slides = filtered.slice(0, 6);
+        // Ưu tiên laTrangChu > 0 (sắp xếp giảm dần theo laTrangChu)
+        const sorted = filtered.sort((a, b) => (b.laTrangChu || 0) - (a.laTrangChu || 0));
+
+        this.slides = sorted.slice(0, 6);
         console.log('slides', this.slides);
         this.updateSlidesPerView();
       } else {
@@ -99,6 +101,7 @@ updateSlidesPerView() {
     })
   ).subscribe();
 }
+
 
   
 }

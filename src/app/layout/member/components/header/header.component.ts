@@ -13,6 +13,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { BreadcrumbComponent } from '@/app/shared/components/breadcrumb/breadcrumb.component';
 import { GioiThieuService } from '@/app/shared/services/gioithieu';
 import { SharedService } from '@/app/shared/services/shared.service';
+import { TienIchKhacService } from '@/app/shared/services/tienichkhac';
 
 @Component({
   selector: 'app-header',
@@ -34,51 +35,56 @@ import { SharedService } from '@/app/shared/services/shared.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  protected links = [
-    {
-      title: 'home',
-      url: URL_ROUTER.home,
-    },
-    {
-      title: 'introduction',
-      url: URL_ROUTER.intro,
-      children: []
+  // protected links = [
+  //   {
+  //     title: 'home',
+  //     url: URL_ROUTER.home,
+  //   },
+  //   {
+  //     title: 'introduction',
+  //     url: URL_ROUTER.intro,
+  //     children: []
 
-    },
-    {
-      title: 'news',
-      url: URL_ROUTER.QtndTinTuc,
-    },
-    {
-      title: 'good_books',
-      url: URL_ROUTER.sachhay,
-    },
-    {
-      title: 'menu_vbqp_phapluat',
-      url: URL_ROUTER.vbqpphapluat,
-    },
-    {
-      title: 'contact',
-      url: URL_ROUTER.contact,
-    },
-  ];
+  //   },
+  //   {
+  //     title: 'news',
+  //     url: URL_ROUTER.QtndTinTuc,
+  //   },
+  //   {
+  //     title: 'good_books',
+  //     url: URL_ROUTER.sachhay,
+  //   },
+  //   {
+  //     title: 'menu_vbqp_phapluat',
+  //     url: URL_ROUTER.vbqpphapluat,
+  //   },
+  //   {
+  //     title: 'contact',
+  //     url: URL_ROUTER.contact,
+  //   },
+  // ];
   language = 'vi-VN';
   htNgonNgu: number = 1;
   visible = false;
   public openDropdownIndex: number | null = null;
   public openMobileDropdownIndex: number | null = null;
 
+  menus: any[] = [];
+  treeMenus: any[] = [];
+
   constructor(
     private router: Router,
     private readonly _i18nService: I18nService,
     private gioiThieuService: GioiThieuService,
     private sharedService: SharedService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private tienichKhacService: TienIchKhacService
   ) { }
 
   ngOnInit() {
     this.language = this._i18nService.language;
-    this.loadIntroductionChildren();
+    this.htNgonNgu = this.language === 'vi-VN' ? 1 : 2; // THIẾT YẾU
+    this.getMenus(); // Lấy menu khi khởi tạo
   }
 
   logout() {
@@ -90,16 +96,58 @@ export class HeaderComponent {
     return this._i18nService.supportedLanguages;
   }
 
+getMenus() {
+  this.tienichKhacService.qtndQlThanhChucNang({
+    bsThuVienId: this.sharedService.thuVienId,
+    qtndHtNgonNguId: this.htNgonNgu
+  }).subscribe({
+    next: (res: any) => {
+      this.menus = res?.data || [];
+      this.treeMenus = this.buildTreeMenu(this.menus);
+      console.log('Danh sách menu:', this.treeMenus);
+    },
+    error: (err) => {
+      console.error('Lỗi khi lấy danh sách menu:', err);
+    }
+  });
+}
+
+buildTreeMenu(flatMenu: any[], parentId: string = '0'): any[] {
+  return flatMenu
+    .filter(item => item.qtndHtThanhChucNangId === parentId)
+    .sort((a, b) => a.sapXep - b.sapXep)
+    .map(item => ({
+      title: item.ten,
+      url: this.sanitizeUrl(item.duongDan),
+      target: item.moCuaSoMoi === 1 ? '_blank' : '_self',
+      children: this.buildTreeMenu(flatMenu, item.id)
+    }));
+}
+
+sanitizeUrl(url: string): string {
+  try {
+    console.log('Decoded URL:', decodeURIComponent(url));
+    return decodeURIComponent(url);
+    
+  } catch {
+    return url;
+  }
+}
+
+
+
+
 setLanguage(language: 'vi-VN' | 'en-US') {
   this._i18nService.language = language;
   this.htNgonNgu = language === 'vi-VN' ? 1 : 2;
-  this.loadIntroductionChildren();
+  this.language = language;
+  this.getMenus(); // Lấy lại menu sau khi đổi ngôn ngữ
 }
  changeLanguage(language: 'vi-VN' | 'en-US') {
   this._i18nService.language = language;
   this.language = language;
   this.htNgonNgu = language === 'vi-VN' ? 1 : 2; // THIẾT YẾU
-  this.loadIntroductionChildren(); // gọi lại API
+this.getMenus(); // Lấy lại menu sau khi đổi ngôn ngữ
 }
 
   open(): void {
@@ -118,48 +166,25 @@ setLanguage(language: 'vi-VN' | 'en-US') {
     this.openMobileDropdownIndex = this.openMobileDropdownIndex === index ? null : index;
   }
 
-  private isLoadingIntroChildren = false;
-
-loadIntroductionChildren() {
-  if (this.isLoadingIntroChildren) return; // tránh gọi trùng
-  this.isLoadingIntroChildren = true;
-
-  this.gioiThieuService.qtndGioiThieu({
-    bsThuVienId: this.sharedService.thuVienId,
-    qtndHtNgonNguId: this.htNgonNgu
-  }).subscribe({
-    next: (res: any) => {
-      const introMenuIndex = this.links.findIndex(link => link.title === 'introduction');
-      if (introMenuIndex !== -1 && res?.data?.length) {
-        const updatedChildren = res.data.map((item: any) => ({
-          title: item.ten,
-          url: '/gioi-thieu-chi-tiet',
-          queryParams: { id: item.id }
-        }));
-
-         // ✅ Thêm cứng 1 item vào cuối
-    updatedChildren.push({
-      title:  this.translate.instant('noi_quy'),
-      url: '/noi-quy'
-    });
-        // Clone toàn bộ mảng links
-        const newLinks = [...this.links];
-
-        // Clone object menu "introduction" và gán children mới
-        newLinks[introMenuIndex] = {
-          ...newLinks[introMenuIndex],
-          children: updatedChildren
-        };
-   
-        this.links = newLinks; // Gán lại để Angular detect thay đổi
-      }
-
-      this.isLoadingIntroChildren = false;
-    },
-    error: () => {
-      this.isLoadingIntroChildren = false;
-    }
-  });
+  isExternal(url: string): boolean {
+  return url.startsWith('http') || url.includes('://') || url.includes('?');
 }
+
+getRouterLink(url: string): any[] {
+  const [path] = url.split('?');
+  return ['/', path];
+}
+
+getQueryParams(url: string): { [key: string]: string } | undefined {
+  const [, queryString] = url.split('?');
+  if (!queryString) return undefined;
+
+  return Object.fromEntries(new URLSearchParams(queryString));
+}
+
+isExternalLink(url: string): boolean {
+  return url.startsWith('http') || url.includes('://') || url.includes('?');
+}
+
 
 }
