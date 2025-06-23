@@ -207,6 +207,9 @@
   "content":"Content",
   "info":"Info",
   "audio_list":"Audio list",
-  "noi_quy":"Rules"
+  "noi_quy":"Rules",
+  "login_het_phien_dang_nhap": "Session expired",
+  "login_vui_long_dang_nhap_lai": "Please log in again"
+
 
 }

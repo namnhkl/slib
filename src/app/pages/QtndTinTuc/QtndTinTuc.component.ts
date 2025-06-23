@@ -162,8 +162,8 @@ return pages;
 ngOnInit(): void {
   // Lắng nghe thay đổi query params
   this.route.queryParams.subscribe(params => {
-    this.qtndTtNhomTinTucId = params['qtndTtNhomTinTucId'] || '';
-    console.log('qtndTtNhomTinTucId:', this.qtndTtNhomTinTucId);
+    this.qtndTtNhomTinTucId = params['tin-tuc-chi-tiet'] || '';
+    console.log('tin-tuc-chi-tiet:', this.qtndTtNhomTinTucId);
   });
 
   // Gọi dữ liệu ban đầu

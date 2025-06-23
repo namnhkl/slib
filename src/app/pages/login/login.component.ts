@@ -18,6 +18,9 @@ import { ExtendValidators } from '../../shared/constants/ExtendValidators';
 import { LoginService } from './services/LoginService';
 import { CommonService } from '../../shared/services/common.service';
 import { LoginModel } from './model/login-model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@/app/shared/services/auth.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +35,7 @@ import { LoginModel } from './model/login-model';
     NzFormModule,
     NzInputModule,
     NzLayoutModule,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -41,7 +45,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: NonNullableFormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private authService: AuthService,
+    private notificationService: NzNotificationService,
+    private translate: TranslateService
   ) {}
 
   ngOnDestroy(): void {
@@ -69,11 +76,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       userName: [
         '',
-        [ExtendValidators.customRequired('Tài khoản không được để trống')],
+        [ExtendValidators.customRequired(this.translate.instant('please_input_your_username'))],
       ],
       password: [
         '',
-        [ExtendValidators.customRequired('Mật khẩu không được để trống')],
+        [ExtendValidators.customRequired(this.translate.instant('please_input_your_password'))],
       ],
       remember: [false],
       isMember: [false],
@@ -90,42 +97,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       rememberMe: this.form?.value.remember,
     };
 
-    this.loginService.login(this.loginModel).subscribe(
-      (res: HttpResponse<any>) => {
-        if (this.commonService.checkStausByCode(res.status)) {
-          if (res.body.accessToken) {
-            const accessToken = res.body.accessToken;
-            const expiresIn = res.body.expireTime ?? ''; // nếu có expireTime từ backend
+    this.authService.login({soThe: this.loginModel.userName, matKhau: this.loginModel.password})
+   .subscribe({
+        next: (res) => {
+          if (res.messageCode) {
+            this.authService.saveSession(res.data[0], res.accessToken, this.form?.value.remember);
 
-            // ✅ Chọn nơi lưu token tùy theo 'remember'
-            if (this.form?.value.remember) {
-              // Ghi nhớ: Lưu vào localStorage (giữ lâu)
-              localStorage.setItem('access_token', accessToken);
-              localStorage.setItem('expires_in', expiresIn);
-            } else {
-              // Không nhớ: Lưu vào sessionStorage (tự xóa khi đóng tab)
-              sessionStorage.setItem('access_token', accessToken);
-              sessionStorage.setItem('expires_in', expiresIn);
-            }
+            // Quay lại URL cũ nếu có, ngược lại về trang chủ
+            // this.router.navigateByUrl(this.currentUrl || '/');
+            const redirectUrl = this.authService.getRedirectUrl() || '/';
+            window.location.href = redirectUrl;
 
-            this.router.navigate(['/']);
+          } else {
+             this.notificationService.error(this.translate.instant('error'), this.translate.instant('incorrect_password_or_account'));
           }
-        } else {
-          console.error('Request failed with error:', res);
-          this.loginError = res.statusText;
-          this.isLoading = false;
-        }
-      },
-      (error) => {
-        this.isLoading = false;
-        if (error.status === 0) this.loginError = 'Lỗi kết nối!';
-        else this.loginError = error.error.problemDetails.errors[0].message;
-        console.error(
-          'Request failed with error:',
-          error.error.problemDetails.errors[0].message
-        );
-      }
-    );
+        },
+        error: (err) => {
+          console.log('err', err);
+        },
+      });
   } else {
     Object.values(this.form!.controls).forEach((control) => {
       if (control.invalid) {

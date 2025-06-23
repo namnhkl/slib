@@ -35,7 +35,7 @@
         <section class="lg:col-span-2">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
            <article *ngFor="let _new of newsData" class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px] border-b">
-  <a [routerLink]="['/QtndTinTuc', _new.id]">
+  <a href="./tin-tuc/{{_new.id}}">
     <img
       [src]="_new.anhDaiDien"
       [alt]="_new.ten"

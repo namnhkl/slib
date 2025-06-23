@@ -63,3 +63,22 @@ npx ng generate module <name> --route
 
 ### Lib components
 * ant design `https://ng.ant.design/components/overview/en`
+
+
+### Menu
+trang chủ: /
+
+Giới thiệu:
+	Giới thiệu item: gioi-thieu-chi-tiet?id=df57a7aa-bb9e-4950-9f53-8e1a2f07c830    id là  id của bài viết
+
+VBQL Pháp luật: vbqp-phap-luat
+
+Tin tức: tin-tuc
+
+Sách hay: sach-hay
+
+Video: medialibrary?type=video
+
+Audio: medialibrary?type=audio
+
+Liên hệ: contac

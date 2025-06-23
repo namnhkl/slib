@@ -3,7 +3,7 @@
     <div class="bookCategories">
       <h2 class="the-title flex justify-between items-center ">
         <span class="uppercase">Video</span>
-        <a [routerLink]="['/medialibrary']" [queryParams]="{ type: 'video' }" class="viewmore text-blue-600 hover:underline">
+        <a href="./medialibrary?type=video" class="viewmore text-blue-600 hover:underline">
   {{'view_more'|translate}}
 </a>
       </h2>
@@ -19,7 +19,7 @@
          <ng-template carouselSlide [id]="item.id">
           <div class="item-books-4 bg-white rounded-lg border p-2 flex flex-col hover:shadow-lg transition"
             style="margin-bottom: 5px;">
-             <a [routerLink]="['medialibrary']" [queryParams]="{ type: 'video', id: item.id }">
+             <a href="./medialibrary?type=video&id={{item.id}}">
             <!-- Ảnh đại diện -->
             <div class="w-full mb-2">
               <img [src]="item.anhDaiDien" alt="Ảnh đại diện" class="w-full h-40 object-cover rounded-md">

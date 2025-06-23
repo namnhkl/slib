@@ -3,8 +3,8 @@ export const URL_ROUTER = {
   home: '',
   about: 'about',
   /* tin tức */
-  QtndTinTuc: 'QtndTinTuc',
-  QtndTinTucChiTiet: 'QtndTinTucChiTiet',
+  QtndTinTuc: 'tin-tuc',
+  QtndTinTucChiTiet: 'tin-tuc-chi-tiet',
   /* end tin tức */
   contact: 'contact',
   searchResult: 'search-results',

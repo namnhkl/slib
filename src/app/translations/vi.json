@@ -201,6 +201,8 @@
   "content":"Nội dung",
   "info":"Thông tin",
   "audio_list":"Danh sách audio",
-  "noi_quy":"Nội quy"
+  "noi_quy":"Nội quy",
+  "login_het_phien_dang_nhap":"Hết phiên đăng nhập",
+  "login_vui_long_dang_nhap_lai":"Vui lòng đăng nhập lại"
 
 }
