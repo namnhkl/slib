@@ -59,10 +59,13 @@
               "src/assets/css/font-awesome.min.css",
               "src/theme.less",
               "src/styles.scss",
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+               "node_modules/lightgallery/css/lightgallery-bundle.css"
             ],
             "scripts": [
-              
+              "node_modules/lightgallery/lightgallery.min.js",
+  "node_modules/lightgallery/plugins/thumbnail/lg-thumbnail.min.js",
+  "node_modules/lightgallery/plugins/zoom/lg-zoom.min.js"
             ]
           },
           "configurations": {
