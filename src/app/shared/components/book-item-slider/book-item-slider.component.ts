@@ -33,7 +33,7 @@ export class BookItemSliderComponent implements AfterViewInit {
   getImageUrl(book: IBoook): string {
     //if book.anhDaiDien is null or undefined, return empty string
     if (!get(book, 'anhDaiDien')) {
-      return '/img/imageBook/book_default.svg';
+      return './assets/img/imageBook/book_default.svg';
     } else {
       return book.anhDaiDien!;
     }

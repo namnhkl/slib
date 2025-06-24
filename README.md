@@ -82,3 +82,5 @@ Video: medialibrary?type=video
 Audio: medialibrary?type=audio
 
 Liên hệ: contac
+
+Thư viện ảnh: thu-vien-anh
