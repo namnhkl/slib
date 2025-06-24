@@ -1,55 +1,55 @@
-/* thu-vien-anh.component.scss */
-::ng-deep .ngx-image-gallery-title {
-  text-align: center; /* Căn giữa tiêu đề */
-  font-size: 14px; /* Kích thước chữ */
-  font-weight: 500; /* Độ đậm */
-  color: #333; /* Màu chữ */
-  padding: 8px 12px; /* Khoảng cách */
-  background: rgba(255, 255, 255, 0.9); /* Nền mờ */
-  border-radius: 4px; /* Bo góc */
-  max-width: 80%; /* Giới hạn chiều rộng */
-  margin: 0 auto; /* Căn giữa */
-  position: absolute;
-  bottom: 10px; /* Đặt ở dưới ảnh */
-  left: 50%;
-  transform: translateX(-50%);
-}
+// /* thu-vien-anh.component.scss */
+// ::ng-deep .ngx-image-gallery-title {
+//   text-align: center; /* Căn giữa tiêu đề */
+//   font-size: 14px; /* Kích thước chữ */
+//   font-weight: 500; /* Độ đậm */
+//   color: #333; /* Màu chữ */
+//   padding: 8px 12px; /* Khoảng cách */
+//   background: rgba(255, 255, 255, 0.9); /* Nền mờ */
+//   border-radius: 4px; /* Bo góc */
+//   max-width: 80%; /* Giới hạn chiều rộng */
+//   margin: 0 auto; /* Căn giữa */
+//   position: absolute;
+//   bottom: 10px; /* Đặt ở dưới ảnh */
+//   left: 50%;
+//   transform: translateX(-50%);
+// }
 
-::ng-deep .ngx-image-gallery-lightbox .ngx-image-gallery-title {
-  text-align: center;
-  font-size: 16px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 10px;
-  border-radius: 4px;
-  width: fit-content;
-  margin: 10px auto;
-}
+// ::ng-deep .ngx-image-gallery-lightbox .ngx-image-gallery-title {
+//   text-align: center;
+//   font-size: 16px;
+//   color: #fff;
+//   background: rgba(0, 0, 0, 0.7);
+//   padding: 10px;
+//   border-radius: 4px;
+//   width: fit-content;
+//   margin: 10px auto;
+// }
 
-aside {
-  position: sticky;
-  top: 16px;
-  max-height: calc(100vh - 32px);
-}
+// aside {
+//   position: sticky;
+//   top: 16px;
+//   max-height: calc(100vh - 32px);
+// }
 
-.album-item:hover {
-  transform: scale(1.02);
-  background-color: #e6f3ff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+// .album-item:hover {
+//   transform: scale(1.02);
+//   background-color: #e6f3ff;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// }
 
-.gallery-container {
-  min-height: 500px;
-}
-@media (max-width: 768px) {
-  .gallery-container {
-    min-height: 300px;
-  }
-  ::ng-deep .ngx-image-gallery-thumbnails {
-    display: none; /* Ẩn thumbnail trên mobile */
-  }
-}
+// .gallery-container {
+//   min-height: 500px;
+// }
+// @media (max-width: 768px) {
+//   .gallery-container {
+//     min-height: 300px;
+//   }
+//   ::ng-deep .ngx-image-gallery-thumbnails {
+//     display: none; /* Ẩn thumbnail trên mobile */
+//   }
+// }
 
-::ng-deep .ngx-image-gallery-main-img {
-  transition: opacity 0.3s ease-in-out;
-}
+// ::ng-deep .ngx-image-gallery-main-img {
+//   transition: opacity 0.3s ease-in-out;
+// }

@@ -1,4 +1,4 @@
-<div class="container mx-auto px-2 sm:px-4 py-6 sm:py-8 space-y-8 rounded-2xl">
+<div class="container max-w-[1200px] mx-auto px-2 sm:px-4 py-6 sm:py-8 space-y-8 rounded-2xl">
   <!-- Tiêu đề -->
   <h2
     class="text-xl sm:text-3xl font-extrabold text-center text-blue-600 flex flex-wrap items-center justify-center gap-2">
@@ -53,86 +53,158 @@
 
     <!-- Trình phát hiện đại -->
     <div class="mb-6 rounded-xl overflow-hidden bg-gradient-to-br from-gray-900 to-blue-800 text-white shadow-lg">
-      <div class="flex flex-col md:flex-row p-4 sm:p-6 gap-4 sm:gap-6 items-start md:items-center">
-        <!-- Ảnh đại diện -->
-        <div class="w-full md:w-1/5">
-          <img [src]="selectedItem.anhDaiDien || '/assets/placeholder.png'" alt="Ảnh đại diện"
-            class="rounded-xl w-full object-cover shadow-md mb-2" />
+      <!-- Nếu là video thì layout dọc, ngược lại layout ngang -->
+      <div class="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6"
+        [ngClass]="selectedItem.videos?.length ? 'md:flex-col' : 'md:flex-row items-start md:items-center'">
+
+        <!-- VIDEO -->
+        <div *ngIf="selectedItem.videos?.length" class="flex-1 space-y-6 w-full">
+          <div *ngFor="let video of selectedItem.videos" class="space-y-2">
+            <!-- YouTube -->
+            <iframe *ngIf="video.isYoutube" [src]="video.url | safeUrl" frameborder="0" allowfullscreen
+              class="w-full aspect-video rounded-xl border border-gray-300 shadow-lg">
+            </iframe>
+
+            <!-- Video thường -->
+            <video *ngIf="!video.isYoutube" controls loop muted
+              class="w-full aspect-video rounded-xl border border-gray-300 shadow-lg">
+              <source [src]="video.url" type="video/mp4" />
+              Trình duyệt không hỗ trợ video.
+            </video>
+
+            <p class="text-sm text-white font-medium flex items-center gap-2 ml-1 break-all truncate">
+              <i class="fas fa-video text-blue-400"></i> {{ video.name }}
+            </p>
+          </div>
+        </div>
+
+        <!-- AUDIO hoặc THÔNG TIN -->
+        <div class="w-full md:w-1/5" [ngClass]="{ 'order-last': selectedItem.videos?.length }">
+          <!-- Ẩn ảnh nếu có video -->
+          <img *ngIf="!selectedItem.videos?.length" [src]="selectedItem.anhDaiDien || '/assets/placeholder.png'"
+            alt="Ảnh đại diện" class="rounded-xl w-full object-cover shadow-md mb-2" />
+
           <h2 class="text-lg sm:text-2xl font-bold text-white break-words">{{ selectedItem?.title }}</h2>
 
           <div class="text-sm space-y-1 text-gray-300">
+            <p *ngIf="selectedItem?.slXem" class="mb-0">
+              <ng-container *ngIf="selectedItem.audios?.length; else checkVideo">
+                <i class="fas fa-headphones mr-2"></i>
+              </ng-container>
+              <ng-template #checkVideo>
+                <ng-container *ngIf="selectedItem.videos?.length">
+                  <i class="fas fa-eye mr-2"></i>
+                </ng-container>
+              </ng-template>
+              {{ selectedItem.slXem }} <ng-container *ngIf="selectedItem?.videos?.length; else luotNghe">
+                {{ 'view' | translate }}
+              </ng-container>
+              <ng-template #luotNghe>
+                {{ 'luot_nghe' | translate }}
+              </ng-template>
+
+            </p>
             <p *ngIf="selectedItem?.tacGia">
-              <i class="fas fa-user mr-2 text-blue-400"></i> {{ selectedItem.tacGia }}
+              <i class="fas fa-user mr-2"></i> {{'author'|translate }}: {{ selectedItem.tacGia }}
             </p>
             <p *ngIf="selectedItem?.ngayDangTin">
-              <i class="fas fa-calendar-alt mr-2 text-yellow-300"></i> {{ selectedItem.ngayDangTin }}
-            </p>
-            <p *ngIf="selectedItem?.slXem">
-              <i class="fas fa-eye mr-2 text-green-300"></i> {{ selectedItem.slXem }} {{'view'|translate}}
+              <i class="fas fa-calendar-alt mr-2"></i> {{'qtndtintuc_ngay_dang_tin'|translate }}: {{
+              selectedItem.ngayDangTin }}
             </p>
           </div>
         </div>
 
-        <!-- Thông tin chi tiết -->
-        <div class="flex-1 space-y-2 w-full">
-          <!-- Trình phát VIDEO -->
-          <div *ngIf="selectedItem.videos?.length" class="mt-2 space-y-6">
-            <div *ngFor="let video of selectedItem.videos" class="space-y-2">
 
-              <!-- Video YouTube dùng iframe -->
-              <iframe *ngIf="video.isYoutube" [src]="video.url | safeUrl" frameborder="0" allowfullscreen
-                class="w-full aspect-video rounded-xl border border-gray-300 shadow-lg">
-              </iframe>
+        <!-- AUDIO -->
+        <div *ngIf="selectedItem.audios?.length" class="flex-1 w-full">
+          <div class="bg-white shadow-md rounded-xl p-4 space-y-4">
+            <!-- Audio tag -->
+            <audio #audioRef (loadedmetadata)="updateDuration()" (timeupdate)="updateProgress()"
+              (ended)="handleAudioEnd()" class="w-full hidden">
+              <source [src]="selectedItem.audios[currentAudioIndex]?.url" type="audio/mpeg" />
+            </audio>
 
-              <!-- Video thường dùng video tag -->
-              <video *ngIf="!video.isYoutube" controls loop muted
-                class="w-full aspect-video rounded-xl border border-gray-300 shadow-lg">
-                <source [src]="video.url" type="video/mp4" />
-                Trình duyệt không hỗ trợ video.
-              </video>
-
-              <p class="text-sm text-white font-medium flex items-center gap-2 ml-1 break-all truncate">
-                <i class="fas fa-video text-blue-400"></i> {{ video.name }}
-              </p>
+            <!-- Tên -->
+            <div class="text-gray-800 font-semibold text-center md:text-left">
+              <i class="fas fa-music text-purple-400 mr-2"></i>
+              {{ selectedItem.audios[currentAudioIndex]?.name }}
             </div>
-          </div>
 
-
-          <!-- Trình phát AUDIO -->
-          <div *ngIf="selectedItem.audios?.length" class="mt-2">
-            <div class="bg-white shadow-md rounded-xl p-4 space-y-4">
-              <audio #audioRef controls class="w-full rounded" (ended)="playNextAudio()">
-                <source [src]="selectedItem.audios[currentAudioIndex]?.url" type="audio/mpeg" />
-                Trình duyệt không hỗ trợ audio.
-              </audio>
-
-              <div class="text-gray-800 font-semibold flex items-center gap-2 break-all truncate max-w-full">
-                <i class="fas fa-music text-purple-400 break-all truncate max-w-full"
-                  [title]="selectedItem.audios[currentAudioIndex]?.name"></i>
-                {{ selectedItem.audios[currentAudioIndex]?.name }}
-              </div>
-
-              <div class="pt-3 border-t">
-                <p class="text-sm font-medium text-gray-600 mb-2">{{'audio_list'|translate}}:</p>
-                <ul class="space-y-1">
-                  <li *ngFor="let audio of selectedItem.audios; let i = index" (click)="selectAudio(i)" [ngClass]="{
-                      'text-purple-700 font-semibold': i === currentAudioIndex,
-                      'text-gray-700': i !== currentAudioIndex
-                    }" class="cursor-pointer hover:underline flex items-center gap-2 break-all truncate max-w-full"
-                    [title]="audio.name">
-                    <i class="fas fa-headphones-alt"></i> {{ audio.name }}
-                  </li>
-                </ul>
+            <!-- Tiến trình -->
+            <div class="w-full">
+              <input type="range" min="0" [max]="duration" [value]="currentTime" (input)="seekAudio($event)"
+                class="w-full accent-blue-500" />
+              <div class="flex justify-between text-sm text-gray-600 mt-1">
+                <span>{{ formatTime(currentTime) }}</span>
+                <span>{{ formatTime(duration) }}</span>
               </div>
             </div>
-          </div>
 
-          <div *ngIf="!selectedItem.videos?.length && !selectedItem.audios?.length" class="p-6">
-            <p class="text-white text-sm italic text-center">Không có video hoặc audio để phát.</p>
+            <!-- Điều khiển -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-blue-700">
+
+              <!-- Các nút điều khiển -->
+              <div class="flex items-center justify-center sm:justify-start gap-4 text-xl">
+                <button (click)="prevAudio()" [disabled]="currentAudioIndex === 0" title="{{'bai_truoc' | translate }}">
+                  <i class="fas fa-backward"></i>
+                </button>
+                <button (click)="togglePlayPause()" title="{{'play' | translate }} / {{'pause' | translate }}">
+                  <i [ngClass]="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+                </button>
+                <button (click)="nextAudio()" [disabled]="currentAudioIndex === selectedItem.audios.length - 1"
+                  title="{{'bai_tiep' | translate }}">
+                  <i class="fas fa-forward"></i>
+                </button>
+                <button (click)="toggleLoop()" [ngClass]="{ 'text-green-600': isLooping }"
+                  title="{{'loop' | translate }}">
+                  <i class="fas fa-redo-alt"></i>
+                </button>
+              </div>
+
+              <!-- Tốc độ phát & Âm lượng -->
+              <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3 text-sm">
+
+                <!-- Tốc độ phát -->
+                <div class="flex items-center gap-2">
+                  <label class="text-gray-600 whitespace-nowrap">{{ 'speed' | translate }}:</label>
+                  <select class="rounded border-gray-300 text-sm" [(ngModel)]="playbackRate"
+                    (ngModelChange)="changePlaybackRate($event)">
+                    <option *ngFor="let s of [0.5, 0.75, 1, 1.5, 2, 2.5, 2.75]" [ngValue]="s">{{ s }}x</option>
+                  </select>
+                </div>
+
+                <!-- Âm lượng -->
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-volume-up text-gray-600"></i>
+                  <input type="range" min="0" max="1" step="0.01" [(ngModel)]="volume" (input)="changeVolume($event)"
+                    class="w-24 accent-blue-500" />
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Danh sách audio -->
+            <div class="pt-4 border-t">
+              <p class="text-sm font-medium text-gray-600 mb-2">{{ 'audio_list' | translate }}:</p>
+              <ul class="space-y-1">
+                <li *ngFor="let audio of selectedItem.audios; let i = index" (click)="selectAudio(i)" [ngClass]="{
+                  'text-purple-700 font-semibold': i === currentAudioIndex,
+                  'text-gray-700': i !== currentAudioIndex
+                }" class="cursor-pointer hover:underline flex items-center gap-2 truncate" [title]="audio.name">
+                  <i class="fas fa-headphones-alt"></i> {{ audio.name }}
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+
+        <!-- Nếu không có gì -->
+        <div *ngIf="!selectedItem.videos?.length && !selectedItem.audios?.length" class="p-6">
+          <p class="text-white text-sm italic text-center">Không có video hoặc audio để phát.</p>
         </div>
       </div>
     </div>
+
 
     <!-- Mô tả -->
     <div id="mediaDetails" class="space-y-2 max-h-[200px] sm:max-h-[300px] overflow-y-auto text-sm p-2">
@@ -152,8 +224,7 @@
 
       <div class="flex items-center justify-between">
         <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">
-          <i [ngClass]="item?.videos?.length ? 'fas fa-video text-blue-500' : 'fas fa-headphones-alt text-purple-500'"
-            class="mr-1"></i>
+          <i [ngClass]="item?.videos?.length ? 'fas fa-video' : 'fas fa-music text-purple-500'" class="mr-1"></i>
           {{ item?.title }}
         </h3>
       </div>
@@ -166,7 +237,8 @@
           <i class="fas fa-calendar-alt"></i> {{ item.ngayDangTin }}
         </span>
         <span class="flex items-center gap-1" *ngIf="item?.slXem">
-          <i class="fas fa-eye"></i> {{ item.slXem }}
+          <i [ngClass]="item?.videos?.length ? 'fas fa-eye' : 'fas fa-headphones-alt text-purple-500'" class="mr-1"></i>
+          {{ item.slXem }}
         </span>
       </div>
 
@@ -177,7 +249,7 @@
   </div>
 
   <!-- Phân trang -->
-  <div class="flex justify-center pt-4 overflow-x-auto px-2">
+  <div class="flex justify-center pt-4">
     <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="filteredData.length" [nzPageSize]="pageSize"
       (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
       [nzShowSizeChanger]="false" [nzPageSizeOptions]="[6, 12, 24, 48]" nzShowQuickJumper="false">

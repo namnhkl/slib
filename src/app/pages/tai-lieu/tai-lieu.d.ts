@@ -165,3 +165,13 @@ export class DanhSachTaiLieuDatMuon {
   trangThaiTen?: string;
   lyDoTuChoi?: string | null;
 }
+
+export interface ThongKeTaiLieuThuVien {
+  taiLieuTruyenThong: string | number;
+  taiLieuDkcb: string | number;
+  taiLieuSo: string | number;
+}
+
+export interface ThongKeTaiLieuThuVienQueryParams {
+  bsThuVienId: string;
+}

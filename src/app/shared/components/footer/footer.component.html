@@ -1,26 +1,68 @@
-<footer class="bg-gray-100 text-gray-700 mt-3 py-6">
+<footer class="bg-gradient-to-br from-yellow-50 via-blue-50 to-blue-100 text-blue-800 mt-6 py-10 shadow-inner rounded-t-lg">
   <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
-      <!-- Thông tin liên hệ : col-8 -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8">
+
+      <!-- Thông tin liên hệ -->
       <div *ngIf="IqtndTtLienHe?.noiDung" class="md:col-span-9">
-        <h3 class="text-lg font-bold uppercase mb-2">
+        <h3 class="text-2xl font-semibold uppercase mb-4 text-blue-700 tracking-wide">
           {{ 'electronic_library_system' | translate | uppercase }}
         </h3>
-        <div class="text-sm" [innerHTML]="IqtndTtLienHe.noiDung"></div>
+        <div class="text-base leading-relaxed text-gray-700" [innerHTML]="IqtndTtLienHe.noiDung"></div>
       </div>
 
-      <!-- Thống kê truy cập : col-4 -->
-      <div class="md:col-span-3 md:text-right">
-        <h3 class="text-base font-semibold">
-          {{ThongKeTruyCap?.tongSoTrucTuyen}} {{ 'online_visits' | translate }} | {{ThongKeTruyCap?.tongSoTruyCap}} {{ 'total_visits' | translate }}
-        </h3>
+      <!-- Thống kê -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-list text-green-500 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ 'bmtailieuds_print_documents' | translate }}: {{ ThongKeTaiLieuThuVien?.taiLieuTruyenThong }}
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-book text-purple-500 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ 'bmtailieuds_so_ban_in' | translate }}: {{ ThongKeTaiLieuThuVien?.taiLieuDkcb }}
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-file-pdf text-red-500 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ 'bmtailieuds_digital_documents' | translate }}: {{ ThongKeTaiLieuThuVien?.taiLieuSo }}
+            </span>
+          </div>
+
+          <hr class="border-gray-300 my-2" />
+
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-user text-green-600 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ ThongKeTruyCap?.tongSoTrucTuyen }} {{ 'online_visits' | translate }}
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-calendar-day text-yellow-600 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ ThongKeTruyCap?.tongSoTruyCapTrongThang }} {{ 'tong_luot_truy_cap_thang' | translate }}
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3 group">
+            <i class="fas fa-chart-line text-blue-600 text-xl group-hover:scale-110 transition"></i>
+            <span class="font-medium text-blue-900 text-base">
+              {{ ThongKeTruyCap?.tongSoTruyCap }} {{ 'total_visits' | translate }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Bản quyền -->
-    <div *ngIf="copyRight" class="border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
-  {{ copyRight.noiDung }}
-</div>
-
+    <div *ngIf="copyRight" class="text-center pt-6 border-t border-blue-200 text-sm text-gray-500 italic">
+      {{ copyRight.noiDung }}
+    </div>
   </div>
 </footer>

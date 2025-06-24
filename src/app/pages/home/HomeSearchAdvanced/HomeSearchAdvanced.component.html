@@ -26,62 +26,60 @@
 </div>
 <nz-modal
   [(nzVisible)]="isVisible"
-  [nzTitle]="'advanced_search' | translate"
+  [nzTitle]="('advanced_search' | translate)"
   [nzFooter]="modalFooter"
   [nzContent]="modalContent"
-  [nzWidth]="'1000px'"
+  [nzWidth]="'70vw'"
+  [nzStyle]="{ top: '0px', 'max-height': '100vh' }"
   (nzOnCancel)="handleCancel()"
 >
   <ng-template #modalContent>
-    <div class="p-6">
+    <div class="px-4 py-6">
       <form
         nz-form
         [formGroup]="formAdvanceSearch"
         (ngSubmit)="submitForm()"
-        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+        class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6"
       >
         <!-- Tiêu đề -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="tieuDe">
-            <i nz-icon nzType="file-text" class="mr-1"></i>{{ 'title' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="file-text" class="text-blue-600"></i>
+            {{ 'title' | translate }}
           </nz-form-label>
           <nz-form-control>
-            <nz-input-group [nzPrefix]="prefixIconTitle">
-              <input
-                type="text"
-                nz-input
-                formControlName="tieuDe"
-                placeholder="{{ 'enter_title' | translate }}"
-                class="w-full rounded-lg py-2"
-              />
-              <ng-template #prefixIconTitle><i nz-icon nzType="edit"></i></ng-template>
-            </nz-input-group>
+            <input
+              type="text"
+              nz-input
+              formControlName="tieuDe"
+              placeholder="{{ 'enter_title' | translate }}"
+              class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
           </nz-form-control>
         </nz-form-item>
 
         <!-- Tác giả -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="tacGia">
-            <i nz-icon nzType="user" class="mr-1"></i>{{ 'author' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="user" class="text-blue-600"></i>
+            {{ 'author' | translate }}
           </nz-form-label>
           <nz-form-control>
-            <nz-input-group [nzPrefix]="prefixIconAuthor">
-              <input
-                type="text"
-                nz-input
-                formControlName="tacGia"
-                placeholder="{{ 'enter_author' | translate }}"
-                class="w-full rounded-lg py-2"
-              />
-              <ng-template #prefixIconAuthor><i nz-icon nzType="user-add"></i></ng-template>
-            </nz-input-group>
+            <input
+              type="text"
+              nz-input
+              formControlName="tacGia"
+              placeholder="{{ 'enter_author' | translate }}"
+              class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
           </nz-form-control>
         </nz-form-item>
 
         <!-- Định dạng -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="phamVi">
-            <i nz-icon nzType="database" class="mr-1"></i>{{ 'format' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="database" class="text-blue-600"></i>
+            {{ 'format' | translate }}
           </nz-form-label>
           <nz-form-control>
             <nz-select
@@ -97,9 +95,10 @@
         </nz-form-item>
 
         <!-- Kho -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="bsKhoId">
-            <i nz-icon nzType="folder-open" class="mr-1"></i>{{ 'bskho_kho' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="folder-open" class="text-blue-600"></i>
+            {{ 'bskho_kho' | translate }}
           </nz-form-label>
           <nz-form-control>
             <nz-select
@@ -119,9 +118,10 @@
         </nz-form-item>
 
         <!-- Loại tài liệu -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="bmDmDangTaiLieuId">
-            <i nz-icon nzType="file-search" class="mr-1"></i>{{ 'document_type' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="file-search" class="text-blue-600"></i>
+            {{ 'document_type' | translate }}
           </nz-form-label>
           <nz-form-control>
             <nz-select
@@ -141,9 +141,10 @@
         </nz-form-item>
 
         <!-- Bộ sách -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="bmTuDienBoSachId">
-            <i nz-icon nzType="book" class="mr-1"></i>{{ 'book_series' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="book" class="text-blue-600"></i>
+            {{ 'book_series' | translate }}
           </nz-form-label>
           <nz-form-control>
             <nz-select
@@ -162,9 +163,10 @@
         </nz-form-item>
 
         <!-- Ngôn ngữ -->
-        <nz-form-item [nzLabelCol]="{ span: 6 }" [nzControlCol]="{ span: 18 }" class="items-center">
-          <nz-form-label nzFor="ngonNgu">
-            <i nz-icon nzType="global" class="mr-1"></i>{{ 'language' | translate }}
+        <nz-form-item class="flex flex-col">
+          <nz-form-label class="flex items-center gap-2 font-semibold text-gray-800">
+            <i nz-icon nzType="global" class="text-blue-600"></i>
+            {{ 'language' | translate }}
           </nz-form-label>
           <nz-form-control>
             <nz-select
@@ -187,16 +189,24 @@
   </ng-template>
 
   <ng-template #modalFooter>
-    <div class="flex justify-end gap-2 mt-4 px-4">
-      <!-- <button nz-button nzType="default" (click)="handleCancel()">
-        <i nz-icon nzType="close" class="mr-1"></i>{{ 'cancel' | translate }}
-      </button> -->
-      <button nz-button nzType="default" (click)="handleReset()">
-        <i nz-icon nzType="reload" class="mr-1"></i>{{ 'reset' | translate }}
+    <div class="flex justify-end gap-4 px-6 py-4 border-t">
+      <button
+        nz-button
+        nzType="default"
+        (click)="handleReset()"
+        class="flex items-center gap-2 rounded-lg"
+      >
+        <i nz-icon nzType="reload"></i> {{ 'reset' | translate }}
       </button>
-      <button nz-button nzType="primary" (click)="submitForm()">
-        <i nz-icon nzType="search" class="mr-1"></i>{{ 'search' | translate }}
+      <button
+        nz-button
+        nzType="primary"
+        (click)="submitForm()"
+        class="flex items-center gap-2 rounded-lg"
+      >
+        <i nz-icon nzType="search"></i> {{ 'search' | translate }}
       </button>
     </div>
   </ng-template>
 </nz-modal>
+

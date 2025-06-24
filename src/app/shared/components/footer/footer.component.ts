@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { environment } from 'environments/environment';
 import { TienIchKhacService } from '../../services/tienichkhac';
 import { CopyRight, ThongKeTruyCap } from '../../types/tienichkhac';
+import { TaiLieuService } from '@/app/pages/tai-lieu/tai-lieu.service';
+import { ThongKeTaiLieuThuVien } from '@/app/pages/tai-lieu/tai-lieu';
 
 @Component({
   selector: 'app-footer',
@@ -21,11 +23,13 @@ export class FooterComponent implements OnInit {
   footerService = inject(FooterService);
   tienIchKhacService = inject(TienIchKhacService);
   sharedService = inject(SharedService);
+  taiLieuService = inject(TaiLieuService);
   translateService = inject(TranslateService);
 
   IqtndTtLienHe: IqtndTtLienHe | undefined;
   copyRight: any | undefined;
   ThongKeTruyCap: ThongKeTruyCap | undefined;
+  ThongKeTaiLieuThuVien: ThongKeTaiLieuThuVien | undefined;
 
   ngOnInit(): void {
     // Gọi 1 lần ban đầu
@@ -90,6 +94,22 @@ getqtndTtLienHe(): void {
     },
     error: (err) => {
       console.error('Lỗi khi lấy Copyright:', err);
+    }
+  });
+
+  
+  this.taiLieuService.bmTaiLieuThongKeTrangChu({bsThuVienId:thuVienId}).subscribe({
+    next: (res) => {
+      console.log('res tktc',res);
+      if (res.messageCode === 1) {
+        this.ThongKeTaiLieuThuVien = res.data;
+        console.log('tktktv:', this.ThongKeTaiLieuThuVien);
+      } else {
+        console.warn('Không lấy được thông tin tktktv');
+      }
+    },
+    error: (err) => {
+      console.error('Lỗi khi lấy tktktv:', err);
     }
   });
 }

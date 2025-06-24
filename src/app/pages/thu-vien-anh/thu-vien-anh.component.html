@@ -1,6 +1,7 @@
 <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
   <main class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-    <!-- Header cải tiến -->
+
+    <!-- Header cải tiến với overlay & backdrop -->
     <section
       class="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 text-center shadow mb-10"
     >
@@ -17,45 +18,45 @@
       </div>
     </section>
 
-    <!-- Main layout -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <!-- Sidebar: Danh sách album -->
-      <aside
-        class="col-span-1 bg-white border border-gray-200 rounded-2xl p-4 shadow-md max-h-[700px] overflow-y-auto"
-      >
-        <h2 class="text-lg font-semibold text-blue-700 mb-4">
-          <i class="fa-solid fa-folder-open mr-2 text-blue-500"></i>
+    <!-- Layout chính -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+      <!-- Sidebar album -->
+      <aside class="col-span-1 space-y-4">
+        <h2 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-folder-open text-blue-500"></i>
           {{ "album" | translate }}
         </h2>
 
-        <div
-          *ngFor="let album of albums"
-          (click)="onAlbumSelect(album)"
-          class="cursor-pointer flex items-start gap-3 p-3 rounded-xl border border-gray-200 hover:shadow transition duration-200 mb-3"
-          [class.bg-blue-100]="album.id === selectedAlbumId"
-        >
-          <img
-            [src]="album.anhDaiDien"
-            class="w-16 h-16 object-cover rounded-lg border"
-            alt="cover"
-          />
-          <div class="flex-1">
-            <h4 class="text-sm font-medium text-gray-800 line-clamp-1">
-              <i class="fa-solid fa-photo-film mr-1 text-gray-500"></i
-              >{{ album.ten }}
-            </h4>
-            <p class="text-xs text-gray-500">
-              <i class="fa-regular fa-calendar-days mr-1"></i
-              >{{ album.ngayXuatBan }}
-            </p>
-            <p class="text-xs text-gray-500">
-              <i class="fa-solid fa-align-left mr-1"></i>{{ album.moTa }}
-            </p>
+        <div class="space-y-3 max-h-[700px] overflow-y-auto">
+          <div
+            *ngFor="let album of albums"
+            (click)="onAlbumSelect(album)"
+            class="group cursor-pointer flex items-center gap-3 p-3 rounded-2xl border transition-shadow duration-300 ease-in-out
+                   hover:shadow-xl hover:border-transparent
+                   {{ album.id === selectedAlbumId ? 'bg-blue-50 border-blue-300' : 'bg-white border-gray-200' }}"
+          >
+            <img
+              [src]="album.anhDaiDien"
+              alt="{{ album.ten }}"
+              class="w-14 h-14 rounded-lg object-cover ring-1 ring-gray-200 group-hover:ring-2 group-hover:ring-blue-300 transition"
+            />
+            <div class="flex-1">
+              <h4 class="font-semibold text-gray-800 line-clamp-1 group-hover:text-blue-600">
+                {{ album.ten }}
+              </h4>
+              <p class="text-xs text-gray-500 flex items-center gap-1">
+                <i class="fa-regular fa-calendar-days"></i>{{ album.ngayXuatBan }}
+              </p>
+              <p class="text-xs text-gray-500 flex items-center gap-1 line-clamp-1">
+                {{ album.moTa }}
+              </p>
+            </div>
           </div>
         </div>
 
         <!-- Pagination -->
-        <div class="flex justify-center mt-6">
+        <div class="flex justify-center mt-4">
           <nz-pagination
             [nzPageIndex]="currentPage + 1"
             [nzTotal]="totalCount"
@@ -64,46 +65,47 @@
             [nzShowSizeChanger]="false"
             [nzShowQuickJumper]="false"
             nzSize="small"
-          >
-          </nz-pagination>
+          ></nz-pagination>
         </div>
       </aside>
 
-      <!-- Gallery: Thư viện ảnh -->
-      <section
-        class="col-span-3 bg-white p-4 min-h-[500px] rounded-2xl shadow-md flex flex-col"
-      >
-        <h4
-          class="text-lg font-semibold text-blue-700 mb-4 flex items-center gap-2"
-        >
-          <i class="fa-solid fa-server text-blue-500"></i>
-          {{ "xem_anh_chi_tiet" | translate }}
-          <span
-            *ngIf="selectedAlbumName"
-            class="text-sm text-gray-600 font-normal italic"
-          >
-            - {{ selectedAlbumName }}
+      <!-- Gallery ảnh -->
+      <section class="col-span-3">
+        <h4 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <span *ngIf="selectedAlbumName" class="">
+            {{ selectedAlbumName }}
           </span>
         </h4>
 
         <div
-          class="flex-1 overflow-hidden rounded-lg border border-gray-300 p-4"
+          id="lightgallery"
+          class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
         >
-          <div id="lightgallery" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-  <a
-    *ngFor="let img of imageData"
-    [href]="img.full"
-    data-lg-size="1400-1050"
-    [attr.data-sub-html]="img.caption"
-    class="block"
-    data-type="image"
-  >
-    <img [src]="img.thumb" class="rounded-lg w-full object-cover" />
-  </a>
-</div>
-
+          <a
+            *ngFor="let img of imageData"
+            [href]="img.full"
+            data-lg-size="1400-1050"
+            [attr.data-sub-html]="img.caption"
+            class="group relative block overflow-hidden rounded-xl break-inside mb-4
+                   transform hover:scale-105 transition-shadow duration-300 ease-in-out"
+            data-type="image"
+          >
+            <img
+              [src]="img.thumb"
+              alt=""
+              class="w-full h-32 object-cover"
+            />
+            <!-- Overlay hover -->
+            <div
+              class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100
+                     flex flex-col justify-center items-center text-white p-2 text-center">
+              <p class="font-semibold text-sm truncate">{{ img.ten }}</p>
+              <p class="text-xs mt-1 line-clamp-2">{{ img.moTa }}</p>
+            </div>
+          </a>
         </div>
       </section>
+
     </div>
   </main>
 </nz-spin>

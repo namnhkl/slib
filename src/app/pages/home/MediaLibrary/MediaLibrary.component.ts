@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Pipe, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QtndTinTucService } from '@/app/shared/services/QtndTinTuc.service';
 import { SharedService } from '@/app/shared/services/shared.service';
@@ -55,7 +55,9 @@ export class MediaLibraryComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private tintucService: QtndTinTucService,
     private shareService: SharedService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private location: Location,
+    private router: Router
   ) {}
 @ViewChild('audioRef') audioRef!: ElementRef<HTMLAudioElement>;
   type: 'video' | 'audio' | null = null;
@@ -69,9 +71,13 @@ simpleData: ISimpleItem[] = [];
 selectedItem: ISimpleItem | null = null;
 searchChanged = new Subject<string>();
 
-
-
-
+currentAudioIndex = 0;
+isPlaying = false;
+isLooping = false;
+duration = 0;
+currentTime = 0;
+playbackRate = 1;
+volume: number = 1; // mặc định 100%
 
   ngOnInit(): void {
   this.route.queryParams.subscribe((params) => {
@@ -89,22 +95,38 @@ searchChanged = new Subject<string>();
   });
 }
 
-currentAudioIndex = 0;
 
-selectAudio(index: number) {
+selectAudio(index: number): void {
+
   this.currentAudioIndex = index;
-  const audioElement = document.querySelector('audio');
-  audioElement?.load();
-  audioElement?.play();
+  
+  this.playAudio();
 }
 
-// Tự động phát bài tiếp theo khi bài hiện tại kết thúc
 ngAfterViewInit() {
-  const audio = document.querySelector('audio');
+  const audio = this.audioRef?.nativeElement;
   if (audio) {
     audio.addEventListener('ended', () => {
-      this.playNextAudio();
+      if (this.isLooping) {
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        this.playNextAudio();
+      }
     });
+    setTimeout(() => {
+  if (this.audioRef?.nativeElement) {
+    this.audioRef.nativeElement.volume = this.volume;
+  }
+}, 0);
+  }
+}
+
+changeVolume(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.volume = parseFloat(input.value);
+  if (this.audioRef?.nativeElement) {
+    this.audioRef.nativeElement.volume = this.volume;
   }
 }
 
@@ -170,7 +192,7 @@ loadDocuments(selectedId?: string): void {
               console.log('itemDetail',itemDetail);
             const groupItems = itemDetail.map((chiTiet: IChiTietTinTuc, index: number): ISimpleItem | null => {
   const videos: { name: string; url: string; isYoutube?: boolean }[] = [];
-const audios: { name: string; url: string }[] = [];
+const audios: { name: string; url: string, image?:string }[] = [];
 
 for (let i = 1; i <= 5; i++) {
   const fileUrl = (chiTiet as any)[`tepTin0${i}DuongDan`]?.trim();
@@ -190,7 +212,7 @@ for (let i = 1; i <= 5; i++) {
   }
   // Nếu là audio
   else if (lowerName.endsWith('.mp3') || lowerName.endsWith('.wav') || lowerName.endsWith('.ogg')) {
-    audios.push({ name: fileName, url: fixedUrl });
+    audios.push({ name: fileName, url: fixedUrl, image: chiTiet.anhDaiDien?.trim() || '' });
   }
 }
 
@@ -274,20 +296,36 @@ setType(type: 'video' | 'audio' | null) {
     this.loadDocuments();
 }
 
- selectItem(item: ISimpleItem): void {
+selectItem(item: ISimpleItem): void {
+  this.isPlaying = false;
+  this.isLooping = false;
 
-    if (this.audioRef?.nativeElement) {
-      this.audioRef.nativeElement.pause();
-      this.audioRef.nativeElement.currentTime = 0;
-    }
-
-    this.selectedItem = { ...item };
-    this.currentAudioIndex = 0;
-
-    setTimeout(() => {
-      document.getElementById('mediaViewer')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  // Dừng và reset audio nếu tồn tại
+  if (this.audioRef?.nativeElement) {
+    this.audioRef.nativeElement.pause();
+    this.audioRef.nativeElement.currentTime = 0;
   }
+
+  // Gán item và reset index
+  this.selectedItem = { ...item };
+  this.currentAudioIndex = 0;
+
+  // Cập nhật ID trên URL
+  const currentUrl = this.router.url.split('?')[0];
+  this.location.replaceState(currentUrl, `id=${item.id}`);
+
+  // Scroll và set volume sau khi audioRef đã render đúng
+  setTimeout(() => {
+    // Cuộn tới vùng phát
+    document.getElementById('mediaViewer')?.scrollIntoView({ behavior: 'smooth' });
+
+    // Đặt lại âm lượng
+    if (this.audioRef?.nativeElement) {
+      this.audioRef.nativeElement.volume = this.volume;
+    }
+  }, 100); // Đảm bảo DOM đã cập nhật xong
+}
+
 
 closeViewer(): void {
   this.selectedItem = null;
@@ -307,4 +345,106 @@ transform(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  togglePlayPause(): void {
+  const audio = this.audioRef?.nativeElement;
+  console.log('togglePlayPause', audio);
+  if (!audio) return;
+
+  if (this.isPlaying) {
+    audio.pause();
+  } else {
+    audio.play();
+  }
+
+  this.isPlaying = !this.isPlaying;
+}
+
+toggleLoop(): void {
+  this.isLooping = !this.isLooping;
+  const audio = this.audioRef?.nativeElement;
+  if (audio) {
+    audio.loop = this.isLooping;
+  }
+}
+
+prevAudio(): void {
+  if (this.currentAudioIndex > 0) {
+    this.currentAudioIndex--;
+    this.playAudio();
+  }
+}
+
+nextAudio(): void {
+  if (this.selectedItem?.audios && this.currentAudioIndex < this.selectedItem.audios.length - 1) {
+    this.currentAudioIndex++;
+    this.playAudio();
+  }
+}
+
+
+
+playAudio(): void {
+  const audio = this.audioRef?.nativeElement;
+  if (audio) {
+    audio.load();
+
+    // Đặt lại âm lượng từ biến volume hiện tại
+    audio.volume = this.volume ?? 1;
+
+    audio.play().catch(() => {});
+    this.isPlaying = true;
+  }
+}
+
+
+updateProgress(): void {
+  const audio = this.audioRef?.nativeElement;
+  if (audio) {
+    this.currentTime = audio.currentTime;
+  }
+}
+
+updateDuration(): void {
+  const audio = this.audioRef?.nativeElement;
+  if (audio) {
+    this.duration = audio.duration || 0;
+  }
+}
+
+handleAudioEnd(): void {
+  if (this.isLooping) {
+    this.playAudio(); // replay same
+  } else if (this.selectedItem?.audios && this.currentAudioIndex < this.selectedItem.audios.length - 1) {
+    this.currentAudioIndex++;
+    this.playAudio();
+  } else {
+    this.isPlaying = false; // stop at the end
+  }
+}
+
+formatTime(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+changePlaybackRate(rate: number): void {
+  const audio = this.audioRef?.nativeElement;
+  if (audio) {
+    audio.playbackRate = rate;
+  }
+}
+
+seekAudio(event: any): void {
+  const audio = this.audioRef?.nativeElement;
+  const value = parseFloat(event.target.value);
+  if (audio) {
+    audio.currentTime = value;
+    this.currentTime = value;
+  }
+}
+
+isVideoOnly(): boolean {
+  return this.type === 'video' && !!this.selectedItem?.videos?.length;
+}
 }

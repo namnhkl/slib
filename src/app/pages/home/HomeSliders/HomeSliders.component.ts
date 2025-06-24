@@ -2,6 +2,7 @@ import { NhacViecService } from '@/app/shared/services/nhacviec.service';
 import { SharedService } from '@/app/shared/services/shared.service';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import {
   CarouselModule,
   OwlOptions,
@@ -23,7 +24,7 @@ interface CarouselData {
   selector: 'app-home-sliders',
   templateUrl: './HomeSliders.component.html',
   styleUrls: ['./HomeSliders.component.scss'],
-  imports: [CarouselModule],
+  imports: [CarouselModule, NzIconModule],
 })
 export class HomeSlidersComponent implements OnInit {
 

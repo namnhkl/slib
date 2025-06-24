@@ -25,7 +25,7 @@ export const routes: Routes = [
     canMatch: [authGuard({ requiresAuthentication: false })],
   },
   {
-    path: '',
+    path: URL_ROUTER.home,
     component: HomeComponent,
     data: { breadcrumb: 'home' }
   },

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { TranslateModule } from '@ngx-translate/core';
+import { max } from 'lodash';
 @Component({
   selector: 'app-thu-vien-anh',
   templateUrl: './thu-vien-anh.component.html',

@@ -60,7 +60,9 @@
               "src/theme.less",
               "src/styles.scss",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-               "node_modules/lightgallery/css/lightgallery-bundle.css"
+               "node_modules/lightgallery/css/lightgallery-bundle.css",
+                "node_modules/lightgallery/css/lg-zoom.css",
+                "node_modules/lightgallery/css/lg-thumbnail.css"
             ],
             "scripts": [
               "node_modules/lightgallery/lightgallery.min.js",

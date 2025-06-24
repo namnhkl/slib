@@ -31,6 +31,7 @@ import { QtndTinTucCarouselComponent } from './pages/QtndTinTuc/qtndtintuc-carou
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MediaLibraryComponent } from './pages/home/MediaLibrary/MediaLibrary.component';
 import { ThuVienAnhComponent } from './pages/thu-vien-anh/thu-vien-anh.component';
+import { HomeSlidersComponent } from './pages/home/HomeSliders/HomeSliders.component';
 
 @Component({
   selector: 'app-root',
@@ -57,6 +58,7 @@ import { ThuVienAnhComponent } from './pages/thu-vien-anh/thu-vien-anh.component
     DatePipe,
     MediaLibraryComponent,
     ThuVienAnhComponent,
+    HomeSlidersComponent
      
   ],
   templateUrl: './app.component.html',

@@ -11,22 +11,22 @@
       <div class="flex flex-wrap items-center text-sm text-gray-500 border-y py-3 gap-4 mb-4">
 
         <div class="flex items-center space-x-1">
-          <i class="fas fa-calendar-alt text-blue-500"></i>
+          <i class="fas fa-calendar-alt"></i>
           <span>{{ sachHayDetail.ngayDangTin }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="sachHayDetail.tacGia">
-          <i class="fas fa-user text-green-500"></i>
+          <i class="fas fa-user"></i>
           <span>{{ sachHayDetail.tacGia }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="sachHayDetail.slXem">
-          <i class="fas fa-eye text-purple-500"></i>
+          <i class="fas fa-eye"></i>
           <span>{{ sachHayDetail.slXem }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="sachHayDetail.nguonTin">
-          <i class="fas fa-globe text-yellow-500"></i>
+          <i class="fas fa-globe"></i>
           <a [href]="sachHayDetail.nguonTin" target="_blank" class="underline hover:text-blue-600">
             {{ 'qtndtintuc_nguon_tin' | translate }}
           </a>

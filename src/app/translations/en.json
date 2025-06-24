@@ -117,7 +117,7 @@
   "book_set":"Book set",
   "document_type":"Document type",
   "qtndtintuc_most_viewed_news":"Most viewed news",
-  "view":"View",
+  "view":"views",
   "list_of_topics_item":"List of topics item",
   "explore_the_latest_topics_item_in_the_library":"Explore the latest topics item in the library",
   "if_you_need_support_please_contact_us_we_will_try_to_respond_as_soon_as_possible": "If you need any assistance, please contact us, we will try to respond as soon as possible.",
@@ -192,9 +192,11 @@
   "qtndtintuc_kham_pha_ngay": "Explore now",
   "qtndtintuc_hay_theo_doi": "Stay updated with the latest news, announcements, and events about the library",
   "qtndtintuc_same_category":"Same category",
+  "qtndtintuc_ngay_dang_tin":"Posting date",
   "bdbandoc_khong_lay_duoc_danh_sach_dkcb":"Could not get item list",
   "qtndtintuc_share":"Share",
   "copied":"Copied",
+  "luot_nghe":"number of listens",
   "search_video_audio":"Search for videos, audio",
   "menu_vbqp_phapluat":"Legal documents",
   "tai_file": "Download file",
@@ -212,7 +214,16 @@
   "login_vui_long_dang_nhap_lai": "Please log in again",
   "thu_vien_anh":"Library images",
   "album":"Album",
-  "xem_anh_chi_tiet":"View detailed images"
+  "xem_anh_chi_tiet":"View detailed images",
+  "tong_luot_truy_cap_thang": "total visits in the month",
+  "speed": "Speed",
+  "play": "Play",
+  "pause": "Pause",
+  "stop": "Stop",
+  "volume": "Volume",
+  "bai_truoc": "Previous track",
+  "bai_tiep": "Next track",
+  "loop": "Loop"
 
 
 }

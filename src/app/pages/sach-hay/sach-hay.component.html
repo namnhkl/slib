@@ -1,5 +1,5 @@
 <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+  <main class="container max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
     <!-- Header -->
     <!-- Header cải tiến -->
     <section class="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 text-center shadow mb-12">
@@ -32,7 +32,7 @@
 
 
     <!-- Main content -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
       <article *ngFor="let sachhay of sachHaysData"
         class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col min-h-[400px] transition hover:shadow-lg hover:scale-[1.02] duration-300">
         <a [routerLink]="['/sach-hay', sachhay.id]" class="flex flex-col h-full">

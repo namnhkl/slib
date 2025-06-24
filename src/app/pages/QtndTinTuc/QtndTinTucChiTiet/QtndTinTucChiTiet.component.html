@@ -1,32 +1,32 @@
-<div class="info-detail-section py-8">
-  <div class="container sm:w-full">
+
+  <div class=" sm:w-full max-w-[1200px] mx-auto">
     <div class="bg-white rounded-xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10">
 
       <!-- Tiêu đề -->
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 leading-tight">
+      <h3 class="text-3xl font-semibold mb-6 text-blue-800 tracking-wide">
         {{ newDetail.ten }}
-      </h1>
+      </h3>
 
       <!-- Meta thông tin -->
       <div class="flex flex-wrap items-center text-sm text-gray-500 border-y py-3 gap-4 mb-4">
 
         <div class="flex items-center space-x-1">
-          <i class="fas fa-calendar-alt text-blue-500"></i>
+          <i class="fas fa-calendar-alt"></i>
           <span>{{ newDetail.ngayDangTin }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="newDetail.tacGia">
-          <i class="fas fa-user text-green-500"></i>
+          <i class="fas fa-user"></i>
           <span>{{ newDetail.tacGia }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="newDetail.slXem">
-          <i class="fas fa-eye text-purple-500"></i>
+          <i class="fas fa-eye"></i>
           <span>{{ newDetail.slXem }}</span>
         </div>
 
         <div class="flex items-center space-x-1" *ngIf="newDetail.nguonTin">
-          <i class="fas fa-globe text-yellow-500"></i>
+          <i class="fas fa-globe"></i>
           <a [href]="newDetail.nguonTin" target="_blank" class="underline hover:text-blue-600">
             {{ 'qtndtintuc_nguon_tin' | translate }}
           </a>
@@ -73,4 +73,4 @@
       </div>
     </div>
   </div>
-</div>
+
