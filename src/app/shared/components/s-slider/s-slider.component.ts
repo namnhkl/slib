@@ -91,7 +91,7 @@ export class SSliderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this.route.pathFromRoot);
+    // console.log(this.route.pathFromRoot);
   }
 
   moveToSS() {
@@ -103,19 +103,19 @@ export class SSliderComponent implements OnInit, AfterViewInit {
   getPassedData(data: any) {
     this.activeSlides.set(data);
     // console.log('HomeComponent');
-    console.log(this.activeSlides());
+    // console.log(this.activeSlides());
   }
 
   getChangeData(data: any) {
     this.activeSlides.set(data);
     // console.log('HomeComponent -> change');
-    console.log(data);
+    // console.log(data);
   }
 
   getChangedData(data: any) {
     this.activeSlides.set(data);
     // console.log('HomeComponent -> changed');
-    console.log(data);
+    // console.log(data);
   }
 
   buildLink(book: IBoook) {

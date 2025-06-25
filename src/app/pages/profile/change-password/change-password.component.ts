@@ -106,11 +106,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
           (response) => {
             if(response.messageCode.toString() === "0"){
               this.createNotification("error", this.translate.instant('notification'), this.translate.instant('password_change_failed'));
-              console.error('Đổi mật khẩu thất bại', response.messageText);
+              // console.error('Đổi mật khẩu thất bại', response.messageText);
             }
             else{
               this.createNotification("success", this.translate.instant('notification'), this.translate.instant('password_changed_successfully'));
-              console.log('Mật khẩu đã được thay đổi thành công', response);
+              // console.log('Mật khẩu đã được thay đổi thành công', response);
               setTimeout(() => {
                 this.logout();
               }, 1000);
@@ -131,7 +131,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       }
     } else {
       this.createNotification("error", this.translate.instant('notification'), this.translate.instant('invalid_data'));
-      console.log('Dữ liệu không hợp lệ');
+      // console.log('Dữ liệu không hợp lệ');
     }
   }
   

@@ -62,11 +62,11 @@ export class ContactComponent {
   }
 
   submitForm(): void {
-     console.log('Form submitted', this.validateForm.value); // Kiểm tra
+    //  console.log('Form submitted', this.validateForm.value); // Kiểm tra
     if (this.validateForm.valid) {
       const isCapchaValid = _.isEqual(this.validateForm.get('ip')?.value, this.$capcha.value.join(''));
-      console.log('CAPTCHA input:', this.validateForm.get('ip')?.value);
-      console.log('CAPTCHA actual:', this.$capcha.value.join(''));
+      // console.log('CAPTCHA input:', this.validateForm.get('ip')?.value);
+      // console.log('CAPTCHA actual:', this.$capcha.value.join(''));
       if (!isCapchaValid) {
         this.validateForm.controls['ip'].setErrors({
           notMatch: true
@@ -79,7 +79,7 @@ export class ContactComponent {
 
         return;
       }
-      console.log('Sending to server:', this.validateForm.value);
+      // console.log('Sending to server:', this.validateForm.value);
       this.contactService.submitContactContent(this.validateForm.value as ContactFormBody)
       .pipe(
         tap(res => {

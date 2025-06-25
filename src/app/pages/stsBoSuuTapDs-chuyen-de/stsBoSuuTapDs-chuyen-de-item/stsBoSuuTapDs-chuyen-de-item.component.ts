@@ -75,7 +75,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
   chuyenDeList$ = this.chuyenDeListSubject.asObservable();
 
   ngOnInit(): void {
-    console.log('🚀 ~ ChuyenDeItemComponent ~ ngOnInit');
+    // console.log('🚀 ~ ChuyenDeItemComponent ~ ngOnInit');
     this.loaderService.setLoading(true);
 
     // Lấy tham số từ URL
@@ -99,7 +99,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
         .getChuyenDeById({ id: this.stsBoSuuTapId, bsThuvienId: this.sharedService.thuVienId})
         .pipe(
           switchMap((res) => {
-            console.log('🚀 ~ getChuyenDeById ~ res:', res);
+            // console.log('🚀 ~ getChuyenDeById ~ res:', res);
             if (res.messageCode === 1) {
               const data = get(res, 'data', []);
               return of(data.length > 0 ? data[0].ten : '');
@@ -142,7 +142,7 @@ export class stsBoSuuTapDsChuyenDeItemComponent implements OnInit {
       })
       .pipe(
         switchMap((res) => {
-          console.log('🚀 ~ ChuyenDeItemComponent ~ searchChuyenDeItem ~ res:', res);
+          // console.log('🚀 ~ ChuyenDeItemComponent ~ searchChuyenDeItem ~ res:', res);
           if (res.messageCode === 1) {
             this.totalRecord = res.totalRecord || 0;
             return of(get(res, 'data', []));

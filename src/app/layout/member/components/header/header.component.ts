@@ -104,10 +104,10 @@ getMenus() {
     next: (res: any) => {
       this.menus = res?.data || [];
       this.treeMenus = this.buildTreeMenu(this.menus);
-      console.log('Danh sách menu:', this.treeMenus);
+      // console.log('Danh sách menu:', this.treeMenus);
     },
     error: (err) => {
-      console.error('Lỗi khi lấy danh sách menu:', err);
+      // console.error('Lỗi khi lấy danh sách menu:', err);
     }
   });
 }
@@ -126,7 +126,7 @@ buildTreeMenu(flatMenu: any[], parentId: string = '0'): any[] {
 
 sanitizeUrl(url: string): string {
   try {
-    console.log('Decoded URL:', decodeURIComponent(url));
+    // console.log('Decoded URL:', decodeURIComponent(url));
     return decodeURIComponent(url);
     
   } catch {

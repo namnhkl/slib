@@ -19,7 +19,7 @@ export class SharedService {
       const thuVien = res?.data?.[0];
       if (thuVien) {
         this.thuVienId = thuVien.id;
-        console.log('SharedService -> thuVienId:', this.thuVienId);
+        // console.log('SharedService -> thuVienId:', this.thuVienId);
         localStorage.setItem('bs_thuvien_id', this.thuVienId);
         done?.(); // gọi callback nếu có
       }

@@ -10,7 +10,7 @@ export const queryParamObject = (urlString?: string) => {
 
   const currentQueryObj: any = {}
   for (const [key, value] of searchParams.entries()) {
-    console.log(`${key}, ${value}`);
+    // console.log(`${key}, ${value}`);
     currentQueryObj[key] = value;
   }
 

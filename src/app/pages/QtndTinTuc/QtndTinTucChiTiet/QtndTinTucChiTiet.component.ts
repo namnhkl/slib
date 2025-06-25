@@ -44,10 +44,10 @@ export class QtndTinTucChiTietComponent implements OnInit, AfterViewInit {
         this.newService.getNews({ id,bsThuvienId:this.sharedService.thuVienId }).subscribe((res) => {
           if (res.messageCode === 1) {
             this.newDetail = _.get(res, 'data.0', {});
-            console.log('newDetail',this.newDetail);
+            // console.log('newDetail',this.newDetail);
             const noiDungRaw = _.get(res, 'data.0.noiDung', '');
             this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
-            console.log('nd: ', this.safeContent);
+            // console.log('nd: ', this.safeContent);
             this.currentUrl = window.location.href;
             this.encodedUrl = encodeURIComponent(this.currentUrl);
             this.encodedTitle = encodeURIComponent(this.newDetail?.ten ?? '');

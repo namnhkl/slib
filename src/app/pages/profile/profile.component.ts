@@ -87,13 +87,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   next: (response) => {
     if (response.messageCode === 1 && response.data.length > 0) {
       this.bdBanDocChiTiet = response.data[0];
-      console.log('Dữ liệu bạn đọc chi tiết:', this.bdBanDocChiTiet);
+      // console.log('Dữ liệu bạn đọc chi tiết:', this.bdBanDocChiTiet);
     } else {
-      console.warn('Không có dữ liệu hoặc gọi API không thành công');
+      // console.warn('Không có dữ liệu hoặc gọi API không thành công');
     }
   },
   error: (error) => {
-    console.error('Lỗi khi gọi API bdBanDocChiTiet:', error);
+    // console.error('Lỗi khi gọi API bdBanDocChiTiet:', error);
   }
 });
 
@@ -108,16 +108,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
  logout() {
   this.authService.bdBanDocDangXuat({secretKey: this.secretkey}).subscribe({
     next: (res) => {
-      console.log('res logout',res);
+      // console.log('res logout',res);
       if (res?.messageCode === 1) {
         this.authService.logout();
         this.router.navigateByUrl('/');
       } else {
-        console.warn('Không thể đăng xuất: ', res?.messageText || 'Lỗi không xác định');
+        // console.warn('Không thể đăng xuất: ', res?.messageText || 'Lỗi không xác định');
       }
     },
     error: (err) => {
-      console.error('Lỗi khi gọi API đăng xuất:', err);
+      // console.error('Lỗi khi gọi API đăng xuất:', err);
     }
   });
 }

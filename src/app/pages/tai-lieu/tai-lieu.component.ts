@@ -136,7 +136,7 @@ ngOnInit() {
   loadDocuments() {
   this.loaderService.setLoading(true);
   const { bmDmDangTaiLieuId } = this.formCriteriaFilter.value;
-  console.log('SharedService.thuVienId:', this.sharedService.thuVienId);
+  // console.log('SharedService.thuVienId:', this.sharedService.thuVienId);
   this.documentsService.bmTaiLieuDs({
     pageIndex: this.pageIndex,
     pageSize: this.pageSize,
@@ -156,7 +156,7 @@ ngOnInit() {
   getDangTaiLieu() {
     this.danhMucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe((res) => {
       this.dangTaiLieus = res.data;
-      console.log('dang tai lieu:', this.dangTaiLieus);
+      // console.log('dang tai lieu:', this.dangTaiLieus);
     });
   }
 

@@ -29,7 +29,7 @@ export class FooterService extends _HttpRequestInjector {
          qtndHtNgonNguId:qtndHtNgonNguId
         },
       });
-      console.log('sssss',url);
+      // console.log('sssss',url);
       return this._http.get<IResponse<IqtndTtLienHe[]>>(url);
     }
 }

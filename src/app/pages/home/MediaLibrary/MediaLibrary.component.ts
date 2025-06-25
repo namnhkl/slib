@@ -175,10 +175,10 @@ loadDocuments(selectedId?: string): void {
 
   forkJoin(serviceCalls).subscribe({
     next: (responses) => {
-      console.log('serviceCalls',responses);
+      // console.log('serviceCalls',responses);
       const mergedItems = responses.flatMap((res) => res?.data || []);
       mergedItems.sort((a, b) => new Date(b.ngayDangTin).getTime() - new Date(a.ngayDangTin).getTime());
-      console.log('mergedItems',mergedItems);
+      // console.log('mergedItems',mergedItems);
       const detailRequests = mergedItems.map((item) => {
         const detailParams = {
           pageIndex: 0,
@@ -198,7 +198,7 @@ loadDocuments(selectedId?: string): void {
 
           details.forEach((res: any, groupIndex: number) => {
             const itemDetail: IChiTietTinTuc[] = res?.data ?? [];
-              console.log('itemDetail',itemDetail);
+              // console.log('itemDetail',itemDetail);
             const groupItems = itemDetail.map((chiTiet: IChiTietTinTuc, index: number): ISimpleItem | null => {
   const videos: { name: string; url: string; isYoutube?: boolean }[] = [];
 const audios: { name: string; url: string, image?:string }[] = [];
@@ -363,7 +363,7 @@ transform(url: string): SafeResourceUrl {
 
   togglePlayPause(): void {
   const audio = this.audioRef?.nativeElement;
-  console.log('togglePlayPause', audio);
+  // console.log('togglePlayPause', audio);
   if (!audio) return;
 
   if (this.isPlaying) {

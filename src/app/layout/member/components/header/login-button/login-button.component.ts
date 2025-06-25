@@ -118,7 +118,7 @@ ngAfterViewInit(): void {
   
   ngOnInit(): void {
      this.authService.setRedirectUrl(this.router.url);
-    console.log('isAuthenticated$', this.isAuthenticated$);
+    // console.log('isAuthenticated$', this.isAuthenticated$);
     this.loadThuVienList();
      this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet])
       .subscribe(result => {
@@ -141,7 +141,7 @@ ngAfterViewInit(): void {
       }
     },
     error: (err) => {
-      console.error('Lấy dữ liệu thư viện lỗi:', err);
+      // console.error('Lấy dữ liệu thư viện lỗi:', err);
       this.thuVienList = [];
     }
   });
@@ -171,7 +171,7 @@ ngAfterViewInit(): void {
           this.isVisible = false;
         },
         error: (err) => {
-          console.log('err', err);
+          // console.log('err', err);
         },
       });
     } else {
@@ -189,12 +189,12 @@ ngAfterViewInit(): void {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
+    // console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
+    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -205,7 +205,7 @@ goProfile() {
 }
 
   ngOnChanges() {
-    console.log('isAuthenticated123$', this.isAuthenticated$);
+    // console.log('isAuthenticated123$', this.isAuthenticated$);
   }
 
 openForgotPasswordModal(): void {

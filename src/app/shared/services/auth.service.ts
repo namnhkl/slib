@@ -109,7 +109,7 @@ isAuthenticated$ = new BehaviorSubject<boolean>(
   
   bdBanDocDangXuat(body: LogoutModel) {
     const url = this.urlObject.buildUrl({ endpoint: 'bdBanDocDangXuat' });
-    console.log('url logout', url);
+    // console.log('url logout', url);
     
     return this._http.post<IResponse<any>>(url, body);
   }

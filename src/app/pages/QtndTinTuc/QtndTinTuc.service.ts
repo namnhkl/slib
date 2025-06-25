@@ -41,7 +41,7 @@ getNews(
     endpoint: 'qtndTtTinTuc',
     queryObject: query,
   });
-  console.log('url',url);
+  // console.log('url',url);
   return this._http.get<IResNews>(url);
 }
 }

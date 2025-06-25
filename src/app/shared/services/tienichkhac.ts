@@ -42,7 +42,7 @@ export class TienIchKhacService extends _HttpRequestInjector {
         ...params
       },
     });
-    console.log('url copy', url);
+    // console.log('url copy', url);
     return this._http.get<IResponse<CopyRight[]>>(url);
   }
 
@@ -69,7 +69,7 @@ export class TienIchKhacService extends _HttpRequestInjector {
         ...params
       },
     });
-    console.log('url menu', url);
+    // console.log('url menu', url);
     return this._http.get<IResponse<QtndHtThanhChucNangItem[]>>(url);
   }
 
@@ -84,7 +84,7 @@ export class TienIchKhacService extends _HttpRequestInjector {
         ...params
       },
     });
-    console.log('url anh', url);
+    // console.log('url anh', url);
     return this._http.get<IResponse<DanhMucAnh[]>>(url);
   }
 
@@ -98,7 +98,7 @@ export class TienIchKhacService extends _HttpRequestInjector {
         ...params
       },
     });
-    console.log('url anh chi tiet', url);
+    // console.log('url anh chi tiet', url);
     return this._http.get<IResponse<ThuVienAnhChiTiet[]>>(url);
   }
 }

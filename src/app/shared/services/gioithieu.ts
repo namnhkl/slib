@@ -43,7 +43,7 @@ export class GioiThieuService extends _HttpRequestInjector {
         ...params
       },
     });
-    console.log('url gtct', url);
+    // console.log('url gtct', url);
     return this._http.get<IResponse<GioiThieuChitietModel[]>>(url);
   }
 }

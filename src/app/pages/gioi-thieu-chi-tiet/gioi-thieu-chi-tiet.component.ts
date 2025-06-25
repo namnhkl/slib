@@ -37,19 +37,19 @@ export class GioiThieuChiTietComponent implements OnInit, AfterViewInit {
    
   }
 ngOnInit() {
-  console.log('id gt');
+  // console.log('id gt');
   this.route.queryParams.subscribe((params) => {
     const id = _.get(params, 'id', '');
     if (id.length > 0) {
-      console.log('id gt', id);
+      // console.log('id gt', id);
       this.gioiThieuService.qtndGioiThieuChiTiet({
         bsThuVienId: this.sharedService.thuVienId,
         id: id
       }).subscribe((res) => {
-        console.log('res GioiThieuChiTiet', res);
+        // console.log('res GioiThieuChiTiet', res);
         if (res.messageCode === 1) {
           this.newDetail = _.get(res, 'data', {});
-          console.log('GioiThieuChiTiet', this.newDetail);
+          // console.log('GioiThieuChiTiet', this.newDetail);
           const noiDungRaw = _.get(this.newDetail, 'noiDung', '');
           this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
           this.currentUrl = window.location.href;

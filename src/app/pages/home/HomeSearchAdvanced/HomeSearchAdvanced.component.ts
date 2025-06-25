@@ -168,7 +168,7 @@ loadBsKho(thuVIenId:string) {
 loadBoSach(thuVIenId:string) {
   this.danhmucService.getBoSach({bsThuVienId:thuVIenId}).subscribe({
     next: (res) => {
-      console.log('bo sach',res);
+      // console.log('bo sach',res);
       if (res && res.data) {
           this.boSach = res.data;
       } else {

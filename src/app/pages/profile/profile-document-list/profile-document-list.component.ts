@@ -143,7 +143,7 @@ export class ProfileDocumentListComponent implements OnInit {
       this.borrowedTotalRecords = +res.totalRecord || 0;
       this.borrowedTotalPage = Math.ceil(this.borrowedTotalRecords / this.borrowedPageSize);
       this.tabs[0].count = res.totalRecord;
-      console.log(res.data);
+      // console.log(res.data);
     });
   }
 

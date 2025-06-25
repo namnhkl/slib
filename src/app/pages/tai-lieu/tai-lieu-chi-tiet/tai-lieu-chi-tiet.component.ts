@@ -126,7 +126,7 @@ ngAfterViewChecked() {
     !this.hasCheckedClamp &&
     this.tomTatElement?.nativeElement
   ) {
-    console.log('tomTatElement:', this.tomTatElement);
+    // console.log('tomTatElement:', this.tomTatElement);
     this.checkClamp();
     this.hasCheckedClamp = true;
     this.cdr.detectChanges(); // cập nhật lại view
@@ -191,15 +191,15 @@ datMuonTaiLieu() {
   this.documentsService.getDKCBs(this.sharedService.thuVienId, this.currentDocument.id,'','').subscribe((res) => {
     if (res.messageCode === 1) {
       this.dkcbs = res.data;
-      console.log('dkcbs:', this.dkcbs);
+      // console.log('dkcbs:', this.dkcbs);
 
       if (this.dkcbs && this.dkcbs.length > 0) {
         const dsId = this.dkcbs
           .filter((item: { laDatMuon: number }) => item.laDatMuon === 1)
           .map((item: { id: any }) => item.id);
 
-        console.log('dkcb: ', dsId);
-        console.log('docs: ', this.dkcbs);
+        // console.log('dkcb: ', dsId);
+        // console.log('docs: ', this.dkcbs);
 
         if (dsId.length === 0) {
           this.createNotification(
@@ -335,7 +335,7 @@ ngOnInit() {
           if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
             this.currentDocument = res.data[0];
             this.hasCheckedClamp = false;
-            console.log('data dc', this.currentDocument);
+            // console.log('data dc', this.currentDocument);
             this.currentUrl = window.location.href;
             this.encodedUrl = encodeURIComponent(this.currentUrl);
             // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
@@ -371,7 +371,7 @@ checkClamp() {
   const maxHeight = lineHeight * 3;
 
   this.isClamped = el.scrollHeight > maxHeight;
-  console.log('👉 scrollHeight:', el.scrollHeight, 'maxHeight:', maxHeight, '=> isClamped:', this.isClamped);
+  // console.log('👉 scrollHeight:', el.scrollHeight, 'maxHeight:', maxHeight, '=> isClamped:', this.isClamped);
 }
 
   toggleFavorite() {
@@ -411,7 +411,7 @@ checkClamp() {
   this.currentPdfBase64Images = [];
   this.currentImageIndex = 0;
 
-  console.log("Current document:", this.currentDocument);
+  // console.log("Current document:", this.currentDocument);
 
   const dsBanSo = this.currentDocument.dsBanSo;
   if (!dsBanSo || dsBanSo.length === 0) return;
@@ -448,7 +448,7 @@ checkClamp() {
           });
 
           this.treeStructureDisplay = this.convertToAntdTreeData(this.treeStructure);
-          console.log('Tree to display:', this.treeStructureDisplay);
+          // console.log('Tree to display:', this.treeStructureDisplay);
 
           if (this.treeStructureDisplay.length > 0) {
             const firstNodeKey = this.treeStructureDisplay[0].key;

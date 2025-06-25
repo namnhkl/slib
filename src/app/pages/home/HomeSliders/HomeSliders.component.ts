@@ -68,7 +68,7 @@ export class HomeSlidersComponent implements OnInit {
 
     this.carouselData.set(transformed);
 
-    console.log('carouselData',this.carouselData);
+    // console.log('carouselData',this.carouselData);
   }
 });
 

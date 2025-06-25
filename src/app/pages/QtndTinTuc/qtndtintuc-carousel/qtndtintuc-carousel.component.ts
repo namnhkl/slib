@@ -92,7 +92,7 @@ updateSlidesPerView() {
         const sorted = filtered.sort((a, b) => (b.laTrangChu || 0) - (a.laTrangChu || 0));
 
         this.slides = sorted.slice(0, 6);
-        console.log('slides', this.slides);
+        // console.log('slides', this.slides);
         this.updateSlidesPerView();
       } else {
         this.slides = [];

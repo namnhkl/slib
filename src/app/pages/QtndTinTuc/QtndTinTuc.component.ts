@@ -69,7 +69,7 @@ export class QtndTinTucComponent {
     })
     .pipe(
       tap((res) => {
-        console.log('dddd: ', res);
+        // console.log('dddd: ', res);
         if (res.messageCode === 1) {
           this.newsData = Array.isArray(res.data)
             ? res.data.map((item) => ({
@@ -164,7 +164,7 @@ ngOnInit(): void {
   // Lắng nghe thay đổi query params
   this.route.queryParams.subscribe(params => {
     this.qtndTtNhomTinTucId = params['tin-tuc-chi-tiet'] || '';
-    console.log('tin-tuc-chi-tiet:', this.qtndTtNhomTinTucId);
+    // console.log('tin-tuc-chi-tiet:', this.qtndTtNhomTinTucId);
   });
 
   // Gọi dữ liệu ban đầu

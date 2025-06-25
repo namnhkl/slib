@@ -42,10 +42,10 @@ export class SachHayChiTietComponent implements OnInit, AfterViewInit {
         this.sachHayService.getSachHayChiTiet({id:id, bsThuVienId:this.sharedService.thuVienId}).subscribe((res) => {
           if (res.messageCode === 1) {
             this.sachHayDetail = _.get(res, 'data.0', {});
-            console.log('sachHayDetail',this.sachHayDetail);
+            // console.log('sachHayDetail',this.sachHayDetail);
             const noiDungRaw = _.get(res, 'data.0.noiDung', '');
             this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
-            console.log('nd: ', this.safeContent);
+            // console.log('nd: ', this.safeContent);
             this.currentUrl = window.location.href;
             this.encodedUrl = encodeURIComponent(this.currentUrl);
             this.encodedTitle = encodeURIComponent(this.sachHayDetail?.ten ?? '');

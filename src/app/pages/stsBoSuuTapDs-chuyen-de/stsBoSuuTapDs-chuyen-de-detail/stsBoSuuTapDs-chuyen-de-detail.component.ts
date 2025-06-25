@@ -111,7 +111,7 @@ getChuyenDe(sChuyenDeId?: string): void {
     next: (response) => {
       // Giải nén từ response.data
       const data = response.data[0] || [];
-      console.log('chuyende data: ', data);
+      // console.log('chuyende data: ', data);
       this.chuyenDe = data;
       this.changeDetectorRef.detectChanges();
     },
@@ -262,10 +262,10 @@ loadDocuments(stsBoSuuTapId: string) {
 
 setActiveNodeByKey(key: string): void {
   if (!this.treeComponent) return;
- console.log('key',key);
+//  console.log('key',key);
   this.selectedKeys = [key];
   this.changeDetectorRef.detectChanges(); // ✅ Kích hoạt CSS highlight
- console.log('keys',this.selectedKeys);
+//  console.log('keys',this.selectedKeys);
   const node = this.treeComponent.getTreeNodeByKey(key);
   if (node) {
     node.isExpanded = true; // ✅ Mở node cha nếu cần

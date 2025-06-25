@@ -90,7 +90,7 @@ ngOnInit() {
   this.loaderService.setLoading(true);
 
   this.danhmucService.bmDmDangTaiLieu(this.sharedService.thuVienId).subscribe((res) => {
-    console.log('Danh mục:', res);
+    // console.log('Danh mục:', res);
     this.dangtailieus = (res.data || []).filter(item => item && item.id);
 
     const requests = this.dangtailieus.map((item) =>
@@ -101,7 +101,7 @@ ngOnInit() {
             ten: item.ten,
             data: res.messageCode === 1 && res.data ? res.data : []
           };
-          console.log('result list', result);
+          // console.log('result list', result);
           return of(result);
         })
       )
@@ -122,7 +122,7 @@ ngOnInit() {
   this.changeDetectorRef.detectChanges();
   this.documentService.getChuyenDes(this.sharedService.thuVienId).subscribe(response => {
     this.chuyendes = response.data;  // Lấy đúng mảng IDocument[]
-    console.log('Chuyên đề: ', this.chuyendes);
+    // console.log('Chuyên đề: ', this.chuyendes);
   });
 
 

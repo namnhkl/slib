@@ -46,7 +46,7 @@ getqtndTtLienHe(): void {
   const langCode = this.translateService.currentLang;
   const langParam = this.mapLangToCode(langCode);
 
-  console.log('Lang code:', langCode, '→ API param:', langParam);
+  // console.log('Lang code:', langCode, '→ API param:', langParam);
 
   if (!thuVienId) {
     console.warn('Chưa có thư viện ID!');
@@ -57,7 +57,7 @@ getqtndTtLienHe(): void {
     next: (res) => {
       if (res.messageCode === 1) {
         this.IqtndTtLienHe = res.data?.[0];
-        console.log('Thông tin liên hệ:', this.IqtndTtLienHe);
+        // console.log('Thông tin liên hệ:', this.IqtndTtLienHe);
       } else {
         console.warn('Không lấy được thông tin liên hệ');
       }
@@ -69,10 +69,10 @@ getqtndTtLienHe(): void {
 
   this.tienIchKhacService.qtndQlFooterCopyright({ma:this.mathuvien, bsThuVienId:thuVienId,qtndHtNgonNguId:langParam }).subscribe({
     next: (res) => {
-      console.log('res copyright',res);
+      // console.log('res copyright',res);
       if (res.messageCode === 1) {
         this.copyRight = res.data;
-        console.log('Copy right:', this.copyRight);
+        // console.log('Copy right:', this.copyRight);
       } else {
         console.warn('Không lấy được thông tin Copyright');
       }
@@ -84,10 +84,10 @@ getqtndTtLienHe(): void {
 
   this.tienIchKhacService.thongKeTruyCap({bsThuVienId:thuVienId,secretKey:environment.SECRETKEY }).subscribe({
     next: (res) => {
-      console.log('res tktc',res);
+      // console.log('res tktc',res);
       if (res.messageCode === 1) {
         this.ThongKeTruyCap = res.data;
-        console.log('tktc:', this.ThongKeTruyCap);
+        // console.log('tktc:', this.ThongKeTruyCap);
       } else {
         console.warn('Không lấy được thông tin tktc');
       }
@@ -100,10 +100,10 @@ getqtndTtLienHe(): void {
   
   this.taiLieuService.bmTaiLieuThongKeTrangChu({bsThuVienId:thuVienId}).subscribe({
     next: (res) => {
-      console.log('res tktc',res);
+      // console.log('res tktc',res);
       if (res.messageCode === 1) {
         this.ThongKeTaiLieuThuVien = res.data;
-        console.log('tktktv:', this.ThongKeTaiLieuThuVien);
+        // console.log('tktktv:', this.ThongKeTaiLieuThuVien);
       } else {
         console.warn('Không lấy được thông tin tktktv');
       }

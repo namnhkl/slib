@@ -77,7 +77,7 @@ export class stsBoSuuTapDsChuyenDeListComponent implements OnInit {
     bsThuvienId: this.sharedService.thuVienId
   }).pipe(
     switchMap((res) => {
-      console.log('🚀 ~ searchChuyenDe ~ res:', res);
+      // console.log('🚀 ~ searchChuyenDe ~ res:', res);
       if (res.messageCode === 1) {
         this.totalRecord = res.totalRecord || 0;
 

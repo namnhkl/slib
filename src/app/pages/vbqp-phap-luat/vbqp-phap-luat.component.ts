@@ -77,7 +77,7 @@ export class VbqpPhapLuatComponent {
     })
       .pipe(
         tap((res) => {
-          console.log('Response: ', res);
+          // console.log('Response: ', res);
           if (res.messageCode === 1) {
             this.VbqpPhapLuats = Array.isArray(res.data)
               ? res.data.map(item => ({ ...item }))
@@ -105,7 +105,7 @@ export class VbqpPhapLuatComponent {
     this.VbqpPhapLuatService.qtndDmLoaiVanBan({})
       .pipe(
         tap((res) => {
-          console.log('Response: ', res);
+          // console.log('Response: ', res);
           if (res.messageCode === 1) {
             this.loaiVanBanList = Array.isArray(res.data)
               ? res.data.map(item => ({ ...item }))
@@ -191,10 +191,10 @@ export class VbqpPhapLuatComponent {
     this.VbqpPhapLuatService.chiTietVanBan({ id, bsThuVienId: this.sharedService.thuVienId }).subscribe((res) => {
       if (res.messageCode === 1) {
         this.VbqpPhapLuatDetail = _.get(res, 'data.0', {});
-        console.log('VbqpPhapLuatDetail', this.VbqpPhapLuatDetail);
+        // console.log('VbqpPhapLuatDetail', this.VbqpPhapLuatDetail);
         const noiDungRaw = _.get(res, 'data.0.noiDung', '');
         this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
-        console.log('nd: ', this.safeContent);
+        // console.log('nd: ', this.safeContent);
         this.currentUrl = window.location.href;
         this.encodedUrl = encodeURIComponent(this.currentUrl);
         this.encodedTitle = encodeURIComponent(this.VbqpPhapLuatDetail?.ten ?? '');
@@ -206,7 +206,7 @@ export class VbqpPhapLuatComponent {
     // Lắng nghe thay đổi query params
     this.route.queryParams.subscribe(params => {
       this.loaiVanBanIdId = params['loaiVanBanIdId'] || '';
-      console.log('loaiVanBanIdId:', this.loaiVanBanIdId);
+      // console.log('loaiVanBanIdId:', this.loaiVanBanIdId);
     });
     this.getLoaiVanBan();
     // Gọi dữ liệu ban đầu

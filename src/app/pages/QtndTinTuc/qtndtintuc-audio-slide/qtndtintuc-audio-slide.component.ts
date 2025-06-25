@@ -78,7 +78,7 @@ export class TinTucAudioSlideComponent implements OnInit {
   sharedService = inject(SharedService);
 
 ngOnInit() {
-  console.log('HomeCategoriesComponent - ngOnInit');
+  // console.log('HomeCategoriesComponent - ngOnInit');
 
   this.tinTucService.qtndTtTinTucAudio({
     pageIndex: 0,
@@ -86,7 +86,7 @@ ngOnInit() {
     bsThuvienId: this.sharedService.thuVienId
   }).subscribe({
     next: (response) => {
-      console.log('===> Audio API Response:', response);
+      // console.log('===> Audio API Response:', response);
 
       const items: IChiTietTinTuc[] = response?.data ?? [];
 
@@ -110,7 +110,7 @@ ngOnInit() {
         .filter(item => item !== null) as ISimpleItem[];
 
       this.simpleData = allAudioItems;
-      console.log('🎯 Tổng simpleData:', this.simpleData);
+      // console.log('🎯 Tổng simpleData:', this.simpleData);
     },
     error: (err) => {
       console.error('🔥 Lỗi khi lấy danh sách tin tức audio:', err);
@@ -137,19 +137,19 @@ ngOnInit() {
 
   getPassedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent');
-    console.log(this.activeSlides());
+    // console.log('HomeComponent');
+    // console.log(this.activeSlides());
   }
 
   getChangeData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> change');
-    console.log(data);
+    // console.log('HomeComponent -> change');
+    // console.log(data);
   }
 
   getChangedData(data: any) {
     this.activeSlides.set(data);
-    console.log('HomeComponent -> changed');
-    console.log(data);
+    // console.log('HomeComponent -> changed');
+    // console.log(data);
   }
 }

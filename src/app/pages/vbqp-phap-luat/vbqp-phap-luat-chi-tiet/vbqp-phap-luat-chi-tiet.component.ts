@@ -43,10 +43,10 @@ export class VbqpPhapLuatChiTietComponent implements OnInit, AfterViewInit {
         this.VbqpPhapLuatService.chiTietVanBan({ id,bsThuVienId:this.sharedService.thuVienId }).subscribe((res) => {
           if (res.messageCode === 1) {
             this.VbqpPhapLuatDetail = _.get(res, 'data.0', {});
-            console.log('VbqpPhapLuatDetail',this.VbqpPhapLuatDetail);
+            // console.log('VbqpPhapLuatDetail',this.VbqpPhapLuatDetail);
             const noiDungRaw = _.get(res, 'data.0.noiDung', '');
             this.safeContent = this.sanitizer.bypassSecurityTrustHtml(noiDungRaw);
-            console.log('nd: ', this.safeContent);
+            // console.log('nd: ', this.safeContent);
             this.currentUrl = window.location.href;
             this.encodedUrl = encodeURIComponent(this.currentUrl);
             this.encodedTitle = encodeURIComponent(this.VbqpPhapLuatDetail?.ten ?? '');

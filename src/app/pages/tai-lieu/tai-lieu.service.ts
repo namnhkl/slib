@@ -36,7 +36,7 @@ export class TaiLieuService extends _HttpRequestInjector {
       endpoint: 'bmTaiLieuMoiNhatDs',
       queryObject,
     });
-console.log('Query URL:', url);
+// console.log('Query URL:', url);
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 
@@ -48,7 +48,7 @@ console.log('Query URL:', url);
       endpoint: 'bmTaiLieuDs',
       queryObject,
     });
-    console.log('bmTaiLieuDs url', url);
+    // console.log('bmTaiLieuDs url', url);
     return this._http.get<IResponse<IDocument[]>>(url);
   }
 
@@ -73,7 +73,7 @@ console.log('Query URL:', url);
         maDkcb:maDkcb
       },
     });
-    console.log('url dkcb:', url);
+    // console.log('url dkcb:', url);
     return this._http.get<IResponse<DsBanIn[]>>(url);
   }
 
@@ -95,7 +95,7 @@ console.log('Query URL:', url);
         bsThuVienId: bsThuVienId,
       },
     });
-    console.log('url list book', url);
+    // console.log('url list book', url);
     return this._http.get<IResponse<TaiLieuChiTiet[]>>(url);
   }
 
