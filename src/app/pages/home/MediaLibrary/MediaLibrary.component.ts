@@ -97,9 +97,18 @@ volume: number = 1; // mặc định 100%
 
 
 selectAudio(index: number): void {
-
   this.currentAudioIndex = index;
   
+  // Reset playback speed and volume
+  this.playbackRate = 1;
+  this.volume = 1;
+
+  // Cập nhật playback rate và volume cho audio element
+  if (this.audioRef?.nativeElement) {
+    this.audioRef.nativeElement.playbackRate = this.playbackRate;
+    this.audioRef.nativeElement.volume = this.volume;
+  }
+
   this.playAudio();
 }
 
@@ -300,10 +309,16 @@ selectItem(item: ISimpleItem): void {
   this.isPlaying = false;
   this.isLooping = false;
 
+  // Reset playback speed and volume
+  this.playbackRate = 1;
+  this.volume = 1;
+
   // Dừng và reset audio nếu tồn tại
   if (this.audioRef?.nativeElement) {
     this.audioRef.nativeElement.pause();
     this.audioRef.nativeElement.currentTime = 0;
+    this.audioRef.nativeElement.playbackRate = this.playbackRate; // Reset playback rate
+    this.audioRef.nativeElement.volume = this.volume; // Reset volume
   }
 
   // Gán item và reset index
@@ -322,6 +337,7 @@ selectItem(item: ISimpleItem): void {
     // Đặt lại âm lượng
     if (this.audioRef?.nativeElement) {
       this.audioRef.nativeElement.volume = this.volume;
+      this.audioRef.nativeElement.playbackRate = this.playbackRate;
     }
   }, 100); // Đảm bảo DOM đã cập nhật xong
 }
