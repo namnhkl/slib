@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, HostListener, ChangeDetectorRef, inject, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, inject, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { register } from 'swiper/element/bundle';
@@ -31,6 +31,7 @@ register(); // Gọi 1 lần duy nhất
   ]
 })
 export class SachHayCarouselComponent implements OnInit {
+  @ViewChild('swiperEl', { static: false }) swiperEl?: ElementRef;
   slides: any[] = [];
   currentIndex: number = 0;
   slidesPerView: number = 4; // Giá trị mặc định cho desktop
@@ -77,28 +78,43 @@ updateSlidesPerView() {
   else this.slidesPerView = 4;
 }
 
-  getTopSachHayData() {
+getTopSachHayData() {
   this.sachHayService.getDanhMucSachHay({
     qtndDmLoaiThuMucId: this.qtndDmLoaiThuMucId,
-    bsThuVienId: this.sharedService.thuVienId, pageIndex:0,pageSize:999
+    bsThuVienId: this.sharedService.thuVienId,
+    pageIndex: 0,
+    pageSize: 999
   }).pipe(
     tap(res => {
       if (res.messageCode === 1) {
-        // Lọc ra những item không trùng với this.removeid
         const filtered = Array.isArray(res.data)
           ? res.data.filter(item => item.id !== this.removeid)
           : [];
 
         this.slides = filtered.slice(0, 6);
-        console.log('slides', this.slides);
-        this.updateSlidesPerView();
+        this.cdr.detectChanges();
+
+        // ✅ Delay gọi updateSwiper để DOM render xong
+        setTimeout(() => {
+  if (this.swiperEl?.nativeElement) {
+    this.slides = filtered.slice(0, 6);
+    this.cdr.detectChanges();
+  } else {
+    console.warn('Swiper DOM chưa sẵn sàng. Delay thêm.');
+    setTimeout(() => {
+      this.slides = filtered.slice(0, 6);
+      this.cdr.detectChanges();
+    }, 100); // Thử lại sau 100ms
+  }
+}, 0);
       } else {
         this.slides = [];
+        this.cdr.detectChanges();
       }
-      this.cdr.detectChanges();
     })
   ).subscribe();
 }
+
 
   
 }

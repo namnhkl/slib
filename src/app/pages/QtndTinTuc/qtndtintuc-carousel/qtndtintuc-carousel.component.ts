@@ -97,7 +97,7 @@ updateSlidesPerView() {
       } else {
         this.slides = [];
       }
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
     })
   ).subscribe();
 }

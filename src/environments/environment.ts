@@ -5,7 +5,7 @@ export const environment = {
   application: {
     ...applicationBase,
   },
-  production: false,
+  production: true,
   authServer: 'https://api.k12.slib.vn:6787/api/thuvien',
    isActiveChatbot: false,
    API_URL: 'https://chat.slib.vn/api/chat',
