@@ -18,7 +18,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { map, tap } from 'rxjs';
+import { forkJoin, map, tap } from 'rxjs';
 import { HomeSearchAdvancedComponent } from '../../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { IBookSearchResponse } from '../../home/HomeSearchAdvanced/type';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
@@ -109,61 +109,54 @@ handleClear(fieldName: string) {
     });
   }
 
-  ngOnInit() {
-  this.getDangTaiLieu();
-  this.loadBoSach(this.sharedService.thuVienId);
+ngOnInit() {
+  // Load đồng thời dangTaiLieus và boSach
+  forkJoin({
+    dangTaiLieus: this.danhMucService.bmDmDangTaiLieu(this.sharedService.thuVienId),
+    boSach: this.danhMucService.getBoSach({ bsThuVienId: this.sharedService.thuVienId }),
+  }).subscribe(({ dangTaiLieus, boSach }) => {
+    this.dangTaiLieus = dangTaiLieus.data;
+    this.boSach = boSach.data;
 
-  this.activatedRouter.queryParams
-    .pipe(
-      map((queryParams: any) => {
-        // ✅ Chuyển bmDmDangTaiLieuId về string thay vì string[]
-        const bmDmDangTaiLieuId =
-          typeof queryParams.bmDmDangTaiLieuId === 'string'
-            ? queryParams.bmDmDangTaiLieuId.trim()
-            : '';
+    // Sau khi dữ liệu đã có -> mới set form và xử lý query params
+    this.activatedRouter.queryParams
+      .pipe(
+        map((queryParams: any) => {
+          return {
+            pageIndex: queryParams.pageIndex ? Number(queryParams.pageIndex) : 0,
+            pageSize: queryParams.pageSize ? Number(queryParams.pageSize) : environment.PAGE_SIZE,
+            bsThuVienId: this.sharedService.thuVienId,
+            bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId?.trim() || '',
+            bmTuDienBoSachId: queryParams.bmTuDienBoSachId?.trim() || '',
+          };
+        }),
+        tap((value) => {
+          this.pageIndex = value.pageIndex;
+          this.pageSize = value.pageSize;
 
-       return {
-  pageIndex: queryParams.pageIndex ? Number(queryParams.pageIndex) : 0,
-  pageSize: queryParams.pageSize ? Number(queryParams.pageSize) : environment.PAGE_SIZE,
-  bsThuVienId: this.sharedService.thuVienId,
-  bmDmDangTaiLieuId,
-  bmTuDienBoSachId: queryParams.bmTuDienBoSachId?.trim() || '',
-};
-
-      }),
-      tap((value) => {
-        this.pageIndex = value.pageIndex;
-        this.pageSize = value.pageSize;
-
-        this.formCriteriaFilter.setValue({
-          bsThuVienId: this.sharedService.thuVienId,
-          bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
-          bmTuDienBoSachId: value.bmTuDienBoSachId,
-        });
-      })
-    )
-    .subscribe();
-
-  this.formCriteriaFilter.valueChanges.subscribe((value) => {
-    this.booksSearched = value;
-
-    this.router.navigate([URL_ROUTER.searchResult], {
-      queryParams: {
-        ...queryParamObject(),
-        ..._.omitBy(
-          {
-            ...value,
-            // ✅ Không cần join, vì bmDmDangTaiLieuId là string
+          this.formCriteriaFilter.patchValue({
+            bsThuVienId: value.bsThuVienId,
             bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
             bmTuDienBoSachId: value.bmTuDienBoSachId,
-          },
-          _.isUndefined
-        ),
-      },
+          });
+
+        })
+      )
+      .subscribe();
+
+    // Lắng nghe thay đổi để cập nhật URL
+    this.formCriteriaFilter.valueChanges.subscribe((value) => {
+      this.booksSearched = value;
+
+      this.router.navigate([URL_ROUTER.searchResult], {
+        queryParams: {
+          ...queryParamObject(),
+          ..._.omitBy(value, _.isUndefined),
+        },
+      });
     });
   });
 }
-
 
   booksSearched: Partial<IBookSearchResponse> = {
     data: [],

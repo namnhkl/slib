@@ -92,7 +92,7 @@ console.log('Query URL:', url);
       endpoint: 'bmTaiLieuTheoStsBoSuuTap',
       queryObject: {
         stsBoSuuTapId: stsBoSuuTapId,
-        bsThuVienId: bsThuVienId
+        bsThuVienId: bsThuVienId,
       },
     });
     console.log('url list book', url);

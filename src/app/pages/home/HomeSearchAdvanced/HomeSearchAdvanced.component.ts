@@ -200,6 +200,10 @@ loadDangTaiLieu() {
 }
 
 
+updateTitle(event: Event) {
+  const input = event.target as HTMLInputElement;
+  input.title = input.value;
+}
 
 
   ngOnInit() {

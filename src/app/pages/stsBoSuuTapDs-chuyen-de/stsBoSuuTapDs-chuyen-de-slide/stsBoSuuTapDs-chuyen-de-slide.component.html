@@ -13,7 +13,7 @@
         </button>
       </div>
     </div>
-    
+
     <div class="box_class">
       <owl-carousel-o #owlCar [options]="customOptions" (translated)="getPassedData($event)"
         (change)="getChangeData($event)" (changed)="getChangedData($event)" class="classSlider">
@@ -21,15 +21,40 @@
         @for (item of ($chuyende | async); track item.id) {
         <ng-template carouselSlide [id]="item.id">
           <div class="item-wrapper" *ngIf="item">
-            <a [routerLink]="['/stsBoSuuTapDs-chuyen-de-detail']" [queryParams]="{ id: item?.id }" title="{{ item?.ten }}">
-              <div class="item-thumbnail">
-                <img [src]="item?.anhDaiDien" [alt]="item?.ten" />
-              </div>
-              <span class="item-title" title="{{ item?.ten }}">{{ item?.ten }}</span>
+            <!-- Swiper hiển thị danh sách tài liệu -->
+            <swiper-container class="mySwiper" effect="cards" grab-cursor="true">
+              <!-- Nếu có tài liệu -->
+              <ng-container *ngIf="item.taiLieus?.length > 0; else emptySlide">
+                @for (tl of item.taiLieus; track tl.id) {
+                <swiper-slide>
+                   <a href="./tai-lieu/{{ tl.id }}" class="item-link">
+                  <img height="320" width="240" [src]="tl.anhDaiDien" [alt]="tl.tieuDe" />
+                  </a>
+                </swiper-slide>
+                }
+              </ng-container>
+
+              <!-- Nếu không có tài liệu -->
+              <ng-template #emptySlide>
+                <swiper-slide>
+                  <img height="320" width="240" src="./assets/img/imageBook/book_default.png" alt="Không có tài liệu" />
+                </swiper-slide>
+              </ng-template>
+            </swiper-container>
+
+
+            <!-- Thông tin chuyên đề -->
+            <a [routerLink]="['/stsBoSuuTapDs-chuyen-de-detail']" [queryParams]="{ id: item?.id }"
+              title="{{ item?.ten }}" class="text-center  item-link">
+              <span class="item-title mt-2" title="{{ item?.ten }}">
+                {{ item?.ten }} ({{ item?.slTaiLieu }} {{'document'|translate}})
+              </span> 
+              <span class="item-description"></span>
             </a>
           </div>
         </ng-template>
         }
+
       </owl-carousel-o>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { SharedModule } from '@/app/shared/shared.module';
 import { AsyncPipe, CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, Inject, PLATFORM_ID, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, Inject, PLATFORM_ID, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { get } from 'lodash';
 import { of, switchMap } from 'rxjs';
@@ -74,6 +74,9 @@ interface PdfToBase64Response {
   standalone: true,
 })
 export class TaiLieuChiTietComponent implements OnInit {
+  @ViewChild('tomTatElement') tomTatElement!: ElementRef<HTMLParagraphElement>;
+  isClamped: boolean = false;
+  hasCheckedClamp = false;
   currentDocument!: IDocument;
   dkcbs: any;
   isVisible = false;
@@ -116,6 +119,19 @@ export class TaiLieuChiTietComponent implements OnInit {
     private ngZone: NgZone,
     private translate: TranslateService
   ) {}
+
+ngAfterViewChecked() {
+  if (
+    this.currentDocument?.tomTat &&
+    !this.hasCheckedClamp &&
+    this.tomTatElement?.nativeElement
+  ) {
+    console.log('tomTatElement:', this.tomTatElement);
+    this.checkClamp();
+    this.hasCheckedClamp = true;
+    this.cdr.detectChanges(); // cập nhật lại view
+  }
+}
 
   getPropertyValue = (obj: any, path: string) => {
     return get(obj, path, false);
@@ -318,14 +334,16 @@ ngOnInit() {
         next: (res) => {
           if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
             this.currentDocument = res.data[0];
+            this.hasCheckedClamp = false;
             console.log('data dc', this.currentDocument);
             this.currentUrl = window.location.href;
             this.encodedUrl = encodeURIComponent(this.currentUrl);
             // Kiểm tra trạng thái đặt mượn ngay sau khi nhận document
             if (this.currentDocument && this.currentDocument.id) {
               this.getTrangThaiDatMuonTaiLieu(this.currentDocument.id);
+             
             }
-
+            
             // Buộc Angular cập nhật giao diện
             this.cdr.detectChanges();
           } else {
@@ -342,6 +360,18 @@ ngOnInit() {
   });
 
   this.isLogin = this.authService.isAuthenticated;
+}
+
+checkClamp() {
+  const el = this.tomTatElement?.nativeElement;
+  if (!el) return;
+
+  const style = getComputedStyle(el);
+  const lineHeight = parseFloat(style.lineHeight || '0');
+  const maxHeight = lineHeight * 3;
+
+  this.isClamped = el.scrollHeight >= maxHeight;
+  console.log('👉 scrollHeight:', el.scrollHeight, 'maxHeight:', maxHeight, '=> isClamped:', this.isClamped);
 }
 
   toggleFavorite() {

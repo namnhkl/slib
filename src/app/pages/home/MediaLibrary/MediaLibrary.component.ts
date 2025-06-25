@@ -236,7 +236,7 @@ for (let i = 1; i <= 5; i++) {
     noiDung: chiTiet.noiDung,
     slXem: chiTiet.slXem,
     tacGia: chiTiet.tacGia,
-    anhDaiDien: chiTiet.anhDaiDien?.trim() || (videos.length > 0 ? '/img/default-video.png' : '/img/default-audio.png'),
+    anhDaiDien: chiTiet.anhDaiDien?.trim() || (videos.length > 0 ? './assets/img/default-video.png' : './assets/img/default-audio.png'),
   };
 
   return {

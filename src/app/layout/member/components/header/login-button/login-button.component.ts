@@ -28,6 +28,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-login-button',
@@ -160,10 +161,9 @@ ngAfterViewInit(): void {
           if (res.messageCode) {
             this.authService.saveSession(res.data[0], res.accessToken, remember);
 
-            // Quay lại URL cũ nếu có, ngược lại về trang chủ
-            // this.router.navigateByUrl(this.currentUrl || '/');
+            const baseHref = environment.BASE_HREF;
             const redirectUrl = this.authService.getRedirectUrl() || '/';
-            window.location.href = redirectUrl;
+            window.location.href = baseHref + redirectUrl.replace(/^\//, ''); // loại bỏ slash đầu nếu có
 
           } else {
              this.notificationService.error(this.translate.instant('error'), this.translate.instant('incorrect_password_or_account'));

@@ -17,7 +17,9 @@
                <a href="./medialibrary?type=audio&id={{item.id}}">
             <!-- Ảnh đại diện -->
             <div class="w-full mb-2">
-              <img [src]="item.anhDaiDien" alt="Ảnh đại diện" class="w-full h-40 object-cover rounded-md">
+             <img [src]="item.anhDaiDien || './assets/img/default-audio.png'" 
+     alt="Ảnh đại diện" 
+     class="w-full h-40 object-cover rounded-md">
             </div>
             <!-- Thông tin -->
             <div class="w-full text-left px-1">
@@ -25,7 +27,6 @@
                 <h3 class="text-base font-medium text-gray-800 truncate" title="{{item.title}}">
                   {{ item.title }}
                 </h3>
-            
             </div>
               </a>
           </div>

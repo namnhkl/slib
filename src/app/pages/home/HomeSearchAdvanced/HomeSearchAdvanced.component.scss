@@ -25,9 +25,112 @@
     position: relative;
   }
 }
-
-
-::ng-deep nz-form-item {
-  min-height: 48px;
+/* Chiều cao input thường */
+::ng-deep .ant-input {
+  min-height: 45px;
+  height: 45px;
 }
 
+/* Chiều cao select multiple */
+::ng-deep .ant-select-multiple .ant-select-selector {
+  min-height: 42px;
+  align-items: center;
+  padding: 4px 8px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  word-break: break-word;
+}
+
+/* Phần tử item trong select */
+::ng-deep .ant-select-selection-item {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 3 !important;
+}
+
+::ng-deep .ant-select-selection-item{
+  line-height: 3 !important;
+}
+
+/* Label width cố định và input flex */
+.form-item-custom {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.form-item-custom .label-fixed {
+  width: 120px;
+  min-width: 120px;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  word-break: break-word;
+}
+
+.form-item-custom .input-flex {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Chiều cao input và select */
+::ng-deep .ant-select-selector,
+::ng-deep .ant-input {
+  min-height: 42px !important;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive mobile: label nằm trên input */
+@media (max-width: 768px) {
+  ::ng-deep .form-item-custom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  ::ng-deep .form-item-custom .label-fixed {
+    width: 100% !important;
+    margin-bottom: 6px;
+    padding-top: 0;
+    white-space: normal;
+  }
+
+  ::ng-deep .form-item-custom .input-flex {
+    width: 100%;
+    min-width: 0;
+  }
+
+  ::ng-deep .ant-modal {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+}
+
+/* Làm input và select tròn góc */
+::ng-deep .ant-input, 
+::ng-deep .ant-select-selector {
+  border-radius: 0.5rem !important;
+}
+
+/* Tăng khoảng cách giữa các mục */
+::ng-deep .ant-form-item {
+  margin-bottom: 1rem;
+}
+
+/* Responsive modal rộng hơn */
+@media (max-width: 768px) {
+  ::ng-deep .ant-modal {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    padding: 0 !important;
+  }
+}

@@ -14,15 +14,13 @@
           <div class="img-itemColumnInfo">
             <h3 [nzTooltipTitle]="currentDocument.tieuDe" nzTooltipPlacement="bottomCenter" nz-button nz-tooltip>
               {{currentDocument.tieuDe}}</h3>
-            <p class="line-clamp-3">
-              {{ currentDocument.tomTat }}
-            </p>
+       <p class="line-clamp-3" #tomTatElement>
+  {{ currentDocument.tomTat }}
+</p>
 
-            <!-- Nút "Xem thêm" -->
-            <a *ngIf="currentDocument?.tomTat" (click)="openTomTatModal()"
-              class="text-blue-500 hover:underline cursor-pointer">
-              {{ 'view_more' | translate }}
-            </a>
+<a *ngIf="isClamped" (click)="openTomTatModal()" class="text-blue-500 hover:underline cursor-pointer">
+  {{ 'view_more' | translate }}
+</a>
 
             <!-- <app-preview-document class="fixHeight" [details]="currentDocument.tomTat" /> -->
             <div class="box-btn-info">
