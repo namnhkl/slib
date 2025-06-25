@@ -20,5 +20,5 @@ export const environment = {
   PAGE_SIZE: 10,
   MA_THU_VIEN: '242',
   SECRETKEY:'manhhv',
-  BASE_HREF:'/app1/',
+  BASE_HREF:'/',
 };

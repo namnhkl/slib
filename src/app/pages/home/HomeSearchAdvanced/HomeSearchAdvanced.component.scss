@@ -25,35 +25,31 @@
     position: relative;
   }
 }
-/* Chiều cao input thường */
-::ng-deep .ant-input {
-  min-height: 45px;
-  height: 45px;
-}
+// /* Chiều cao input thường */
+// ::ng-deep .ant-input {
+//   min-height: 45px;
+//   height: 45px;
+// }
 
 /* Chiều cao select multiple */
-::ng-deep .ant-select-multiple .ant-select-selector {
-  min-height: 42px;
-  align-items: center;
-  padding: 4px 8px;
-  overflow: hidden;
-  flex-wrap: wrap;
-  word-break: break-word;
-}
+// ::ng-deep .ant-select-multiple .ant-select-selector {
+//   min-height: 42px;
+//   align-items: center;
+//   padding: 4px 8px;
+//   overflow: hidden;
+//   flex-wrap: wrap;
+//   word-break: break-word;
+// }
 
-/* Phần tử item trong select */
-::ng-deep .ant-select-selection-item {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
-  line-height: 3 !important;
-}
+// /* Phần tử item trong select */
+// ::ng-deep .ant-select-selection-item {
+//   max-width: 100%;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   display: inline-block;
+// }
 
-::ng-deep .ant-select-selection-item{
-  line-height: 3 !important;
-}
 
 /* Label width cố định và input flex */
 .form-item-custom {
@@ -80,15 +76,15 @@
   overflow: hidden;
 }
 
-/* Chiều cao input và select */
-::ng-deep .ant-select-selector,
-::ng-deep .ant-input {
-  min-height: 42px !important;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+// /* Chiều cao input và select */
+// ::ng-deep .ant-select-selector,
+// ::ng-deep .ant-input {
+//   min-height: 42px !important;
+//   width: 100%;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
 
 /* Responsive mobile: label nằm trên input */
 @media (max-width: 768px) {
@@ -115,16 +111,16 @@
   }
 }
 
-/* Làm input và select tròn góc */
-::ng-deep .ant-input, 
-::ng-deep .ant-select-selector {
-  border-radius: 0.5rem !important;
-}
+// /* Làm input và select tròn góc */
+// ::ng-deep .ant-input, 
+// ::ng-deep .ant-select-selector {
+//   border-radius: 0.5rem !important;
+// }
 
-/* Tăng khoảng cách giữa các mục */
-::ng-deep .ant-form-item {
-  margin-bottom: 1rem;
-}
+// /* Tăng khoảng cách giữa các mục */
+// ::ng-deep .ant-form-item {
+//   margin-bottom: 1rem;
+// }
 
 /* Responsive modal rộng hơn */
 @media (max-width: 768px) {
