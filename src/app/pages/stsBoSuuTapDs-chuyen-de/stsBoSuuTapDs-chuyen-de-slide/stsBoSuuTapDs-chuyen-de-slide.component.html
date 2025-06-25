@@ -1,6 +1,6 @@
 <div class="box-stand categories_section">
   <div class="container">
-    <h2 class="the-title text-center">{{'topics'|translate}}</h2>
+    <h2 class="the-title text-center uppercase">{{'topics'|translate}}</h2>
     <div class="divToolChuyenDe">
       <a [routerLink]="['stsBoSuuTapDs-chuyen-de']" class="viewmore">{{'view_more'|translate}}</a>
 
@@ -27,8 +27,8 @@
               <ng-container *ngIf="item.taiLieus?.length > 0; else emptySlide">
                 @for (tl of item.taiLieus; track tl.id) {
                 <swiper-slide>
-                   <a href="./tai-lieu/{{ tl.id }}" class="item-link">
-                  <img height="320" width="240" [src]="tl.anhDaiDien" [alt]="tl.tieuDe" />
+                  <a href="./tai-lieu/{{ tl.id }}" class="item-link mb-2">
+                    <img height="320" width="240" [src]="tl.anhDaiDien" [alt]="tl.tieuDe" />
                   </a>
                 </swiper-slide>
                 }
@@ -37,7 +37,9 @@
               <!-- Nếu không có tài liệu -->
               <ng-template #emptySlide>
                 <swiper-slide>
-                  <img height="320" width="240" src="./assets/img/imageBook/book_default.png" alt="Không có tài liệu" />
+                  <img height="320" width="240" class="img-thumbnail"
+                    [src]="item?.anhDaiDien || './assets/img/imageBook/book_default.png'" alt="Không có tài liệu" />
+
                 </swiper-slide>
               </ng-template>
             </swiper-container>
@@ -48,7 +50,7 @@
               title="{{ item?.ten }}" class="text-center  item-link">
               <span class="item-title mt-2" title="{{ item?.ten }}">
                 {{ item?.ten }} ({{ item?.slTaiLieu }} {{'document'|translate}})
-              </span> 
+              </span>
               <span class="item-description"></span>
             </a>
           </div>

@@ -370,7 +370,7 @@ checkClamp() {
   const lineHeight = parseFloat(style.lineHeight || '0');
   const maxHeight = lineHeight * 3;
 
-  this.isClamped = el.scrollHeight >= maxHeight;
+  this.isClamped = el.scrollHeight > maxHeight;
   console.log('👉 scrollHeight:', el.scrollHeight, 'maxHeight:', maxHeight, '=> isClamped:', this.isClamped);
 }
 
