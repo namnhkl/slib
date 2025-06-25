@@ -10,7 +10,7 @@ import { HomeSearchAdvancedComponent } from './HomeSearchAdvanced/HomeSearchAdva
 import { LoaderService } from '@/app/shared/services/loader.service';
 import { IBook, IBookSearchResponse } from './HomeSearchAdvanced/type';
 import { stsBoSuuTapDsChuyenDeListComponent } from '@/app/pages/stsBoSuuTapDs-chuyen-de/stsBoSuuTapDs-chuyen-de-list/stsBoSuuTapDs-chuyen-de-list.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DanhmucService } from '@/app/shared/services/danhmuc.service';
 import { environment } from 'environments/environment';
 import {  TaiLieuService } from '../tai-lieu/tai-lieu.service';
@@ -53,10 +53,11 @@ export class HomeComponent implements OnInit {
     private seoService: SeoService,
     private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef,
+    private translate: TranslateService
   ) {
     const content =
       'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-    const title = 'Home Page';
+    const title = this.translate.instant('electronic_library_system');
 
     this.seoService.setMetaDescription(content);
     this.seoService.setMetaTitle(title);
