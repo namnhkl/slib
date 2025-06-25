@@ -222,16 +222,16 @@
     padding: 0;
   }
   .advSearch {
-    padding-top: 20px;
+    // padding-top: 20px;
     display: flex;
-    align-items: flex-start;
+    // align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
   }
-  .advSearch h3 {
-    display: none;
-  }
+  // .advSearch h3 {
+  //   display: none;
+  // }
   .widget_searchAdv {
     border: none;
     margin-bottom: 0;

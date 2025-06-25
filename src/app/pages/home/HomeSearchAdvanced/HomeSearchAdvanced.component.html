@@ -30,151 +30,157 @@
   [nzTitle]="('advanced_search' | translate)"
   [nzFooter]="modalFooter"
   [nzContent]="modalContent"
-  [nzWidth]="'70vw'"
+  [nzWidth]="'40vw'"
   [nzStyle]="{ top: '24px', padding: '0', maxHeight: 'calc(100vh - 48px)', overflow: 'auto' }"
   (nzOnCancel)="handleCancel()"
 >
   <ng-template #modalContent>
-    <div class="px-6 py-6">
-      <form [formGroup]="formAdvanceSearch" (ngSubmit)="submitForm()">
-        <div nz-row [nzGutter]="24">
-          <!-- Cột trái -->
-          <div nz-col [nzXs]="24" [nzMd]="12">
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="file-text" class="mr-1 text-blue-600"></i>
-                {{ 'title' | translate }}
-              </div>
-              <div class="input-flex">
-                <input
-                  nz-input
-                  formControlName="tieuDe"
-                  placeholder="{{ 'enter_title' | translate }}"
-                />
-              </div>
-            </div>
-
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="database" class="mr-1 text-blue-600"></i>
-                {{ 'format' | translate }}
-              </div>
-              <div class="input-flex">
-                <nz-select
-                  formControlName="phamVi"
-                  nzPlaceHolder="{{ 'bmtailieuds_phamvi' | translate }}"
-                >
-                  <nz-option nzValue="" nzLabel="{{ 'all' | translate }}"></nz-option>
-                  <nz-option nzValue="0" nzLabel="{{ 'bmtailieuds_print_documents' | translate }}"></nz-option>
-                  <nz-option nzValue="1" nzLabel="{{ 'bmtailieuds_digital_documents' | translate }}"></nz-option>
-                </nz-select>
-              </div>
-            </div>
-
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="file-search" class="mr-1 text-blue-600"></i>
-                {{ 'document_type' | translate }}
-              </div>
-              <div class="input-flex">
-                <nz-select
-                  formControlName="bmDmDangTaiLieuId"
-                  nzPlaceHolder="{{ 'document_type' | translate }}"
-                  nzMode="multiple"
-                  [nzShowSearch]="true"
-                >
-                  <nz-option
-                    *ngFor="let dangtailieu of dangTaiLieu"
-                    [nzValue]="dangtailieu.id"
-                    [nzLabel]="dangtailieu.ten"
-                  ></nz-option>
-                </nz-select>
-              </div>
-            </div>
+  <div class="px-6 py-6">
+    <form [formGroup]="formAdvanceSearch" (ngSubmit)="submitForm()">
+      <div class="space-y-4">
+        <!-- Tiêu đề -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="file-text" class="mr-1 text-blue-600"></i>
+            {{ 'title' | translate }}
           </div>
-
-          <!-- Cột phải -->
-          <div nz-col [nzXs]="24" [nzMd]="12">
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="user" class="mr-1 text-blue-600"></i>
-                {{ 'author' | translate }}
-              </div>
-              <div class="input-flex">
-                <input
-                  nz-input
-                  formControlName="tacGia"
-                  placeholder="{{ 'enter_author' | translate }}"
-                />
-              </div>
-            </div>
-
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="folder-open" class="mr-1 text-blue-600"></i>
-                {{ 'bskho_kho' | translate }}
-              </div>
-              <div class="input-flex">
-                <nz-select
-                  formControlName="bsKhoId"
-                  nzPlaceHolder="{{ 'bskho_kho' | translate }}"
-                  nzMode="multiple"
-                  [nzShowSearch]="true"
-                >
-                  <nz-option
-                    *ngFor="let kho of bsKhos"
-                    [nzValue]="kho.id"
-                    [nzLabel]="kho.ten"
-                  ></nz-option>
-                </nz-select>
-              </div>
-            </div>
-
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="book" class="mr-1 text-blue-600"></i>
-                {{ 'book_series' | translate }}
-              </div>
-              <div class="input-flex">
-                <nz-select
-                  formControlName="bmTuDienBoSachId"
-                  nzPlaceHolder="{{ 'book_series' | translate }}"
-                  [nzShowSearch]="true"
-                >
-                  <nz-option
-                    *ngFor="let bs of boSach"
-                    [nzValue]="bs.id"
-                    [nzLabel]="bs.ten"
-                  ></nz-option>
-                </nz-select>
-              </div>
-            </div>
-
-            <div class="form-item-custom">
-              <div class="label-fixed">
-                <i nz-icon nzType="global" class="mr-1 text-blue-600"></i>
-                {{ 'language' | translate }}
-              </div>
-              <div class="input-flex">
-                <nz-select
-                  formControlName="ngonNgu"
-                  nzPlaceHolder="{{ 'enter_language' | translate }}"
-                  [nzShowSearch]="true"
-                  [nzFilterOption]="filterLanguage"
-                >
-                  <nz-option
-                    *ngFor="let lang of languages"
-                    [nzValue]="lang.code"
-                    [nzLabel]="lang.name"
-                  ></nz-option>
-                </nz-select>
-              </div>
-            </div>
+          <div class="input-flex">
+            <input
+              nz-input
+              formControlName="tieuDe"
+              placeholder="{{ 'enter_title' | translate }}"
+              style="height: 42px !important;"
+            />
           </div>
         </div>
-      </form>
-    </div>
-  </ng-template>
+
+        <!-- Tác giả -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="user" class="mr-1 text-blue-600"></i>
+            {{ 'author' | translate }}
+          </div>
+          <div class="input-flex">
+            <input
+              nz-input
+              formControlName="tacGia"
+              placeholder="{{ 'enter_author' | translate }}"
+               style="height: 42px !important;"
+            />
+          </div>
+        </div>
+
+        <!-- Phạm vi -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="database" class="mr-1 text-blue-600"></i>
+            {{ 'format' | translate }}
+          </div>
+          <div class="input-flex">
+            <nz-select
+              formControlName="phamVi"
+              nzPlaceHolder="{{ 'bmtailieuds_phamvi' | translate }}"
+            >
+              <nz-option nzValue="" nzLabel="{{ 'all' | translate }}"></nz-option>
+              <nz-option nzValue="0" nzLabel="{{ 'bmtailieuds_print_documents' | translate }}"></nz-option>
+              <nz-option nzValue="1" nzLabel="{{ 'bmtailieuds_digital_documents' | translate }}"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+
+        <!-- Dạng tài liệu -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="file-search" class="mr-1 text-blue-600"></i>
+            {{ 'document_type' | translate }}
+          </div>
+          <div class="input-flex">
+            <nz-select
+              formControlName="bmDmDangTaiLieuId"
+              nzPlaceHolder="{{ 'document_type' | translate }}"
+              nzMode="multiple"
+              [nzShowSearch]="true"
+            >
+              <nz-option
+                *ngFor="let dangtailieu of dangTaiLieu"
+                [nzValue]="dangtailieu.id"
+                [nzLabel]="dangtailieu.ten"
+              ></nz-option>
+            </nz-select>
+          </div>
+        </div>
+
+        
+
+        <!-- Kho -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="folder-open" class="mr-1 text-blue-600"></i>
+            {{ 'bskho_kho' | translate }}
+          </div>
+          <div class="input-flex">
+            <nz-select
+              formControlName="bsKhoId"
+              nzPlaceHolder="{{ 'bskho_kho' | translate }}"
+              nzMode="multiple"
+              [nzShowSearch]="true"
+            >
+              <nz-option
+                *ngFor="let kho of bsKhos"
+                [nzValue]="kho.id"
+                [nzLabel]="kho.ten"
+              ></nz-option>
+            </nz-select>
+          </div>
+        </div>
+
+        <!-- Bộ sách -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="book" class="mr-1 text-blue-600"></i>
+            {{ 'book_series' | translate }}
+          </div>
+          <div class="input-flex">
+            <nz-select
+              formControlName="bmTuDienBoSachId"
+              nzPlaceHolder="{{ 'book_series' | translate }}"
+              [nzShowSearch]="true"
+            >
+              <nz-option
+                *ngFor="let bs of boSach"
+                [nzValue]="bs.id"
+                [nzLabel]="bs.ten"
+              ></nz-option>
+            </nz-select>
+          </div>
+        </div>
+
+        <!-- Ngôn ngữ -->
+        <div class="form-item-custom">
+          <div class="label-fixed">
+            <i nz-icon nzType="global" class="mr-1 text-blue-600"></i>
+            {{ 'language' | translate }}
+          </div>
+          <div class="input-flex">
+            <nz-select
+              formControlName="ngonNgu"
+              nzPlaceHolder="{{ 'enter_language' | translate }}"
+              [nzShowSearch]="true"
+              [nzFilterOption]="filterLanguage"
+            >
+              <nz-option
+                *ngFor="let lang of languages"
+                [nzValue]="lang.code"
+                [nzLabel]="lang.name"
+              ></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
 
   <ng-template #modalFooter>
   <div
@@ -186,7 +192,7 @@
       (click)="handleReset()"
       class="flex items-center justify-center gap-2 rounded-lg w-full sm:w-auto"
     >
-      <i nz-icon nzType="reload"></i> {{ 'reset' | translate }}
+      <i class="fas fa-times"></i> {{ 'reset' | translate }}
     </button>
     <button
       nz-button
@@ -194,7 +200,7 @@
       (click)="submitForm()"
       class="flex items-center justify-center gap-2 rounded-lg w-full sm:w-auto"
     >
-      <i nz-icon nzType="search"></i> {{ 'search' | translate }}
+      <i class="fas fa-search"></i> {{ 'search' | translate }}
     </button>
   </div>
 </ng-template>
