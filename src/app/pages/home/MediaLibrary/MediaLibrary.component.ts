@@ -6,7 +6,7 @@ import { QtndTinTucService } from '@/app/shared/services/QtndTinTuc.service';
 import { SharedService } from '@/app/shared/services/shared.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
-import { IChiTietTinTuc } from '@/app/shared/types/tintuc';
+import { IChiTietTinTuc, TinTucVideoAudioModel } from '@/app/shared/types/tintuc';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import {
   trigger,
@@ -197,9 +197,9 @@ loadDocuments(selectedId?: string): void {
           const allItems: ISimpleItem[] = [];
 
           details.forEach((res: any, groupIndex: number) => {
-            const itemDetail: IChiTietTinTuc[] = res?.data ?? [];
+            const itemDetail: TinTucVideoAudioModel[] = res?.data ?? [];
               // console.log('itemDetail',itemDetail);
-            const groupItems = itemDetail.map((chiTiet: IChiTietTinTuc, index: number): ISimpleItem | null => {
+            const groupItems = itemDetail.map((chiTiet: TinTucVideoAudioModel, index: number): ISimpleItem | null => {
   const videos: { name: string; url: string; isYoutube?: boolean }[] = [];
 const audios: { name: string; url: string, image?:string }[] = [];
 

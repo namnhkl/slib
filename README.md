@@ -77,10 +77,12 @@ Tin tức: tin-tuc
 
 Sách hay: sach-hay
 
-Video: medialibrary?type=video
+Video: thu-vien-video-audio?type=video
 
-Audio: medialibrary?type=audio
+Audio: thu-vien-video-audio?type=audio
 
-Liên hệ: contac
+Tất cả video audio: thu-vien-video-audio
+
+Liên hệ: lien-he
 
 Thư viện ảnh: thu-vien-anh

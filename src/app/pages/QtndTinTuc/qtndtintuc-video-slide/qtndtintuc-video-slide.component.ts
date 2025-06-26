@@ -1,6 +1,6 @@
 import { QtndTinTucService } from '@/app/shared/services/QtndTinTuc.service';
 import { SharedService } from '@/app/shared/services/shared.service';
-import { IChiTietTinTuc } from '@/app/shared/types/tintuc';
+import { IChiTietTinTuc, TinTucVideoAudioModel } from '@/app/shared/types/tintuc';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
@@ -89,7 +89,7 @@ export class TinTucVideoSlideComponent implements OnInit {
     next: (response) => {
       // console.log('===> Audio API Response:', response);
 
-      const items: IChiTietTinTuc[] = response?.data ?? [];
+      const items: TinTucVideoAudioModel[] = response?.data ?? [];
 
       if (!Array.isArray(items) || items.length === 0) {
         this.simpleData = [];

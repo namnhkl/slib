@@ -223,7 +223,9 @@
   "volume": "Volume",
   "bai_truoc": "Previous track",
   "bai_tiep": "Next track",
-  "loop": "Loop"
+  "loop": "Loop",
+  "thu_muc": "Directory",
+  "clear_filter": "Clear filters"
 
 
 }

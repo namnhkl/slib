@@ -104,3 +104,39 @@ export interface IChiTietTinTucQueryParams {
   pageSize?: number;
 }
 
+//Video Audio
+
+export interface QtndTtNhomTinTucItem {
+  id: string;
+  ten: string;
+  sapXep: number;
+}
+
+export interface TinTucVideoAudioModel {
+  id: string;
+  qtndHtNgonNguId: string;
+  qtndTtNhomTinTuc: QtndTtNhomTinTucItem[];
+  ten: string;
+  ngayDangTin: string;
+  anhDaiDien: string;
+  moTa: string;
+  noiDung: string;
+  nguonTin: string;
+  tacGia: string;
+  tepTin01Ten: string;
+  tepTin01DuongDan: string;
+  tepTin02Ten: string;
+  tepTin02DuongDan: string;
+  tepTin03Ten: string;
+  tepTin03DuongDan: string;
+  tepTin04Ten: string;
+  tepTin04DuongDan: string;
+  tepTin05Ten: string;
+  tepTin05DuongDan: string;
+  slXem: number;
+  laTinVideo: number;
+  laTinVideoYoutube: number;
+  laTrangChu: number;
+  laDongSuKien: number;
+}
+

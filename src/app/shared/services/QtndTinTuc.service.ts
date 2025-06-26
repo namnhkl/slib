@@ -5,7 +5,7 @@ import {
 import { IPageParams, IResponse } from '@/app/shared/types/common';
 import { Stoppable } from '@/app/shared/@decorator/stoppable.decorator';
 import { Injectable } from '@angular/core';
-import { IChiTietTinTuc, IChiTietTinTucQueryParams, INhomTinTuc, INhomTinTucQueryParams, ITinTuc, ITinTucQueryParams } from '../types/tintuc';
+import { IChiTietTinTuc, IChiTietTinTucQueryParams, INhomTinTuc, INhomTinTucQueryParams, ITinTuc, ITinTucQueryParams, TinTucVideoAudioModel } from '../types/tintuc';
 
 @Injectable({
   providedIn: 'root',
@@ -58,7 +58,7 @@ qtndTtTinTucVideo(queryParams: ITinTucQueryParams & {bsThuvienId: string}) {
   });
       // console.log('url api video ct',url)
 
-  return this._http.get<IResponse<IChiTietTinTuc[]>>(url);
+  return this._http.get<IResponse<TinTucVideoAudioModel[]>>(url);
 }
 
 

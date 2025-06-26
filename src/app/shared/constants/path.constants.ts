@@ -6,7 +6,7 @@ export const URL_ROUTER = {
   QtndTinTuc: 'tin-tuc',
   QtndTinTucChiTiet: 'tin-tuc-chi-tiet',
   /* end tin tức */
-  contact: 'contact',
+  contact: 'lien-he',
   searchResult: 'search-results',
   profile: 'profile',
   notFound: '404',
@@ -50,5 +50,6 @@ export const URL_ROUTER = {
   vbqpphapluat:'vbqp-phap-luat',
   sachhay:'sach-hay',
   sachhaychitiet:'sach-hay-chi-tiet',
-  thuvienanh:'thu-vien-anh'
+  thuvienanh:'thu-vien-anh',
+  thuvienvideoaudio:'thu-vien-video-audio'
 } as const;

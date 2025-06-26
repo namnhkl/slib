@@ -217,6 +217,8 @@
   "volume": "Âm lượng",
   "bai_truoc": "Bài trước",
   "bai_tiep": "Bài tiếp theo",
-  "loop": "Lặp lại"
+  "loop": "Lặp lại",
+  "thu_muc": "Thư mục",
+  "clear_filter": "Bỏ lọc"
 
 }
