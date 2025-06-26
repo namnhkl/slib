@@ -15,46 +15,44 @@
           <div class="advSearch">
             <h3>{{'filter_criteria'|translate}}</h3>
             <nz-form-item>
-              <div class="widget_searchAdv ">
+              <div class="widget_searchAdv">
                 <div class="d-flex items-center">
                   <h3><i class="fas fa-books"></i> {{'book_series'|translate}}</h3>
-                  @let disabledCleanbmTuDienBoSachId = (this.formCriteriaFilter.controls['bmTuDienBoSachId']
-                  .valueChanges | async);
                   <button nz-button nzType="link" (click)="handleClear('bmTuDienBoSachId')"
                     [disabled]="!canClearBoSach">
                     <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
-                <div class="w-full max-h-[200px] overflow-y-auto border border-gray-300 rounded p-2">
-                  <nz-radio-group class="w-full" formControlName="bmTuDienBoSachId">
-                    @for (item of boSach; track $index) {
-                    <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
-                    }
-                  </nz-radio-group>
-                </div>
+                <div class="w-full max-h-[200px] w-[300px] overflow-y-auto overflow-x-auto rounded p-2">
+                  <nz-select formControlName="bmTuDienBoSachId" nzMode="multiple"
+                    nzPlaceHolder="{{ 'book_series' | translate }}" [nzMaxTagCount]="5" class="w-full">
+                    <nz-option *ngFor="let item of boSach" [nzValue]="item.id" [nzLabel]="item.ten">
+                      <span class="block truncate w-full" [title]="item.ten">{{ item.ten }}</span>
+                    </nz-option>
+                  </nz-select>
 
+                </div>
               </div>
             </nz-form-item>
+
             <nz-form-item>
               <div class="widget_searchAdv">
                 <div class="d-flex items-center">
                   <h3><i class="fas fa-list"></i> {{'document_type'|translate}}</h3>
-                  @let disabledCleanDmDangTaiLieu = (this.formCriteriaFilter.controls['bmDmDangTaiLieuId']
-                  .valueChanges | async);
                   <button nz-button nzType="link" (click)="handleClear('bmDmDangTaiLieuId')"
                     [disabled]="!canClearDangTaiLieu">
                     <i class="fa-solid fa-arrows-rotate"></i>
                   </button>
                 </div>
-                <div class="max-h-[200px] overflow-y-auto border border-gray-300 rounded p-2">
-                  <nz-radio-group class="" formControlName="bmDmDangTaiLieuId">
-                    @for (item of dangTaiLieus; track $index) {
-                    <label nz-radio nzValue="{{item.id}}">{{item.ten}}</label>
-                    }
-                  </nz-radio-group>
+                <div class="max-h-[200px] overflow-y-auto w-[300px] rounded p-2">
+                  <nz-select formControlName="bmDmDangTaiLieuId" nzMode="multiple"
+                    nzPlaceHolder="{{ 'document_type' | translate }}" [nzMaxTagCount]="5" class="w-full">
+                    <nz-option *ngFor="let item of dangTaiLieus" [nzValue]="item.id" [nzLabel]="item.ten"></nz-option>
+                  </nz-select>
                 </div>
               </div>
             </nz-form-item>
+
           </div>
         </form>
       </div>

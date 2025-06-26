@@ -14,13 +14,13 @@
           <div class="img-itemColumnInfo">
             <h3 [nzTooltipTitle]="currentDocument.tieuDe" nzTooltipPlacement="bottomCenter" nz-button nz-tooltip>
               {{currentDocument.tieuDe}}</h3>
-       <p class="line-clamp-3" #tomTatElement>
-  {{ currentDocument.tomTat }}
-</p>
+            <p class="line-clamp-3" #tomTatElement>
+              {{ currentDocument.tomTat }}
+            </p>
 
-<a *ngIf="isClamped" (click)="openTomTatModal()" class="text-blue-500 hover:underline cursor-pointer">
-  {{ 'view_more' | translate }}
-</a>
+            <a *ngIf="isClamped" (click)="openTomTatModal()" class="text-blue-500 hover:underline cursor-pointer">
+              {{ 'view_more' | translate }}
+            </a>
 
             <!-- <app-preview-document class="fixHeight" [details]="currentDocument.tomTat" /> -->
             <div class="box-btn-info">
@@ -58,9 +58,19 @@
             </app-share-buttons>
             <div class="box-profile">
               <ul>
-                <li *ngIf="getPropertyValue(currentDocument, 'tacGia[0].giaTri')">{{'author'|translate}}: <a
-                    [href]="'/search-results?tacGia=' + cleanText(currentDocument.tacGia[0]?.giaTri)">{{currentDocument.tacGia[0].giaTri}}</a>
+                <li *ngIf="currentDocument?.tacGia?.length">
+                  {{ 'author' | translate }}:
+                  <ng-container *ngFor="let author of currentDocument.tacGia; let i = index">
+                    <ng-container *ngFor="let name of getSplitTacGia(author.giaTri); let j = index">
+                      <a [routerLink]="['/search-results']" [queryParams]="{ tacGia: sanitizeTacGia(name) }"
+                        class="inline-block">
+                        {{ name }}
+                      </a><span *ngIf="j < getSplitTacGia(author.giaTri).length - 1">, </span>
+                    </ng-container>
+                    <span *ngIf="i < currentDocument.tacGia.length - 1">, </span>
+                  </ng-container>
                 </li>
+
                 <li *ngIf="currentDocument.thongTinXuatBan">{{'publication_information'|translate}}:
                   <span>{{currentDocument.thongTinXuatBan}}</span>
                 </li>

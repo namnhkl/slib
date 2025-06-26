@@ -2,7 +2,7 @@ import { DEFAULT_PAGINATION_OPTIONS } from '@/app/shared/constants/const';
 import { URL_ROUTER } from '@/app/shared/constants/path.constants';
 import { SharedModule } from '@/app/shared/shared.module';
 import { queryParamObject } from '@/app/shared/utils/queryParams';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -17,7 +17,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzOptionComponent, NzSelectModule } from 'ng-zorro-antd/select';
 import { forkJoin, map, tap } from 'rxjs';
 import { HomeSearchAdvancedComponent } from '../../home/HomeSearchAdvanced/HomeSearchAdvanced.component';
 import { IBookSearchResponse } from '../../home/HomeSearchAdvanced/type';
@@ -41,7 +41,8 @@ import { IBoSach } from '@/app/shared/types/danhmuc';
     NzSelectModule,
     NzButtonModule,
     AsyncPipe,
-    TranslateModule
+    TranslateModule,
+    CommonModule
   ],
   templateUrl: './tai-lieu-ket-qua-tim-kiem.component.html',
   styleUrl: './tai-lieu-ket-qua-tim-kiem.component.scss',
@@ -68,23 +69,23 @@ export class SearchResultComponent implements OnInit {
   ) {
     this.formCriteriaFilter = this.fb.group({
       bsThuVienId: [''],
-     bmDmDangTaiLieuId: this.fb.control(''),
-      bmTuDienBoSachId: this.fb.control(''),
+      bmDmDangTaiLieuId: this.fb.control([]), // Cho phép nhiều
+      bmTuDienBoSachId: this.fb.control([]),  // Cho phép nhiều
     });
   }
 
-handleClear(fieldName: string) {
-  const control = this.formCriteriaFilter.get(fieldName);
-  if (!control) return;
+  handleClear(fieldName: string) {
+    const control = this.formCriteriaFilter.get(fieldName);
+    if (!control) return;
 
-  const currentValue = control.value;
+    const currentValue = control.value;
 
-  if (Array.isArray(currentValue)) {
-    control.setValue([]);
-  } else {
-    control.setValue('');
+    if (Array.isArray(currentValue)) {
+      control.setValue([]);
+    } else {
+      control.setValue('');
+    }
   }
-}
 
 
 
@@ -99,6 +100,7 @@ handleClear(fieldName: string) {
       next: (res) => {
         if (res && res.data) {
           this.boSach = res.data;
+          console.log('Bo sach:', this.boSach);
         } else {
           this.boSach = [];
         }
@@ -109,54 +111,76 @@ handleClear(fieldName: string) {
     });
   }
 
-ngOnInit() {
-  // Load đồng thời dangTaiLieus và boSach
-  forkJoin({
-    dangTaiLieus: this.danhMucService.bmDmDangTaiLieu(this.sharedService.thuVienId),
-    boSach: this.danhMucService.getBoSach({ bsThuVienId: this.sharedService.thuVienId }),
-  }).subscribe(({ dangTaiLieus, boSach }) => {
-    this.dangTaiLieus = dangTaiLieus.data;
-    this.boSach = boSach.data;
+  ngOnInit() {
+    // Load đồng thời dangTaiLieus và boSach
+     this.formCriteriaFilter.get('bmTuDienBoSachId')?.valueChanges.subscribe((val: string[]) => {
+    if (Array.isArray(val) && val.length > 1) {
+      // Giữ lại item cuối cùng (hoặc đầu tiên tùy yêu cầu)
+      const lastSelected = val.slice(-1);
+      this.formCriteriaFilter.get('bmTuDienBoSachId')?.setValue(lastSelected, { emitEvent: false });
+    }
+  });
+    forkJoin({
+      dangTaiLieus: this.danhMucService.bmDmDangTaiLieu(this.sharedService.thuVienId),
+      boSach: this.danhMucService.getBoSach({ bsThuVienId: this.sharedService.thuVienId }),
+    }).subscribe(({ dangTaiLieus, boSach }) => {
+      this.dangTaiLieus = dangTaiLieus.data;
+      this.boSach = boSach.data;
 
-    // Sau khi dữ liệu đã có -> mới set form và xử lý query params
-    this.activatedRouter.queryParams
-      .pipe(
-        map((queryParams: any) => {
-          return {
-            pageIndex: queryParams.pageIndex ? Number(queryParams.pageIndex) : 0,
-            pageSize: queryParams.pageSize ? Number(queryParams.pageSize) : environment.PAGE_SIZE,
-            bsThuVienId: this.sharedService.thuVienId,
-            bmDmDangTaiLieuId: queryParams.bmDmDangTaiLieuId?.trim() || '',
-            bmTuDienBoSachId: queryParams.bmTuDienBoSachId?.trim() || '',
-          };
-        }),
-        tap((value) => {
-          this.pageIndex = value.pageIndex;
-          this.pageSize = value.pageSize;
+      // Sau khi dữ liệu đã có -> mới set form và xử lý query params
+      this.activatedRouter.queryParams
+        .pipe(
+          map((queryParams: any) => {
+  return {
+    pageIndex: queryParams.pageIndex ? Number(queryParams.pageIndex) : 0,
+    pageSize: queryParams.pageSize ? Number(queryParams.pageSize) : environment.PAGE_SIZE,
+    bsThuVienId: this.sharedService.thuVienId,
 
-          this.formCriteriaFilter.patchValue({
-            bsThuVienId: value.bsThuVienId,
-            bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
-            bmTuDienBoSachId: value.bmTuDienBoSachId,
-          });
+    bmDmDangTaiLieuId: Array.isArray(queryParams.bmDmDangTaiLieuId)
+      ? queryParams.bmDmDangTaiLieuId
+      : typeof queryParams.bmDmDangTaiLieuId === 'string'
+        ? queryParams.bmDmDangTaiLieuId.split(',').filter(Boolean)
+        : [],
 
-        })
-      )
-      .subscribe();
+    bmTuDienBoSachId: Array.isArray(queryParams.bmTuDienBoSachId)
+      ? queryParams.bmTuDienBoSachId
+      : typeof queryParams.bmTuDienBoSachId === 'string'
+        ? queryParams.bmTuDienBoSachId.split(',').filter(Boolean)
+        : [],
+  };
+}),
 
-    // Lắng nghe thay đổi để cập nhật URL
-    this.formCriteriaFilter.valueChanges.subscribe((value) => {
-      this.booksSearched = value;
 
-      this.router.navigate([URL_ROUTER.searchResult], {
-        queryParams: {
-          ...queryParamObject(),
-          ..._.omitBy(value, _.isUndefined),
-        },
+          tap((value) => {
+            this.pageIndex = value.pageIndex;
+            this.pageSize = value.pageSize;
+
+            this.formCriteriaFilter.patchValue({
+              bsThuVienId: value.bsThuVienId,
+              bmDmDangTaiLieuId: value.bmDmDangTaiLieuId,
+              bmTuDienBoSachId: value.bmTuDienBoSachId,
+            });
+
+          })
+        )
+        .subscribe();
+
+      // Lắng nghe thay đổi để cập nhật URL
+      this.formCriteriaFilter.valueChanges.subscribe((value) => {
+        this.booksSearched = value;
+
+        this.router.navigate([URL_ROUTER.searchResult], {
+          queryParams: {
+            ...queryParamObject(),
+            bmTuDienBoSachId: (value.bmTuDienBoSachId || []).join(','),
+            bmDmDangTaiLieuId: (value.bmDmDangTaiLieuId || []).join(','),
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
+          },
+        });
       });
     });
-  });
-}
+  }
 
   booksSearched: Partial<IBookSearchResponse> = {
     data: [],
@@ -197,12 +221,13 @@ ngOnInit() {
   }
 
   get canClearBoSach(): boolean {
-  return !!this.formCriteriaFilter.get('bmTuDienBoSachId')?.value;
-}
+    const val = this.formCriteriaFilter.get('bmTuDienBoSachId')?.value;
+    return Array.isArray(val) && val.length > 0;
+  }
 
-get canClearDangTaiLieu(): boolean {
-  const val = this.formCriteriaFilter.get('bmDmDangTaiLieuId')?.value;
-  return !!val;
-}
+  get canClearDangTaiLieu(): boolean {
+    const val = this.formCriteriaFilter.get('bmDmDangTaiLieuId')?.value;
+    return Array.isArray(val) && val.length > 0;
+  }
 
 }

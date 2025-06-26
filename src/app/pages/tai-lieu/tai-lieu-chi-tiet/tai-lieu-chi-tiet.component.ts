@@ -640,5 +640,15 @@ openTomTatModal() {
   this.isTomTatModalVisible = true;
 }
 
+getSplitTacGia(author: string): string[] {
+  return author
+    .split(',')
+    .map((t) => t.trim())
+    .filter((t) => !!t); // loại bỏ chuỗi rỗng
+}
+
+sanitizeTacGia(value: string): string {
+  return this.cleanText(value.replace(/,/g, ''));
+}
 
 }
