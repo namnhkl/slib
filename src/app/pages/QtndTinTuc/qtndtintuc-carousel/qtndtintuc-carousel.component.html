@@ -19,15 +19,17 @@
     [attr.slides-per-view]="slidesPerView" space-between="20" pagination="false" loop="true" class="w-full h-full"
     style="--swiper-navigation-color: #333; --swiper-pagination-color: #004aad;">
     <swiper-slide *ngFor="let slide of slides">
-      <article class="bg-white border w-full h-full rounded-xl flex flex-col min-h-[400px] border-bottom hover:shadow-xl">
+      <article class="bg-white border w-full h-full rounded-xl flex flex-col min-h-[400px] border-bottom transition duration-300 transform hover:-translate-y-1 hover:shadow-xl overflow-hidden">
         <a href="./tin-tuc/{{slide.id}}">
-          <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[180px] object-cover" />
+          <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[180px] object-cover rounded-xl rounded" />
           <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200"
             style="border-bottom: 1px solid #dcdcdc;">
-            <p class="text-[#004aad] text-sm font-medium font-montserrat" *ngFor="let nhom of slide.qtndTtNhomTinTuc">
+            <!-- <p class="text-[#004aad] text-sm font-medium font-montserrat" *ngFor="let nhom of slide.qtndTtNhomTinTuc">
               {{ nhom.ten }}
-            </p>
-
+            </p> -->
+                <p class="text-[#004aad] text-sm font-medium font-montserrat truncate">
+                  {{slide.qtndTtNhomTinTuc.length > 0 ? slide.qtndTtNhomTinTuc[0].ten : 'Chưa phân loại'}}
+                </p>
             <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">{{ slide.ngayDangTin }}
             </p>
           </div>

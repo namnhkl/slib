@@ -19,7 +19,7 @@
     [attr.slides-per-view]="slidesPerView" space-between="20" pagination="false" loop="true" class="w-full h-full"
     style="--swiper-navigation-color: #333; --swiper-pagination-color: #004aad;">
     <swiper-slide *ngFor="let slide of slides">
-      <article class="bg-white border w-full h-full rounded-xl flex flex-col min-h-[400px] border-bottom hover:shadow-xl">
+      <article class="bg-white border w-full h-full rounded-xl flex flex-col min-h-[400px] border-bottom transition duration-300 transform hover:-translate-y-1 hover:shadow-xl overflow-hidden">
         <a href="./sach-hay/{{slide.id}}">
           <img [src]="slide.anhDaiDien" alt="..." class="w-full h-[180px] object-cover" />
           <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200"

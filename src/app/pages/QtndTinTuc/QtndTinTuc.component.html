@@ -1,115 +1,92 @@
 <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
-    <main class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-      <!-- Header -->
-      <section class="text-center max-w-3xl mx-auto mb-10">
-        <p class="text-[12px]  text-[#2c4aaa] tracking-widest mb-2 uppercase">
-          {{ 'qtndtintuc_kham_pha_ngay' | translate }}
-        </p>
-        <h1 class="text-4xl text-gray-800 mb-2 leading-tight">
-          {{ 'qtndtintuc_tin_tuc' | translate }}
-        </h1>
-        <p class="text-gray-500 text-sm sm:text-base">
-          {{ 'qtndtintuc_hay_theo_doi' | translate }}
-        </p>
-        <!-- Thanh tìm kiếm -->
-        <div class="flex items-center space-x-2 mt-4 max-w-md mx-auto">
-          <input
-            type="text"
-            placeholder="{{ 'qtndtintuc_tim_kiem_tin_tuc' | translate }}"
-            [(ngModel)]="searchKeyword"
-            (ngModelChange)="onSearchDebounce($event)"
-            class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2c4aaa] rounded"
-          />
-          <button
-            (click)="onSearch()"
-            class="px-4 py-2 bg-[#004aad] text-white hover:bg-blue-700 transition rounded"
-          >
-            <i class="fa-solid fa-search"></i>
-          </button>
+  <main class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+    <!-- Header -->
+    <section class="text-center max-w-3xl mx-auto mb-10">
+      <p class="text-[12px]  text-[#2c4aaa] tracking-widest mb-2 uppercase">
+        {{ 'qtndtintuc_kham_pha_ngay' | translate }}
+      </p>
+      <h1 class="text-4xl text-gray-800 mb-2 leading-tight">
+        {{ 'qtndtintuc_tin_tuc' | translate }}
+      </h1>
+      <p class="text-gray-500 text-sm sm:text-base">
+        {{ 'qtndtintuc_hay_theo_doi' | translate }}
+      </p>
+      <!-- Thanh tìm kiếm -->
+      <div class="flex items-center space-x-2 mt-4 max-w-md mx-auto">
+        <input type="text" placeholder="{{ 'qtndtintuc_tim_kiem_tin_tuc' | translate }}" [(ngModel)]="searchKeyword"
+          (ngModelChange)="onSearchDebounce($event)"
+          class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2c4aaa] rounded" />
+        <button (click)="onSearch()" class="px-4 py-2 bg-[#004aad] text-white hover:bg-blue-700 transition rounded">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Nội dung chính và Sidebar -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Danh sách tin tức -->
+      <section class="lg:col-span-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          <article *ngFor="let _new of newsData"
+            class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px] border-b transition duration-300 transform hover:-translate-y-1 hover:shadow-xl overflow-hidden">
+            <a href="./tin-tuc/{{_new.id}}">
+              <img [src]="_new.anhDaiDien" [alt]="_new.ten" class="w-full h-[180px] object-cover" />
+              <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200"
+                style="border-bottom: 1px solid #dcdcdc;">
+                <!-- <p class="text-[#004aad] text-sm font-medium font-montserrat truncate"
+                  *ngFor="let nhom of _new.qtndTtNhomTinTuc">
+                  {{ nhom.ten }}
+                </p> -->
+                <p class="text-[#004aad] text-sm font-medium font-montserrat truncate">
+                  {{_new.qtndTtNhomTinTuc.length > 0 ? _new.qtndTtNhomTinTuc[0].ten : 'Chưa phân loại'}}
+                </p>
+                <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">
+                  {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
+                </p>
+              </div>
+              <div class="px-4 flex-1 flex flex-col">
+                <h3 class="font-montserrat text-[#333333] text-lg leading-tight mb-2 mt-1">
+                  {{ _new.ten }}
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto" [innerHTML]="_new.moTa">
+                </p>
+              </div>
+            </a>
+          </article>
+
         </div>
+        <!-- Ng-Zorro Pagination -->
+        <div class="flex justify-center items-center mt-6">
+          <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="totalPages * pageSizes" [nzPageSize]="pageSizes"
+            (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+            [nzShowSizeChanger]="false" [nzPageSizeOptions]="sizeItems" nzShowQuickJumper="false"></nz-pagination>
+        </div>
+
       </section>
 
-      <!-- Nội dung chính và Sidebar -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Danh sách tin tức -->
-        <section class="lg:col-span-2">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-           <article *ngFor="let _new of newsData" class="bg-white shadow-md w-full h-full flex flex-col min-h-[400px] border-b">
-  <a href="./tin-tuc/{{_new.id}}">
-    <img
-      [src]="_new.anhDaiDien"
-      [alt]="_new.ten"
-      class="w-full h-[180px] object-cover"
-    />
-    <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200" style="border-bottom: 1px solid #dcdcdc;">
-      <!-- <p class="text-[#004aad] text-sm font-medium font-montserrat">
-        {{ _new.qtndTtNhomTinTuc || 'Tin tức' }}
-      </p> -->
-      <p
-  class="text-[#004aad] text-sm font-medium font-montserrat"
-  *ngFor="let nhom of _new.qtndTtNhomTinTuc"
->
-  {{ nhom.ten }}
-</p>
-
-      <p class="bg-[#004aad] text-white font-semibold text-sm px-4 py-1 font-montserrat">
-        {{ _new.ngayDangTin | date: 'dd-MM-yyyy' }}
-      </p>
+      <!-- Sidebar tin tức nổi bật -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white shadow-md p-4">
+          <h3 class="text-lg text-gray-800 mb-4">
+            {{ 'qtndtintuc_most_viewed_news' | translate }}
+          </h3>
+          <ul>
+            <li *ngFor="let _new of newsDataMostViewed" class="mb-4 last:mb-0">
+              <a [routerLink]="[_new.id]" class="flex items-center space-x-3">
+                <img [src]="_new.anhDaiDien" [alt]="_new.ten" class="w-16 h-16 object-cover rounded" />
+                <div>
+                  <h4 class="text-sm  text-gray-900 leading-snug">
+                    {{ _new.ten }}
+                  </h4>
+                  <span class="text-xs text-gray-600">
+                    <i class="fa fa-eye"></i> {{ _new.slXem || 0 }} {{ 'view' | translate }}
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
     </div>
-    <div class="px-4 flex-1 flex flex-col">
-      <h3 class="font-montserrat text-[#333333] text-lg leading-tight mb-2 mt-1">
-        {{ _new.ten }}
-      </h3>
-      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mt-auto" [innerHTML]="_new.moTa">
-      </p>
-    </div>
-  </a>
-</article>
-
-          </div>
-<!-- Ng-Zorro Pagination -->
-          <div class="flex justify-center items-center mt-6">
-            <nz-pagination
-              [(nzPageIndex)]="pageIndex"
-              [nzTotal]="totalPages * pageSizes"
-              [nzPageSize]="pageSizes"
-              (nzPageIndexChange)="onPageIndexChange($event)"
-              (nzPageSizeChange)="onPageSizeChange($event)"
-              [nzShowSizeChanger]="false"
-              [nzPageSizeOptions]="sizeItems"
-              nzShowQuickJumper="false"
-            ></nz-pagination>
-          </div>
-    
-        </section>
-
-        <!-- Sidebar tin tức nổi bật -->
-        <aside class="lg:col-span-1">
-          <div class="bg-white shadow-md p-4">
-            <h3 class="text-lg text-gray-800 mb-4">
-              {{ 'qtndtintuc_most_viewed_news' | translate }}
-            </h3>
-            <ul>
-              <li *ngFor="let _new of newsDataMostViewed" class="mb-4 last:mb-0">
-                <a [routerLink]="[_new.id]" class="flex items-center space-x-3">
-                  <img
-                    [src]="_new.anhDaiDien"
-                    [alt]="_new.ten"
-                    class="w-16 h-16 object-cover rounded"
-                  />
-                  <div>
-                    <h4 class="text-sm  text-gray-900 leading-snug">
-                      {{ _new.ten }}
-                    </h4>
-                    <span class="text-xs text-gray-600">
-                      <i class="fa fa-eye"></i> {{ _new.slXem || 0 }} {{ 'view' | translate }}
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </main>
-  </nz-spin>
+  </main>
+</nz-spin>

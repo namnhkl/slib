@@ -20,7 +20,7 @@
         <!-- Loop qua mảng data trong $chuyende -->
         @for (item of ($chuyende | async); track item.id) {
         <ng-template carouselSlide [id]="item.id">
-          <div class="item-wrapper" *ngIf="item">
+          <div class="item-wrapper transition duration-300 transform hover:-translate-y-1" *ngIf="item">
             <!-- Swiper hiển thị danh sách tài liệu -->
             <swiper-container class="mySwiper" effect="cards" grab-cursor="true">
               <!-- Nếu có tài liệu -->

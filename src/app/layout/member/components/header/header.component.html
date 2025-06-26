@@ -139,7 +139,7 @@
                     <!-- 🔹 Submenu -->
                     <ul *ngIf="link.children?.length"
                         class="absolute top-full left-0 bg-white shadow-lg rounded-md mt-0 py-3 z-50 w-56 hidden group-hover:block">
-                        <li *ngFor="let child of link.children" class="border-b last:border-b-0">
+                        <li *ngFor="let child of link.children" class="border-b last:border-b-0 last:border-b-0 hover:bg-[aliceblue]">
 
                             <!-- Nếu là link ngoài -->
                             <a *ngIf="isExternalLink(child.url)" [href]="child.url" [attr.target]="child.target"
