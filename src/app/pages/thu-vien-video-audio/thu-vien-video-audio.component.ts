@@ -101,7 +101,7 @@ export class ThuVienVideoAudioComponent implements OnInit, AfterViewInit {
     // Gán vào biến ids dùng để lọc
     this.treeIds = uniqueCheckedIds;
 
-    console.log('📌 Tree IDs sau khi check/uncheck:', this.treeIds);
+    // console.log('📌 Tree IDs sau khi check/uncheck:', this.treeIds);
 
     if (this.treeIds.length === 0) {
       this.loadDocuments(); // Nếu không có gì được chọn, hiển thị toàn bộ
@@ -131,7 +131,7 @@ export class ThuVienVideoAudioComponent implements OnInit, AfterViewInit {
     this.tintucService.qtndTtNhomTinTuc({ bsThuvienId: this.shareService.thuVienId }).subscribe((res) => {
       const data = res.data;
       this.nodes = this.buildTree(data);
-      console.log('Thu muc nodes:', this.nodes);
+      // console.log('Thu muc nodes:', this.nodes);
     });
   }
 
@@ -290,7 +290,7 @@ export class ThuVienVideoAudioComponent implements OnInit, AfterViewInit {
         // console.log('serviceCalls',responses);
         const mergedItems = responses.flatMap((res) => res?.data || []);
         mergedItems.sort((a, b) => new Date(b.ngayDangTin).getTime() - new Date(a.ngayDangTin).getTime());
-        console.log('mergedItems', mergedItems);
+        // console.log('mergedItems', mergedItems);
         const detailRequests = mergedItems.map((item) => {
           const detailParams = {
             pageIndex: 0,
@@ -387,7 +387,7 @@ export class ThuVienVideoAudioComponent implements OnInit, AfterViewInit {
 
 
 loadDocumentsByTreeIds(): void {
-  console.log('📌 loadDocumentsByTreeIds', this.treeIds);
+  // console.log('📌 loadDocumentsByTreeIds', this.treeIds);
 
   if (!this.treeIds || this.treeIds.length === 0) {
     this.loadDocuments(); // Không có ID nào được chọn thì load tất cả
@@ -500,7 +500,7 @@ loadDocumentsByTreeIds(): void {
           this.simpleData = allItems;
           this.noResult = allItems.length === 0;
           this.applySearchFilter();
-          console.log('🎯 Kết quả lọc theo treeIds:', this.simpleData);
+          // console.log('🎯 Kết quả lọc theo treeIds:', this.simpleData);
         },
         error: (err) => {
           console.error('🔥 Lỗi khi load chi tiết:', err);
